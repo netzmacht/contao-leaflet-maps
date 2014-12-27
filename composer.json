@@ -23,7 +23,8 @@
         "contao-community-alliance/dependency-container":"~1.0",
         "contao-community-alliance/event-dispatcher":"~1.0",
         "netzmacht/php-javascript-builder": "~1.0",
-        "netzmacht/php-leaflet": "dev-master"
+        "netzmacht/php-leaflet": "dev-master",
+        "bit3/contao-meta-palettes": "~1.5"
     },
     "require-dev":{
         "netzmacht/contao-build-tools": "1.0.x-dev"
