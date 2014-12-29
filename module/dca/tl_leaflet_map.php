@@ -20,7 +20,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         (
             'mode'                    => 1,
             'fields'                  => array('title'),
-            'flag'                    => 1
+            'flag'                    => 1,
         ),
         'label' => array
         (
@@ -33,7 +33,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'],
                 'href'                => 'table=tl_leaflet_layer',
-                'class'               => 'header_edit_all',
+                'icon'                => 'system/modules/leaflet/assets/img/layers.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
             ),
             'all' => array

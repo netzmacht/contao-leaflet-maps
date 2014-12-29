@@ -6,6 +6,7 @@
 $GLOBALS['BE_MOD']['content']['leaflet'] = array(
     'tables' => array('tl_leaflet_map', 'tl_leaflet_layer'),
     'icon'   => 'system/modules/leaflet/assets/img/leaflet.png',
+    'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
 );
 
 /*

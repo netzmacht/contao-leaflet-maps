@@ -19,7 +19,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         (
             'mode'                    => 5,
             'fields'                  => array('title'),
-            'flag'                    => 1
+            'flag'                    => 1,
+            'icon'                    => 'system/modules/leaflet/assets/img/layers.png'
         ),
         'label' => array
         (

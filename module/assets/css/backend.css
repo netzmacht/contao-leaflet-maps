@@ -1,0 +1,20 @@
+
+.tl_listing_container.tree_view  ul > li.tl_file {
+    background: url('./../img/folPlus.gif') no-repeat 6px 1px;
+}
+
+.tl_listing_container.tree_view > ul > li.tl_file {
+    padding-left: 26px;
+}
+
+.tl_listing_container.tree_view  ul > li.parent > ul  {
+    padding-left: 20px;
+}
+
+.tl_listing_container.tree_view  ul > li > .tl_left > a {
+    margin-left: -20px;
+}
+
+.tl_listing_container.tree_view  ul[class="level_1"] li.tl_file > .tl_left {
+    padding-left: 20px !important;
+}
