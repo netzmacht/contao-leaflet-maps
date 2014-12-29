@@ -5,7 +5,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
     'config' => array(
         'dataContainer'    => 'Table',
         'enableVersioning' => true,
-        'ctable'           => array('tl_leaflet'),
+//        'ctable'           => array('tl_leaflet'),
         'sql'              => array
         (
             'keys' => array
@@ -70,33 +70,34 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
 
     'metapalettes' => array(
         'default' => array(
-            'name'      => array('title', 'alias'),
-            'zoom'      => array('center', 'zoom', 'adjustExtraZoom'),
-            'controls'  => array('zoomControl', 'attributionControl', 'controls'),
-            'operation' => array(
+            'title'       => array('title', 'alias'),
+            'zoom'        => array('center', 'zoom', 'adjustZoomExtra'),
+            'controls'    => array('zoomControl', 'controls'),
+            'interaction' => array(
                 'dragging',
                 'touchZoom',
                 'scrollWheelZoom',
                 'doubleClickZoom',
                 'boxZoom',
                 'tap',
-                'adjustKeyboard'
+                'keyboard'
             ),
-            'behaviour' => array(
+            'behaviour'   => array(
                 'trackResize',
-                'popupOnClick',
+                'closeOnClick',
                 'bounceAtZoomLimits'
             ),
-            'experts' => array(
-                'cache',
-                'options'
+            'experts'     => array(
+                'options',
+                'detachLibraries',
+                'cache'
             )
         ),
     ),
 
     'metasubpalettes' => array(
-        'adjustKeyboard'  => array('keyboard', 'keyboardPanOffset', 'keyboardZoomOffset'),
-        'adjustExtraZoom' => array('minZoom', 'maxZoom'),
+        'keyboard'        => array('keyboardPanOffset', 'keyboardZoomOffset'),
+        'adjustZoomExtra' => array('minZoom', 'maxZoom'),
     ),
     
     'fields' => array
@@ -114,7 +115,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['title'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => true, 'maxlength' => 255),
+            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
         'alias'  => array
@@ -122,8 +123,81 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => true, 'maxlength' => 255),
+            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'center'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['center'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'save_callback' => array(
+                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
+            ),
+            'wizard' => array(
+                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getGeocoder')
+            ),
+            'eval' => array(
+                'maxlength' => 255,
+                'tl_class' => 'long clr',
+                'nullIfEmpty' => true,
+            ),
+            'sql'       => "varchar(255) NULL"
+        ),
+        'zoom' => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoom'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'default'          => '',
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "int(4) NULL"
+        ),
+        'adjustZoomExtra'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'minZoom'  => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['minZoom'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "int(4) NULL"
+        ),
+        'maxZoom' => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['maxZoom'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "int(4) NULL"
         ),
         'dragging'  => array
         (
@@ -147,18 +221,22 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['scrollWheelZoom'],
             'exclude'   => true,
-            'inputType' => 'checkbox',
+            'inputType' => 'select',
+            'options'   => array('1', '', 'center'),
+            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'],
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50'),
+            'eval'      => array('tl_class' => 'w50', 'helpwizard' => true,),
             'sql'       => "char(1) NOT NULL default ''"
         ),
         'doubleClickZoom'  => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['doubleClickZoom'],
             'exclude'   => true,
-            'inputType' => 'checkbox',
+            'inputType' => 'select',
+            'options'   => array('1', '', 'center'),
+            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'],
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50'),
+            'eval'      => array('tl_class' => 'w50', 'helpwizard' => true,),
             'sql'       => "char(1) NOT NULL default ''"
         ),
         'boxZoom'  => array
@@ -179,14 +257,95 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),
-        'adjustKeyboard'  => array
+        'trackResize'  => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustKeyboard'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['trackResize'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
             'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'bounceAtZoomLimits'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['bounceAtZoomLimits'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'closeOnClick'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['closeOnClick'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'keyboard'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['keyboard'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'keyboardPanOffset'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['keyboardPanOffset'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => 80,
+            'eval'      => array('mandatory' => true, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'clr w50'),
+            'sql'       => "int(4) NOT NULL default '80'"
+        ),
+        'keyboardZoomOffset'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['keyboardZoomOffset'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => 1,
+            'eval'      => array('mandatory' => true, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+            'sql'       => "int(4) NOT NULL default '1'"
+        ),
+        'zoomControl'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomControl'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'options'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['options'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'clr lng', 'allowHtml'=>true, 'style' => 'min-height: 40px;'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'detachLibraries'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['detachLibraries'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'cache'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['cache'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
+            'sql'       => "char(1) NOT NULL default '0'"
         ),
     ),
 );

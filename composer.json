@@ -24,7 +24,9 @@
         "contao-community-alliance/event-dispatcher":"~1.0",
         "netzmacht/php-javascript-builder": "~1.0",
         "netzmacht/php-leaflet": "dev-master",
-        "bit3/contao-meta-palettes": "~1.5"
+        "bit3/contao-meta-palettes": "~1.5",
+        "menatwork/contao-multicolumnwizard": "~3.2",
+        "doctrine/cache": "~1.0"
     },
     "require-dev":{
         "netzmacht/contao-build-tools": "1.0.x-dev"

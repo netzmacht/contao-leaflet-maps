@@ -1,0 +1,58 @@
+<?php $GLOBALS['TL_CSS'][] = 'http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'system/modules/leaflet/assets/leaflet/control-geocoder/Control.Geocoder.css'; ?>
+
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js'; ?>
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/leaflet/assets/leaflet/control-geocoder/Control.Geocoder.js'; ?>
+
+<div id="map_<?php echo $this->field; ?>" style="margin-top: 5px; width: 670px; height: 300px"></div>
+<script>
+    var map = L.map('map_<?php echo $this->field; ?>').setView([0, 0], 2);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    var geocoder = L.Control.geocoder({
+        collapsed: false,
+        placeholder: 'Suchen'
+    }).addTo(map);
+
+    geocoder.markGeocode = function(result) {
+        var container = document.createElement('div');
+        var link      = document.createElement('button');
+        var element   = $('<?php echo $this->field; ?>');
+
+        link.set('style', 'margin-left: 10px;');
+        link.appendText('übernehmen');
+        link.addEvent('click', function(e) {
+            e.stop();
+
+            element.set('value', result.center.lat + ',' + result.center.lng);
+        });
+
+        container.appendHTML(result.html || result.name);
+        container.appendChild(link);
+
+        if (this._geocodeMarker) {
+            map.removeLayer(this._geocodeMarker);
+        }
+
+        map.fitBounds(result.bbox, { padding: [0, 70]});
+        map.panTo(result.center);
+
+        this._geocodeMarker = new L.Marker(result.center)
+            .bindPopup(container, {
+                keepInView: true,
+                autoPanPaddingTopLeft: [0, 70]
+            })
+            .addTo(map)
+            .openPopup();
+
+        return this;
+    };
+
+    <?php if ($this->marker): ?>
+    geocoder._geocodeMarker = L.marker(<?php echo $this->marker; ?>).addTo(map);
+    map.setZoom(16);
+    map.panTo(<?php echo $this->marker; ?>);
+    <?php endif; ?>
+
+</script>
