@@ -37,7 +37,7 @@
 .leaflet-control-geocoder-icon {
 	width: 26px;
 	height: 26px;
-	background-image: url(images/geocoder.png);
+	background-image: url('images/geocoder.png');
 	background-repeat: no-repeat;
 	background-position: center;
 	float: right;
@@ -50,7 +50,7 @@
 }
 
 .leaflet-control-geocoder-throbber .leaflet-control-geocoder-icon {
-	background-image: url(images/throbber.gif);
+	background-image: url('images/throbber.gif');
 }
 
 .leaflet-control-geocoder-expanded input, .leaflet-control-geocoder-error {
