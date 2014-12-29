@@ -47,14 +47,11 @@ class EncoderSubscriber implements EventSubscriberInterface
 
         if ($object instanceof Map) {
             $attribution = <<<HTML
-map.attributionControl.addAttribution(
+map.map.attributionControl.addAttribution(
     '<a href="http://www.netzmacht.de/contao-leaflet">netzmacht <em>creative</em></a>'
 );
 HTML;
             $event->getOutput()->addLine($attribution);
-
-            $event->getOutput()->addLine("var tileLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: \"test\"});
-tileLayer.addTo(map);");
         }
     }
 

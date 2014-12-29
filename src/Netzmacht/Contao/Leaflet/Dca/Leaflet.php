@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Dca;
 
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\MapMapper;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
 
@@ -60,4 +61,17 @@ class Leaflet
         return $template->parse();
     }
 
+    public function getLayers()
+    {
+        $options    = array();
+        $collection = LayerModel::findBy('pid', '0', array('order' => 'title'));
+
+        if ($collection) {
+            foreach ($collection as $model) {
+                $options[$model->id] = $model->title;
+            }
+        }
+
+        return $options;
+    }
 }

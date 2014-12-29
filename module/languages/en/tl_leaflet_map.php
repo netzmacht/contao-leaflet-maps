@@ -3,6 +3,8 @@
 $GLOBALS['TL_LANG']['tl_leaflet_map']['title_legend']       = 'Title';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['interaction_legend'] = 'Interaction controls';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoom_legend']        = 'Center and zoom';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['controls_legend']    = 'Control widgets';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['expert_legend']      = 'Expert settings';
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['title'][0]              = 'Title';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['title'][1]              = 'Title of the map.';
@@ -40,6 +42,12 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['maxZoom'][0]            = 'Maximum zoom l
 $GLOBALS['TL_LANG']['tl_leaflet_map']['maxZoom'][1]            = 'Maximum zoom level of the map. This overrides any maxZoom set on map layers.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomControl'][0]        = 'Add default zoom control';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomControl'][1]        = 'Whether the zoom control is added to the map by default.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['bounceAtZoomLimits'][0] = 'Bounce at zoom limits';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['bounceAtZoomLimits'][1] = 'Disable if you don\'t want the map to zoom beyond min/max zoom and then bounce back when pinch-zooming';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['options'][0]            = 'Extra options';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['options'][1]            = 'Add extra map options as valid json. See <a href="http://leafletjs.com/reference.html#map-options">http://leafletjs.com/reference.html#map-options</a>';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'][0]    = 'Adjust extra zoom settings';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'][1]    = 'Enable if you want to adjust minimum and maximum zoom as well';
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][0]       = 'Disable';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][1]       = 'Disable zoom function.';
@@ -47,3 +55,6 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['1'][0]      = 'Enable';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['1'][1]      = 'Enable zoom function.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['center'][0] = 'Center';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['center'][1] = 'If passed \'center\', it will zoom to the center of the view regardless of where the mouse was.';
+
+$GLOBALS['TL_LANG']['tl_leaflet_map']['searchPosition'] = 'Search';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['applyPosition']  = 'Apply position';

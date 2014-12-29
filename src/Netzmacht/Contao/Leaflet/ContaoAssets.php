@@ -54,7 +54,7 @@ class ContaoAssets implements Assets
                 break;
 
             case static::TYPE_FILE:
-                $stylesheet .= '||static';
+                $stylesheet .= '|all|static';
                 // no break
 
             default:
