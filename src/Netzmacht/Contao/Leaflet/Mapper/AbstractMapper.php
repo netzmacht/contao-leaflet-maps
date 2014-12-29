@@ -169,7 +169,10 @@ abstract class AbstractMapper implements Mapper
      *
      * @return void
      */
-    abstract protected function initialize();
+    protected function initialize()
+    {
+
+    }
 
     /**
      * Use for specific build methods.
@@ -271,12 +274,18 @@ abstract class AbstractMapper implements Mapper
      * @param Definition $definition The definition being built.
      * @param \Model     $model      The model.
      */
-    private function applyOptions($options, $definition, $model)
+    protected function applyOptions($options, $definition, $model)
     {
         foreach ($options as $option => $mapping) {
-            $setter = 'set' . ucfirst($option);
+            $setter  = 'set' . ucfirst($option);
+            $default = $this->getDefaultOption($option, $definition);
 
-            if ($model->$option != $this->getDefaultOption($option, $definition)) {
+            if ($model->$mapping === '1' || $model->$mapping === '') {
+                if (((bool) $model->$option) !== $default) {
+                    $definition->$setter($model->$mapping);
+                }
+            }
+            elseif ($model->$mapping !== $default) {
                 $definition->$setter($model->$mapping);
             }
         }
