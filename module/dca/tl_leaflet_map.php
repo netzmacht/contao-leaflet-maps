@@ -5,7 +5,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
     'config' => array(
         'dataContainer'    => 'Table',
         'enableVersioning' => true,
-//        'ctable'           => array('tl_leaflet'),
         'sql'              => array
         (
             'keys' => array
@@ -30,13 +29,20 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         ),
         'global_operations' => array
         (
+            'layers' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'],
+                'href'                => 'table=tl_leaflet_layer',
+                'class'               => 'header_edit_all',
+                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
+            ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'                => 'act=select',
                 'class'               => 'header_edit_all',
                 'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-            )
+            ),
         ),
         'operations' => array
         (
@@ -73,6 +79,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'title'       => array('title', 'alias'),
             'zoom'        => array('center', 'zoom', 'adjustZoomExtra'),
             'controls'    => array('zoomControl', 'controls'),
+            'layers'      => array('layers'),
             'interaction' => array(
                 'dragging',
                 'touchZoom',
@@ -87,10 +94,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'closeOnClick',
                 'bounceAtZoomLimits'
             ),
-            'experts'     => array(
+            'expert'      => array(
                 'options',
-                'detachLibraries',
-                'cache'
             )
         ),
     ),
@@ -123,7 +128,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
         'center'  => array
@@ -143,6 +148,18 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'nullIfEmpty' => true,
             ),
             'sql'       => "varchar(255) NULL"
+        ),
+        'layers' => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'],
+            'exclude'          => true,
+            'inputType'        => 'checkboxWizard',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getLayers'),
+            'default'          => '',
+            'eval'             => array(
+                'multiple'           => true,
+            ),
+            'sql'              => "mediumblob NULL"
         ),
         'zoom' => array
         (
@@ -226,7 +243,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'],
             'default'   => true,
             'eval'      => array('tl_class' => 'w50', 'helpwizard' => true,),
-            'sql'       => "char(1) NOT NULL default ''"
+            'sql'       => "char(6) NOT NULL default ''"
         ),
         'doubleClickZoom'  => array
         (
@@ -237,7 +254,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'],
             'default'   => true,
             'eval'      => array('tl_class' => 'w50', 'helpwizard' => true,),
-            'sql'       => "char(1) NOT NULL default ''"
+            'sql'       => "char(6) NOT NULL default ''"
         ),
         'boxZoom'  => array
         (
@@ -328,24 +345,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'default'   => true,
             'eval'      => array('tl_class' => 'clr lng', 'allowHtml'=>true, 'style' => 'min-height: 40px;'),
             'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'detachLibraries'  => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['detachLibraries'],
-            'exclude'   => true,
-            'inputType' => 'checkbox',
-            'default'   => false,
-            'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'cache'  => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['cache'],
-            'exclude'   => true,
-            'inputType' => 'checkbox',
-            'default'   => false,
-            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
-            'sql'       => "char(1) NOT NULL default '0'"
         ),
     ),
 );

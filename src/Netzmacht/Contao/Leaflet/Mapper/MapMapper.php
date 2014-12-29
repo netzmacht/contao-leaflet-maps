@@ -11,9 +11,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Map;
+use Netzmacht\LeafletPHP\Plugins\LeafletProviders\Provider;
 
 class MapMapper extends AbstractMapper
 {
@@ -102,5 +104,15 @@ class MapMapper extends AbstractMapper
      */
     private function buildLayers(Map $map, MapModel $model, DefinitionMapper $mapper)
     {
+        $ids        = deserialize($model->layers, true);
+        $collection = LayerModel::findMultipleByIds($ids);
+
+        if ($collection) {
+            foreach ($collection as $layer) {
+                /** @var Provider $layer */
+                $layer = $mapper->handle($layer);
+                $map->addLayer($layer);
+            }
+        }
     }
 }
