@@ -12,11 +12,11 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 
-use Netzmacht\Contao\Leaflet\Mapper\AbstractLayerMapper;
+use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 
-class ProviderLayerMapper extends AbstractLayerMapper
+class ProviderLayerMapper extends AbstractTypeMapper
 {
     /**
      * Class of the model being build.

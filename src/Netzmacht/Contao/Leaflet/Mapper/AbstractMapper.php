@@ -20,6 +20,9 @@ use Netzmacht\LeafletPHP\Definition;
  */
 abstract class AbstractMapper implements Mapper
 {
+    const VALUE_NOT_EMPTY = '__value_not_empty__';
+    const VALUE_EMPTY = '__value_empty__';
+
     /**
      * Class of the model being build.
      *
@@ -109,8 +112,10 @@ abstract class AbstractMapper implements Mapper
      *
      * @return $this
      */
-    public function addConditionalOption($column, $option, $mapping = null, $value = '1')
+    public function addConditionalOption($column, $option = null, $mapping = null, $value = self::VALUE_NOT_EMPTY)
     {
+        $option = $option ?: $column;
+
         if (!isset($this->conditional[$column][$value][$option])) {
             $this->conditional[$column][$value][$option] = $this->getMapping($option, $mapping);
         }
@@ -127,7 +132,7 @@ abstract class AbstractMapper implements Mapper
      *
      * @return $this
      */
-    public function addConditionalOptions($column, array $options, $value = '1')
+    public function addConditionalOptions($column, array $options, $value = self::VALUE_NOT_EMPTY)
     {
         foreach ($options as $key => $option) {
             if (is_numeric($key)) {
@@ -214,7 +219,7 @@ abstract class AbstractMapper implements Mapper
     protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper)
     {
         return array(
-            $model->alias ?: $model->id
+            $model->alias ?: (str_replace('tl_leaflet_', '', $model->getTable()) . '_' . $model->id)
         );
     }
 
@@ -243,7 +248,11 @@ abstract class AbstractMapper implements Mapper
     {
         foreach ($this->conditional as $column => $conditions) {
             foreach ($conditions as $value => $options) {
-                if ($model->$column == $value) {
+                if ($value === static::VALUE_EMPTY && empty($model->$column)) {
+                    $this->applyOptions($options, $definition, $model);
+                } elseif ($value === static::VALUE_NOT_EMPTY && !empty($model->$column)) {
+                    $this->applyOptions($options, $definition, $model);
+                } elseif ($model->$column == $value) {
                     $this->applyOptions($options, $definition, $model);
                 }
             }

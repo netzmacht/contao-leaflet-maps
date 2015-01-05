@@ -20,7 +20,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'mode'                    => 5,
             'fields'                  => array('title'),
             'flag'                    => 1,
-            'icon'                    => 'system/modules/leaflet/assets/img/layers.png'
+            'icon'                    => 'system/modules/leaflet/assets/img/layers.png',
+            'paste_button_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getPasteButtons'),
         ),
         'label' => array
         (
@@ -29,6 +30,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'global_operations' => array
         (
+            'map' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['map'],
+                'href'                => 'table=tl_leaflet_map',
+                'icon'                => 'system/modules/leaflet/assets/img/leaflet.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="m"'
+            ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
@@ -50,6 +58,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['copy'],
                 'href'                => 'act=copy',
                 'icon'                => 'copy.gif'
+            ),
+            'cut' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['cut'],
+                'href'                => 'act=paste&amp;mode=cut',
+                'icon'                => 'cut.gif',
+                'attributes'          => 'onclick="Backend.getScrollOffset()"',
             ),
             'delete' => array
             (
@@ -129,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'submitOnChange'     => true,
                 'chosen'             => true,
             ),
-            'options'   => &$GLOBALS['LEAFLET_LAYERS'],
+            'options'   => array_keys($GLOBALS['LEAFLET_LAYERS']),
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
         'tile_provider' => array(

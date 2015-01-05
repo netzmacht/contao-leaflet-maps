@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 
-abstract class AbstractLayerMapper extends AbstractMapper
+abstract class AbstractTypeMapper extends AbstractMapper
 {
     protected static $type;
 

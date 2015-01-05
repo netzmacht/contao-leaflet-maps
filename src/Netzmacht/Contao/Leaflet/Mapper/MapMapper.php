@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
+use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition;
@@ -93,6 +94,18 @@ class MapMapper extends AbstractMapper
      */
     private function buildControls(Map $map, MapModel$model, DefinitionMapper $mapper)
     {
+        $collection = ControlModel::findBy(
+            array('pid=?', 'active=1'),
+            array($model->id),
+            array('order' => 'sorting')
+        );
+
+        if ($collection) {
+            foreach ($collection as $control) {
+                $control = $mapper->handle($control);
+                $map->addControl($control);
+            }
+        }
     }
 
     /**

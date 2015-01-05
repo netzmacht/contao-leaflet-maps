@@ -5,6 +5,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
     'config' => array(
         'dataContainer'    => 'Table',
         'enableVersioning' => true,
+        'ctable'           => array('tl_leaflet_control'),
         'sql'              => array
         (
             'keys' => array
@@ -51,6 +52,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['edit'],
                 'href'                => 'act=edit',
                 'icon'                => 'header.gif'
+            ),
+            'controls' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['controls'],
+                'href'                => 'table=tl_leaflet_control',
+                'icon'                => 'system/modules/leaflet/assets/img/control.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
             ),
             'copy' => array
             (
