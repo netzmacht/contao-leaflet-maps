@@ -44,6 +44,11 @@ class DefinitionMapper
     private $mapId;
 
     /**
+     * @var array
+     */
+    private $mapped = array();
+
+    /**
      * Construct.
      *
      * @param EventDispatcher $eventDispatcher The event dispatcher.
@@ -88,6 +93,12 @@ class DefinitionMapper
      */
     public function handle(\Model $model, $elementId = null)
     {
+        $hash = $model->getTable() . '.' . $model->{$model->getPk()};
+
+        if (isset($this->mapped[$hash])) {
+            return $this->mapped[$hash];
+        }
+
         krsort($this->builders);
 
         $this->mapId = $elementId ?: ($model->alias ?: ('map_' . $model->id));
@@ -99,6 +110,8 @@ class DefinitionMapper
 
                     $event = new BuildDefinitionEvent($definition, $model);
                     $this->eventDispatcher->dispatch($event::NAME, $event);
+
+                    $this->mapped[$hash] = $definition;
 
                     return $definition;
                 }

@@ -6,8 +6,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['zoom_legend']        = 'Center and zoom';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['controls_legend']    = 'Control widgets';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['expert_legend']      = 'Expert settings';
 
-$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'][0]             = 'Manage layers';
-$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'][1]             = 'Manage leaflet layers';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['layersBtn'][0]          = 'Manage layers';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['layersBtn'][1]          = 'Manage leaflet layers';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['new'][0]                = 'Create map';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['new'][1]                = 'Create new map';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['edit'][0]               = 'Edit map';
@@ -61,6 +61,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['options'][0]            = 'Extra options'
 $GLOBALS['TL_LANG']['tl_leaflet_map']['options'][1]            = 'Add extra map options as valid json. See <a href="http://leafletjs.com/reference.html#map-options">http://leafletjs.com/reference.html#map-options</a>';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'][0]    = 'Adjust extra zoom settings';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'][1]    = 'Enable if you want to adjust minimum and maximum zoom as well';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'][0]             = 'Default layers';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'][1]             = 'Inital visible layers of the map. For optional layers use the layers control.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][0]       = 'Disable';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][1]       = 'Disable zoom function.';

@@ -62,6 +62,16 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
             ),
+            'toggle' => array
+            (
+                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_control']['toggle'],
+                'icon'       => 'visible.gif',
+                'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'button_callback' => \Netzmacht\Contao\DevTools\Dca::createToggleIconCallback(
+                    'tl_leaflet_control',
+                    'active'
+                )
+            ),
             'show' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_control']['show'],
@@ -89,6 +99,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ),
         'scale extends default' => array(
             'config' => array('maxWidth', 'metric', 'imperial', 'updateWhenIdle')
+        ),
+        'attribution extends default' => array(
+            'config' => array('attributions', 'prefix')
         )
     ),
 
@@ -225,7 +238,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                         'inputType'        => 'select',
                         'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Control', 'getLayers'),
                         'eval'             => array(
-                            'style'  => 'width: 200px',
+                            'style'  => 'width: 300px',
                             'chosen' => true,
                             'includeBlankOption' => true
                         ),
@@ -278,6 +291,22 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'inputType' => 'checkbox',
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'prefix'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['prefix'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'attributions'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['attributions'],
+            'exclude'   => true,
+            'inputType' => 'listWizard',
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr', 'allowHtml' => true),
+            'sql'       => "mediumblob NULL"
         ),
     ),
 );

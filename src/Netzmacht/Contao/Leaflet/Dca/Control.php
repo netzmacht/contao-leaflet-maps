@@ -12,6 +12,8 @@
 namespace Netzmacht\Contao\Leaflet\Dca;
 
 
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
+
 class Control
 {
     public function generateRow($row)
@@ -21,5 +23,19 @@ class Control
             $row['title'],
             $row['type']
         );
+    }
+
+    public function getLayers()
+    {
+        $options    = array();
+        $collection = LayerModel::findBy('pid', '0', array('order' => 'title'));
+
+        if ($collection) {
+            foreach ($collection as $model) {
+                $options[$model->id] = $model->title;
+            }
+        }
+
+        return $options;
     }
 }

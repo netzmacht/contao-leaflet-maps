@@ -32,7 +32,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         (
             'layers' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['layers'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['layersBtn'],
                 'href'                => 'table=tl_leaflet_layer',
                 'icon'                => 'system/modules/leaflet/assets/img/layers.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
