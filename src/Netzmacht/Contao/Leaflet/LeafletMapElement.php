@@ -57,7 +57,20 @@ class LeafletMapElement extends \ContentElement
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
 
             $this->Template->mapId = $mapId;
-//            $this->Template->map   = $map;
+
+            $style  = '';
+            $height = deserialize($this->leaflet_height, true);
+            $width  = deserialize($this->leaflet_width, true);
+
+            if (!empty($width['value'])) {
+                $style .= 'width:' . $width['value'] . $width['unit'] . ';';
+            }
+
+            if (!empty($height['value'])) {
+                $style .= 'height:' . $height['value'] . $height['unit'] . ';';
+            }
+
+            $this->Template->mapStyle = $style;
         } catch(\Exception $e) {
             throw $e;
         }

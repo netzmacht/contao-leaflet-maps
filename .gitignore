@@ -1,6 +1,7 @@
 /vendor/
 /bin/
 /demo/
+/assets/js/
 
 coverage.xml
 
