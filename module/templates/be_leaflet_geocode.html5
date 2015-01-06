@@ -1,8 +1,8 @@
-<?php $GLOBALS['TL_CSS'][] = 'http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css'; ?>
-<?php $GLOBALS['TL_CSS'][] = 'system/modules/leaflet/assets/leaflet/control-geocoder/Control.Geocoder.css'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/leaflet/leaflet.css'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.css'; ?>
 
-<?php $GLOBALS['TL_JAVASCRIPT'][] = 'http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js'; ?>
-<?php $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/leaflet/assets/leaflet/control-geocoder/Control.Geocoder.js'; ?>
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/leaflet/leaflet.js'; ?>
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.js'; ?>
 
 <div id="map_<?php echo $this->field; ?>" style="margin-top: 5px; width: 670px; height: 300px"></div>
 <script>

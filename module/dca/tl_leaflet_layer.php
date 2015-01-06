@@ -38,6 +38,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'icon'                => 'system/modules/leaflet/assets/img/leaflet.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="m"'
             ),
+            'icons' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['icons'],
+                'href'                => 'table=tl_leaflet_icon',
+                'icon'                => 'system/modules/leaflet/assets/img/icons.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
+            ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],

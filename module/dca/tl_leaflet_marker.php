@@ -209,6 +209,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'eval'      => array(
                  'mandatory'  => true,
                  'tl_class'   => 'w50',
+                 'chosen'     => true,
             ),
             'sql'       => "int(10) unsigned NOT NULL default '0'",
         ),
