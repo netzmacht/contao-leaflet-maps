@@ -144,3 +144,10 @@ $GLOBALS['LEAFLET_ASSETS']['leaflet-providers'] = array(
         array('system/modules/leaflet/assets/leaflet/leaflet-providers/leaflet-providers.js', 'file')
     )
 );
+
+$GLOBALS['LEAFLET_ASSETS']['leaflet-ajax'] = array(
+    'javascript' => array(
+        array('system/modules/leaflet/assets/leaflet/leaflet-ajax/leaflet.ajax.min.js', 'file')
+    )
+);
+
