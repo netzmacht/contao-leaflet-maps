@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Event;
 
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -38,15 +39,24 @@ class BuildDefinitionEvent extends Event
     private $model;
 
     /**
+     * Optional bounds where elements should be in.
+     *
+     * @var LatLngBounds
+     */
+    private $bounds;
+
+    /**
      * Construct.
      *
-     * @param Definition $definition The leaflet definition.
-     * @param \Model     $model      The definition model.
+     * @param Definition   $definition The leaflet definition.
+     * @param \Model       $model      The definition model.
+     * @param LatLngBounds $bounds     Optional bounds where elements should be in.
      */
-    public function __construct(Definition $definition, \Model $model)
+    public function __construct(Definition $definition, \Model $model, LatLngBounds $bounds = null)
     {
         $this->definition = $definition;
-        $this->model = $model;
+        $this->model      = $model;
+        $this->bounds     = $bounds;
     }
 
     /**
@@ -67,5 +77,15 @@ class BuildDefinitionEvent extends Event
     public function getModel()
     {
         return $this->model;
+    }
+
+    /**
+     * Get the bounds.
+     *
+     * @return LatLngBounds|null
+     */
+    public function getBounds()
+    {
+        return $this->bounds;
     }
 }

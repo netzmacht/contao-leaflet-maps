@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 class LayersControlMapper extends AbstractControlMapper
 {
@@ -31,9 +32,9 @@ class LayersControlMapper extends AbstractControlMapper
      */
     protected static $type = 'layers';
 
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper)
+    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
-        $arguments    = parent::buildConstructArguments($model, $mapper);
+        $arguments    = parent::buildConstructArguments($model, $mapper, $bounds);
         $arguments[1] = array();
         $arguments[2] = array();
 
@@ -44,7 +45,7 @@ class LayersControlMapper extends AbstractControlMapper
             foreach ($collection as $layer) {
                 $argument = ($definition[$layer->id] === 'overlay') ? 2 : 1;
 
-                $arguments[$argument][] = $mapper->handle($layer);
+                $arguments[$argument][] = $mapper->handle($layer, $bounds);
             }
         }
 

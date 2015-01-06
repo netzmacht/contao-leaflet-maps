@@ -12,21 +12,23 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 interface Mapper
 {
     /**
      * Map model to the definition.
      *
-     * @param \Model  $model   The model being built.
-     * @param DefinitionMapper $builder The definition builder.
+     * @param \Model           $model  The model being built.
+     * @param DefinitionMapper $mapper The definition builder.
+     * @param LatLngBounds     $bounds Optional bounds where elements should be in.
      *
      * @return Definition
      */
-    public function handle(\Model $model, DefinitionMapper $builder);
+    public function handle(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null);
 
     /**
-     * Check if builder is responsible for the model.
+     * Check if mapper is responsible for the model.
      *
      * @param \Model $model The model being build.
      *

@@ -13,9 +13,13 @@ namespace Netzmacht\Contao\Leaflet;
 
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Assets;
+use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
+use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollectionAggregate;
 use Netzmacht\LeafletPHP\Definition\Map;
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
@@ -61,16 +65,17 @@ class MapService
     /**
      * Get map definition.
      *
-     * @param int    $mapId     The map database id.
-     * @param string $elementId Optional element id. If none given the mapId or alias is used.
+     * @param int          $mapId     The map database id.
+     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
+     * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
      * @return Map
      */
-    public function getDefinition($mapId, $elementId = null)
+    public function getDefinition($mapId, LatLngBounds $bounds = null, $elementId = null)
     {
         $model = $this->getModel($mapId);
 
-        return $this->mapper->handle($model, $elementId);
+        return $this->mapper->handle($model, $bounds, $elementId);
     }
 
     /**
@@ -96,16 +101,15 @@ class MapService
     /**
      * Get map javascript.
      *
-     * @param int $mapId The map id.
-     * @param string $elementId Optional element id. If none given the mapId or alias is used.
+     * @param int          $mapId     The map id.
+     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
+     * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
      * @return string
-     *
-     * @throws \Exception If an error occurred in the process.
      */
-    public function getJavascript($mapId, $elementId = null)
+    public function getJavascript($mapId, LatLngBounds $bounds = null, $elementId = null)
     {
-        $definition = $this->getDefinition($mapId, $elementId);
+        $definition = $this->getDefinition($mapId, $bounds, $elementId);
         $assets     = new ContaoAssets();
         $javascript = $this->leaflet->build($definition, $assets);
 
@@ -113,5 +117,24 @@ class MapService
         $this->eventDispatcher->dispatch($event::NAME, $event);
 
         return $event->getJavascript();
+    }
+
+    /**
+     * Get feature collection of a layer.
+     *
+     * @param int          $layerId The layer id.
+     * @param LatLngBounds $bounds  Filter features in the bounds.
+     *
+     * @return FeatureCollection
+     */
+    public function getFeatureCollection($layerId, LatLngBounds $bounds = null)
+    {
+        $model = LayerModel::findByPK($layerId);
+
+        if (!$model || !$model->active) {
+            throw new \InvalidArgumentException(sprintf('Could not find layer "%s"', $layerId));
+        }
+
+        return $this->mapper->handleGeoJson($model, $bounds);
     }
 }

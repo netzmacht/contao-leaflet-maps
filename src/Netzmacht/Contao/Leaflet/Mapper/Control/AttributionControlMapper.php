@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control\Attribution;
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
  * AttributionControlMapper maps the the attribution database definition to the definition class.
@@ -49,7 +50,7 @@ class AttributionControlMapper extends AbstractControlMapper
     /**
      * {@inheritdoc}
      */
-    protected function doBuild(Definition $definition, \Model $model, DefinitionMapper $builder)
+    protected function doBuild(Definition $definition, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
     {
         if (!$definition instanceof Attribution) {
             return;

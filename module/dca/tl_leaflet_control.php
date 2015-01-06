@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         'default' => array(
             'name'     => array('title', 'alias', 'type', 'position'),
             'config'   => array(),
-            'active'   => array('active')
+            'active'   => array('active'),
         ),
         'zoom extends default' => array(
             'config' => array('zoomInText', 'zoomOutText', 'zoomInTitle', 'zoomOutTitle'),
@@ -160,7 +160,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'exclude'   => true,
             'inputType' => 'select',
             'options'   => array('topleft', 'topright', 'bottomleft', 'bottomright'),
-            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_control'],
+            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50', 'helpwizard' => true),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
         'active'  => array
@@ -189,7 +190,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ),
         'zoomInTitle'  => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomInText'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomInTitle'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
@@ -197,7 +198,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ),
         'zoomOutTitle'  => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomInText'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomOutTitle'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
@@ -245,12 +246,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                     ),
                     'mode' => array
                     (
-                        'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['layer'],
+                        'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['layerMode'],
                         'exclude'          => true,
                         'inputType'        => 'select',
                         'options'          => array('base', 'overlay'),
+                        'reference'        => &$GLOBALS['TL_LANG']['tl_leaflet_control'],
                         'eval'             => array(
-                            'style' => 'width: 200px'
+                            'style' => 'width: 200px',
+                            'helpwizard' => true,
                         ),
                     ),
                 )

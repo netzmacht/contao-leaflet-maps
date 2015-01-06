@@ -26,7 +26,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'label' => array
         (
             'fields'                  => array('title'),
-            'format'                  => '%s'
+            'format'                  => '%s',
+            'label_callback'          => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'generateRow')
         ),
         'global_operations' => array
         (
@@ -47,6 +48,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'operations' => array
         (
+            'markers' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['markers'],
+                'href'                => 'table=tl_leaflet_marker',
+                'icon'                => 'edit.gif',
+                'button_callback'     => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'generateMarkersButton'),
+            ),
             'edit' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['edit'],
@@ -73,6 +81,16 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
             ),
+            'toggle' => array
+            (
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['toggle'],
+                'icon'            => 'visible.gif',
+                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'button_callback' => \Netzmacht\Contao\DevTools\Dca::createToggleIconCallback(
+                    'tl_leaflet_layer',
+                    'active'
+                )
+            ),
             'show' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['show'],
@@ -82,9 +100,17 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         )
     ),
 
+    'palettes' => array(
+        '__selector__' => array('type'),
+    ),
+
     'metapalettes' => array(
         'default' => array(
-            'title'       => array('title', 'alias', 'type'),
+            'title'    => array('title', 'alias', 'type'),
+            'active'   => array('active'),
+        ),
+        'markers extends default' => array(
+            '+title' => array('markerCluster'),
         ),
     ),
 
@@ -97,26 +123,25 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'HERE'   => array('tile_provider_key', 'tile_provider_code'),
         ),
     ),
-    
     'fields' => array
     (
-        'id'     => array
+        'id'                    => array
         (
-            'sql'       => "int(10) unsigned NOT NULL auto_increment"
+            'sql' => "int(10) unsigned NOT NULL auto_increment"
         ),
-        'pid' => array
+        'pid'                   => array
         (
-            'sql'       => "int(10) unsigned NOT NULL default '0'"
+            'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
-        'sorting' => array
+        'sorting'               => array
         (
-            'sql'       => "int(10) unsigned NOT NULL default '0'"
+            'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
-        'tstamp' => array
+        'tstamp'                => array
         (
-            'sql'       => "int(10) unsigned NOT NULL default '0'"
+            'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
-        'title'  => array
+        'title'                 => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['title'],
             'exclude'   => true,
@@ -124,7 +149,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
-        'alias'  => array
+        'alias'                 => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['alias'],
             'exclude'   => true,
@@ -132,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
-        'type'   => array
+        'type'                  => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['type'],
             'exclude'   => true,
@@ -145,9 +170,18 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'chosen'             => true,
             ),
             'options'   => array_keys($GLOBALS['LEAFLET_LAYERS']),
+            'reference' => &$GLOBALS['TL_LANG']['leaflet_layer'],
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
-        'tile_provider' => array(
+        'active'                => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['active'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'tile_provider'         => array(
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider'],
             'exclude'   => true,
             'inputType' => 'select',
@@ -162,19 +196,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
         'tile_provider_variant' => array(
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_variant'],
-            'exclude'   => true,
-            'inputType' => 'select',
-            'eval'      => array(
-                'mandatory'          => false,
-                'tl_class'           => 'w50',
-                'submitOnChange'     => true,
-                'chosen'             => false,
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_variant'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'eval'             => array(
+                'mandatory'      => false,
+                'tl_class'       => 'w50',
+                'submitOnChange' => true,
+                'chosen'         => false,
             ),
             'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getVariants'),
-            'sql'       => "varchar(32) NOT NULL default ''"
+            'sql'              => "varchar(32) NOT NULL default ''"
         ),
-        'tile_provider_key'  => array
+        'tile_provider_key'     => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_key'],
             'exclude'   => true,
@@ -182,13 +216,29 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
-        'tile_provider_code'  => array
+        'tile_provider_code'    => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_code'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'markerCluster'         => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getMarkerClusterLayers'),
+            'reference'        => &$GLOBALS['TL_LANG']['leaflet_layer'],
+            'eval' => array(
+                'mandatory'          => false,
+                'maxlength'          => 255,
+                'tl_class'           => 'w50',
+                'chosen'             => true,
+                'includeBlankOption' => true
+            ),
+            'sql'              => "varchar(255) NOT NULL default ''"
         ),
     )
 );

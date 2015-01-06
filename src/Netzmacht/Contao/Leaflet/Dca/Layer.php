@@ -12,6 +12,9 @@
 namespace Netzmacht\Contao\Leaflet\Dca;
 
 
+use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
+
 class Layer
 {
     private $layers;
@@ -19,7 +22,10 @@ class Layer
     public function __construct()
     {
         $this->layers = &$GLOBALS['LEAFLET_LAYERS'];
+
+        \Controller::loadLanguageFile('leaflet_layer');
     }
+
     public function getVariants($dataContainer)
     {
         if ($dataContainer->activeRecord
@@ -30,6 +36,48 @@ class Layer
         }
 
         return array();
+    }
+
+    public function generateRow($row, $label)
+    {
+        $alt = empty($GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0])
+            ? $row['type']
+            : $GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0];
+
+        $title = empty($GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][1])
+            ? $row['type']
+            : $GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][1];
+
+        if (!empty($this->layers[$row['type']]['icon'])) {
+            $icon = \Image::getHtml($this->layers[$row['type']]['icon'], $alt, sprintf('title="%s"', $title));
+        } else {
+            $icon = \Image::getHtml('iconPLAIN.gif', $alt, sprintf('title="%s"', $title));
+        }
+
+        return $icon . ' ' . $label;
+    }
+
+    public function getMarkerClusterLayers()
+    {
+        $types = array_keys(
+            array_filter(
+                $GLOBALS['LEAFLET_LAYERS'],
+                function ($item) {
+                    return !empty($item['markerCluster']);
+                }
+            )
+        );
+
+        $collection = LayerModel::findMultipleByTypes($types);
+        $builder    = OptionsBuilder::fromCollection(
+            $collection,
+            'id',
+            function($row) {
+                return sprintf('%s [%s]', $row['title'], $row['type']);
+            }
+        );
+
+        return $builder->getOptions();
     }
 
     // Call paste_button_callback (&$dc, $row, $table, $cr, $childs, $previous, $next)
@@ -75,5 +123,19 @@ class Layer
         }
 
         return $buffer;
+    }
+
+    public function generateMarkersButton($row, $href, $label, $title, $icon, $attributes)
+    {
+        if (empty($this->layers[$row['type']]['markers'])) {
+            return '';
+        }
+
+        return sprintf(
+            '<a href="%s" title="%s">%s</a> ',
+            \Backend::addToUrl($href . '&amp;id=' . $row['id']),
+            $title,
+            \Image::getHtml($icon, $label, $attributes)
+        );
     }
 }

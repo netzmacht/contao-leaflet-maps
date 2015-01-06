@@ -11,20 +11,12 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
-
-use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
-class ProviderLayerMapper extends AbstractTypeMapper
+class ProviderLayerMapper extends AbstractLayerMapper
 {
-    /**
-     * Class of the model being build.
-     *
-     * @var string
-     */
-    protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\LayerModel';
-
     /**
      * Class of the definition being created.
      *
@@ -61,7 +53,7 @@ class ProviderLayerMapper extends AbstractTypeMapper
     /**
      * {@inheritdoc}
      */
-    protected function createInstance(\Model $model, DefinitionMapper $mapper)
+    protected function createInstance(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         if (isset($this->providers[$model->tile_provider]['class'])) {
             $class = $this->providers[$model->tile_provider]['class'];
@@ -70,7 +62,7 @@ class ProviderLayerMapper extends AbstractTypeMapper
         }
 
         $reflector = new \ReflectionClass($class);
-        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper));
+        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds));
 
         return $instance;
     }
@@ -78,7 +70,7 @@ class ProviderLayerMapper extends AbstractTypeMapper
     /**
      * {@inheritdoc}
      */
-    protected function doBuild(Definition $definition, \Model $model, DefinitionMapper $builder)
+    protected function doBuild(Definition $definition, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
     {
         if (!empty($this->providers[$model->tile_provider]['options'])) {
             $this->applyOptions(
@@ -92,7 +84,7 @@ class ProviderLayerMapper extends AbstractTypeMapper
     /**
      * {@inheritdoc}
      */
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper)
+    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         return array(
             $model->alias ?: ('layer_' . $model->id),

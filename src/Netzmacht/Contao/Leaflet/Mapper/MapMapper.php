@@ -16,6 +16,7 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Map;
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Plugins\LeafletProviders\Provider;
 
 class MapMapper extends AbstractMapper
@@ -50,19 +51,19 @@ class MapMapper extends AbstractMapper
     /**
      * @inheritdoc
      */
-    protected function doBuild(Definition $map, \Model $model, DefinitionMapper $builder)
+    protected function doBuild(Definition $map, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
     {
         if ($map instanceof Map && $model instanceof MapModel) {
             $this->buildCustomOptions($map, $model);
-            $this->buildControls($map, $model, $builder);
-            $this->buildLayers($map, $model, $builder);
+            $this->buildControls($map, $model, $builder, $bounds);
+            $this->buildLayers($map, $model, $builder, $bounds);
         }
     }
 
     /**
      * @inheritdoc
      */
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper)
+    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         return array(
             $mapper->getMapId(),
@@ -91,8 +92,9 @@ class MapMapper extends AbstractMapper
      * @param Map              $map    The map being built.
      * @param MapModel         $model  The map model.
      * @param DefinitionMapper $mapper The definition mapper.
+     * @param LatLngBounds     $bounds Optional bounds.
      */
-    private function buildControls(Map $map, MapModel$model, DefinitionMapper $mapper)
+    private function buildControls(Map $map, MapModel $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         $collection = ControlModel::findBy(
             array('pid=?', 'active=1'),
@@ -102,7 +104,7 @@ class MapMapper extends AbstractMapper
 
         if ($collection) {
             foreach ($collection as $control) {
-                $control = $mapper->handle($control);
+                $control = $mapper->handle($control, $bounds);
                 $map->addControl($control);
             }
         }
@@ -114,16 +116,22 @@ class MapMapper extends AbstractMapper
      * @param Map              $map    The map being built.
      * @param MapModel         $model  The map model.
      * @param DefinitionMapper $mapper Definition mapper.
+     * @param LatLngBounds     $bounds Optional bounds.
      */
-    private function buildLayers(Map $map, MapModel $model, DefinitionMapper $mapper)
+    private function buildLayers(Map $map, MapModel $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         $ids        = deserialize($model->layers, true);
         $collection = LayerModel::findMultipleByIds($ids);
 
         if ($collection) {
             foreach ($collection as $layer) {
+                if (!$layer->active) {
+                    continue;
+                }
+
+                $layer = $mapper->handle($layer, $bounds);
+
                 /** @var Provider $layer */
-                $layer = $mapper->handle($layer);
                 $map->addLayer($layer);
             }
         }

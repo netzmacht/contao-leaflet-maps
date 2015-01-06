@@ -5,6 +5,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['interaction_legend'] = 'Interaction contr
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoom_legend']        = 'Center and zoom';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['controls_legend']    = 'Control widgets';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['expert_legend']      = 'Expert settings';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['behaviour_legend']      = 'Behaviour';
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['layersBtn'][0]          = 'Manage layers';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['layersBtn'][1]          = 'Manage leaflet layers';
@@ -14,6 +15,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['edit'][0]               = 'Edit map';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['edit'][1]               = 'Edit map ID %s';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['copy'][0]               = 'Copy map';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['copy'][1]               = 'Copy map ID %s';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['controls'][0]           = 'Manage controls';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['controls'][1]           = 'Manage controls of map ID %s';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['delete'][0]             = 'Delete map';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['delete'][1]             = 'Delete map ID %s';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['show'][0]               = 'Show details';

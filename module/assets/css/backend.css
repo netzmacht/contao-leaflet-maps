@@ -3,6 +3,10 @@
     background: url('./../img/fol-placeholder.gif') no-repeat 6px 1px;
 }
 
+.tl_listing_container.tree_view  ul > li.tl_file > div {
+    line-height: 18px;
+}
+
 .tl_listing_container.tree_view > ul > li.tl_file {
     padding-left: 26px;
 }

@@ -52,7 +52,7 @@ class LeafletMapElement extends \ContentElement
     {
         try {
             $mapId = 'map_' . ($this->cssID[0] ?: $this->id);
-            $map   = $this->mapService->getJavascript($this->leaflet_map, $mapId);
+            $map   = $this->mapService->getJavascript($this->leaflet_map, null, $mapId);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
 
