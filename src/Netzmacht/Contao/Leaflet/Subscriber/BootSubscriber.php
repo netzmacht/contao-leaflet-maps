@@ -16,6 +16,11 @@ use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeDefinitionMapperEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeEventDispatcherEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeLeafletBuilderEvent;
+use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Javascript\Output;
+use Netzmacht\LeafletPHP\Definition\Type\Icon;
+use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -34,7 +39,7 @@ class BootSubscriber implements EventSubscriberInterface
             InitializeDefinitionMapperEvent::NAME => 'initializeDefinitionMapper',
             InitializeEventDispatcherEvent::NAME  => 'initializeEventDispatcher',
             InitializeLeafletBuilderEvent::NAME   => 'initializeLeafletBuilder',
-            GetJavascriptEvent::NAME              => 'loadAssets'
+            GetJavascriptEvent::NAME              => array(array('loadAssets'), array('loadIcons')),
         );
     }
 
@@ -113,5 +118,44 @@ class BootSubscriber implements EventSubscriberInterface
     public function loadAssets()
     {
         $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/leaflet/assets/js/contao-leaflet.js|static';
+    }
+
+    /**
+     * Load icons.
+     *
+     * @throws \Netzmacht\Javascript\Exception\EncodeValueFailed
+     */
+    public function loadIcons()
+    {
+        $collection = IconModel::findBy('active', true);
+
+        if ($collection) {
+            /** @var DefinitionMapper $mapper */
+            $buffer  = '';
+            $mapper  = $GLOBALS['container']['leaflet.definition.mapper'];
+            /** @var Leaflet $builder */
+            $builder = $GLOBALS['container']['leaflet.definition.builder'];
+            $encoder = $builder->getBuilder()->getEncoder();
+
+            foreach ($collection as $model) {
+                /** @var Icon $icon */
+                $icon = $mapper->handle($model);
+
+                $buffer .= sprintf(
+                    'ContaoLeaflet.addIcon(\'%s\', L.icon(%s));' . "\n",
+                    $model->alias ?: ('icon_' . $model->id),
+                    $encoder->encodeValue($icon->getOptions())
+                );
+            }
+
+            if ($buffer) {
+                $file = new \File('assets/leaflet/js/icons.js');
+                $file->write($buffer);
+                $file->close();
+
+                // TODO: Cache it.
+                $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js|static';
+            }
+        }
     }
 }

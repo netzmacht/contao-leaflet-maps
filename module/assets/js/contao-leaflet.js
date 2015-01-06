@@ -3,6 +3,8 @@ L.Contao = L.Class.extend( {
 
     maps: {},
 
+    icons: {},
+
     addMap: function (id, map) {
         this.maps[id] = map;
 
@@ -19,8 +21,31 @@ L.Contao = L.Class.extend( {
         return this.maps[id];
     },
 
+    addIcon: function(id, icon) {
+        this.icons[id] = icon;
+        this.fire('icon:added', { id: id, icon: icon});
+
+        return this;
+    },
+
+    getIcon: function(id) {
+        if (typeof (this.icons[id]) === 'undefined') {
+            return null;
+        }
+
+        return this.icons[id];
+    },
+
     pointToLayer: function(feature, latlng) {
         var marker = L.marker(latlng, feature.properties.options);
+
+        if (feature.properties && feature.properties.icon) {
+            var icon = this.getIcon(feature.properties.icon);
+
+            if (icon) {
+                marker.setIcon(icon);
+            }
+        }
 
         this.applyFeatureMethods(marker, feature);
         this.fire('marker:created', { marker: marker, feature: feature, latlng: latlng });

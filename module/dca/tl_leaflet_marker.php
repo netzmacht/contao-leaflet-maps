@@ -84,7 +84,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         'default' => array(
             'title'   => array('title', 'alias', 'coordinates'),
             'content' => array('tooltip', 'alt', 'addPopup'),
-            'icon'    => array(':hide', 'customIcon'),
             'config'  => array(
                 ':hide',
                 'clickable',
@@ -93,23 +92,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'zIndexOffset',
                 'opacity',
                 'riseOnHover',
-                'riseOffset'
+                'riseOffset',
+                'customIcon',
             ),
             'active'  => array('active')
         ),
     ),
     'metasubpalettes' => array(
         'addPopup'   => array('popupContent'),
-        'customIcon' => array(
-            'icon',
-            'retinaIcon',
-            'iconAnchor',
-            'popupAnchor',
-            'iconClassName',
-            'shadowImage',
-            'shadowRetinaImage',
-            'shadowAnchor',
-        )
+        'customIcon' => array('icon')
     ),
 
     'fields' => array
@@ -206,64 +197,20 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['customIcon'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
+            'eval'      => array('tl_class' => 'clr w50 m12', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default ''"
         ),
         'icon'         => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_content']['icon'],
             'exclude'   => true,
-            'inputType' => 'fileTree',
+            'inputType' => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'getIcons'),
             'eval'      => array(
-                'filesOnly'  => true,
-                 'fieldType'  => 'radio',
                  'mandatory'  => true,
-                 'tl_class'   => 'clr w50',
-                 'extensions' => 'gif,png,svg,jpg'
-            ),
-            'sql'       => "binary(16) NULL",
-        ),
-        'retinaIcon'   => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['retinaIcon'],
-            'exclude'   => true,
-            'inputType' => 'fileTree',
-            'eval'      => array(
-                 'filesOnly'  => true,
-                 'fieldType'  => 'radio',
-                 'mandatory'  => false,
                  'tl_class'   => 'w50',
-                 'extensions' => 'gif,png,svg,jpg'
             ),
-            'sql'       => "binary(16) NULL",
-        ),
-        'shadowImage'         => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['shadowImage'],
-            'exclude'   => true,
-            'inputType' => 'fileTree',
-            'eval'      => array(
-                'filesOnly'  => true,
-                'fieldType'  => 'radio',
-                'mandatory'  => false,
-                'tl_class'   => 'clr w50',
-                'extensions' => 'gif,png,svg,jpg'
-            ),
-            'sql'       => "binary(16) NULL",
-        ),
-        'shadowRetinaImage'   => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['shadowRetinaImage'],
-            'exclude'   => true,
-            'inputType' => 'fileTree',
-            'eval'      => array(
-                'filesOnly'  => true,
-                'fieldType'  => 'radio',
-                'mandatory'  => false,
-                'tl_class'   => 'w50',
-                'extensions' => 'gif,png,svg,jpg'
-            ),
-            'sql'       => "binary(16) NULL",
+            'sql'       => "int(10) unsigned NOT NULL default '0'",
         ),
         'draggable'    => array
         (
@@ -300,59 +247,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'default'   => 0,
             'eval'      => array('mandatory' => true, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'clr w50'),
             'sql'       => "int(4) NOT NULL default '0'"
-        ),
-        'iconAnchor'  => array
-        (
-            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['iconAnchor'],
-            'exclude'       => true,
-            'inputType'     => 'text',
-            'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
-            ),
-            'eval'          => array(
-                'maxlength'   => 255,
-                'tl_class'    => 'w50',
-                'nullIfEmpty' => true,
-            ),
-            'sql'           => "varchar(255) NULL"
-        ),
-        'shadowAnchor'  => array
-        (
-            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['shadowAnchor'],
-            'exclude'       => true,
-            'inputType'     => 'text',
-            'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
-            ),
-            'eval'          => array(
-                'maxlength'   => 255,
-                'tl_class'    => 'w50',
-                'nullIfEmpty' => true,
-            ),
-            'sql'           => "varchar(255) NULL"
-        ),
-        'popupAnchor'  => array
-        (
-            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popupAnchor'],
-            'exclude'       => true,
-            'inputType'     => 'text',
-            'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
-            ),
-            'eval'          => array(
-                'maxlength'   => 255,
-                'tl_class'    => 'w50',
-                'nullIfEmpty' => true,
-            ),
-            'sql'           => "varchar(255) NULL"
-        ),
-        'iconClassName'          => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['iconClassName'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''"
         ),
     ),
 );

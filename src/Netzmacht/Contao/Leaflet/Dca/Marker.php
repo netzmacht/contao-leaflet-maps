@@ -12,11 +12,27 @@
 namespace Netzmacht\Contao\Leaflet\Dca;
 
 
+use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
+use Netzmacht\Contao\Leaflet\Model\IconModel;
+
 class Marker
 {
     public function generateRow($row)
     {
         return $row['title'];
+    }
+
+    public function getIcons()
+    {
+        $collection = IconModel::findAll(array('order' => 'title'));
+        $builder    = OptionsBuilder::fromCollection(
+            $collection, 'id',
+            function($model) {
+                return sprintf('%s [%s]', $model['title'], $model['type']);
+            }
+        );
+
+        return $builder->getOptions();
     }
 
 }

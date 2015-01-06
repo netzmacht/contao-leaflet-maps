@@ -5,7 +5,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
     'config' => array(
         'dataContainer'    => 'Table',
         'enableVersioning' => true,
-        'ptable'           => 'tl_leaflet_layer',
         'sql'              => array
         (
             'keys' => array
@@ -23,12 +22,11 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'fields'                  => array('title'),
             'flag'                    => 1,
             'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'generateRow'),
         ),
         'label' => array
         (
-            'fields'                  => array('title'),
-            'format'                  => '%s',
+            'fields'                  => array('title', 'type'),
+            'format'                  => '%s <span class="tl_gray">[%s]</span>',
         ),
         'global_operations' => array
         (
@@ -87,23 +85,32 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
         )
     ),
 
+    'palettes' => array(
+        '__selector__' => array('type')
+    ),
+
     'metapalettes'    => array(
         'default' => array(
             'title'   => array('title', 'alias', 'type'),
-            'content' => array('tooltip', 'alt',),
+        ),
+        'image extends default' => array(
             'config'  => array(
-                ':hide',
-                'iconUrl',
-                'iconRetinaUrl',
+                '',
+                'iconImage',
+                'iconRetinaImage',
                 'iconAnchor',
                 'popupAnchor',
                 'iconClassName',
+            ),
+            'shadow'  => array(
                 'shadowImage',
                 'shadowRetinaImage',
                 'shadowAnchor',
             ),
-            'active'  => array('active')
-        ),
+            'active' => array(
+                'active'
+            )
+        )
     ),
 
     'fields' => array
@@ -136,6 +143,22 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
+        'type'                  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['type'],
+            'exclude'   => true,
+            'inputType' => 'select',
+            'eval'      => array(
+                'mandatory'          => true,
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'submitOnChange'     => true,
+                'chosen'             => true,
+            ),
+            'options'   => &$GLOBALS['LEAFLET_ICONS'],
+            'reference' => &$GLOBALS['TL_LANG']['leaflet_icon'],
+            'sql'       => "varchar(32) NOT NULL default ''"
+        ),
         'active'                => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['active'],
@@ -144,58 +167,58 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),
-        'iconUrl'         => array
+        'iconImage'         => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['iconUrl'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['iconImage'],
             'exclude'   => true,
             'inputType' => 'fileTree',
             'eval'      => array(
                 'filesOnly'  => true,
                  'fieldType'  => 'radio',
                  'mandatory'  => true,
-                 'tl_class'   => 'clr w50',
+                 'tl_class'   => 'clr',
                  'extensions' => 'gif,png,svg,jpg'
             ),
             'sql'       => "binary(16) NULL",
         ),
-        'iconRetinaUrl'   => array
+        'iconRetinaImage'   => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['iconRetinaUrl'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['iconRetinaImage'],
             'exclude'   => true,
             'inputType' => 'fileTree',
             'eval'      => array(
                  'filesOnly'  => true,
                  'fieldType'  => 'radio',
                  'mandatory'  => false,
-                 'tl_class'   => 'w50',
+                 'tl_class'   => 'clr',
                  'extensions' => 'gif,png,svg,jpg'
             ),
             'sql'       => "binary(16) NULL",
         ),
         'shadowImage'         => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['shadowImage'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['shadowImage'],
             'exclude'   => true,
             'inputType' => 'fileTree',
             'eval'      => array(
                 'filesOnly'  => true,
                 'fieldType'  => 'radio',
                 'mandatory'  => false,
-                'tl_class'   => 'clr w50',
+                'tl_class'   => 'clr',
                 'extensions' => 'gif,png,svg,jpg'
             ),
             'sql'       => "binary(16) NULL",
         ),
         'shadowRetinaImage'   => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['shadowRetinaImage'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['shadowRetinaImage'],
             'exclude'   => true,
             'inputType' => 'fileTree',
             'eval'      => array(
                 'filesOnly'  => true,
                 'fieldType'  => 'radio',
                 'mandatory'  => false,
-                'tl_class'   => 'w50',
+                'tl_class'   => 'clr',
                 'extensions' => 'gif,png,svg,jpg'
             ),
             'sql'       => "binary(16) NULL",
