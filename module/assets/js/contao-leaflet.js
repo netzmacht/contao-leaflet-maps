@@ -12,12 +12,14 @@ L.Contao = L.Class.extend( {
     },
 
     getMap: function (id) {
-        if (typeof (this.map[id]) === 'undefined') {
+        if (typeof (this.maps[id]) === 'undefined') {
             return null;
         }
 
-        return this.map[id]
+        return this.maps[id];
     }
 });
+
+L.Icon.Default.imagePath = 'system/modules/leaflet/assets/leaflet/leaflet/images';
 
 window.ContaoLeaflet = new L.Contao();
