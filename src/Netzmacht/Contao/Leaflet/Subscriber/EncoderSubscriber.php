@@ -71,7 +71,7 @@ HTML;
         $object = $event->getObject();
 
         if ($object instanceof Map) {
-            $line = sprintf('window.ContaoLeaflet.addMap(\'%s\', (function() {', $object->getId());
+            $line = sprintf('ContaoLeaflet.addMap(\'%s\', (function() {', $object->getId());
             $event->getOutput()->addLine($line);
         }
     }

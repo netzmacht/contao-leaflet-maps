@@ -4,7 +4,14 @@
  * Backend module.
  */
 $GLOBALS['BE_MOD']['content']['leaflet'] = array(
-    'tables'     => array('tl_leaflet_map', 'tl_leaflet_layer', 'tl_leaflet_control', 'tl_leaflet_marker'),
+    'tables' => array(
+        'tl_leaflet_map',
+        'tl_leaflet_layer',
+        'tl_leaflet_control',
+        'tl_leaflet_marker',
+        'tl_leaflet_vector',
+        'tl_leaflet_icon',
+    ),
     'icon'       => 'system/modules/leaflet/assets/img/leaflet.png',
     'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
 );
@@ -37,6 +44,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ZoomCon
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ScaleControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\LayersControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\AttributionControlMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper';
 
 /*
  * Leaflet encoders.
@@ -98,6 +106,7 @@ $GLOBALS['LEAFLET_LAYERS'] = array
     (
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/vectors.png',
+        'vectors'  => true,
     ),
 );
 
@@ -132,22 +141,22 @@ require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
  */
 $GLOBALS['LEAFLET_ASSETS']['leaflet'] = array(
     'css' => array(
-        array('system/modules/leaflet/assets/leaflet/leaflet/leaflet.css', 'file')
+        array('assets/leaflet/libs/leaflet/leaflet.css', 'file')
     ),
     'javascript' => array(
-        array('system/modules/leaflet/assets/leaflet/leaflet/leaflet.js', 'file')
+        array('assets/leaflet/libs/leaflet/leaflet.js', 'file')
     )
 );
 
 $GLOBALS['LEAFLET_ASSETS']['leaflet-providers'] = array(
     'javascript' => array(
-        array('system/modules/leaflet/assets/leaflet/leaflet-providers/leaflet-providers.js', 'file')
+        array('assets/leaflet/libs/leaflet-providers/leaflet-providers.js', 'file')
     )
 );
 
 $GLOBALS['LEAFLET_ASSETS']['leaflet-ajax'] = array(
     'javascript' => array(
-        array('system/modules/leaflet/assets/leaflet/leaflet-ajax/leaflet.ajax.min.js', 'file')
+        array('assets/leaflet/libs/leaflet-ajax/leaflet.ajax.min.js', 'file')
     )
 );
 

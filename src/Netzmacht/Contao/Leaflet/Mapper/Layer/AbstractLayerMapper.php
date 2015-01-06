@@ -21,4 +21,11 @@ class AbstractLayerMapper extends AbstractTypeMapper
      * @var string
      */
     protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\LayerModel';
+
+    protected function initialize()
+    {
+        parent::initialize();
+
+        $this->addOption('label', 'title');
+    }
 }

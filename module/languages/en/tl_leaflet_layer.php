@@ -34,3 +34,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['active'][0]                = 'Activate 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active'][1]                = 'Activate layer on the map.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][0]         = 'Marker cluster';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][1]         = 'Choose a marker cluster layer so that markers get clustered.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][0]              = 'Deferred loading';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][1]              = 'Load data of the layer deferred using ajax.';

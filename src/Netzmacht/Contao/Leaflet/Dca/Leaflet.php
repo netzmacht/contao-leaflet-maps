@@ -51,8 +51,8 @@ class Leaflet
         $template->field = 'ctrl_' . $dataContainer->field;
 
         try {
-            $latLng = LatLng::fromString($dataContainer->value);
-            $template->marker = $latLng->toJson();
+            $latLng           = LatLng::fromString($dataContainer->value);
+            $template->marker = json_encode($latLng);
         } catch(\Exception $e) {
 
         }

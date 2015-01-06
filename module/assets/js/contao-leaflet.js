@@ -6,7 +6,7 @@ L.Contao = L.Class.extend( {
     addMap: function (id, map) {
         this.maps[id] = map;
 
-        this.fire('mapadded', { id: id, map: map});
+        this.fire('map:added', { id: id, map: map});
 
         return this;
     },
@@ -17,9 +17,28 @@ L.Contao = L.Class.extend( {
         }
 
         return this.maps[id];
+    },
+
+    pointToLayer: function(feature, latlng) {
+        var marker = L.marker(latlng, feature.properties.options);
+
+        this.applyFeatureMethods(marker, feature);
+        this.fire('marker:created', { marker: marker, feature: feature, latlng: latlng });
+
+        return marker;
+    },
+
+    applyFeatureMethods: function(obj, feature) {
+        if (feature.properties && feature.properties.methods) {
+            for (var i=0; i < feature.properties.methods.length; i++) {
+                var method = feature.properties.methods[i];
+
+                obj[method[0]].apply(obj, method[1]);
+            }
+        }
     }
 });
 
-L.Icon.Default.imagePath = 'system/modules/leaflet/assets/leaflet/leaflet/images';
+L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
 
 window.ContaoLeaflet = new L.Contao();

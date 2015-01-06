@@ -47,7 +47,8 @@
         },
         "contao": {
             "sources":{
-                "module": "system/modules/leaflet"
+                "module": "system/modules/leaflet",
+                "assets": "assets/leaflet"
             }
         }
     }

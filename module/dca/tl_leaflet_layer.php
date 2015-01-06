@@ -55,6 +55,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'icon'                => 'edit.gif',
                 'button_callback'     => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'generateMarkersButton'),
             ),
+            'vectors' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['vectors'],
+                'href'                => 'table=tl_leaflet_vector',
+                'icon'                => 'edit.gif',
+                'button_callback'     => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'generateVectorsButton'),
+            ),
             'edit' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['edit'],
@@ -108,10 +115,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'default' => array(
             'title'    => array('title', 'alias', 'type'),
             'active'   => array('active'),
-            'expert'   => array('deferred'),
         ),
         'markers extends default' => array(
-            '+title' => array('markerCluster'),
+            '+title'  => array('markerCluster'),
+            '+active' => array('deferred')
         ),
     ),
 
@@ -243,7 +250,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'deferred'  => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['deferred'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false),

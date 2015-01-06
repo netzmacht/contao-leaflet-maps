@@ -34,8 +34,14 @@ class GeoJsonController
 
     public function execute()
     {
-        $collection = $this->mapService->getFeatureCollection(\Input::get('id'));
+        try {
+            $collection = $this->mapService->getFeatureCollection(\Input::get('id'));
 
-        return json_encode($collection);
+            header('Content-Type: application/json');
+            echo json_encode($collection, JSON_UNESCAPED_SLASHES);
+        }
+        catch(\Exception $e) {
+            header('HTTP/1.0 403 Forbidden');
+        }
     }
 }

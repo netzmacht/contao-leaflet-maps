@@ -131,6 +131,30 @@ class Layer
             return '';
         }
 
+        return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
+    }
+
+    public function generateVectorsButton($row, $href, $label, $title, $icon, $attributes)
+    {
+        if (empty($this->layers[$row['type']]['vectors'])) {
+            return '';
+        }
+
+        return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
+    }
+
+    /**
+     * @param $row
+     * @param $href
+     * @param $label
+     * @param $title
+     * @param $icon
+     * @param $attributes
+     *
+     * @return string
+     */
+    protected function generateButton($row, $href, $label, $title, $icon, $attributes)
+    {
         return sprintf(
             '<a href="%s" title="%s">%s</a> ',
             \Backend::addToUrl($href . '&amp;id=' . $row['id']),

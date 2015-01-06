@@ -14,11 +14,12 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
+use Netzmacht\Javascript\Type\Value\Reference;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
+use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
-use Netzmacht\LeafletPHP\Definition\UI\Marker;
 use Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax;
 
 class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
@@ -58,20 +59,24 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     protected function doBuild(
         Definition $definition,
         \Model $model,
-        DefinitionMapper $builder,
+        DefinitionMapper $mapper,
         LatLngBounds $bounds = null
     ) {
         if ($definition instanceof GeoJsonAjax) {
-            $base = \Config::get('websitePath') . '/system/modules/leaflet/public/geojson.php?id=';
+            $base = \Config::get('websitePath') . '/assets/leaflet/geojson.php?id=';
             $definition->setUrl($base . $model->id);
         } elseif ($definition instanceof LayerGroup) {
             $collection = $this->loadMarkerModels($model);
 
             if ($collection) {
                 foreach ($collection as $item) {
-                    $definition->addLayer($this->createMarker($item));
+                    $definition->addLayer($mapper->handle($item));
                 }
             }
+        }
+
+        if ($definition instanceof GeoJson) {
+            $definition->setPointToLayer(new Reference('ContaoLeaflet.pointToLayer', 'ContaoLeaflet'));
         }
     }
 
@@ -89,24 +94,11 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
         if ($collection) {
             foreach ($collection as $item) {
-                $feature->addFeature($this->createMarker($item)->getFeature());
+                $feature->addFeature($mapper->handle($item)->toGeoJson());
             }
         }
 
         return $feature;
-    }
-
-    /**
-     * @param $item
-     *
-     * @return Marker
-     */
-    protected function createMarker($item)
-    {
-        $marker = new Marker('marker_' . $item->id, $item->coordinates);
-        $marker->setTitle($item->tooltip);
-
-        return $marker;
     }
 
     /**
