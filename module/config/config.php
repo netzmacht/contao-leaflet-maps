@@ -41,6 +41,7 @@ $GLOBALS['LEAFLET_MAPPERS']   = array();
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\MapMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ProviderLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLayerMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ZoomControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ScaleControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\LayersControlMapper';
@@ -76,11 +77,6 @@ $GLOBALS['LEAFLET_ENCODERS'][] = 'Netzmacht\Contao\Leaflet\Subscriber\EncoderSub
  */
 $GLOBALS['LEAFLET_LAYERS'] = array
 (
-    'default'  => array
-    (
-        'children' => true,
-        'icon'     => '',
-    ),
     'provider' => array
     (
         'children' => false,
@@ -90,13 +86,6 @@ $GLOBALS['LEAFLET_LAYERS'] = array
     (
         'children' => true,
         'icon'     => 'system/modules/leaflet/assets/img/group.png',
-    ),
-    'elements' => array
-    (
-        'children' => true,
-        'filter'   => 'whitelist',
-        'layers'   => array('markers', 'vectors'),
-        'icon'     => 'system/modules/leaflet/assets/img/map.png',
     ),
     'markers'  => array
     (

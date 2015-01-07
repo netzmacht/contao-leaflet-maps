@@ -38,3 +38,10 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][0]         = 'Marker cl
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][1]         = 'Choose a marker cluster layer so that markers get clustered.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][0]              = 'Deferred loading';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][1]              = 'Load data of the layer deferred using ajax.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupType'][0]             = 'Group type';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupType'][1]             = 'Choose a layer group type.';
+
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][0] = 'Feature group';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][1] = 'Extended layer group with events and popup support. <br>See <a href="http://leafletjs.com/reference.html#featuregroup" target="_blank">http://leafletjs.com/reference.html#featuregroup</a>';

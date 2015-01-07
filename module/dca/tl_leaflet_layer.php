@@ -127,6 +127,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             '+title'  => array('markerCluster'),
             '+active' => array('deferred')
         ),
+        'group extends default' => array(
+            '+title' => array('groupType'),
+        ) ,
     ),
 
     'metasubselectpalettes' => array(
@@ -262,6 +265,22 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'inputType' => 'checkbox',
             'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'groupType'                  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupType'],
+            'exclude'   => true,
+            'inputType' => 'select',
+            'eval'      => array(
+                'mandatory'          => true,
+                'tl_class'           => 'w50',
+                'submitOnChange'     => true,
+                'helpwizard'         => true,
+            ),
+            'default'   => 'layer',
+            'options'   => array('layer', 'feature'),
+            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes'],
+            'sql'       => "varchar(32) NOT NULL default ''"
         ),
     )
 );
