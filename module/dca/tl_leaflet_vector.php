@@ -125,7 +125,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         'multiPolygon extends multiPolyline' => array(
         ),
 
-        'rectangle extends polygon' => array(),
+        'rectangle extends polygon' => array(
+            'data' => array('bounds'),
+        ),
 
         'circle extends default' => array(
             '+data' => array('coordinates', 'radius'),
@@ -388,6 +390,22 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 )
             ),
             'sql'       => "longblob NULL"
-        )
+        ),
+        'bounds'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['bounds'],
+            'exclude'       => true,
+            'inputType'     => 'text',
+            'save_callback' => array(
+            ),
+            'eval'          => array(
+                'maxlength'   => 255,
+                'multiple'=>true,
+                'size'=>2,
+                'tl_class'    => 'long clr',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => "mediumblob NULL"
+        ),
     ),
 );

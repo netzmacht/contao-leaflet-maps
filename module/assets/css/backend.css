@@ -22,3 +22,7 @@
 .tl_listing_container.tree_view  ul[class="level_1"] li.tl_file > .tl_left {
     padding-left: 20px !important;
 }
+
+.long .tl_text_2 {
+    width: 325px;
+}
