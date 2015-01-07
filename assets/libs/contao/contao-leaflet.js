@@ -102,9 +102,30 @@ L.Contao = L.Class.extend( {
      * @returns {L.Marker}|{*}
      */
     pointToLayer: function(feature, latlng) {
-        var marker = L.marker(latlng, feature.properties.options);
+        var type   = 'marker';
+        var marker = null;
 
         if (feature.properties) {
+            if (feature.properties.type) {
+                type = feature.properties.type;
+            }
+
+            // constructor arguments given, use them.
+            if (feature.properties.arguments) {
+                marker = L[type].apply(L[type], feature.properties.arguments);
+                L.Util.setOptions(marker, feature.properties.options);
+            }
+        }
+
+        if (marker === null) {
+            marker = L[type](latlng, feature.properties.options);
+        }
+
+        if (feature.properties) {
+            if (feature.properties.radius) {
+                marker.setRadius(feature.properties.radius);
+            }
+
             if (feature.properties.icon) {
                 var icon = this.getIcon(feature.properties.icon);
 
@@ -116,9 +137,19 @@ L.Contao = L.Class.extend( {
             this.bindPopupFromFeature(marker, feature);
         }
 
-        this.fire('marker:created', { marker: marker, feature: feature, latlng: latlng });
+        this.fire('point:added', { marker: marker, feature: feature, latlng: latlng, type: type });
 
         return marker;
+    },
+
+    onEachFeature: function (feature, layer) {
+        if (feature.properties) {
+            L.Util.setOptions(layer, feature.properties.options);
+
+            this.bindPopupFromFeature(layer, feature);
+
+            this.fire('feature:added', { feature: feature, layer: layer});
+        }
     },
 
     /**

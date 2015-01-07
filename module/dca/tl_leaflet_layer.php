@@ -129,7 +129,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'group extends default' => array(
             '+title' => array('groupType'),
-        ) ,
+        ),
+        'vectors extends default' => array(
+            '+active' => array('deferred'),
+        ),
     ),
 
     'metasubselectpalettes' => array(
@@ -263,8 +266,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false),
-            'sql'       => "char(1) NOT NULL default ''"
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default '1'"
         ),
         'groupType'                  => array
         (
