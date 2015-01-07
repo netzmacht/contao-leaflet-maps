@@ -131,31 +131,34 @@ class BootSubscriber implements EventSubscriberInterface
 
         if ($collection) {
             /** @var DefinitionMapper $mapper */
-            $buffer  = '';
-            $mapper  = $GLOBALS['container']['leaflet.definition.mapper'];
+            $mapper = $GLOBALS['container']['leaflet.definition.mapper'];
+            $buffer = '';
+            $icons  = array();
+
             /** @var Leaflet $builder */
             $builder = $GLOBALS['container']['leaflet.definition.builder'];
             $encoder = $builder->getBuilder()->getEncoder();
 
             foreach ($collection as $model) {
                 /** @var Icon $icon */
-                $icon = $mapper->handle($model);
-
-                $buffer .= sprintf(
-                    'ContaoLeaflet.addIcon(\'%s\', L.icon(%s));' . "\n",
-                    $model->alias ?: ('icon_' . $model->id),
-                    $encoder->encodeValue($icon->getOptions())
+                $icon    = $mapper->handle($model);
+                $icons[] = array(
+                    'id'      => $icon->getId(),
+                    'type'    => lcfirst($icon->getType()),
+                    'options' => $icon->getOptions(),
                 );
             }
 
-            if ($buffer) {
-                $file = new \File('assets/leaflet/js/icons.js');
-                $file->write($buffer);
-                $file->close();
-
-                // TODO: Cache it.
-                $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js|static';
+            if ($icons) {
+                $buffer = sprintf('ContaoLeaflet.loadIcons(%s);', $encoder->encodeValue($icons));
             }
+
+            $file = new \File('assets/leaflet/js/icons.js');
+            $file->write($buffer);
+            $file->close();
+
+            // TODO: Cache it.
+            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js|static';
         }
     }
 }

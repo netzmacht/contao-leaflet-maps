@@ -34,6 +34,17 @@ class ImageIconMapper extends AbstractIconMapper
      */
     protected static $type = 'image';
 
+    /**
+     * {@inheritdoc}
+     */
+    protected function initialize()
+    {
+        $this->addConditionalOption('className');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         $arguments = parent::buildConstructArguments($model, $mapper, $bounds);
@@ -49,7 +60,9 @@ class ImageIconMapper extends AbstractIconMapper
         return $arguments;
     }
 
-
+    /**
+     * {@inheritdoc}
+     */
     protected function doBuild(
         Definition $definition,
         \Model $model,
@@ -63,8 +76,12 @@ class ImageIconMapper extends AbstractIconMapper
     }
 
     /**
-     * @param Icon      $definition
-     * @param IconModel $model
+     * Add icon image.
+     *
+     * @param Icon      $definition The icon definition.
+     * @param IconModel $model      The model.
+     *
+     * @return void
      */
     private function addIcon(Icon $definition, IconModel $model)
     {
@@ -82,7 +99,7 @@ class ImageIconMapper extends AbstractIconMapper
                 }
 
                 if (!$model->popupAnchor) {
-                    $definition->setPopupAnchor(array(0, 10 - $file->height));
+                    $definition->setPopupAnchor(array(0, 8 - $file->height));
                 }
             }
         }
@@ -100,6 +117,14 @@ class ImageIconMapper extends AbstractIconMapper
         }
     }
 
+    /**
+     * Add shadow if defined.
+     *
+     * @param Icon      $definition The icon definition.
+     * @param IconModel $model      The model.
+     *
+     * @return void
+     */
     private function addShadow(Icon $definition, $model)
     {
         if ($model->shadowImage) {

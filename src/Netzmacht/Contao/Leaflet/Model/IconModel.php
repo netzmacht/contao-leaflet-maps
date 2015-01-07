@@ -17,6 +17,9 @@ namespace Netzmacht\Contao\Leaflet\Model;
  * @property mixed|null iconAnchor
  * @property mixed|null popupAnchor
  * @property mixed|null iconRetinaImage
+ * @property mixed|null shadowAnchor
+ * @property mixed|null shadowRetinaImage
+ * @property mixed|null shadowImage
  */
 class IconModel extends \Model
 {
