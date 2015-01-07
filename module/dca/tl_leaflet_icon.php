@@ -107,7 +107,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'iconRetinaImage',
                 'iconAnchor',
                 'popupAnchor',
-                'iconClassName',
+                'className',
             ),
             'shadow'  => array(
                 'shadowImage',
@@ -280,8 +280,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['className'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''"
+            'eval'      => array('mandatory' => false, 'maxlength' => 64, 'tl_class' => 'w50'),
+            'sql'       => "varchar(64) NOT NULL default ''"
         ),
     ),
 );

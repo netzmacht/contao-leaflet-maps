@@ -27,3 +27,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_icon']['shadowAnchor'][0]      = 'Shadow anchor'
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['shadowAnchor'][1]      = 'The coordinates of the "tip" of the shadow (relative to its top left corner) (the same as iconAnchor if not specified).';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['active'][0]            = 'Activate the icon';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['active'][1]            = 'Activate the icon.';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['className'][0]         = 'Class name';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['className'][1]         = 'A custom class name to assign to both icon and shadow images. Empty by default.';
