@@ -104,32 +104,37 @@ L.Contao = L.Class.extend( {
     pointToLayer: function(feature, latlng) {
         var marker = L.marker(latlng, feature.properties.options);
 
-        if (feature.properties && feature.properties.icon) {
-            var icon = this.getIcon(feature.properties.icon);
+        if (feature.properties) {
+            if (feature.properties.icon) {
+                var icon = this.getIcon(feature.properties.icon);
 
-            if (icon) {
-                marker.setIcon(icon);
+                if (icon) {
+                    marker.setIcon(icon);
+                }
             }
+
+            this.bindPopupFromFeature(marker, feature);
         }
 
-        this.applyFeatureMethods(marker, feature);
         this.fire('marker:created', { marker: marker, feature: feature, latlng: latlng });
 
         return marker;
     },
 
     /**
-     * Apply feature methods.
+     * Bind popup from feature definitions.
      *
-     * @param obj
-     * @param feature
+     * It accepts popup or popupContent as property.
+     *
+     * @param obj     The object
+     * @param feature The geo json feature.
      */
-    applyFeatureMethods: function(obj, feature) {
-        if (feature.properties && feature.properties.methods) {
-            for (var i=0; i < feature.properties.methods.length; i++) {
-                var method = feature.properties.methods[i];
-
-                obj[method[0]].apply(obj, method[1]);
+    bindPopupFromFeature: function (obj, feature) {
+        if (feature.properties) {
+            if (feature.properties.popup) {
+                obj.bindPopup(feature.properties.popup);
+            } else if (feature.properties.popupContent) {
+                obj.bindPopup(feature.properties.popupContent);
             }
         }
     }
