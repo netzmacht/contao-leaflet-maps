@@ -49,10 +49,17 @@ class Layer
             : $GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][1];
 
         if (!empty($this->layers[$row['type']]['icon'])) {
-            $icon = \Image::getHtml($this->layers[$row['type']]['icon'], $alt, sprintf('title="%s"', $title));
+            $src = $this->layers[$row['type']]['icon'];
+
         } else {
-            $icon = \Image::getHtml('iconPLAIN.gif', $alt, sprintf('title="%s"', $title));
+            $src = 'iconPLAIN.gif';
         }
+
+        if (!$row['active']) {
+            $src = preg_replace('/(\.[^\.]+)$/', '_1$1', $src);
+        }
+
+        $icon = \Image::getHtml($src, $alt, sprintf('title="%s"', $title));
 
         return $icon . ' ' . $label;
     }
