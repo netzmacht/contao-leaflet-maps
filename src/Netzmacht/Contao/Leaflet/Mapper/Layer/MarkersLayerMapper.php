@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
+use Netzmacht\Contao\Leaflet\Request\RequestUrl;
 use Netzmacht\Javascript\Type\Value\Reference;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
@@ -63,8 +64,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         LatLngBounds $bounds = null
     ) {
         if ($definition instanceof GeoJsonAjax) {
-            $base = \Config::get('websitePath') . '/assets/leaflet/geojson.php?id=';
-            $definition->setUrl($base . $model->id);
+            $definition->setUrl(RequestUrl::create($model->id));
         } elseif ($definition instanceof LayerGroup) {
             $collection = $this->loadMarkerModels($model);
 
