@@ -14,8 +14,11 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['leaflet_map'] = array(
     'inputType'        => 'select',
     'exclude'          => true,
     'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Content', 'getMaps'),
+    'wizard'           => array(
+        array('Netzmacht\Contao\Leaflet\Dca\Content', 'getEditMapLink'),
+    ),
     'eval'             => array(
-        'tl_class' => 'w50',
+        'tl_class' => 'w50 wizard',
         'chosen'   => true,
     ),
     'sql'              => "int(10) unsigned NOT NULL default '0'"

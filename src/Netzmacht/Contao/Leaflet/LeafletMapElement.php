@@ -11,6 +11,9 @@
 
 namespace Netzmacht\Contao\Leaflet;
 
+use Netzmacht\Contao\Leaflet\Mapper\MapMapper;
+use Netzmacht\Contao\Leaflet\Model\MapModel;
+
 /**
  * @property int leaflet_map
  */
@@ -39,6 +42,29 @@ class LeafletMapElement extends \ContentElement
         parent::__construct($objElement, $strColumn);
 
         $this->mapService = $GLOBALS['container']['leaflet.map.service'];
+    }
+
+    public function generate()
+    {
+        if (TL_MODE === 'BE') {
+            $model = MapModel::findByPK($this->leaflet_map);
+
+            $template = new \BackendTemplate('be_wildcard');
+
+            if ($model) {
+                $href = 'contao/main.php?do=leaflet&amp;table=tl_leaflet_map&amp;act=edit&amp;id=' . $model->id;
+
+                $template->wildcard = '### LEAFLET MAP ' . $model->title . ' ###';
+                $template->title    = $this->headline;
+                $template->id       = $model->id;
+                $template->link     = $model->title;
+                $template->href     = $href;
+            }
+
+            return $template->parse();
+        }
+
+        return parent::generate();
     }
 
     /**

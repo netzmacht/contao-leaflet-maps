@@ -37,4 +37,34 @@ class Content
 
         return $options;
     }
+
+    public function getEditMapLink($dataContainer)
+    {
+        if ($dataContainer->value < 1) {
+            return '';
+        }
+
+        return sprintf(
+            '<a href="%s%s&amp;popup=1&amp;rt=%s" %s>%s</a>',
+            'contao/main.php?do=leaflet&amp;table=tl_leaflet_map&amp;act=edit&amp;id=',
+            $dataContainer->value,
+            \RequestToken::get(),
+            sprintf(
+                'title="%s" style="padding-left: 3px" '
+                 . 'onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s\',\'url\':this.href});return false"',
+                specialchars(sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dataContainer->value)),
+                specialchars(
+                    str_replace(
+                        "'",
+                        "\\'",
+                        sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dataContainer->value)
+                    )
+                )
+            ),
+            \Image::getHtml(
+                'alias.gif',
+                $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"'
+            )
+        );
+    }
 }
