@@ -107,7 +107,8 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     {
         $collection = MarkerModel::findBy(
             array('active=1', 'pid=?'),
-            array($model->id)
+            array($model->id),
+            array('order' => 'sorting')
         );
 
         return $collection;

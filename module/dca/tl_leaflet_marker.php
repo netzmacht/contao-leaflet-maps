@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         'sorting' => array
         (
             'mode'                    => 4,
-            'fields'                  => array('title'),
+            'fields'                  => array('sorting'),
             'flag'                    => 1,
             'headerFields'            => array('title', 'type'),
             'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'generateRow'),
@@ -120,6 +120,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'sql' => "int(10) unsigned NOT NULL auto_increment"
         ),
         'tstamp'       => array
+        (
+            'sql' => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'sorting'               => array
         (
             'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
