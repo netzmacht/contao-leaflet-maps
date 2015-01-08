@@ -1,6 +1,7 @@
 L.Contao = L.Class.extend( {
     includes: L.Mixin.Events,
 
+    attribution: ' | <a href="http://contao-leaflet.netzmacht.de/" title="Leaflet extension for Contao CMS">netzmacht <em>creative</em></a>',
     /**
      * The map registry.
      */
@@ -38,6 +39,8 @@ L.Contao = L.Class.extend( {
      * @returns {L.Contao}
      */
     addMap: function (id, map) {
+        map.map.attributionControl.setPrefix(map.map.attributionControl.options.prefix + this.attribution);
+
         this.maps[id] = map;
 
         this.fire('map:added', { id: id, map: map});

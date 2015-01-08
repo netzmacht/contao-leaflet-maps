@@ -30,30 +30,9 @@ class EncoderSubscriber implements EventSubscriberInterface
         return array(
             BuildEvent::NAME => array(
                 array('startWrapper', 1000),
-                array('addAttribution'),
                 array('endWrapper', -1000)
             )
         );
-    }
-
-    /**
-     * Add contao-leaflet attribution.
-     *
-     * @param BuildEvent $event
-     */
-    public function addAttribution(BuildEvent $event)
-    {
-        $object = $event->getObject();
-
-        if ($object instanceof Map) {
-            $attribution = <<<HTML
-map.map.attributionControl.setPrefix(
-    '<a href="http://www.leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | ' +
-    '<a href="http://www.netzmacht.de/contao-leaflet" title="Leaflet extension for Contao CMS">netzmacht <em>creative</em></a>'
-);
-HTML;
-            $event->getOutput()->addLine($attribution);
-        }
     }
 
     /**
