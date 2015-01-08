@@ -16,7 +16,7 @@ use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Type\Icon;
+use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
 
@@ -80,7 +80,7 @@ class MarkerMapper extends AbstractMapper
                 );
 
                 if ($iconModel) {
-                    /** @var Icon $icon */
+                    /** @var ImageIcon $icon */
                     $icon = $builder->handle($iconModel);
                     $definition->setIcon($icon);
                 }

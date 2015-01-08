@@ -19,7 +19,7 @@ use Netzmacht\Contao\Leaflet\Event\InitializeLeafletBuilderEvent;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\LeafletPHP\Assets;
-use Netzmacht\LeafletPHP\Definition\Type\Icon;
+use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -136,7 +136,7 @@ class BootSubscriber implements EventSubscriberInterface
             $icons  = array();
 
             foreach ($collection as $model) {
-                /** @var Icon $icon */
+                /** @var ImageIcon $icon */
                 $icon    = $mapper->handle($model);
                 $icons[] = array(
                     'id'      => $icon->getId(),

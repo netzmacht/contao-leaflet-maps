@@ -22,4 +22,12 @@ class AbstractIconMapper extends AbstractTypeMapper
      * @var string
      */
     protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\IconModel';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function initialize()
+    {
+        $this->addConditionalOption('className');
+    }
 }

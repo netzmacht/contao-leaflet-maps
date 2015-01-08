@@ -1,7 +1,13 @@
-L.Contao = L.Class.extend( {
+L.Contao = L.Class.extend({
     includes: L.Mixin.Events,
 
+    /**
+     * Contao extension attribution.
+     *
+     * You are not allowed to remove or change it. Contact me if you want to buy an removal license.
+     */
     attribution: ' | <a href="http://contao-leaflet.netzmacht.de/" title="Leaflet extension for Contao CMS">netzmacht <em>creative</em></a>',
+
     /**
      * The map registry.
      */

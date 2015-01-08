@@ -15,7 +15,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Type\Icon;
+use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 class ImageIconMapper extends AbstractIconMapper
@@ -25,7 +25,7 @@ class ImageIconMapper extends AbstractIconMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Type\Icon';
+    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Type\ImageIcon';
 
     /**
      * Layer type.
@@ -33,14 +33,6 @@ class ImageIconMapper extends AbstractIconMapper
      * @var string
      */
     protected static $type = 'image';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function initialize()
-    {
-        $this->addConditionalOption('className');
-    }
 
     /**
      * {@inheritdoc}
@@ -69,7 +61,7 @@ class ImageIconMapper extends AbstractIconMapper
         DefinitionMapper $mapper,
         LatLngBounds $bounds = null
     ) {
-        if ($definition instanceof Icon) {
+        if ($definition instanceof ImageIcon) {
             $this->addIcon($definition, $model);
             $this->addShadow($definition, $model);
         }
@@ -78,12 +70,12 @@ class ImageIconMapper extends AbstractIconMapper
     /**
      * Add icon image.
      *
-     * @param Icon      $definition The icon definition.
+     * @param ImageIcon      $definition The icon definition.
      * @param IconModel $model      The model.
      *
      * @return void
      */
-    private function addIcon(Icon $definition, IconModel $model)
+    private function addIcon(ImageIcon $definition, IconModel $model)
     {
         if ($model->iconImage) {
             $file = \FilesModel::findByUuid($model->iconImage);
@@ -120,12 +112,12 @@ class ImageIconMapper extends AbstractIconMapper
     /**
      * Add shadow if defined.
      *
-     * @param Icon      $definition The icon definition.
+     * @param ImageIcon      $definition The icon definition.
      * @param IconModel $model      The model.
      *
      * @return void
      */
-    private function addShadow(Icon $definition, $model)
+    private function addShadow(ImageIcon $definition, $model)
     {
         if ($model->shadowImage) {
             $file = \FilesModel::findByUuid($model->shadowImage);

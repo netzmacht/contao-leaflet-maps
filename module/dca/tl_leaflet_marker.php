@@ -35,6 +35,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         ),
         'global_operations' => array
         (
+            'icons' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'],
+                'href'                => 'table=tl_leaflet_icon&id=',
+                'icon'                => 'system/modules/leaflet/assets/img/icons.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
+            ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],

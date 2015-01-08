@@ -102,7 +102,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
         ),
         'image extends default' => array(
             'config'  => array(
-                '',
                 'iconImage',
                 'iconRetinaImage',
                 'iconAnchor',
@@ -113,6 +112,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'shadowImage',
                 'shadowRetinaImage',
                 'shadowAnchor',
+            ),
+            'active' => array(
+                'active'
+            )
+        ),
+
+        'div extends default' => array(
+            'config' => array(
+                'html',
+                'iconSize',
+                'iconAnchor',
+                'popupAnchor',
+                'className',
             ),
             'active' => array(
                 'active'
@@ -282,6 +294,33 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 64, 'tl_class' => 'w50'),
             'sql'       => "varchar(64) NOT NULL default ''"
+        ),
+        'iconSize'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['iconSize'],
+            'exclude'       => true,
+            'inputType'     => 'text',
+            'eval'          => array(
+                'maxlength'   => 64,
+                'tl_class'    => 'w50',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => "varchar(64) NULL"
+        ),
+        'html'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['html'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'style'          => 'height:60px',
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|html',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
         ),
     ),
 );
