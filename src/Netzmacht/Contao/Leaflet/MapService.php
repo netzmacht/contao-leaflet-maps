@@ -17,7 +17,6 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
-use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJson;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Leaflet;
@@ -43,6 +42,7 @@ class MapService
      * @var Leaflet
      */
     private $leaflet;
+
     /**
      * @var EventDispatcher
      */
@@ -65,7 +65,7 @@ class MapService
     /**
      * Get map definition.
      *
-     * @param int          $mapId     The map database id.
+     * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
      * @param LatLngBounds $bounds    Optional bounds where elements should be in.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
@@ -73,7 +73,11 @@ class MapService
      */
     public function getDefinition($mapId, LatLngBounds $bounds = null, $elementId = null)
     {
-        $model = $this->getModel($mapId);
+        if ($mapId instanceof MapModel) {
+            $model = $mapId;
+        } else {
+            $model = $this->getModel($mapId);
+        }
 
         return $this->mapper->handle($model, $bounds, $elementId);
     }
@@ -101,7 +105,7 @@ class MapService
     /**
      * Get map javascript.
      *
-     * @param int          $mapId     The map id.
+     * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
      * @param LatLngBounds $bounds    Optional bounds where elements should be in.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
@@ -122,14 +126,18 @@ class MapService
     /**
      * Get feature collection of a layer.
      *
-     * @param int          $layerId The layer id.
-     * @param LatLngBounds $bounds  Filter features in the bounds.
+     * @param LayerModel|int $layerId The layer database id or layer model.
+     * @param LatLngBounds   $bounds  Filter features in the bounds.
      *
      * @return FeatureCollection
      */
     public function getFeatureCollection($layerId, LatLngBounds $bounds = null)
     {
-        $model = LayerModel::findByPK($layerId);
+        if ($layerId instanceof LayerModel) {
+            $model = $layerId;
+        } else {
+            $model = LayerModel::findByPK($layerId);
+        }
 
         if (!$model || !$model->active) {
             throw new \InvalidArgumentException(sprintf('Could not find layer "%s"', $layerId));
