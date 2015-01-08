@@ -15,7 +15,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Request\RequestUrl;
-use Netzmacht\Javascript\Type\Value\Reference;
+use Netzmacht\Javascript\Type\Value\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
@@ -42,16 +42,13 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * {@inheritdoc}
      */
-    protected function createInstance(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         if ($model->deferred) {
-            $reflector = new \ReflectionClass('Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax');
-            $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds));
-
-            return $instance;
+            return 'Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax';
         }
 
-        return parent::createInstance($model, $mapper, $bounds);
+        return parent::getClassName($model, $mapper, $bounds);
     }
 
     /**
@@ -76,7 +73,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         }
 
         if ($definition instanceof GeoJson) {
-            $definition->setPointToLayer(new Reference('ContaoLeaflet.pointToLayer', 'ContaoLeaflet'));
+            $definition->setPointToLayer(new Expression('ContaoLeaflet.pointToLayer.bind(ContaoLeaflet)'));
         }
     }
 

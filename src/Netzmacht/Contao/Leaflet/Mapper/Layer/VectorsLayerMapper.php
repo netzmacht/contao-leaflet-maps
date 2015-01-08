@@ -16,7 +16,7 @@ use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Model\VectorModel;
 use Netzmacht\Contao\Leaflet\Request\RequestUrl;
-use Netzmacht\Javascript\Type\Value\Reference;
+use Netzmacht\Javascript\Type\Value\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
@@ -77,8 +77,8 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         }
 
         if ($definition instanceof GeoJson) {
-            $definition->setOnEachFeature(new Reference('ContaoLeaflet.onEachFeature', 'ContaoLeaflet'));
-            $definition->setPointToLayer(new Reference('ContaoLeaflet.pointToLayer', 'ContaoLeaflet'));
+            $definition->setOnEachFeature(new Expression('ContaoLeaflet.onEachFeature.bind(ContaoLeaflet)'));
+            $definition->setPointToLayer(new Expression('ContaoLeaflet.pointToLayer.bind(ContaoLeaflet)'));
         }
     }
 
