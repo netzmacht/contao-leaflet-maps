@@ -49,10 +49,8 @@ class AbstractVectorMapper extends AbstractTypeMapper
     ) {
         parent::build($definition, $model, $builder, $bounds);
 
-        if ($definition instanceof Path) {
-            if ($model->addPopup) {
-                $definition->bindPopup($model->popupContent);
-            }
+        if ($model->addPopup) {
+            $definition->bindPopup($model->popupContent);
         }
     }
 }
