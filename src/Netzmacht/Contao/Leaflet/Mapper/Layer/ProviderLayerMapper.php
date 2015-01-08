@@ -53,18 +53,13 @@ class ProviderLayerMapper extends AbstractLayerMapper
     /**
      * {@inheritdoc}
      */
-    protected function createInstance(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         if (isset($this->providers[$model->tile_provider]['class'])) {
-            $class = $this->providers[$model->tile_provider]['class'];
-        } else {
-            $class = static::$definitionClass;
+            return $this->providers[$model->tile_provider]['class'];
         }
 
-        $reflector = new \ReflectionClass($class);
-        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds));
-
-        return $instance;
+        return parent::getClassName($model, $mapper, $bounds);
     }
 
     /**

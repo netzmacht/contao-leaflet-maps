@@ -43,16 +43,13 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * {@inheritdoc}
      */
-    protected function createInstance(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         if ($model->deferred) {
-            $reflector = new \ReflectionClass('Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax');
-            $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds));
-
-            return $instance;
+            return 'Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax';
         }
 
-        return parent::createInstance($model, $mapper, $bounds);
+        return parent::getClassName($model, $mapper, $bounds);
     }
 
     /**
