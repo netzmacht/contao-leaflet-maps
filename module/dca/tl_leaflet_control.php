@@ -102,7 +102,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ),
         'attribution extends default' => array(
             'config' => array('attributions', 'prefix')
+        ),
+        'loading extends default' => array(
+            'config' => array('separate', 'zoomControl', 'spinjs')
         )
+    ),
+
+    'metasubpalettes' => array(
+        'spinjs' => array('spin')
     ),
 
     'fields' => array
@@ -310,6 +317,52 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'inputType' => 'listWizard',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr', 'allowHtml' => true),
             'sql'       => "mediumblob NULL"
+        ),
+        'separate'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['separate'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'zoomControl'         => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomControl'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Control', 'getZoomControls'),
+            'reference'        => &$GLOBALS['TL_LANG']['tl_leaflet_control'],
+            'eval' => array(
+                'mandatory'          => false,
+                'tl_class'           => 'w50',
+                'chosen'             => true,
+                'includeBlankOption' => true
+            ),
+            'sql'              => "varchar(255) NOT NULL default ''"
+        ),
+        'spinjs'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['spinjs'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'spin'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['spin'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'style'          => 'height:60px',
+                 'preserveTags'   => true,
+                 'decodeEntities' => true,
+                 'allowHtml'      => true,
+                 'rte'            => 'ace|json',
+                 'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
         ),
     ),
 );

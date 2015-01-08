@@ -16,6 +16,17 @@ L.Contao = L.Class.extend( {
      */
     initialize: function() {
         L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
+
+        // Bind triggered data:loading and data:loaded events to the map so that the loading indicator
+        // is aware of that. Dataloading and dataloaded are the default events which leaflet uses but leaflet.ajax not.
+        L.Map.addInitHook(function () {
+            var map = this;
+
+            this.on('layeradd', function(e) {
+                e.layer.on('data:loading', function() { map.fire('dataloading'); });
+                e.layer.on('data:loaded', function() { map.fire('dataload'); });
+            });
+        });
     },
 
     /**

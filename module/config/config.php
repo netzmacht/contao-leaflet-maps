@@ -48,6 +48,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ZoomCon
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ScaleControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\LayersControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\AttributionControlMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\LoadingControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\PolylineMapper';
@@ -115,7 +116,7 @@ $GLOBALS['LEAFLET_LAYERS'] = array
  *
  * Supported leaflet control types. Register your type for the database driven definition here.
  */
-$GLOBALS['LEAFLET_CONTROLS']   = array('zoom', 'layers', 'scale', 'attribution');
+$GLOBALS['LEAFLET_CONTROLS']   = array('zoom', 'layers', 'scale', 'attribution', 'loading');
 
 
 /*
@@ -181,3 +182,17 @@ $GLOBALS['LEAFLET_ASSETS']['leaflet-ajax'] = array(
     )
 );
 
+$GLOBALS['LEAFLET_ASSETS']['leaflet-loading'] = array(
+    'css' => array(
+        array('assets/leaflet/libs/leaflet-loading/Control.Loading.css', 'file')
+    ),
+    'javascript' => array(
+        array('assets/leaflet/libs/leaflet-loading/Control.Loading.js', 'file')
+    )
+);
+
+$GLOBALS['LEAFLET_ASSETS']['spin.js'] = array(
+    'javascript' => array(
+        array('assets/leaflet/libs/spin-js/spin.min.js', 'file')
+    )
+);

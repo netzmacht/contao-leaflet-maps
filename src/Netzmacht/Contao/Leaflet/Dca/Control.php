@@ -12,6 +12,8 @@
 namespace Netzmacht\Contao\Leaflet\Dca;
 
 
+use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
+use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 class Control
@@ -37,5 +39,12 @@ class Control
         }
 
         return $options;
+    }
+
+    public function getZoomControls()
+    {
+        $collection = ControlModel::findBy('type', 'zoom', array('order' => 'title'));
+
+        return OptionsBuilder::fromCollection($collection, 'id', 'title')->getOptions();
     }
 }
