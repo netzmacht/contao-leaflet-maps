@@ -1,5 +1,8 @@
 <?php
 
+\Controller::loadLanguageFile('leaflet');
+
+
 $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
 (
     'config' => array(
@@ -12,7 +15,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             (
                 'id' => 'primary'
             )
-        )
+        ),
     ),
 
     'list' => array
@@ -202,7 +205,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         ),
         'icon'         => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_content']['icon'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
             'exclude'   => true,
             'inputType' => 'select',
             'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'getIcons'),
@@ -218,7 +221,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['draggable'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'default'   => true,
+            'default'   => false,
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),
@@ -242,12 +245,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         ),
         'zIndexOffset' => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zIndexOffset'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['zIndexOffset'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => 0,
-            'eval'      => array('mandatory' => true, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'clr w50'),
-            'sql'       => "int(4) NOT NULL default '0'"
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'clr w50', 'nullIfEmpty' => true),
+            'sql'       => "int(5) NULL"
         ),
     ),
 );

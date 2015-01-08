@@ -1,5 +1,7 @@
 <?php
 
+\Controller::loadLanguageFile('leaflet');
+
 $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
 (
     'config' => array(
@@ -189,6 +191,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'includeBlankOption' => true,
                 'submitOnChange'     => true,
                 'chosen'             => true,
+                'helpwizard'         => true,
             ),
             'options'   => array_keys($GLOBALS['LEAFLET_LAYERS']),
             'reference' => &$GLOBALS['TL_LANG']['leaflet_layer'],

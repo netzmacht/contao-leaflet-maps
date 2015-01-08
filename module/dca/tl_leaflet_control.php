@@ -1,5 +1,7 @@
 <?php
 
+\Controller::loadLanguageFile('leaflet');
+
 $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
 (
     'config' => array(
@@ -157,8 +159,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 'includeBlankOption' => true,
                 'submitOnChange'     => true,
                 'chosen'             => true,
+                'helpwizard'         => true,
             ),
             'options'   => $GLOBALS['LEAFLET_CONTROLS'],
+            'reference' => &$GLOBALS['TL_LANG']['leaflet_control'],
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
         'position'  => array
@@ -323,7 +327,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['separate'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'eval'      => array('tl_class' => 'w50'),
+            'eval'      => array('tl_class' => 'w50 m12'),
             'sql'       => "char(1) NOT NULL default ''"
         ),
         'zoomControl'         => array

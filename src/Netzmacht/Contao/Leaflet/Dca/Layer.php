@@ -44,10 +44,6 @@ class Layer
             ? $row['type']
             : $GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0];
 
-        $title = empty($GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][1])
-            ? $row['type']
-            : $GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][1];
-
         if (!empty($this->layers[$row['type']]['icon'])) {
             $src = $this->layers[$row['type']]['icon'];
 
@@ -59,7 +55,7 @@ class Layer
             $src = preg_replace('/(\.[^\.]+)$/', '_1$1', $src);
         }
 
-        $icon = \Image::getHtml($src, $alt, sprintf('title="%s"', $title));
+        $icon = \Image::getHtml($src, $alt, sprintf('title="%s"', strip_tags($alt)));
 
         return $icon . ' ' . $label;
     }

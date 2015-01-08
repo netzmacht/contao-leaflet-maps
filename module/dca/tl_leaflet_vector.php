@@ -1,5 +1,7 @@
 <?php
 
+\Controller::loadLanguageFile('leaflet');
+
 $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
 (
     'config' => array(
@@ -54,19 +56,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'href'                => 'act=copy',
                 'icon'                => 'copy.gif'
             ),
+            'cut' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['cut'],
+                'href'                => 'act=paste&amp;mode=cut',
+                'icon'                => 'cut.gif',
+                'attributes'          => 'onclick="Backend.getScrollOffset()"',
+            ),
             'delete' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
-            ),
-            'cut' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['cut'],
-                'href'                => 'act=paste&amp;mode=cut',
-                'icon'                => 'cut.gif',
-                'attributes'          => 'onclick="Backend.getScrollOffset()"',
             ),
             'toggle' => array
             (
@@ -95,17 +97,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         'default' => array(
             'title'  => array('title', 'alias', 'type'),
             'data'   => array(),
-            'style'  => array(
-                ':hide',
-                'stroke',
-                'color',
-                'weight',
-                'opacity',
-                'dashArray',
-                'fill',
-                'lineCap',
-                'lineJoin',
-            ),
+            'style'  => array(':hide', 'stroke', 'fill'),
             'popup'  => array(':hide','addPopup'),
             'config' => array(':hide', 'clickable', 'className'),
             'active' => array('active')
@@ -136,7 +128,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         'circleMarker extends circle' => array(),
     ),
     'metasubpalettes' => array(
-        'addPopup'   => array('popupContent'),
+        'addPopup'  => array('popupContent'),
+        'stroke'    => array('color', 'weight', 'opacity', 'dashArray', 'lineCap', 'lineJoin'),
         'fill'      => array('fillColor', 'fillOpacity',)
     ),
 
@@ -176,7 +169,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         ),
         'type'                  => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['type'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['type'],
             'exclude'   => true,
             'inputType' => 'select',
             'eval'      => array(
@@ -185,9 +178,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'includeBlankOption' => true,
                 'submitOnChange'     => true,
                 'chosen'             => true,
+                'helpwizard'         => true,
             ),
             'options'   => &$GLOBALS['LEAFLET_VECTORS'],
-            'reference' => &$GLOBALS['TL_LANG']['leaflet_layer'],
+            'reference' => &$GLOBALS['TL_LANG']['leaflet_vector'],
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
         'active'                => array
@@ -221,7 +215,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50 m12'),
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default '1'"
         ),
         'color'                 => array
@@ -233,7 +227,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 \Netzmacht\Contao\DevTools\Dca::createColorPickerCallback(),
             ),
             'eval'      => array(
-                'tl_class'       => 'w50 wizard',
+                'tl_class'       => 'w50 wizard clr',
                 'maxlength'      => 7,
                 'decodeEntities' => true
             ),
@@ -245,7 +239,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => 5,
-            'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'clr w50'),
+            'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
             'sql'       => "int(4) NOT NULL default '5'"
         ),
         'opacity'  => array
@@ -262,7 +256,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['fill'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true),
+            'eval'      => array('tl_class' => 'clr w50', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default ''"
         ),
         'fillColor'                 => array
@@ -282,7 +276,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         ),
         'fillOpacity'  => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['weight'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['fillOpacity'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '0.2',
@@ -294,7 +288,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['dashArray'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 32, 'tl_class' => 'w50 clr'),
+            'eval'      => array('mandatory' => false, 'maxlength' => 32, 'tl_class' => 'w50'),
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
         'lineCap'        => array
