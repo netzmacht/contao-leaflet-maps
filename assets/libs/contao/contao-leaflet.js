@@ -166,6 +166,9 @@ L.Contao = L.Class.extend({
         if (feature.properties) {
             L.Util.setOptions(layer, feature.properties.options);
 
+            console.log(feature);
+            console.log(layer);
+
             this.bindPopupFromFeature(layer, feature);
 
             this.fire('feature:added', { feature: feature, layer: layer});

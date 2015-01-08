@@ -21,6 +21,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         (
             'mode'                    => 1,
             'fields'                  => array('title'),
+            'panelLayout'             => 'search,limit',
             'flag'                    => 1,
         ),
         'label' => array
@@ -135,6 +136,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['title'],
             'exclude'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -143,6 +145,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),

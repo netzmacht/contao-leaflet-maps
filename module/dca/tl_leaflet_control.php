@@ -26,6 +26,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'fields'                  => array('sorting'),
             'headerFields'            => array('title'),
             'flag'                    => 1,
+            'sorting'                 => 2,
+            'panelLayout'             => 'filter,sort;search,limit',
             'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Control', 'generateRow'),
         ),
         'label' => array
@@ -130,13 +132,17 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ),
         'sorting' => array
         (
-            'sql'       => "int(10) unsigned NOT NULL default '0'"
+            'sql'       => "int(10) unsigned NOT NULL default '0'",
+            'sorting'   => true,
         ),
         'title'  => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['title'],
             'exclude'   => true,
             'inputType' => 'text',
+            'sorting'   => true,
+            'search'    => true,
+            'flag'      => 1,
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -145,6 +151,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -153,6 +160,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['type'],
             'exclude'   => true,
             'inputType' => 'select',
+            'filter'    => true,
+            'sorting'   => true,
             'eval'      => array(
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
@@ -170,6 +179,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['position'],
             'exclude'   => true,
             'inputType' => 'select',
+            'filter'    => true,
             'options'   => array('topleft', 'topright', 'bottomleft', 'bottomright'),
             'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_control'],
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50', 'helpwizard' => true),
@@ -180,6 +190,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['active'],
             'exclude'   => true,
             'inputType' => 'checkbox',
+            'filter'    => true,
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),

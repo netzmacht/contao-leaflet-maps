@@ -24,6 +24,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'mode'                    => 4,
             'fields'                  => array('sorting'),
             'flag'                    => 1,
+            'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
             'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Vector', 'generateRow'),
         ),
@@ -149,13 +150,18 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         ),
         'sorting'               => array
         (
-            'sql' => "int(10) unsigned NOT NULL default '0'"
+            'sql'     => "int(10) unsigned NOT NULL default '0'",
+            'sorting' => true,
         ),
         'title'        => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['title'],
             'exclude'   => true,
             'inputType' => 'text',
+            'filter'    => false,
+            'sorting'   => true,
+            'search'    => true,
+            'flag'      => 1,
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -164,6 +170,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -172,6 +179,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['type'],
             'exclude'   => true,
             'inputType' => 'select',
+            'filter'    => true,
+            'sorting'   => true,
+            'search'    => false,
+            'flag'      => 1,
             'eval'      => array(
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
@@ -189,6 +200,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['active'],
             'exclude'   => true,
             'inputType' => 'checkbox',
+            'filter'    => true,
+            'sorting'   => true,
+            'search'    => false,
+            'flag'      => 12,
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),
@@ -197,6 +212,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['addPopup'],
             'exclude'   => true,
             'inputType' => 'checkbox',
+            'filter'    => true,
             'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default ''"
         ),

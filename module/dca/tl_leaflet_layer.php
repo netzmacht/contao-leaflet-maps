@@ -23,6 +23,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'fields'                  => array('title'),
             'flag'                    => 1,
             'icon'                    => 'system/modules/leaflet/assets/img/layers.png',
+            'panelLayout'             => 'filter;search,limit',
             'paste_button_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getPasteButtons'),
         ),
         'label' => array
@@ -158,7 +159,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'sorting'               => array
         (
-            'sql' => "int(10) unsigned NOT NULL default '0'"
+            'sql' => "int(10) unsigned NOT NULL default '0'",
         ),
         'tstamp'                => array
         (
@@ -169,6 +170,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['title'],
             'exclude'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -177,6 +179,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -185,6 +188,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['type'],
             'exclude'   => true,
             'inputType' => 'select',
+            'filter'    => true,
             'eval'      => array(
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
@@ -202,6 +206,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['active'],
             'exclude'   => true,
             'inputType' => 'checkbox',
+            'filter'    => true,
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),

@@ -21,6 +21,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'mode'                    => 1,
             'fields'                  => array('title'),
             'flag'                    => 1,
+            'panelLayout'             => 'limit',
             'headerFields'            => array('title', 'type'),
         ),
         'label' => array

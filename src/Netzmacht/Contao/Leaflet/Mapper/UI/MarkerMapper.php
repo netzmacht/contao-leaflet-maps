@@ -55,6 +55,7 @@ class MarkerMapper extends AbstractMapper
         $this
             ->addConditionalOption('tooltip', 'title', 'tooltip')
             ->addConditionalOption('alt')
+            ->addConditionalOption('zIndexOffset')
             ->addOptions('clickable', 'keyboard', 'draggable');
     }
 

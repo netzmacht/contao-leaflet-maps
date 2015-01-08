@@ -25,6 +25,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'mode'                    => 4,
             'fields'                  => array('sorting'),
             'flag'                    => 1,
+            'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
             'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'generateRow'),
         ),
@@ -125,7 +126,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         ),
         'sorting'               => array
         (
-            'sql' => "int(10) unsigned NOT NULL default '0'"
+            'sql' => "int(10) unsigned NOT NULL default '0'",
+            'sorting'   => true,
         ),
         'pid'          => array
         (
@@ -135,6 +137,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['title'],
             'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
+            'flag'      => 1,
             'inputType' => 'text',
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
@@ -144,6 +149,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
+            'search'    => true,
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -169,6 +175,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['active'],
             'exclude'   => true,
+            'filter'    => true,
+            'sorting'   => true,
+            'flag'      => 12,
             'inputType' => 'checkbox',
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
@@ -194,6 +203,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['addPopup'],
             'exclude'   => true,
             'inputType' => 'checkbox',
+            'filter'    => true,
             'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default ''"
         ),
