@@ -18,9 +18,8 @@ use Netzmacht\Contao\Leaflet\Event\InitializeEventDispatcherEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeLeafletBuilderEvent;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
-use Netzmacht\Javascript\Output;
+use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
-use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -97,15 +96,13 @@ class BootSubscriber implements EventSubscriberInterface
 
         foreach ($GLOBALS['LEAFLET_ASSETS'] as $name => $assets) {
             if (!empty($assets['css'])) {
-                foreach ($assets['css'] as $javascript) {
-                    $builder->registerStylesheet($name, $javascript[0], $javascript[1]);
-                }
+                list ($source, $type) = (array) $assets['css'];
+                $builder->registerStylesheet($name, $source, $type ?: Assets::TYPE_FILE);
             }
 
             if (!empty($assets['javascript'])) {
-                foreach ($assets['javascript'] as $javascript) {
-                    $builder->registerJavascript($name, $javascript[0], $javascript[1]);
-                }
+                list ($source, $type) = (array) $assets['javascript'];
+                $builder->registerJavascript($name, $source, $type ?: Assets::TYPE_FILE);
             }
         }
     }
@@ -117,7 +114,10 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function loadAssets()
     {
-        $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/contao/contao-leaflet.js|static';
+        $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/contao/contao-leaflet.js' . (\Config::get('debugMode')
+            ? ''
+            : '|static'
+        );
     }
 
     /**
@@ -135,10 +135,6 @@ class BootSubscriber implements EventSubscriberInterface
             $buffer = '';
             $icons  = array();
 
-            /** @var Leaflet $builder */
-            $builder = $GLOBALS['container']['leaflet.definition.builder'];
-            $encoder = $builder->getBuilder()->getEncoder();
-
             foreach ($collection as $model) {
                 /** @var Icon $icon */
                 $icon    = $mapper->handle($model);
@@ -150,7 +146,7 @@ class BootSubscriber implements EventSubscriberInterface
             }
 
             if ($icons) {
-                $buffer = sprintf('ContaoLeaflet.loadIcons(%s);', $encoder->encodeValue($icons));
+                $buffer = sprintf('ContaoLeaflet.loadIcons(%s);', json_encode($icons));
             }
 
             $file = new \File('assets/leaflet/js/icons.js');
@@ -158,7 +154,10 @@ class BootSubscriber implements EventSubscriberInterface
             $file->close();
 
             // TODO: Cache it.
-            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js|static';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js' . (\Config::get('debugMode')
+                ? ''
+                : '|static'
+            );
         }
     }
 }

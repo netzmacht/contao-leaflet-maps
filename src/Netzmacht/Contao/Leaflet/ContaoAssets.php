@@ -35,7 +35,10 @@ class ContaoAssets implements Assets
                 break;
 
             case static::TYPE_FILE:
-                $script .= '|static';
+                if (!\Config::get('debugMode')) {
+                    $script .= '|static';
+                }
+
                 // no break
 
             default:
@@ -54,7 +57,9 @@ class ContaoAssets implements Assets
                 break;
 
             case static::TYPE_FILE:
-                $stylesheet .= '|all|static';
+                if (!\Config::get('debugMode')) {
+                    $stylesheet .= '|all|static';
+                }
                 // no break
 
             default:

@@ -160,39 +160,32 @@ require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
  *  - url:    An valid url.
  *  - file:   An file path relative to the Contao Root.
  *  - source: Inline css/javascript.
+ *
+ * You don't have to define it as array if you simply add a file. Do not add |static and or media type flag to it.
+ * It's getting added by default if not being in debug mode.
  */
-$GLOBALS['LEAFLET_ASSETS']['leaflet'] = array(
-    'css' => array(
-        array('assets/leaflet/libs/leaflet/leaflet.css', 'file')
+$GLOBALS['LEAFLET_ASSETS'] = array
+(
+    'leaflet'           => array
+    (
+        'css'        => 'assets/leaflet/libs/leaflet/leaflet.css',
+        'javascript' => 'assets/leaflet/libs/leaflet/leaflet.js'
     ),
-    'javascript' => array(
-        array('assets/leaflet/libs/leaflet/leaflet.js', 'file')
-    )
-);
-
-$GLOBALS['LEAFLET_ASSETS']['leaflet-providers'] = array(
-    'javascript' => array(
-        array('assets/leaflet/libs/leaflet-providers/leaflet-providers.js', 'file')
-    )
-);
-
-$GLOBALS['LEAFLET_ASSETS']['leaflet-ajax'] = array(
-    'javascript' => array(
-        array('assets/leaflet/libs/leaflet-ajax/leaflet.ajax.min.js', 'file')
-    )
-);
-
-$GLOBALS['LEAFLET_ASSETS']['leaflet-loading'] = array(
-    'css' => array(
-        array('assets/leaflet/libs/leaflet-loading/Control.Loading.css', 'file')
+    'leaflet-providers' => array
+    (
+        'javascript' => 'assets/leaflet/libs/leaflet-providers/leaflet-providers.js'
     ),
-    'javascript' => array(
-        array('assets/leaflet/libs/leaflet-loading/Control.Loading.js', 'file')
-    )
-);
-
-$GLOBALS['LEAFLET_ASSETS']['spin.js'] = array(
-    'javascript' => array(
-        array('assets/leaflet/libs/spin-js/spin.min.js', 'file')
+    'leaflet-ajax'      => array
+    (
+        'javascript' => 'assets/leaflet/libs/leaflet-ajax/leaflet.ajax.min.js'
+    ),
+    'leaflet-loading'   => array
+    (
+        'css'        => 'assets/leaflet/libs/leaflet-loading/Control.Loading.css',
+        'javascript' => 'assets/leaflet/libs/leaflet-loading/Control.Loading.js'
+    ),
+    'spin.js'           => array
+    (
+        'javascript' => 'assets/leaflet/libs/spin-js/spin.min.js'
     )
 );
