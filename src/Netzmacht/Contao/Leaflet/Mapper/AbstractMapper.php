@@ -15,7 +15,9 @@ use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
- * Class AbstractMapper.
+ * Class AbstractMapper is made for mapping Contao models to the definition.
+ *
+ * For custom sources besides Contao models use your own implementation of the mapper interface.
  *
  * @package Netzmacht\Contao\Leaflet\Mapper
  */
@@ -149,7 +151,7 @@ abstract class AbstractMapper implements Mapper
     /**
      * {@inheritdoc}
      */
-    public function handle(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         $definition = $this->createInstance($model, $mapper, $bounds);
 
@@ -163,7 +165,7 @@ abstract class AbstractMapper implements Mapper
     /**
      * {@inheritdoc}
      */
-    public function match(\Model $model)
+    public function match($model, LatLngBounds $bounds = null)
     {
         $modelClass = static::$modelClass;
 

@@ -11,12 +11,14 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
+use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+
 
 abstract class AbstractTypeMapper extends AbstractMapper
 {
     protected static $type;
 
-    public function match(\Model $model)
+    public function match($model, LatLngBounds $bounds = null)
     {
         return parent::match($model) && $model->type === static::$type;
     }

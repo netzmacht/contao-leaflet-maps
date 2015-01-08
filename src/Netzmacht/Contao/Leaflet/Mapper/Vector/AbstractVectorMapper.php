@@ -16,7 +16,6 @@ use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
-use Netzmacht\LeafletPHP\Definition\Vector\Path;
 
 class AbstractVectorMapper extends AbstractTypeMapper
 {
@@ -49,7 +48,7 @@ class AbstractVectorMapper extends AbstractTypeMapper
     ) {
         parent::build($definition, $model, $builder, $bounds);
 
-        if ($model->addPopup) {
+        if ($definition instanceof Definition\HasPopup && $model->addPopup) {
             $definition->bindPopup($model->popupContent);
         }
     }
