@@ -51,7 +51,7 @@ class MapMapper extends AbstractMapper
     /**
      * @inheritdoc
      */
-    protected function doBuild(Definition $map, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
+    protected function build(Definition $map, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
     {
         if ($map instanceof Map && $model instanceof MapModel) {
             $this->buildCustomOptions($map, $model);

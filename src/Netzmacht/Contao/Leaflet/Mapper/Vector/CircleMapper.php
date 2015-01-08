@@ -41,13 +41,13 @@ class CircleMapper extends AbstractVectorMapper
         $this->addOption('radius');
     }
 
-    protected function doBuild(
+    protected function build(
         Definition $definition,
         \Model $model,
         DefinitionMapper $builder,
         LatLngBounds $bounds = null
     ) {
-        parent::doBuild($definition, $model, $builder, $bounds);
+        parent::build($definition, $model, $builder, $bounds);
 
         if ($definition instanceof Circle) {
             $definition->setLatLng(LatLng::fromString($model->coordinates));

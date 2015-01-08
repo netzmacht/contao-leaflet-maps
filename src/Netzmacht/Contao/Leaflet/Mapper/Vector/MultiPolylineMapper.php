@@ -36,13 +36,13 @@ class MultiPolylineMapper extends AbstractVectorMapper
     protected static $type = 'multiPolyline';
 
 
-    protected function doBuild(
+    protected function build(
         Definition $definition,
         \Model $model,
         DefinitionMapper $builder,
         LatLngBounds $bounds = null
     ) {
-        parent::doBuild($definition, $model, $builder, $bounds);
+        parent::build($definition, $model, $builder, $bounds);
 
         if ($definition instanceof MultiPolyline) {
             $latLngs = array();

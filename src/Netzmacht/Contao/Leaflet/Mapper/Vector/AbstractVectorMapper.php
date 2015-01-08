@@ -41,13 +41,13 @@ class AbstractVectorMapper extends AbstractTypeMapper
         ;
     }
 
-    protected function doBuild(
+    protected function build(
         Definition $definition,
         \Model $model,
         DefinitionMapper $builder,
         LatLngBounds $bounds = null
     ) {
-        parent::doBuild($definition, $model, $builder, $bounds);
+        parent::build($definition, $model, $builder, $bounds);
 
         if ($definition instanceof Path) {
             if ($model->addPopup) {

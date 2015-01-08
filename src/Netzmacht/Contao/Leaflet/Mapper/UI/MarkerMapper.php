@@ -61,7 +61,7 @@ class MarkerMapper extends AbstractMapper
     /**
      * {@inheritdoc}
      */
-    protected function doBuild(
+    protected function build(
         Definition $definition,
         \Model $model,
         DefinitionMapper $builder,

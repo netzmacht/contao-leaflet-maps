@@ -15,9 +15,9 @@ use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
- * Class AbstractBuilder.
+ * Class AbstractMapper.
  *
- * @package Netzmacht\Contao\Leaflet\Builder
+ * @package Netzmacht\Contao\Leaflet\Mapper
  */
 abstract class AbstractMapper implements Mapper
 {
@@ -149,13 +149,13 @@ abstract class AbstractMapper implements Mapper
     /**
      * {@inheritdoc}
      */
-    public function handle(\Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
+    public function handle(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
-        $definition = $this->createInstance($model, $builder, $bounds);
+        $definition = $this->createInstance($model, $mapper, $bounds);
 
         $this->buildOptions($definition, $model);
         $this->buildConditionals($definition, $model);
-        $this->doBuild($definition, $model, $builder, $bounds);
+        $this->build($definition, $model, $mapper, $bounds);
 
         return $definition;
     }
@@ -171,13 +171,12 @@ abstract class AbstractMapper implements Mapper
     }
 
     /**
-     * Initialize the builder.
+     * Initialize the mapper.
      *
      * @return void
      */
     protected function initialize()
     {
-
     }
 
     /**
@@ -185,15 +184,15 @@ abstract class AbstractMapper implements Mapper
      *
      * @param Definition       $definition The definition being built.
      * @param \Model           $model      The model.
-     * @param DefinitionMapper $builder    The definition builder.
+     * @param DefinitionMapper $mapper     The definition mapper.
      * @param LatLngBounds     $bounds     Optional bounds where elements should be in.
      *
      * @return void
      */
-    protected function doBuild(
+    protected function build(
         Definition $definition,
         \Model $model,
-        DefinitionMapper $builder,
+        DefinitionMapper $mapper,
         LatLngBounds $bounds = null
     ) {
     }
@@ -209,7 +208,7 @@ abstract class AbstractMapper implements Mapper
      */
     protected function createInstance(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
-        $reflector = new \ReflectionClass(static::$definitionClass);
+        $reflector = new \ReflectionClass($this->getClassName($model, $mapper, $bounds));
         $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds));
 
         return $instance;
@@ -330,5 +329,19 @@ abstract class AbstractMapper implements Mapper
         }
 
         return null;
+    }
+
+    /**
+     * Get definition class name.
+     *
+     * @param \Model           $model  The model.
+     * @param DefinitionMapper $mapper The definition mapper.
+     * @param LatLngBounds     $bounds Optional bounds where elements should be in.
+     *
+     * @return string
+     */
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    {
+        return static::$definitionClass;
     }
 }

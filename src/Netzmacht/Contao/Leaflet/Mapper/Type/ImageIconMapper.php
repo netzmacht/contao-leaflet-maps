@@ -63,7 +63,7 @@ class ImageIconMapper extends AbstractIconMapper
     /**
      * {@inheritdoc}
      */
-    protected function doBuild(
+    protected function build(
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,

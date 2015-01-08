@@ -50,7 +50,7 @@ class AttributionControlMapper extends AbstractControlMapper
     /**
      * {@inheritdoc}
      */
-    protected function doBuild(Definition $definition, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
+    protected function build(Definition $definition, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
     {
         if (!$definition instanceof Attribution) {
             return;

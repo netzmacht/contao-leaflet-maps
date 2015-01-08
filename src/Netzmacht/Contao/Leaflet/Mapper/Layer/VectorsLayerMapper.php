@@ -58,7 +58,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * {@inheritdoc}
      */
-    protected function doBuild(
+    protected function build(
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
