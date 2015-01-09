@@ -78,7 +78,7 @@ class MapElement extends \ContentElement
     protected function compile()
     {
         try {
-            $mapId = 'ce_map_' . ($this->cssID[0] ?: $this->id);
+            $mapId = 'map_' . ($this->cssID[0] ?: ('ce_' . $this->id));
             $map   = $this->mapService->getJavascript($this->leaflet_map, null, $mapId);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';

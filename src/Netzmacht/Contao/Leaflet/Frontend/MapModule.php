@@ -74,7 +74,7 @@ class MapModule extends \Module
     protected function compile()
     {
         try {
-            $mapId = 'mod_map_' . ($this->cssID[0] ?: $this->id);
+            $mapId = 'map_' . ($this->cssID[0] ?: ('mod_' . $this->id));
             $map   = $this->mapService->getJavascript($this->leaflet_map, null, $mapId);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
