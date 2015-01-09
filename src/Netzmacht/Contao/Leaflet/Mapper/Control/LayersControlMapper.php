@@ -32,9 +32,16 @@ class LayersControlMapper extends AbstractControlMapper
      */
     protected static $type = 'layers';
 
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
-    {
-        $arguments    = parent::buildConstructArguments($model, $mapper, $bounds);
+    /**
+     * {@inheritdoc}
+     */
+    protected function buildConstructArguments(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
+        $arguments    = parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
         $arguments[1] = array();
         $arguments[2] = array();
 

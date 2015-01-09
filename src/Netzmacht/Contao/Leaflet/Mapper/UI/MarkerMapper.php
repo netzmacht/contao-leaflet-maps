@@ -39,9 +39,13 @@ class MarkerMapper extends AbstractMapper
     /**
      * {@inheritdoc}
      */
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
-    {
-        $arguments   = parent::buildConstructArguments($model, $mapper, $bounds);
+    protected function buildConstructArguments(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
+        $arguments   = parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
         $arguments[] = $model->coordinates ?: null;
 
         return $arguments;

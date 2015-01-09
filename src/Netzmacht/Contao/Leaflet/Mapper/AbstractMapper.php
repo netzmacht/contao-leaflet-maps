@@ -151,9 +151,9 @@ abstract class AbstractMapper implements Mapper
     /**
      * {@inheritdoc}
      */
-    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null, $elementId = null)
     {
-        $definition = $this->createInstance($model, $mapper, $bounds);
+        $definition = $this->createInstance($model, $mapper, $bounds, $elementId);
 
         $this->buildOptions($definition, $model);
         $this->buildConditionals($definition, $model);
@@ -202,16 +202,21 @@ abstract class AbstractMapper implements Mapper
     /**
      * Create a new definition instance.
      *
-     * @param \Model           $model  The model.
-     * @param DefinitionMapper $mapper The definition mapper.
-     * @param LatLngBounds     $bounds Optional bounds where elements should be in.
+     * @param \Model           $model     The model.
+     * @param DefinitionMapper $mapper    The definition mapper.
+     * @param LatLngBounds     $bounds    Optional bounds where elements should be in.
+     * @param string|null      $elementId Optional element id.
      *
      * @return Definition
      */
-    protected function createInstance(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
-    {
+    protected function createInstance(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
         $reflector = new \ReflectionClass($this->getClassName($model, $mapper, $bounds));
-        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds));
+        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds, $elementId));
 
         return $instance;
     }
@@ -222,13 +227,18 @@ abstract class AbstractMapper implements Mapper
      * @param \Model           $model  The model.
      * @param DefinitionMapper $mapper The definition mapper.
      * @param LatLngBounds     $bounds Optional bounds where elements should be in.
+     * @param string|null      $elementId Optional element id.
      *
      * @return array
      */
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
-    {
+    protected function buildConstructArguments(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
         return array(
-            $model->alias ?: (str_replace('tl_leaflet_', '', $model->getTable()) . '_' . $model->id)
+            $this->getElementId($model, $elementId)
         );
     }
 
@@ -345,5 +355,22 @@ abstract class AbstractMapper implements Mapper
     protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         return static::$definitionClass;
+    }
+
+    /**
+     * Create element id for the model.
+     *
+     * @param \Model      $model     The model being passed.
+     * @param string|null $elementId Optional forced id.
+     *
+     * @return string
+     */
+    protected function getElementId(\Model $model, $elementId = null)
+    {
+        if ($elementId) {
+            return $elementId;
+        }
+
+        return $model->alias ?: (str_replace('tl_leaflet_', '', $model->getTable()) . '_' . $model->id);
     }
 }

@@ -68,9 +68,11 @@ class GroupLayerMapper extends AbstractLayerMapper
 
         if ($collection) {
             foreach ($collection as $layerModel) {
-                /** @var Layer $layer */
                 $layer = $mapper->handle($layerModel);
-                $definition->addLayer($layer);
+
+                if ($layer instanceof Layer) {
+                    $definition->addLayer($layer);
+                }
             }
         }
     }

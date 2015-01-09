@@ -40,8 +40,12 @@ class RectangleMapper extends AbstractVectorMapper
         parent::initialize();
     }
 
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
-    {
+    protected function buildConstructArguments(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
         $latLngs = array_map(
             function($latLng) {
                 return LatLng::fromString($latLng);
@@ -49,7 +53,7 @@ class RectangleMapper extends AbstractVectorMapper
             deserialize($model->bounds, true)
         );
 
-        $arguments   = parent::buildConstructArguments($model, $mapper, $bounds);
+        $arguments   = parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
         $arguments[] = new LatLngBounds($latLngs[0], $latLngs[1]);
 
         return $arguments;

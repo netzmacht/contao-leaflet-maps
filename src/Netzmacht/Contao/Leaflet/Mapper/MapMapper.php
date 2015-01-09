@@ -15,9 +15,11 @@ use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Control;
+use Netzmacht\LeafletPHP\Definition\Layer;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
-use Netzmacht\LeafletPHP\Plugins\LeafletProviders\Provider;
+
 
 class MapMapper extends AbstractMapper
 {
@@ -63,11 +65,15 @@ class MapMapper extends AbstractMapper
     /**
      * @inheritdoc
      */
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
-    {
+    protected function buildConstructArguments(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
         return array(
-            $mapper->getMapId(),
-            $mapper->getMapId()
+            $this->getElementId($model, $elementId),
+            $this->getElementId($model, $elementId)
         );
     }
 
@@ -96,15 +102,16 @@ class MapMapper extends AbstractMapper
      */
     private function buildControls(Map $map, MapModel $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
-        $collection = ControlModel::findBy(
-            array('pid=?', 'active=1'),
-            array($model->id),
-            array('order' => 'sorting')
-        );
+        $collection = ControlModel::findActiveBy('pid', $model->id, array('order' => 'sorting'));
 
-        if ($collection) {
-            foreach ($collection as $control) {
-                $control = $mapper->handle($control, $bounds);
+        if (!$collection) {
+            return;
+        }
+
+        foreach ($collection as $control) {
+            $control = $mapper->handle($control, $bounds);
+
+            if ($control instanceof Control) {
                 $map->addControl($control);
             }
         }
@@ -130,9 +137,9 @@ class MapMapper extends AbstractMapper
                 }
 
                 $layer = $mapper->handle($layer, $bounds);
-
-                /** @var Provider $layer */
-                $map->addLayer($layer);
+                if ($layer instanceof Layer) {
+                    $map->addLayer($layer);
+                }
             }
         }
     }

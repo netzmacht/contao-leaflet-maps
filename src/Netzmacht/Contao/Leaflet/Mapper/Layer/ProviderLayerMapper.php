@@ -65,8 +65,12 @@ class ProviderLayerMapper extends AbstractLayerMapper
     /**
      * {@inheritdoc}
      */
-    protected function build(Definition $definition, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
-    {
+    protected function build(
+        Definition $definition,
+        \Model $model,
+        DefinitionMapper $builder,
+        LatLngBounds $bounds = null
+    ) {
         if (!empty($this->providers[$model->tile_provider]['options'])) {
             $this->applyOptions(
                 $this->providers[$model->tile_provider]['options'],
@@ -79,8 +83,12 @@ class ProviderLayerMapper extends AbstractLayerMapper
     /**
      * {@inheritdoc}
      */
-    protected function buildConstructArguments(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
-    {
+    protected function buildConstructArguments(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
         return array(
             $model->alias ?: ('layer_' . $model->id),
             $model->tile_provider,

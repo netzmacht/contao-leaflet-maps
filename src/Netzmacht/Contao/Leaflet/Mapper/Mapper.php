@@ -19,13 +19,14 @@ interface Mapper
     /**
      * Map model to the definition.
      *
-     * @param \Model|mixed     $model  The model being built. Usually a contao model. but can be anything
-     * @param DefinitionMapper $mapper The definition builder.
-     * @param LatLngBounds     $bounds Optional bounds where elements should be in.
+     * @param \Model|mixed     $model     The model being built. Usually a contao model. but can be anything
+     * @param DefinitionMapper $mapper    The definition builder.
+     * @param LatLngBounds     $bounds    Optional bounds where elements should be in.
+     * @param string           $elementId Optional element id.
      *
      * @return Definition
      */
-    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null);
+    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null, $elementId = null);
 
     /**
      * Check if mapper is responsible for the model.

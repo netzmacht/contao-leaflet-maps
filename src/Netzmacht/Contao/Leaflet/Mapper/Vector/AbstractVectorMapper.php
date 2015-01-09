@@ -30,20 +30,9 @@ class AbstractVectorMapper extends AbstractTypeMapper
      */
     protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\VectorModel';
 
-    protected function initialize()
-    {
-        parent::initialize();
-
-//        $this
-//            ->addOptions('stroke', 'weight', 'opacity', 'clickable', 'className')
-//            ->addConditionalOption('color')
-//            ->addConditionalOption('lineCap')
-//            ->addConditionalOption('lineJoin')
-//            ->addConditionalOption('dashArray')
-//            ->addConditionalOptions('fill', array('fill', 'fillColor', 'fillOpacity'))
-//        ;
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     protected function build(
         Definition $definition,
         \Model $model,

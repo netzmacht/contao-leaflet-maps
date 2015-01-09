@@ -40,13 +40,6 @@ class DefinitionMapper
     private $eventDispatcher;
 
     /**
-     * Map id of the current built map.
-     *
-     * @var string
-     */
-    private $mapId;
-
-    /**
      * @var array
      */
     private $mapped = array();
@@ -73,19 +66,9 @@ class DefinitionMapper
     {
         $this->builders[$priority][] = $builder;
 
-        ksort($this->builders);
+        krsort($this->builders);
 
         return $this;
-    }
-
-    /**
-     * Get the map id of the current built map.
-     *
-     * @return string
-     */
-    public function getMapId()
-    {
-        return $this->mapId;
     }
 
     /**
@@ -105,15 +88,15 @@ class DefinitionMapper
             return $this->mapped[$hash];
         }
 
-        $this->mapId = $elementId ?: ($model->alias ?: ('map_' . $model->id));
-
         foreach ($this->builders as $builders) {
             foreach($builders as $builder) {
                 if ($builder->match($model)) {
-                    $definition = $builder->handle($model, $this, $bounds);
+                    $definition = $builder->handle($model, $this, $bounds, $elementId);
 
-                    $event = new BuildDefinitionEvent($definition, $model, $bounds);
-                    $this->eventDispatcher->dispatch($event::NAME, $event);
+                    if ($definition) {
+                        $event = new BuildDefinitionEvent($definition, $model, $bounds);
+                        $this->eventDispatcher->dispatch($event::NAME, $event);
+                    }
 
                     $this->mapped[$hash] = $definition;
 
