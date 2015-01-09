@@ -74,8 +74,13 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         }
 
         if ($definition instanceof GeoJson) {
-            $definition->setOnEachFeature(new Expression('ContaoLeaflet.onEachFeature.bind(ContaoLeaflet)'));
-            $definition->setPointToLayer(new Expression('ContaoLeaflet.pointToLayer.bind(ContaoLeaflet)'));
+            if ($model->pointToLayer) {
+                $definition->setPointToLayer(new Expression($model->pointToLayer));
+            }
+
+            if ($model->onEachFeature) {
+                $definition->setOnEachFeature(new Expression($model->onEachFeature));
+            }
         }
     }
 

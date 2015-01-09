@@ -22,6 +22,7 @@ use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax;
+use PhpSpec\Exception\Exception;
 
 class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 {
@@ -73,7 +74,9 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         }
 
         if ($definition instanceof GeoJson) {
-            $definition->setPointToLayer(new Expression('ContaoLeaflet.pointToLayer.bind(ContaoLeaflet)'));
+            if ($model->pointToLayer) {
+                $definition->setPointToLayer(new Expression($model->pointToLayer));
+            }
         }
     }
 

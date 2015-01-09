@@ -1,7 +1,8 @@
 <?php
 
-$GLOBALS['TL_LANG']['tl_leaflet_layer']['title_legend'] = 'Layer';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['title_legend']  = 'Layer';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active_legend'] = 'Activation';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['expert_legend'] = 'Expert settings';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['map'][0]    = 'Manage maps';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['map'][1]    = 'Manage leaflet maps';
@@ -44,6 +45,10 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][0]              = 'Deferred 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][1]              = 'Load data of the layer deferred using ajax.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupType'][0]             = 'Group type';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupType'][1]             = 'Choose a layer group type.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['onEachFeature'][0]         = 'onEachFeature expression';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['onEachFeature'][1]         = 'Use a custom onEachFeature expression. Can be a anonymous function or method reference. If defined the extension does not handle popup adding for you.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['pointToLayer'][0]          = 'pointToLayer expression';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['pointToLayer'][1]          = 'Use a custom pointToLayer expression. Can be a anonymous function or method reference. If defined the extension does not handle popup or icon adding for you.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';

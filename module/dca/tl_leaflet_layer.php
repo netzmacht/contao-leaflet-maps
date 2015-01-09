@@ -124,16 +124,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
     'metapalettes' => array(
         'default' => array(
             'title'    => array('title', 'alias', 'type'),
+            'expert'   => array(':hide'),
             'active'   => array('active'),
         ),
         'markers extends default' => array(
             '+title'  => array('markerCluster'),
+            '+expert' => array('pointToLayer'),
             '+active' => array('deferred')
         ),
         'group extends default' => array(
             '+title' => array('groupType'),
         ),
         'vectors extends default' => array(
+            '+expert' => array('onEachFeature', 'pointToLayer'),
             '+active' => array('deferred'),
         ),
         'reference extends default' => array(
@@ -310,6 +313,34 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'includeBlankOption' => true,
             ),
             'sql'              => "int(10) unsigned NOT NULL default '0'",
+        ),
+        'onEachFeature'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['onEachFeature'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|javascript',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
+        ),
+        'pointToLayer'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['pointToLayer'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|javascript',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
         ),
     )
 );
