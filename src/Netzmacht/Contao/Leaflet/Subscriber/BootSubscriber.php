@@ -94,7 +94,7 @@ class BootSubscriber implements EventSubscriberInterface
     {
         $builder = $event->getBuilder();
 
-        foreach ($GLOBALS['LEAFLET_ASSETS'] as $name => $assets) {
+        foreach ($GLOBALS['LEAFLET_LIBRARIES'] as $name => $assets) {
             if (!empty($assets['css'])) {
                 list ($source, $type) = (array) $assets['css'];
                 $builder->registerStylesheet($name, $source, $type ?: Assets::TYPE_FILE);

@@ -31,6 +31,12 @@ array_insert(
                 ),
                 'icon'       => 'system/modules/leaflet/assets/img/layers.png',
                 'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
+            ),
+            'leaflet_credits' => array
+            (
+                'callback'   => 'Netzmacht\Contao\Leaflet\Backend\Credits',
+                'icon'       => 'system/modules/leaflet/assets/img/info.png',
+                'stylesheet' => 'system/modules/leaflet/assets/css/credits.css',
             )
         )
     )
@@ -39,7 +45,7 @@ array_insert(
 /*
  * Content elements.
  */
-$GLOBALS['TL_CTE']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\LeafletMapElement';
+$GLOBALS['TL_CTE']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\MapElement';
 
 
 /*
@@ -250,28 +256,48 @@ require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
  * You don't have to define it as array if you simply add a file. Do not add |static and or media type flag to it.
  * It's getting added by default if not being in debug mode.
  */
-$GLOBALS['LEAFLET_ASSETS'] = array
+$GLOBALS['LEAFLET_LIBRARIES'] = array
 (
     'leaflet'           => array
     (
+        'name'       => 'Leaflet',
+        'version'    => '0.7.3',
+        'license'    => '<a href="https://github.com/Leaflet/Leaflet/blob/master/LICENSE" target="_blank">BSD-2-Clause</a>',
+        'homepage'   => 'http://leafletjs.com',
         'css'        => 'assets/leaflet/libs/leaflet/leaflet.css',
         'javascript' => 'assets/leaflet/libs/leaflet/leaflet.js'
     ),
     'leaflet-providers' => array
     (
+        'name'       => 'Leaflet-providers',
+        'version'    => '1.0.12',
+        'license'    => '<a href="https://github.com/leaflet-extras/leaflet-providers/blob/master/license.md" target="_blank">BSD-2-Clause</a>',
+        'homepage'   => 'http://leaflet-extras.github.io/leaflet-providers',
         'javascript' => 'assets/leaflet/libs/leaflet-providers/leaflet-providers.js'
     ),
     'leaflet-ajax'      => array
     (
+        'name'       => 'Leaflet-ajax',
+        'version'    => '1.1.0',
+        'license'    => '<a href="https://github.com/calvinmetcalf/leaflet-ajax/blob/master/license.md" target="_blank">MIT</a>',
+        'homepage'   => 'https://github.com/calvinmetcalf/leaflet-ajax',
         'javascript' => 'assets/leaflet/libs/leaflet-ajax/leaflet.ajax.min.js'
     ),
     'leaflet-loading'   => array
     (
+        'name'       => 'Leaflet.loading',
+        'version'    => '0.1.13 ',
+        'license'    => '<a href="https://github.com/ebrelsford/Leaflet.loading/blob/master/LICENSE" target="_blank">MIT</a>',
+        'homepage'   => 'https://github.com/ebrelsford/Leaflet.loading',
         'css'        => 'assets/leaflet/libs/leaflet-loading/Control.Loading.css',
         'javascript' => 'assets/leaflet/libs/leaflet-loading/Control.Loading.js'
     ),
     'spin.js'           => array
     (
+        'name'       => 'spin.js',
+        'version'    => '2.0.2',
+        'license'    => '<a href="https://github.com/fgnass/spin.js/blob/master/LICENSE.txt" target="_blank">MIT</a>',
+        'homepage'   => 'http://fgnass.github.io/spin.js',
         'javascript' => 'assets/leaflet/libs/spin-js/spin.min.js'
     )
 );
