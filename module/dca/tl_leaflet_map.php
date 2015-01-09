@@ -27,8 +27,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('title'),
-            'format'                  => '%s'
+            'fields'                  => array('title', 'alias'),
+            'format'                  => '%s <span class="tl_gray">[%s]</span>'
         ),
         'global_operations' => array
         (
