@@ -1,28 +1,30 @@
 <?php
 
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['title_legend'] = 'Title';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['title_legend']  = 'Title';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['shadow_legend'] = 'Shadow';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['active_legend'] = 'Activation';
 
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['layersBtn'][0]          = 'Manage layers';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['layersBtn'][1]          = 'Manage leaflet layers';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['new'][0]                = 'Create icon';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['new'][1]                = 'Create new icon';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['edit'][0]               = 'Edit icon';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['edit'][1]               = 'Edit icon ID %s';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['copy'][0]               = 'Copy icon';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['copy'][1]               = 'Copy icon ID %s';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['controls'][0]           = 'Manage controls';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['controls'][1]           = 'Manage controls of icon ID %s';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['map'][0]              = 'Manage maps';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['map'][1]              = 'Manage leaflet maps.';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['delete'][0]             = 'Delete icon';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['delete'][1]             = 'Delete icon ID %s';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['show'][0]               = 'Show details';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['show'][1]               = 'Show icon ID %s details';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['toggle'][0]             = 'Toggle activation';
-$GLOBALS['TL_LANG']['tl_leaflet_icon']['toggle'][1]             = 'Toggle icon ID %s activation';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['layersBtn'][0] = 'Manage layers';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['layersBtn'][1] = 'Manage leaflet layers';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['styles'][0]    = 'Manage styles';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['styles'][1]    = 'Manage vector styles';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['new'][0]       = 'Create icon';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['new'][1]       = 'Create new icon';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['edit'][0]      = 'Edit icon';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['edit'][1]      = 'Edit icon ID %s';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['copy'][0]      = 'Copy icon';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['copy'][1]      = 'Copy icon ID %s';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['controls'][0]  = 'Manage controls';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['controls'][1]  = 'Manage controls of icon ID %s';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['map'][0]       = 'Manage maps';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['map'][1]       = 'Manage leaflet maps.';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['delete'][0]    = 'Delete icon';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['delete'][1]    = 'Delete icon ID %s';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['show'][0]      = 'Show details';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['show'][1]      = 'Show icon ID %s details';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['toggle'][0]    = 'Toggle activation';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['toggle'][1]    = 'Toggle icon ID %s activation';
 
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['title'][0]             = 'Title';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['title'][1]             = 'Title of the icon.';

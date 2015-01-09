@@ -3,17 +3,37 @@
 /*
  * Backend module.
  */
-$GLOBALS['BE_MOD']['content']['leaflet'] = array(
-    'tables' => array(
-        'tl_leaflet_map',
-        'tl_leaflet_layer',
-        'tl_leaflet_control',
-        'tl_leaflet_marker',
-        'tl_leaflet_vector',
-        'tl_leaflet_icon',
-    ),
-    'icon'       => 'system/modules/leaflet/assets/img/leaflet.png',
-    'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
+array_insert(
+    $GLOBALS['BE_MOD'],
+    1,
+    array(
+        'leaflet' => array
+        (
+            'leaflet_map' => array
+            (
+                'tables' => array
+                (
+                    'tl_leaflet_map',
+                    'tl_leaflet_control',
+                ),
+                'icon'       => 'system/modules/leaflet/assets/img/leaflet.png',
+                'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
+            ),
+            'leaflet_layer' => array
+            (
+                'tables' => array
+                (
+                    'tl_leaflet_layer',
+                    'tl_leaflet_marker',
+                    'tl_leaflet_vector',
+                    'tl_leaflet_icon',
+                    'tl_leaflet_style',
+                ),
+                'icon'       => 'system/modules/leaflet/assets/img/layers.png',
+                'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
+            )
+        )
+    )
 );
 
 /*
@@ -30,6 +50,7 @@ $GLOBALS['TL_MODELS']['tl_leaflet_icon']    = 'Netzmacht\Contao\Leaflet\Model\Ic
 $GLOBALS['TL_MODELS']['tl_leaflet_layer']   = 'Netzmacht\Contao\Leaflet\Model\LayerModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_map']     = 'Netzmacht\Contao\Leaflet\Model\MapModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_marker']  = 'Netzmacht\Contao\Leaflet\Model\MarkerModel';
+$GLOBALS['TL_MODELS']['tl_leaflet_style']   = 'Netzmacht\Contao\Leaflet\Model\StyleModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = 'Netzmacht\Contao\Leaflet\Model\VectorModel';
 
 
@@ -40,18 +61,21 @@ $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = 'Netzmacht\Contao\Leaflet\Model\Ve
  */
 $GLOBALS['LEAFLET_MAPPERS']   = array();
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\MapMapper';
+
+// Layer mappers.
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ProviderLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLayerMapper';
+
+// Control mappers.
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ZoomControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ScaleControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\LayersControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\AttributionControlMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\LoadingControlMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper';
+
+// Vector mappers.
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\PolylineMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolylineMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\PolygonMapper';
@@ -59,6 +83,12 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPol
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMarkerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\RectangleMapper';
+
+// Miscellaneous mappers.
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Style\FixedStyleMapper';
 
 /*
  * Leaflet encoders.
@@ -127,6 +157,15 @@ $GLOBALS['LEAFLET_CONTROLS']   = array('zoom', 'layers', 'scale', 'attribution',
  */
 $GLOBALS['LEAFLET_ICONS'] = array('image', 'div');
 
+
+/*
+ * The style concept is not part of the LeafletJS library. Styles are extracted from the Path options. Instead
+ * of defining the style for every vector again, manage them at one place.
+ *
+ * The goal is to provide different style strategies. For instance a random style chooser, one which uses a color
+ * range and so one.
+ */
+$GLOBALS['LEAFLET_STYLES'] = array('fixed');
 
 /*
  * Leaflet vectors.

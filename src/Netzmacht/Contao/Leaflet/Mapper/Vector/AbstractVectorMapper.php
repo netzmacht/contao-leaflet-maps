@@ -12,10 +12,14 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
 
+use Netzmacht\Contao\Leaflet\Definition\Style;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Model\StyleModel;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Definition\Vector\Path;
 
 class AbstractVectorMapper extends AbstractTypeMapper
 {
@@ -30,25 +34,37 @@ class AbstractVectorMapper extends AbstractTypeMapper
     {
         parent::initialize();
 
-        $this
-            ->addOptions('stroke', 'weight', 'opacity', 'clickable', 'className')
-            ->addConditionalOption('color')
-            ->addConditionalOption('lineCap')
-            ->addConditionalOption('lineJoin')
-            ->addConditionalOption('dashArray')
-            ->addConditionalOptions('fill', array('fill', 'fillColor', 'fillOpacity'))
-        ;
+//        $this
+//            ->addOptions('stroke', 'weight', 'opacity', 'clickable', 'className')
+//            ->addConditionalOption('color')
+//            ->addConditionalOption('lineCap')
+//            ->addConditionalOption('lineJoin')
+//            ->addConditionalOption('dashArray')
+//            ->addConditionalOptions('fill', array('fill', 'fillColor', 'fillOpacity'))
+//        ;
     }
 
     protected function build(
         Definition $definition,
         \Model $model,
-        DefinitionMapper $builder,
+        DefinitionMapper $mapper,
         LatLngBounds $bounds = null
     ) {
-        parent::build($definition, $model, $builder, $bounds);
+        parent::build($definition, $model, $mapper, $bounds);
 
-        if ($definition instanceof Definition\HasPopup && $model->addPopup) {
+        if ($definition instanceof Path && $model->style) {
+            $styleModel = StyleModel::findActiveByPk($model->style);
+
+            if ($styleModel) {
+                $style = $mapper->handle($styleModel);
+
+                if ($style instanceof Style) {
+                    $style->apply($definition);
+                }
+            }
+        }
+
+        if ($definition instanceof HasPopup && $model->addPopup) {
             $definition->bindPopup($model->popupContent);
         }
     }

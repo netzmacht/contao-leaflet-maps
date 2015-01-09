@@ -23,5 +23,7 @@ namespace Netzmacht\Contao\Leaflet\Model;
  */
 class IconModel extends \Model
 {
+    use ActiveTrait;
+
     protected static $strTable = 'tl_leaflet_icon';
 }

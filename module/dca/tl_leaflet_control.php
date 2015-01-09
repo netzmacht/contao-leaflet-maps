@@ -180,6 +180,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'exclude'   => true,
             'inputType' => 'select',
             'filter'    => true,
+            'sorting'   => true,
             'options'   => array('topleft', 'topright', 'bottomleft', 'bottomright'),
             'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_control'],
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50', 'helpwizard' => true),

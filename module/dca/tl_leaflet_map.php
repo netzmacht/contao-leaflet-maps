@@ -31,20 +31,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         ),
         'global_operations' => array
         (
-            'layers' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['layersBtn'],
-                'href'                => 'table=tl_leaflet_layer',
-                'icon'                => 'system/modules/leaflet/assets/img/layers.png',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-            ),
-            'icons' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['icons'],
-                'href'                => 'table=tl_leaflet_icon',
-                'icon'                => 'system/modules/leaflet/assets/img/icons.png',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-            ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],

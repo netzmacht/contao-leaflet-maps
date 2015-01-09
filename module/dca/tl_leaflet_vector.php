@@ -35,6 +35,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         ),
         'global_operations' => array
         (
+            'style' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
+                'href'                => 'table=tl_leaflet_style',
+                'icon'                => 'system/modules/leaflet/assets/img/style.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
+            ),
+
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
@@ -98,9 +106,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         'default' => array(
             'title'  => array('title', 'alias', 'type'),
             'data'   => array(),
-            'style'  => array(':hide', 'stroke', 'fill'),
             'popup'  => array(':hide','addPopup'),
-            'config' => array(':hide', 'clickable', 'className'),
+            'config' => array(':hide', 'style', 'className', 'clickable'),
             'active' => array('active')
         ),
 
@@ -130,8 +137,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
     ),
     'metasubpalettes' => array(
         'addPopup'  => array('popupContent'),
-        'stroke'    => array('color', 'weight', 'opacity', 'dashArray', 'lineCap', 'lineJoin'),
-        'fill'      => array('fillColor', 'fillOpacity',)
     ),
 
     'fields' => array
@@ -225,107 +230,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'explanation' => 'insertTags',
             'sql'         => "mediumtext NULL"
         ),
-        'stroke'                => array
+        'style'         => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['stroke'],
-            'exclude'   => true,
-            'inputType' => 'checkbox',
-            'default'   => true,
-            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
-            'sql'       => "char(1) NOT NULL default '1'"
-        ),
-        'color'                 => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['color'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'wizard'    => array(
-                \Netzmacht\Contao\DevTools\Dca::createColorPickerCallback(),
-            ),
-            'eval'      => array(
-                'tl_class'       => 'w50 wizard clr',
-                'maxlength'      => 7,
-                'decodeEntities' => true
-            ),
-            'sql'       => "varchar(8) NOT NULL default ''"
-        ),
-        'weight'  => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['weight'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'default'   => 5,
-            'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
-            'sql'       => "int(4) NOT NULL default '5'"
-        ),
-        'opacity'  => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['opacity'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'default'   => '0.5',
-            'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
-            'sql'       => "varchar(4) NOT NULL default '0.5'"
-        ),
-        'fill'                => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['fill'],
-            'exclude'   => true,
-            'inputType' => 'checkbox',
-            'eval'      => array('tl_class' => 'clr w50', 'submitOnChange' => true),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'fillColor'                 => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['fillColor'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'wizard'    => array(
-                \Netzmacht\Contao\DevTools\Dca::createColorPickerCallback(),
-            ),
-            'eval'      => array(
-                'tl_class'       => 'clr w50 wizard',
-                'maxlength'      => 7,
-                'decodeEntities' => true
-            ),
-            'sql'       => "varchar(8) NOT NULL default ''"
-        ),
-        'fillOpacity'  => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['fillOpacity'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'default'   => '0.2',
-            'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
-            'sql'       => "varchar(4) NOT NULL default '0.2'"
-        ),
-        'dashArray'        => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['dashArray'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 32, 'tl_class' => 'w50'),
-            'sql'       => "varchar(32) NOT NULL default ''"
-        ),
-        'lineCap'        => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['lineCap'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options'   => array('butt', 'round', 'square', 'inherit'),
-            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['lineCaps'],
-            'eval'      => array('mandatory' => false, 'tl_class' => 'w50 clr', 'includeBlankOption' => true, 'helpwizard'),
-            'sql'       => "varchar(8) NOT NULL default ''"
-        ),
-        'lineJoin'        => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['lineJoin'],
-            'exclude'   => true,
-            'inputType' => 'select',
-            'options'   => array('miter', 'round', 'bevel', 'inherit'),
-            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['lineJoins'],
-            'eval'      => array('mandatory' => false, 'tl_class' => 'w50', 'includeBlankOption' => true, 'helpwizard'),
-            'sql'       => "varchar(8) NOT NULL default ''"
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Vector', 'getStyles'),
+            'eval'      => array(
+                'mandatory'  => false,
+                'tl_class'   => 'w50',
+                'chosen'     => true,
+                'includeBlankOption' => true,
+            ),
+            'sql'       => "int(10) unsigned NOT NULL default '0'",
         ),
         'clickable'    => array
         (

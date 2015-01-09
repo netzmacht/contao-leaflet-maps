@@ -34,26 +34,26 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'global_operations' => array
         (
-            'map' => array
+            'styles' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['map'],
-                'href'                => 'table=tl_leaflet_map',
-                'icon'                => 'system/modules/leaflet/assets/img/leaflet.png',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="m"'
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['styles'],
+                'href'                => 'table=tl_leaflet_style',
+                'icon'                => 'system/modules/leaflet/assets/img/style.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
             ),
             'icons' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['icons'],
                 'href'                => 'table=tl_leaflet_icon',
                 'icon'                => 'system/modules/leaflet/assets/img/icons.png',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
             ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'                => 'act=select',
                 'class'               => 'header_edit_all',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
             )
         ),
         'operations' => array
