@@ -9,7 +9,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
         (
             'keys' => array
             (
-                'id' => 'primary'
+                'id'    => 'primary',
+                'alias' => 'unique',
             )
         )
     ),
@@ -143,10 +144,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
         (
             'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
-        'pid'          => array
-        (
-            'sql' => "int(10) unsigned NOT NULL default '0'"
-        ),
         'title'        => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['title'],
@@ -160,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['alias'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
         'type'                  => array

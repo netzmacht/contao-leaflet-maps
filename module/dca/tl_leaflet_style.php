@@ -9,7 +9,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
         (
             'keys' => array
             (
-                'id' => 'primary'
+                'id'    => 'primary',
+                'alias' => 'unique',
             )
         )
     ),

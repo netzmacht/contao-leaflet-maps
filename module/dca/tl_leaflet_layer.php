@@ -11,7 +11,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         (
             'keys' => array
             (
-                'id' => 'primary'
+                'id'    => 'primary',
+                'pid'   => 'index',
+                'alias' => 'unique',
             )
         )
     ),
@@ -186,7 +188,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'search'    => true,
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
         'type'                  => array
