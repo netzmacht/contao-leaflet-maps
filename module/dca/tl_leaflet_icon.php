@@ -154,11 +154,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
         ),
         'alias'        => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['alias'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'       => "varchar(255) NOT NULL default ''"
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['alias'],
+            'exclude'       => true,
+            'inputType'     => 'text',
+            'save_callback' => array(
+                \Netzmacht\Contao\DevTools\Dca::createGenerateAliasCallback('tl_leaflet_icon', 'title'),
+            ),
+            'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
+            'sql'           => "varchar(255) NOT NULL default ''"
         ),
         'type'                  => array
         (
