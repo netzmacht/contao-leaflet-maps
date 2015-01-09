@@ -37,9 +37,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
         ),
         'global_operations' => array
         (
-            'style' => array
+            'styles' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['styles'],
                 'href'                => 'table=tl_leaflet_style',
                 'icon'                => 'system/modules/leaflet/assets/img/style.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();"'

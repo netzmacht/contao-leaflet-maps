@@ -14,4 +14,17 @@ namespace Netzmacht\Contao\Leaflet\Model;
 class ControlModel extends AbstractActiveModel
 {
     protected static $strTable = 'tl_leaflet_control';
+
+    /**
+     * @return \Model\Collection
+     */
+    public function findLayers()
+    {
+        $query  = 'SELECT l.*, c.mode as controlMode FROM tl_leaflet_layer l LEFT JOIN tl_leaflet_control_layer c ON l.id = c.lid WHERE c.cid=?';
+        $result = \Database::getInstance()
+            ->prepare($query)
+            ->execute($this->id);
+
+        return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
+    }
 }

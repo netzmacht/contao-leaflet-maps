@@ -163,9 +163,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'exclude'          => true,
             'inputType'        => 'checkboxWizard',
             'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getLayers'),
-            'default'          => '',
+            'load_callback'    => array(
+                array('Netzmacht\Contao\Leaflet\Dca\Map', 'loadLayerRelations'),
+            ),
+            'save_callback'    => array(
+                array('Netzmacht\Contao\Leaflet\Dca\Map', 'saveLayerRelations'),
+            ),
             'eval'             => array(
                 'multiple'           => true,
+                'doNotSaveEmpty'     => true,
             ),
             'sql'              => "mediumblob NULL"
         ),

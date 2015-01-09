@@ -255,6 +255,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['layers'],
             'exclude'   => true,
             'inputType' => 'multiColumnWizard',
+            'load_callback'    => array(
+                array('Netzmacht\Contao\Leaflet\Dca\Control', 'loadLayerRelations'),
+            ),
+            'save_callback'    => array(
+                array('Netzmacht\Contao\Leaflet\Dca\Control', 'saveLayerRelations'),
+            ),
             'eval'      => array
             (
                 'tl_class'     => 'clr',

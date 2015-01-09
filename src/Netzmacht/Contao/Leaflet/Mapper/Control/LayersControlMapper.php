@@ -13,6 +13,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
 
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
@@ -45,38 +46,17 @@ class LayersControlMapper extends AbstractControlMapper
         $arguments[1] = array();
         $arguments[2] = array();
 
-        $definition = $this->getLayersDefinition($model);
-        $collection = LayerModel::findMultipleByIds(array_keys($definition));
+        /** @var ControlModel $model */
+        $collection = $model->findLayers();
 
         if ($collection) {
             foreach ($collection as $layer) {
-                $argument = ($definition[$layer->id] === 'overlay') ? 2 : 1;
+                $argument = ($layer->controlMode === 'overlay') ? 2 : 1;
 
                 $arguments[$argument][] = $mapper->handle($layer, $bounds);
             }
         }
 
         return $arguments;
-    }
-
-    /**
-     * Get layers definition from the control model.
-     *
-     * @param \Model $model The control model.
-     *
-     * @return array
-     */
-    protected function getLayersDefinition(\Model $model)
-    {
-        $layers = deserialize($model->layers, true);
-        $definition = array();
-
-        foreach ($layers as $layer) {
-            if ($layer['layer']) {
-                $definition[$layer['layer']] = $layer['mode'];
-            }
-        }
-
-        return $definition;
     }
 }

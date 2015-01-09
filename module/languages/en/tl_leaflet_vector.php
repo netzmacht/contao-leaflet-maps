@@ -20,6 +20,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_vector']['cut'][0]       = 'Move vector';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['cut'][1]       = 'Move vector ID %s';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['toggle'][0]    = 'Toggle activation';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['toggle'][1]    = 'Toggle vector ID %s activation';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['styles'][0]    = 'Manage styles';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['styles'][1]    = 'Manage vector styles';
 
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['title'][0]        = 'Title';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['title'][1]        = 'Title of the vector.';

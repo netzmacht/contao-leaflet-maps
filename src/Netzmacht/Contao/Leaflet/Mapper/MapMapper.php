@@ -127,8 +127,7 @@ class MapMapper extends AbstractMapper
      */
     private function buildLayers(Map $map, MapModel $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
-        $ids        = deserialize($model->layers, true);
-        $collection = LayerModel::findMultipleByIds($ids);
+        $collection = $model->findLayers();
 
         if ($collection) {
             foreach ($collection as $layer) {
