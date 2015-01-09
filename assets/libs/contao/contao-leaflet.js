@@ -37,11 +37,13 @@ L.Contao = L.Class.extend({
             });
         });
 
-        // Set default pointToLayer and onEachFeature handler.
-        L.GeoJSON.AJAX.prototype.options = L.Util.extend({}, L.GeoJSON.AJAX.prototype.options, {
-            pointToLayer: this.pointToLayer.bind(this),
-            onEachFeature: this.onEachFeature.bind(this)
-        });
+        if (L.GeoJSON.AJAX) {
+            // Set default pointToLayer and onEachFeature handler.
+            L.GeoJSON.AJAX.prototype.options = {
+                pointToLayer: this.pointToLayer.bind(this),
+                onEachFeature: this.onEachFeature.bind(this)
+            };
+        }
     },
 
     /**

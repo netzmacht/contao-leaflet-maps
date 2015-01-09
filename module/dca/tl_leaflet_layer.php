@@ -5,8 +5,12 @@
 $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
 (
     'config' => array(
-        'dataContainer'    => 'Table',
-        'enableVersioning' => true,
+        'dataContainer'     => 'Table',
+        'enableVersioning'  => true,
+        'ctable'            => array('tl_leaflet_vector', 'tl_leaflet_marker'),
+        'ondelete_callback' => array(
+            array('Netzmacht\Contao\Leaflet\Dca\Layer', 'deleteRelations'),
+        ),
         'sql'              => array
         (
             'keys' => array
@@ -15,7 +19,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'pid'   => 'index',
                 'alias' => 'unique',
             )
-        )
+        ),
     ),
     'list' => array
     (
