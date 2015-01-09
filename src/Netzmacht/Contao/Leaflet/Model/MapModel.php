@@ -28,4 +28,17 @@ class MapModel extends \Model
 
         return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
     }
+
+    /**
+     * @return \Model\Collection
+     */
+    public function findActiveLayers()
+    {
+        $query  = 'SELECT l.* FROM tl_leaflet_layer l LEFT JOIN tl_leaflet_map_layer m ON l.id = m.lid WHERE m.mid=? AND l.active=1';
+        $result = \Database::getInstance()
+            ->prepare($query)
+            ->execute($this->id);
+
+        return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
+    }
 }

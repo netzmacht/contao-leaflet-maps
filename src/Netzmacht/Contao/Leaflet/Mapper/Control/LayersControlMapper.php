@@ -47,7 +47,7 @@ class LayersControlMapper extends AbstractControlMapper
         $arguments[2] = array();
 
         /** @var ControlModel $model */
-        $collection = $model->findLayers();
+        $collection = $model->findActiveLayers();
 
         if ($collection) {
             foreach ($collection as $layer) {

@@ -27,4 +27,17 @@ class ControlModel extends AbstractActiveModel
 
         return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
     }
+
+    /**
+     * @return \Model\Collection
+     */
+    public function findActiveLayers()
+    {
+        $query  = 'SELECT l.*, c.mode as controlMode FROM tl_leaflet_layer l LEFT JOIN tl_leaflet_control_layer c ON l.id = c.lid WHERE c.cid=? AND l.active=1';
+        $result = \Database::getInstance()
+            ->prepare($query)
+            ->execute($this->id);
+
+        return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
+    }
 }
