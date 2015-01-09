@@ -30,8 +30,10 @@ L.Contao = L.Class.extend({
             var map = this;
 
             this.on('layeradd', function(e) {
-                e.layer.on('data:loading', function() { map.fire('dataloading'); });
-                e.layer.on('data:loaded', function() { map.fire('dataload'); });
+                if (e.layer.on) {
+                    e.layer.on('data:loading', function() { map.fire('dataloading'); });
+                    e.layer.on('data:loaded', function() { map.fire('dataload'); });
+                }
             });
         });
     },

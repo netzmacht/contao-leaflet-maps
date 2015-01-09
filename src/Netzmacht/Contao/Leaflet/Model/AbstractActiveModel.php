@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Model;
 
 
-trait ActiveTrait
+abstract class AbstractActiveModel extends \Model
 {
     /**
      *
@@ -28,14 +28,14 @@ trait ActiveTrait
 
     /**
      *
-     * @param int   $modelId
+     * @param int   $value
      * @param array $options
      *
      * @return \Model|null
      */
-    public static function findActiveByPid($modelId, $options = array())
+    public static function findActiveBy($column, $value, $options = array())
     {
-        return static::findBy('active=1 AND pid', $modelId, $options);
+        return static::findBy('active=1 AND ' . $column, $value, $options);
     }
 
     public static function findActivated($options = array())

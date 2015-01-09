@@ -36,6 +36,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_variant'][0] = 'Tile vari
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_variant'][1] = 'Tile variant style.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active'][0]                = 'Activate layer';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active'][1]                = 'Activate layer on the map.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['reference'][0]             = 'Reference';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['reference'][1]             = 'Choose the reference layer.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][0]         = 'Marker cluster';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][1]         = 'Choose a marker cluster layer so that markers get clustered.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][0]              = 'Deferred loading';
@@ -47,3 +49,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer gro
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][0] = 'Feature group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][1] = 'Extended layer group with events and popup support. <br>See <a href="http://leafletjs.com/reference.html#featuregroup" target="_blank">http://leafletjs.com/reference.html#featuregroup</a>';
+
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['countEntries'] = 'Entries';

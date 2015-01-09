@@ -16,7 +16,7 @@ array_insert(
                     'tl_leaflet_map',
                     'tl_leaflet_control',
                 ),
-                'icon'       => 'system/modules/leaflet/assets/img/leaflet.png',
+                'icon'       => 'system/modules/leaflet/assets/img/map.png',
                 'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
             ),
             'leaflet_layer' => array
@@ -67,6 +67,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ProviderL
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLayerMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ReferenceLayerMapper';
 
 // Control mappers.
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ZoomControlMapper';
@@ -122,6 +123,17 @@ $GLOBALS['LEAFLET_LAYERS'] = array
     (
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/tile.png',
+        'label'    => function ($row, $label) {
+            if (!empty($GLOBALS['TL_LANG']['leaflet_provider'][$row['tile_provider']][0])) {
+                $provider = $GLOBALS['TL_LANG']['leaflet_provider'][$row['tile_provider']][0];
+            } else {
+                $provider = $row['tile_provider'];
+            }
+
+            $label .= sprintf('<span class="tl_gray"> (%s)</span>', $provider);
+
+            return $label;
+        }
     ),
     'group'    => array
     (
@@ -133,13 +145,47 @@ $GLOBALS['LEAFLET_LAYERS'] = array
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/markers.png',
         'markers'  => true,
+        'label'    => function ($row, $label) {
+            $count  = \Netzmacht\Contao\Leaflet\Model\MarkerModel::countBy('pid', $row['id']);
+            $label .= sprintf(
+                '<span class="tl_gray"> (%s %s)</span>',
+                $count,
+                $GLOBALS['TL_LANG']['tl_leaflet_layer']['countEntries']
+            );
+
+            return $label;
+        }
     ),
     'vectors'  => array
     (
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/vectors.png',
         'vectors'  => true,
+        'label'    => function ($row, $label) {
+            $count  = \Netzmacht\Contao\Leaflet\Model\VectorModel::countBy('pid', $row['id']);
+            $label .= sprintf(
+                '<span class="tl_gray"> (%s %s)</span>',
+                $count,
+                $GLOBALS['TL_LANG']['tl_leaflet_layer']['countEntries']
+            );
+
+            return $label;
+        }
     ),
+    'reference' => array
+    (
+        'children' => false,
+        'icon'     => 'system/modules/leaflet/assets/img/reference.png',
+        'label'    => function ($row, $label) {
+            $reference = \Netzmacht\Contao\Leaflet\Model\LayerModel::findByPk($row['reference']);
+
+            if ($reference) {
+                $label .= '<span class="tl_gray"> (' . $reference->title . ')</span>';
+            }
+
+            return $label;
+        }
+    )
 );
 
 /*

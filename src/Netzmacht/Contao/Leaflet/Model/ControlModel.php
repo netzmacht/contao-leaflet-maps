@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
-class ControlModel extends \Model
+class ControlModel extends AbstractActiveModel
 {
     protected static $strTable = 'tl_leaflet_control';
 }

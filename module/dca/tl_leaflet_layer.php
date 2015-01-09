@@ -136,6 +136,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'vectors extends default' => array(
             '+active' => array('deferred'),
         ),
+        'reference extends default' => array(
+            '+title' => array('reference')
+        )
     ),
 
     'metasubselectpalettes' => array(
@@ -293,6 +296,20 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'options'   => array('layer', 'feature'),
             'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes'],
             'sql'       => "varchar(32) NOT NULL default ''"
+        ),
+        'reference' => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['reference'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getLayers'),
+            'eval'             => array(
+                'mandatory'          => true,
+                'tl_class'           => 'w50',
+                'chosen'             => true,
+                'includeBlankOption' => true,
+            ),
+            'sql'              => "int(10) unsigned NOT NULL default '0'",
         ),
     )
 );

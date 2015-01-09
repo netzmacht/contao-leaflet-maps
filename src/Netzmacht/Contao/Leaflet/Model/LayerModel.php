@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Model;
 
 
-class LayerModel extends \Model
+class LayerModel extends AbstractActiveModel
 {
     protected static $strTable = 'tl_leaflet_layer';
 

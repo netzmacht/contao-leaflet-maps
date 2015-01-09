@@ -21,9 +21,7 @@ namespace Netzmacht\Contao\Leaflet\Model;
  * @property mixed|null shadowRetinaImage
  * @property mixed|null shadowImage
  */
-class IconModel extends \Model
+class IconModel extends AbstractActiveModel
 {
-    use ActiveTrait;
-
     protected static $strTable = 'tl_leaflet_icon';
 }

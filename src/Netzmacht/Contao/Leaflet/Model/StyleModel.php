@@ -12,9 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Model;
 
 
-class StyleModel extends \Model
+class StyleModel extends AbstractActiveModel
 {
-    use ActiveTrait;
-
     protected static $strTable = 'tl_leaflet_style';
 }

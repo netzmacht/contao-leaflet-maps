@@ -57,6 +57,10 @@ class Layer
 
         $icon = \Image::getHtml($src, $alt, sprintf('title="%s"', strip_tags($alt)));
 
+        if (!empty($this->layers[$row['type']]['label'])) {
+            $label = $this->layers[$row['type']]['label']($row, $label);
+        }
+
         return $icon . ' ' . $label;
     }
 
@@ -144,6 +148,15 @@ class Layer
         }
 
         return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
+    }
+
+    public function getLayers($dataContainer)
+    {
+        $collection = LayerModel::findBy('id !', $dataContainer->id);
+
+        return OptionsBuilder::fromCollection($collection, 'id', 'title')
+            ->asTree()
+            ->getOptions();
     }
 
     /**
