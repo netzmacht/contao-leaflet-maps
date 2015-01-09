@@ -51,6 +51,12 @@
             "sources":{
                 "module": "system/modules/leaflet",
                 "assets": "assets/leaflet"
+            },
+            "transifex": {
+                "project": "contao-leaflet-maps",
+                "prefix": "core-",
+                "languages_cto": "module/languages",
+                "languages_tx": ".tx"
             }
         }
     }

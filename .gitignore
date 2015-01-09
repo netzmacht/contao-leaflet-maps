@@ -2,6 +2,7 @@
 /bin/
 /demo/
 /assets/js/
+/.tx/
 
 coverage.xml
 
