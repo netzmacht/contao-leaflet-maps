@@ -82,7 +82,7 @@ class DefinitionMapper
      */
     public function handle(\Model $model, LatLngBounds $bounds = null, $elementId = null)
     {
-        $hash = $model->getTable() . '.' . $model->{$model->getPk()};
+        $hash = $model->getTable() . '.' . $model->{$model->getPk()} . ($elementId ? ('.' . $elementId) : '');
 
         if (isset($this->mapped[$hash])) {
             return $this->mapped[$hash];

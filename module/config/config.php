@@ -47,6 +47,11 @@ array_insert(
  */
 $GLOBALS['TL_CTE']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\MapElement';
 
+/*
+ * Frontend modules
+ */
+$GLOBALS['FE_MOD']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\MapModule';
+
 
 /*
  * Models.

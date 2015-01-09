@@ -15,10 +15,10 @@ use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 
 /**
- * Class Content
+ * Class Module
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Content
+class Module
 {
     /**
      * Get all leaflet maps.
