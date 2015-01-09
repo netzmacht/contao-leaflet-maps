@@ -9,15 +9,16 @@
  *
  */
 
-namespace Netzmacht\Contao\Leaflet;
+namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use Netzmacht\Contao\Leaflet\Mapper\MapMapper;
+use ContentElement;
+use Netzmacht\Contao\Leaflet\MapService;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 
 /**
  * @property int leaflet_map
  */
-class LeafletMapElement extends \ContentElement
+class MapElement extends \ContentElement
 {
     /**
      * Template name.
