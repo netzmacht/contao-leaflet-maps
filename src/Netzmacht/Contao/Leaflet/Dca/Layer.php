@@ -13,17 +13,27 @@ namespace Netzmacht\Contao\Leaflet\Dca;
 
 
 use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
+use Netzmacht\Contao\DevTools\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 class Layer
 {
+    use ServiceContainerTrait;
+
     private $layers;
+
+    /**
+     * @var \Database
+     */
+    private $database;
 
     public function __construct()
     {
-        $this->layers = &$GLOBALS['LEAFLET_LAYERS'];
+        $this->layers   = &$GLOBALS['LEAFLET_LAYERS'];
+        $this->database = static::getService('database.connection');
 
         \Controller::loadLanguageFile('leaflet_layer');
+
     }
 
     public function getVariants($dataContainer)
@@ -157,6 +167,48 @@ class Layer
         return OptionsBuilder::fromCollection($collection, 'id', 'title')
             ->asTree()
             ->getOptions();
+    }
+
+
+    public function deleteRelations($dataContainer, $undoId)
+    {
+        if ($undoId) {
+            $undo = $this->database
+                ->prepare('SELECT * FROM tl_undo WHERE id=?')
+                ->limit(1)
+                ->execute($undoId)
+                ->row();
+
+            $result = $this->database
+                ->prepare('SELECT * FROM tl_leaflet_map_layer WHERE lid=?')
+                ->execute($dataContainer->id);
+
+            $undo['data'] = deserialize($undo['data'], true);
+
+            while ($result->next()) {
+                $undo['data']['tl_leaflet_map_layer'][] = $result->row();
+            }
+
+            $result = $this->database
+                ->prepare('SELECT * FROM tl_leaflet_control_layer WHERE lid=?')
+                ->execute($dataContainer->id);
+
+            while ($result->next()) {
+                $undo['data']['tl_leaflet_control_layer'][] = $result->row();
+            }
+
+            $this->database->prepare('UPDATE tl_undo %s WHERE id=?')
+                ->set(array('data' => $undo['data']))
+                ->execute($undo['id']);
+        }
+
+        $this->database
+            ->prepare('DELETE FROM tl_leaflet_map_layer WHERE lid=?')
+            ->execute($dataContainer->id);
+
+        $this->database
+            ->prepare('DELETE FROM tl_leaflet_control_layer WHERE lid=?')
+            ->execute($dataContainer->id);
     }
 
     /**
