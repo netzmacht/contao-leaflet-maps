@@ -260,4 +260,6 @@ require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
  * You don't have to define it as array if you simply add a file. Do not add |static and or media type flag to it.
  * It's getting added by default if not being in debug mode.
  */
-$GLOBALS['LEAFLET_LIBRARIES'] = array();
+if (!isset($GLOBALS['LEAFLET_LIBRARIES'])) {
+    $GLOBALS['LEAFLET_LIBRARIES'] = array();
+}
