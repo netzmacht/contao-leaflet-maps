@@ -15,7 +15,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Model\VectorModel;
-use Netzmacht\Contao\Leaflet\Request\RequestUrl;
+use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Javascript\Type\Value\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;

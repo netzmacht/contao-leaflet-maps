@@ -9,7 +9,7 @@
  *
  */
 
-namespace Netzmacht\Contao\Leaflet\Request;
+namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
 
