@@ -245,3 +245,19 @@ $GLOBALS['LEAFLET_VECTORS'] = array
  * Leaflet tile layer providers.
  */
 require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
+
+/*
+ * Leaflet assets.
+ *
+ * The leaflet definition are aware of the required javascript libraries. Register the assets so that they are
+ * loaded automatically.
+ *
+ * Each entry is an array of 2 values. The first is the resource. The second is a type. Supported types are:
+ *  - url:    An valid url.
+ *  - file:   An file path relative to the Contao Root.
+ *  - source: Inline css/javascript.
+ *
+ * You don't have to define it as array if you simply add a file. Do not add |static and or media type flag to it.
+ * It's getting added by default if not being in debug mode.
+ */
+$GLOBALS['LEAFLET_LIBRARIES'] = array();

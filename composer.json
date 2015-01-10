@@ -23,6 +23,7 @@
         "contao-community-alliance/dependency-container":"~1.0",
         "contao-community-alliance/event-dispatcher":"~1.0",
         "contao-community-alliance/url-builder":"~1.1",
+        "netzmacht/contao-leaflet-libraries": "~0.7",
         "netzmacht/php-javascript-builder": "~1.0",
         "netzmacht/php-leaflet": "dev-master",
         "netzmacht/contao-dev-tools":"~1.0",
@@ -50,7 +51,8 @@
         "contao": {
             "sources":{
                 "module": "system/modules/leaflet",
-                "assets": "assets/leaflet"
+                "assets/maps": "assets/leaflet/maps",
+                "assets/js": "assets/leaflet/js"
             },
             "transifex": {
                 "project": "contao-leaflet-maps",

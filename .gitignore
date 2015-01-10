@@ -1,7 +1,7 @@
 /vendor/
 /bin/
 /demo/
-/assets/js/
+/assets/js/*.js
 /.tx/
 
 coverage.xml
