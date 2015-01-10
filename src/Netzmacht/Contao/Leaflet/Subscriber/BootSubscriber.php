@@ -114,7 +114,7 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function loadAssets()
     {
-        $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/contao/contao-leaflet.js' . (\Config::get('debugMode')
+        $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/maps/contao-leaflet.js' . (\Config::get('debugMode')
             ? ''
             : '|static'
         );

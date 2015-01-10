@@ -20,7 +20,7 @@ use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
  */
 class RequestUrl
 {
-    const BASE = 'assets/leaflet/data.php';
+    const BASE = 'assets/leaflet/maps/data.php';
 
     /**
      * Create the request url.
