@@ -190,7 +190,6 @@ L.Contao = L.Class.extend({
      *  events which is also used by the tile layers.
      */
     bindDataLoadingEvents: function() {
-        //
         L.Map.addInitHook(function () {
             var map = this;
 
