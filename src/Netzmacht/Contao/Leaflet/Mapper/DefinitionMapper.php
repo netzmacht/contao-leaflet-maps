@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\Contao\Leaflet\Event\BuildDefinitionEvent;
+use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
@@ -74,15 +75,15 @@ class DefinitionMapper
     /**
      * Build a model.
      *
-     * @param \Model       $model     The definition model.
+     * @param mixed        $model     The definition model.
      * @param LatLngBounds $bounds    Optional bounds where elements should be in.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
      * @return Definition
      */
-    public function handle(\Model $model, LatLngBounds $bounds = null, $elementId = null)
+    public function handle($model, LatLngBounds $bounds = null, $elementId = null)
     {
-        $hash = $model->getTable() . '.' . $model->{$model->getPk()} . ($elementId ? ('.' . $elementId) : '');
+        $hash = $this->getHash($model, $elementId);
 
         if (isset($this->mapped[$hash])) {
             return $this->mapped[$hash];
@@ -117,12 +118,12 @@ class DefinitionMapper
     /**
      * Build a model.
      *
-     * @param \Model       $model     The definition model.
+     * @param mixed        $model     The definition model.
      * @param LatLngBounds $bounds    Optional bounds where elements should be in.
      *
      * @return FeatureCollection|Feature
      */
-    public function handleGeoJson(\Model $model, LatLngBounds $bounds = null)
+    public function handleGeoJson($model, LatLngBounds $bounds = null)
     {
         foreach ($this->builders as $builders) {
             foreach ($builders as $builder) {
@@ -151,5 +152,27 @@ class DefinitionMapper
                 $model->{$model->getPk()}
             )
         );
+    }
+
+    /**
+     * @param $model
+     *
+     * @return string
+     */
+    protected function getHash($model, $elementId)
+    {
+        $event = new GetHashEvent($model);
+        $this->eventDispatcher->dispatch($event::NAME, $event);
+        $hash = $event->getHash();
+
+        if (!$hash) {
+            throw new \RuntimeException('Could not create a hash');
+        }
+
+        if ($elementId) {
+            $hash .= '.' . $elementId;
+        }
+
+        return $hash;
     }
 }
