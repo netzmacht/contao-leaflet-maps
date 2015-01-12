@@ -9,7 +9,7 @@
  *
  */
 
-namespace Netzmacht\Contao\Leaflet\Controller;
+namespace Netzmacht\Contao\Leaflet\Frontend;
 
 
 use Netzmacht\Contao\Leaflet\MapService;
