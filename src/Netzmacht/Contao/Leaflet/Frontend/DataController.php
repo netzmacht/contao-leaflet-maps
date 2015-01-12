@@ -58,6 +58,15 @@ class DataController
         $format = $this->getInput('format', 'geojson');
         $type   = $this->getInput('type', 'layer');
         $dataId = $this->getInput('id');
+        $page   = \Input::get('page', true);
+
+        if ($page) {
+            // Fake a page request.
+            \Environment::set('request', base64_decode($page));
+
+            // We need the auto_item being set. So call the getPageIdFromUrl method, this does it internally.
+            \Frontend::getPageIdFromUrl();
+        }
 
         try {
             list($data, $error) = $this->loadData($type, $dataId);

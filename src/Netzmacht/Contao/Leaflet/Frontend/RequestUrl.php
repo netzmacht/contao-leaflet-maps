@@ -53,8 +53,25 @@ class RequestUrl
             ->setPath($path)
             ->setQueryParameter('type', $type ?: 'layer')
             ->setQueryParameter('format', $format ?: 'geojson')
-            ->setQueryParameter('id', $dataId);
+            ->setQueryParameter('id', $dataId)
+            ->setQueryParameter('page', rawurlencode(base64_encode(self::getRequestUri())));
 
         return $builder;
+    }
+
+    /**
+     * Get the request uri without leading slash.
+     *
+     * @return mixed
+     */
+    protected static function getRequestUri()
+    {
+        $uri = \Environment::get('requestUri');
+
+        if (strpos($uri, '/') === 0) {
+            return substr($uri, 1);
+        }
+
+        return $uri;
     }
 }
