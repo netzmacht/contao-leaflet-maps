@@ -24,26 +24,9 @@ L.Contao = L.Class.extend({
     initialize: function() {
         L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
 
-        // Bind triggered data:loading and data:loaded events to the map so that the loading indicator
-        // is aware of that. Dataloading and dataloaded are the default events which leaflet uses but leaflet.ajax not.
-        L.Map.addInitHook(function () {
-            var map = this;
-
-            this.on('layeradd', function(e) {
-                if (e.layer.on) {
-                    e.layer.on('data:loading', function() { map.fire('dataloading'); });
-                    e.layer.on('data:loaded', function() { map.fire('dataload'); });
-                }
-            });
-        });
-
-        if (L.GeoJSON.AJAX) {
-            // Set default pointToLayer and onEachFeature handler.
-            L.GeoJSON.AJAX.prototype.options = {
-                pointToLayer: this.pointToLayer.bind(this),
-                onEachFeature: this.onEachFeature.bind(this)
-            };
-        }
+        this.bindDataLoadingEvents();
+        this.setGeoJsonListeners(L.GeoJSON);
+        this.setGeoJsonListeners(L.GeoJSON.AJAX);
     },
 
     /**
@@ -198,7 +181,42 @@ L.Contao = L.Class.extend({
                 obj.bindPopup(feature.properties.popupContent);
             }
         }
+    },
+
+    /**
+     *  Bind triggered data:loading and data:loaded events to the map.
+     *
+     *  These events are fired by leaflet.ajax. The loading indicator listens to the map dataloading and dataloaded
+     *  events which is also used by the tile layers.
+     */
+    bindDataLoadingEvents: function() {
+        //
+        L.Map.addInitHook(function () {
+            var map = this;
+
+            this.on('layeradd', function(e) {
+                if (e.layer.on) {
+                    e.layer.on('data:loading', function() { map.fire('dataloading'); });
+                    e.layer.on('data:loaded', function() { map.fire('dataload'); });
+                }
+            });
+        });
+    },
+
+    /**
+     * Set the default geojson listeners to the prototype.
+     *
+     * @param obj
+     */
+    setGeoJsonListeners: function(obj) {
+        if (obj && obj.prototype) {
+            obj.prototype.options = {
+                pointToLayer: this.pointToLayer.bind(this),
+                onEachFeature: this.onEachFeature.bind(this)
+            };
+        }
     }
+
 });
 
 window.ContaoLeaflet = new L.Contao();
