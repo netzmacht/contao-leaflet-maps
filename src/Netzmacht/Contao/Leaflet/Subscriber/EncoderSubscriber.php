@@ -31,8 +31,8 @@ class EncoderSubscriber implements EventSubscriberInterface
     {
         return array(
             BuildEvent::NAME => array(
-                array('startWrapper', 100),
-                array('endWrapper', -100),
+                array('startWrapper', 1000),
+                array('endWrapper', -1000),
             ),
             EncodeValueEvent::NAME => array(
                 array('encodeIcons', 100)
