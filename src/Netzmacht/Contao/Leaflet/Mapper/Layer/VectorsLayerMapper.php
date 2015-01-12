@@ -13,15 +13,17 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
-use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Model\VectorModel;
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Javascript\Type\Value\Expression;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
+use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Definition\Vector;
 use Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax;
 
 class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
@@ -98,7 +100,13 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
         if ($collection) {
             foreach ($collection as $item) {
-                $feature->addFeature($mapper->handle($item)->toGeoJson());
+                $vector = $mapper->handle($item);
+
+                if ($vector instanceof ConvertsToGeoJsonFeature) {
+                    $feature->addFeature($vector->toGeoJsonFeature());
+                } elseif ($vector instanceof GeoJsonFeature) {
+                    $feature->addFeature($vector);
+                }
             }
         }
 

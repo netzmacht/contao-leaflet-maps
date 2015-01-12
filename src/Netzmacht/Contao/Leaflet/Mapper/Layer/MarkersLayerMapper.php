@@ -21,8 +21,8 @@ use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Definition\UI\Marker;
 use Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax;
-use PhpSpec\Exception\Exception;
 
 class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 {
@@ -94,7 +94,11 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
         if ($collection) {
             foreach ($collection as $item) {
-                $feature->addFeature($mapper->handle($item)->toGeoJson());
+                $marker = $mapper->handle($item);
+
+                if ($marker instanceof Marker) {
+                    $feature->addFeature($marker->toGeoJsonFeature());
+                }
             }
         }
 
