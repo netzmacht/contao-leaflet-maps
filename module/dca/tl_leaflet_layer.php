@@ -130,6 +130,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
     'metapalettes' => array(
         'default' => array(
             'title'    => array('title', 'alias', 'type'),
+            'config'   => array(),
             'expert'   => array(':hide'),
             'active'   => array('active'),
         ),
