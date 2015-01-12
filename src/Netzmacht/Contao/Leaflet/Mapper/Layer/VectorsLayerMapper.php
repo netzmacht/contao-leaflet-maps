@@ -75,7 +75,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
             }
         }
 
-        if ($definition instanceof GeoJson) {
+        if ($definition instanceof GeoJson || $definition instanceof GeoJsonAjax) {
             if ($model->pointToLayer) {
                 $definition->setPointToLayer(new Expression($model->pointToLayer));
             }

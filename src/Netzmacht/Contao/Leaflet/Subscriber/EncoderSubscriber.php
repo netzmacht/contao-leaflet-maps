@@ -12,7 +12,9 @@
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use Netzmacht\Javascript\Event\BuildEvent;
+use Netzmacht\Javascript\Event\EncodeValueEvent;
 use Netzmacht\LeafletPHP\Definition\Map;
+use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -29,9 +31,12 @@ class EncoderSubscriber implements EventSubscriberInterface
     {
         return array(
             BuildEvent::NAME => array(
-                array('startWrapper', 1000),
-                array('endWrapper', -1000)
-            )
+                array('startWrapper', 100),
+                array('endWrapper', -100),
+            ),
+            EncodeValueEvent::NAME => array(
+                array('encodeIcons', 100)
+            ),
         );
     }
 
@@ -69,6 +74,16 @@ class EncoderSubscriber implements EventSubscriberInterface
         if ($object instanceof Map) {
             $line = 'return map; })());';
             $event->getOutput()->addLine($line);
+        }
+    }
+
+    public function encodeIcons(EncodeValueEvent $event)
+    {
+        $value = $event->getValue();
+
+        if ($value instanceof Icon) {
+            $event->addLine('ContaoLeaflet.getIcon(\'' . $value->getId() . '\')');
+            $event->stopPropagation();
         }
     }
 }
