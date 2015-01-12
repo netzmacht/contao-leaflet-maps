@@ -147,7 +147,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             '+active' => array('deferred'),
         ),
         'reference extends default' => array(
-            '+title' => array('reference')
+            '+title' => array('reference', 'standalone')
         )
     ),
 
@@ -323,6 +323,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'includeBlankOption' => true,
             ),
             'sql'              => "int(10) unsigned NOT NULL default '0'",
+        ),
+        'standalone' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['standalone'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default ''"
         ),
         'onEachFeature'  => array
         (

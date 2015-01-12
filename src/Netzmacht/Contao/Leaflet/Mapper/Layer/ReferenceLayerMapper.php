@@ -40,6 +40,8 @@ class ReferenceLayerMapper extends AbstractLayerMapper
             return null;
         }
 
-        return $mapper->handle($reference, $bounds, $this->getElementId($model, $elementId));
+        $elementId = $model->standalone ? $this->getElementId($model, $elementId) : null;
+
+        return $mapper->handle($reference, $bounds, $elementId);
     }
 }

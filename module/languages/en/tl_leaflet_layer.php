@@ -3,6 +3,7 @@
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['title_legend']  = 'Layer';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active_legend'] = 'Activation';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['expert_legend'] = 'Expert settings';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['config_legend'] = 'Configuration';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['map'][0]    = 'Manage maps';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['map'][1]    = 'Manage leaflet maps';
@@ -39,6 +40,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['active'][0]                = 'Activate 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active'][1]                = 'Activate layer on the map.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['reference'][0]             = 'Reference';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['reference'][1]             = 'Choose the reference layer.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['standalone'][0]            = 'Standalone';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['standalone'][1]            = 'Integrate reference as a copy of the referenced layer.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][0]         = 'Marker cluster';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'][1]         = 'Choose a marker cluster layer so that markers get clustered.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'][0]              = 'Deferred loading';
