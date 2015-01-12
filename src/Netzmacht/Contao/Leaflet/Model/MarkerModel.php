@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Model;
 
 
-class MarkerModel extends \Model
+class MarkerModel extends AbstractActiveModel
 {
     protected static $strTable = 'tl_leaflet_marker';
 

@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Model;
 
 
-class VectorModel extends \Model
+class VectorModel extends AbstractActiveModel
 {
     /**
      * Model table.
