@@ -11,7 +11,6 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-
 use Netzmacht\Contao\Leaflet\Definition\Style;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
@@ -21,6 +20,11 @@ use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\Path;
 
+/**
+ * Class AbstractVectorMapper is the base class for the vector model definition mapping.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class AbstractVectorMapper extends AbstractTypeMapper
 {
     /**

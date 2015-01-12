@@ -13,6 +13,11 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Style;
 
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 
+/**
+ * Class AbstractStyleMapper is the base mapper for the style model.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Style
+ */
 abstract class AbstractStyleMapper extends AbstractTypeMapper
 {
     /**

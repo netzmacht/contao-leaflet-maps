@@ -20,7 +20,11 @@ use Netzmacht\LeafletPHP\Definition\Layer;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
-
+/**
+ * Class MapMapper maps the database map model to the leaflet definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper
+ */
 class MapMapper extends AbstractMapper
 {
     /**
@@ -38,7 +42,7 @@ class MapMapper extends AbstractMapper
     protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Map';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function initialize()
     {
@@ -51,7 +55,7 @@ class MapMapper extends AbstractMapper
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function build(Definition $map, \Model $model, DefinitionMapper $builder, LatLngBounds $bounds = null)
     {
@@ -63,7 +67,7 @@ class MapMapper extends AbstractMapper
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function buildConstructArguments(
         \Model $model,
@@ -99,6 +103,8 @@ class MapMapper extends AbstractMapper
      * @param MapModel         $model  The map model.
      * @param DefinitionMapper $mapper The definition mapper.
      * @param LatLngBounds     $bounds Optional bounds.
+     *
+     * @return void
      */
     private function buildControls(Map $map, MapModel $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
@@ -124,6 +130,8 @@ class MapMapper extends AbstractMapper
      * @param MapModel         $model  The map model.
      * @param DefinitionMapper $mapper Definition mapper.
      * @param LatLngBounds     $bounds Optional bounds.
+     *
+     * @return void
      */
     private function buildLayers(Map $map, MapModel $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {

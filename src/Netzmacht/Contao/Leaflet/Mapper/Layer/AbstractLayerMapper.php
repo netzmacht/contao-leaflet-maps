@@ -13,6 +13,11 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 
+/**
+ * Class AbstractLayerMapper is the base mapper for the layer model.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Layer
+ */
 class AbstractLayerMapper extends AbstractTypeMapper
 {
     /**
@@ -22,6 +27,9 @@ class AbstractLayerMapper extends AbstractTypeMapper
      */
     protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\LayerModel';
 
+    /**
+     * {@inheritdoc}
+     */
     protected function initialize()
     {
         parent::initialize();

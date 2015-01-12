@@ -11,13 +11,17 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
+/**
+ * Class ImageIconMapper maps the icon model to the image icon definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Type
+ */
 class ImageIconMapper extends AbstractIconMapper
 {
     /**
@@ -74,7 +78,7 @@ class ImageIconMapper extends AbstractIconMapper
     /**
      * Add icon image.
      *
-     * @param ImageIcon      $definition The icon definition.
+     * @param ImageIcon $definition The icon definition.
      * @param IconModel $model      The model.
      *
      * @return void
@@ -116,7 +120,7 @@ class ImageIconMapper extends AbstractIconMapper
     /**
      * Add shadow if defined.
      *
-     * @param ImageIcon      $definition The icon definition.
+     * @param ImageIcon $definition The icon definition.
      * @param IconModel $model      The model.
      *
      * @return void

@@ -11,23 +11,42 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-
 use Netzmacht\Contao\DevTools\ServiceContainerTrait;
 
+/**
+ * Class Map is the helper class for the tl_leaflet_map dca.
+ *
+ * @package Netzmacht\Contao\Leaflet\Dca
+ */
 class Map
 {
     use ServiceContainerTrait;
 
     /**
+     * The database connection.
+     *
      * @var \Database
      */
     private $database;
 
+    /**
+     * Construct.
+     */
     public function __construct()
     {
         $this->database = static::getService('database.connection');
     }
 
+    /**
+     * Load layer relations.
+     *
+     * @param mixed          $value         The actual value.
+     * @param \DataContainer $dataContainer The data container driver.
+     *
+     * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function loadLayerRelations($value, $dataContainer)
     {
         $result = $this->database
@@ -37,6 +56,14 @@ class Map
         return $result->fetchEach('lid');
     }
 
+    /**
+     * Save layer relations.
+     *
+     * @param mixed          $layerId       The layer id values.
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return null
+     */
     public function saveLayerRelations($layerId, $dataContainer)
     {
         $new    = deserialize($layerId, true);
@@ -67,7 +94,8 @@ class Map
 
                 $sorting += 128;
             } else {
-                if ($values[$layerId]['sorting'] <= ($sorting - 128) || $values[$layerId]['sorting'] >= ($sorting + 128)) {
+                if ($values[$layerId]['sorting'] <= ($sorting - 128)
+                    || $values[$layerId]['sorting'] >= ($sorting + 128)) {
                     $this->database
                         ->prepare('UPDATE tl_leaflet_map_layer %s WHERE id=?')
                         ->set(array('tstamp'  => time(), 'sorting' => $sorting))

@@ -11,7 +11,6 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
@@ -19,6 +18,11 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 use Netzmacht\LeafletPHP\Definition\Vector\Rectangle;
 
+/**
+ * Class RectangleMapper maps a database model to its rectangle vector definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class RectangleMapper extends AbstractVectorMapper
 {
     /**
@@ -35,11 +39,9 @@ class RectangleMapper extends AbstractVectorMapper
      */
     protected static $type = 'rectangle';
 
-    protected function initialize()
-    {
-        parent::initialize();
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     protected function buildConstructArguments(
         \Model $model,
         DefinitionMapper $mapper,
@@ -47,7 +49,7 @@ class RectangleMapper extends AbstractVectorMapper
         $elementId = null
     ) {
         $latLngs = array_map(
-            function($latLng) {
+            function ($latLng) {
                 return LatLng::fromString($latLng);
             },
             deserialize($model->bounds, true)

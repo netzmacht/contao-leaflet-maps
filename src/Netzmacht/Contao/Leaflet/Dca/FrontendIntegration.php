@@ -15,10 +15,11 @@ use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 
 /**
- * Class Content
+ * Class Module is the helper for the tl_module dca.
+ *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Content
+class FrontendIntegration
 {
     /**
      * Get all leaflet maps.
@@ -32,11 +33,23 @@ class Content
         return OptionsBuilder::fromCollection($collection, 'id', 'title')->getOptions();
     }
 
+    /**
+     * Get edit map link wizard.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     public function getEditMapLink($dataContainer)
     {
         if ($dataContainer->value < 1) {
             return '';
         }
+
+        $pattern  = 'title="%s" style="padding-left: 3px" onclick="Backend.openModalIframe(';
+        $pattern .= '{\'width\':768,\'title\':\'%s\',\'url\':this.href});return false"';
 
         return sprintf(
             '<a href="%s%s&amp;popup=1&amp;rt=%s" %s>%s</a>',
@@ -44,8 +57,7 @@ class Content
             $dataContainer->value,
             \RequestToken::get(),
             sprintf(
-                'title="%s" style="padding-left: 3px" '
-                 . 'onclick="Backend.openModalIframe({\'width\':768,\'title\':\'%s\',\'url\':this.href});return false"',
+                $pattern,
                 specialchars(sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dataContainer->value)),
                 specialchars(
                     str_replace(
@@ -57,7 +69,8 @@ class Content
             ),
             \Image::getHtml(
                 'alias.gif',
-                $GLOBALS['TL_LANG']['tl_content']['editalias'][0], 'style="vertical-align:top"'
+                $GLOBALS['TL_LANG']['tl_content']['editalias'][0],
+                'style="vertical-align:top"'
             )
         );
     }

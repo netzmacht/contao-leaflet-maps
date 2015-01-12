@@ -11,12 +11,23 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-
 use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 
+/**
+ * Helper class for the tl_leaflet_vector dca.
+ *
+ * @package Netzmacht\Contao\Leaflet\Dca
+ */
 class Vector
 {
+    /**
+     * Generate the row label.
+     *
+     * @param array $row Current data row.
+     *
+     * @return string
+     */
     public function generateRow($row)
     {
         return sprintf('%s <span class="tl_gray">[%s]</span>', $row['title'], $row['type']);

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * @package    dev
+ * @author     David Molineus <david.molineus@netzmacht.de>
+ * @copyright  2014 netzmacht creative David Molineus
+ * @license    LGPL 3.0
+ * @filesource
+ *
+ */
+
 /*
  * Support all providers and variants which are supported by leaflet-providers.
  * See https://github.com/leaflet-extras/leaflet-providers/blob/master/leaflet-providers.js

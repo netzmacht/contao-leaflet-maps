@@ -11,32 +11,53 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-
 use Netzmacht\Contao\Leaflet\MapService;
 
+/**
+ * The data controller handles ajax request for sub data.
+ *
+ * @package Netzmacht\Contao\Leaflet\Frontend
+ */
 class DataController
 {
     /**
+     * The map service.
+     *
      * @var MapService
      */
     private $mapService;
 
     /**
+     * The user input object.
+     *
      * @var \Input
      */
     private $input;
 
+    /**
+     * Construct.
+     *
+     * @param MapService $mapService The map service.
+     * @param \Input     $input      The user input object.
+     */
     public function __construct(MapService $mapService, \Input $input)
     {
         $this->mapService = $mapService;
         $this->input      = $input;
     }
 
+    /**
+     * Execute the controller and create the data response.
+     *
+     * @return void
+     *
+     * @throws \Exception If anything went wrong.
+     */
     public function execute()
     {
-        $format = $this->input->get('format') ?: 'geojson';
-        $type   = $this->input->get('type') ?: 'layer';
-        $dataId = $this->input->get('id');
+        $format = $this->getInput('format', 'geojson');
+        $type   = $this->getInput('type', 'layer');
+        $dataId = $this->getInput('id');
 
         try {
             list($data, $error) = $this->loadData($type, $dataId);
@@ -55,8 +76,12 @@ class DataController
     }
 
     /**
-     * @param $format
-     * @param $data
+     * Enocode the data.
+     *
+     * @param string $format The requested format.
+     * @param mixed  $data   The given data.
+     *
+     * @return void
      */
     public function encodeData($format, $data)
     {
@@ -65,12 +90,17 @@ class DataController
                 header('Content-Type: application/json');
                 echo json_encode($data, JSON_UNESCAPED_SLASHES);
                 break;
+
+            default:
+                // Blame the code sniffer.
         }
     }
 
     /**
-     * @param $type
-     * @param $dataId
+     * Load the data.
+     *
+     * @param string $type   The data type.
+     * @param mixed  $dataId The data id.
      *
      * @return array
      */
@@ -91,5 +121,18 @@ class DataController
         }
 
         return array($data, $error);
+    }
+
+    /**
+     * Get an input value.
+     *
+     * @param string $name    The input name.
+     * @param mixed  $default Optional a default value if empty.
+     *
+     * @return string
+     */
+    protected function getInput($name, $default = null)
+    {
+        return $this->input->get($name) ?: $default;
     }
 }

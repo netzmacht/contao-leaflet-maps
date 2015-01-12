@@ -11,21 +11,37 @@
 
 namespace Netzmacht\Contao\Leaflet\Backend;
 
-
+/**
+ * Credits backend module.
+ *
+ * @package Netzmacht\Contao\Leaflet\Backend
+ */
 class Credits
 {
+    /**
+     * Generate the backend view.
+     *
+     * @return string
+     */
     public function generate()
     {
         $template = new \BackendTemplate('be_leaflet_credits');
 
-        $template->headline     = 'Leaftlet maps integration for Contao CMS';
-        $template->libraries    = $this->getLibraries();
+        $template->headline  = 'Leaftlet maps integration for Contao CMS';
+        $template->libraries = $this->getLibraries();
 
         list($template->version, $template->dependencies) = $this->extractFromComposer();
 
         return $template->parse();
     }
 
+    /**
+     * Get list of all libraries.
+     *
+     * @return array
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     private function getLibraries()
     {
         return array_map(
@@ -58,6 +74,11 @@ class Credits
         );
     }
 
+    /**
+     * Extract version and dependencies from composer.
+     *
+     * @return array
+     */
     private function extractFromComposer()
     {
         $local    = TL_ROOT . '/composer/vendor/netzmacht/contao-leaflet-maps/composer.json';

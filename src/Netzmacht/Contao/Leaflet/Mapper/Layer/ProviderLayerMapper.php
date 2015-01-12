@@ -15,6 +15,11 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
+/**
+ * Class ProviderLayerMapper maps the layer model to the tile provider definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Layer
+ */
 class ProviderLayerMapper extends AbstractLayerMapper
 {
     /**

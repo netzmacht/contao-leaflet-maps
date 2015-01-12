@@ -11,33 +11,70 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
+use Model\Collection;
+
+/**
+ * Class ControlModel for the tl_leaflet_vector table.
+ *
+ * @package Netzmacht\Contao\Leaflet\Model
+ */
 class ControlModel extends AbstractActiveModel
 {
+    /**
+     * Model table.
+     *
+     * @var string
+     */
     protected static $strTable = 'tl_leaflet_control';
 
     /**
-     * @return \Model\Collection
+     * Find all related layers.
+     *
+     * @return Collection|null
      */
     public function findLayers()
     {
-        $query  = 'SELECT l.*, c.mode as controlMode FROM tl_leaflet_layer l LEFT JOIN tl_leaflet_control_layer c ON l.id = c.lid WHERE c.cid=?';
+        $query = <<<SQL
+SELECT    l.*, c.mode as controlMode
+FROM      tl_leaflet_layer l
+LEFT JOIN tl_leaflet_control_layer c ON l.id = c.lid
+WHERE     c.cid=?
+SQL;
+
         $result = \Database::getInstance()
             ->prepare($query)
             ->execute($this->id);
 
-        return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
+        if ($result->numRows < 1) {
+            return null;
+        }
+
+        return Collection::createFromDbResult($result, 'tl_leaflet_layer');
     }
 
     /**
-     * @return \Model\Collection
+     * Find active layers.
+     *
+     * @return Collection|null
      */
     public function findActiveLayers()
     {
-        $query  = 'SELECT l.*, c.mode as controlMode FROM tl_leaflet_layer l LEFT JOIN tl_leaflet_control_layer c ON l.id = c.lid WHERE c.cid=? AND l.active=1';
+        $query = <<<SQL
+SELECT    l.*, c.mode as controlMode
+FROM      tl_leaflet_layer l
+LEFT JOIN tl_leaflet_control_layer
+c ON      l.id = c.lid
+WHERE     c.cid=? AND l.active=1
+SQL;
+
         $result = \Database::getInstance()
             ->prepare($query)
             ->execute($this->id);
 
-        return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
+        if ($result->numRows < 1) {
+            return null;
+        }
+
+        return Collection::createFromDbResult($result, 'tl_leaflet_layer');
     }
 }

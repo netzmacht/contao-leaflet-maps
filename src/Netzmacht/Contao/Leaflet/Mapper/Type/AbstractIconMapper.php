@@ -11,9 +11,13 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 
+/**
+ * Class AbstractIconMapper is the base mapper for the icon model.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Type
+ */
 class AbstractIconMapper extends AbstractTypeMapper
 {
     /**

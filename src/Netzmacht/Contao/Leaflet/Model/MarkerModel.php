@@ -11,9 +11,17 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
-
+/**
+ * Class MarkerModel for the tl_leaflet_marker table.
+ *
+ * @package Netzmacht\Contao\Leaflet\Model
+ */
 class MarkerModel extends AbstractActiveModel
 {
+    /**
+     * Model table.
+     *
+     * @var string
+     */
     protected static $strTable = 'tl_leaflet_marker';
-
 }

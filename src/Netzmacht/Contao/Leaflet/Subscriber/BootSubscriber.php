@@ -23,7 +23,7 @@ use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class BootSubscriber
+ * Class BootSubscriber provides handlers for leaflet boot process.
  *
  * @package Netzmacht\Contao\Leaflet\Subscriber
  */
@@ -111,6 +111,8 @@ class BootSubscriber implements EventSubscriberInterface
      * Load Contao leaflet assets.
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function loadAssets()
     {
@@ -123,7 +125,9 @@ class BootSubscriber implements EventSubscriberInterface
     /**
      * Load icons.
      *
-     * @throws \Netzmacht\Javascript\Exception\EncodeValueFailed
+     * @return void
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function loadIcons()
     {
@@ -153,7 +157,9 @@ class BootSubscriber implements EventSubscriberInterface
             $file->write($buffer);
             $file->close();
 
+            // @codingStandardsIgnoreStart
             // TODO: Cache it.
+            // codingStandardsIgnoreEnd
             $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js' . (\Config::get('debugMode')
                 ? ''
                 : '|static'

@@ -11,7 +11,6 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\UI;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
@@ -20,6 +19,11 @@ use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
 
+/**
+ * Class MarkerMapper maps the marker model to the marker definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\UI
+ */
 class MarkerMapper extends AbstractMapper
 {
     /**

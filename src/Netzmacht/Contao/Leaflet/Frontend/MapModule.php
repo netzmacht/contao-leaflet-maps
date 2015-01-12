@@ -11,12 +11,19 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-
+use Netzmacht\Contao\DevTools\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\MapService;
-use Netzmacht\Contao\Leaflet\Model\MapModel;
 
+/**
+ * The frontend module for the Leaflet map.
+ *
+ * @package Netzmacht\Contao\Leaflet\Frontend
+ */
 class MapModule extends \Module
 {
+    use ServiceContainerTrait;
+    use HybridTrait;
+
     /**
      * Template name.
      *
@@ -25,77 +32,10 @@ class MapModule extends \Module
     protected $strTemplate = 'mod_leaflet_map';
 
     /**
-     * @var MapService
-     */
-    private $mapService;
-
-    /**
-     * Construct.
-     *
-     * @param \ModuleModel $objElement Module model.
-     * @param string       $strColumn  Layout column.
+     * {@inheritdoc}
      */
     public function __construct($objElement, $strColumn = 'main')
     {
-        parent::__construct($objElement, $strColumn);
-
-        $this->mapService = $GLOBALS['container']['leaflet.map.service'];
-    }
-
-    public function generate()
-    {
-        if (TL_MODE === 'BE') {
-            $model    = MapModel::findByPK($this->leaflet_map);
-            $template = new \BackendTemplate('be_wildcard');
-
-            if ($model) {
-                $href = 'contao/main.php?do=leaflet&amp;table=tl_leaflet_map&amp;act=edit&amp;id=' . $model->id;
-
-                $template->wildcard = '### LEAFLET MAP ' . $model->title . ' ###';
-                $template->title    = $this->headline;
-                $template->id       = $model->id;
-                $template->link     = $model->title;
-                $template->href     = $href;
-            }
-
-            return $template->parse();
-        }
-
-        return parent::generate();
-    }
-
-    /**
-     * Compile the content element.
-     *
-     * @return void
-     *
-     * @throws \Exception
-     */
-    protected function compile()
-    {
-        try {
-            $mapId = 'map_' . ($this->cssID[0] ?: ('mod_' . $this->id));
-            $map   = $this->mapService->getJavascript($this->leaflet_map, null, $mapId);
-
-            $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
-
-            $this->Template->mapId = $mapId;
-
-            $style  = '';
-            $height = deserialize($this->leaflet_height, true);
-            $width  = deserialize($this->leaflet_width, true);
-
-            if (!empty($width['value'])) {
-                $style .= 'width:' . $width['value'] . $width['unit'] . ';';
-            }
-
-            if (!empty($height['value'])) {
-                $style .= 'height:' . $height['value'] . $height['unit'] . ';';
-            }
-
-            $this->Template->mapStyle = $style;
-        } catch(\Exception $e) {
-            throw $e;
-        }
+        $this->construct($objElement, $strColumn);
     }
 }

@@ -11,13 +11,17 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\MultiPolygon;
 
+/**
+ * Class MultiPolygonMapper maps the multi polygon database model to its definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class MultiPolygonMapper extends MultiPolylineMapper
 {
     /**
@@ -34,6 +38,9 @@ class MultiPolygonMapper extends MultiPolylineMapper
      */
     protected static $type = 'multiPolygon';
 
+    /**
+     * {@inheritdoc}
+     */
     protected function build(
         Definition $definition,
         \Model $model,
@@ -43,18 +50,7 @@ class MultiPolygonMapper extends MultiPolylineMapper
         parent::build($definition, $model, $builder, $bounds);
 
         if ($definition instanceof MultiPolygon) {
-            $latLngs = array();
-
-            foreach (deserialize($model->multiData, true) as $data) {
-                $latLngs[] = array_map(
-                    function ($row) {
-                        return LatLng::fromString($row);
-                    },
-                    explode("\n", $data)
-                );
-            }
-
-            $definition->setLatLngs($latLngs);
+            $this->createLatLngs($definition, $model);
         }
     }
 }

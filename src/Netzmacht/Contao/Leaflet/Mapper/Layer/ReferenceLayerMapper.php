@@ -16,7 +16,7 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
- * Class ReferenceLayerMapper maps an reference layer to another
+ * Class ReferenceLayerMapper maps an reference layer to another layer.
  *
  * @package Netzmacht\Contao\Leaflet\Mapper\Layer
  */

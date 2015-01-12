@@ -13,6 +13,11 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 
+/**
+ * Class AbstractControlMapper is the base mapper for the control model.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Control
+ */
 class AbstractControlMapper extends AbstractTypeMapper
 {
     /**

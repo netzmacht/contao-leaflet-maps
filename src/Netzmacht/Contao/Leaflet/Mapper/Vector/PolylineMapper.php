@@ -11,13 +11,17 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\Polyline;
 
+/**
+ * Class PolylineMapper maps the database model to the polyline definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class PolylineMapper extends AbstractVectorMapper
 {
     /**
@@ -34,7 +38,9 @@ class PolylineMapper extends AbstractVectorMapper
      */
     protected static $type = 'polyline';
 
-
+    /**
+     * {@inheritdoc}
+     */
     protected function build(
         Definition $definition,
         \Model $model,

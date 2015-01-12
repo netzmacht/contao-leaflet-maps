@@ -11,6 +11,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
+/**
+ * Class PolygonMapper maps the database model to the polygon definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class PolygonMapper extends PolylineMapper
 {
     /**

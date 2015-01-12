@@ -11,13 +11,17 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 
+/**
+ * Class CircleMarkerMapper maps the database model to the circle marker definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class CircleMarkerMapper extends CircleMapper
 {
     /**

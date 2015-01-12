@@ -77,6 +77,13 @@ class EncoderSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Force that icons are encoded as reference to the ContaoLeaflet icon registry.
+     *
+     * @param EncodeValueEvent $event The subscribed event.
+     *
+     * @return void
+     */
     public function encodeIcons(EncodeValueEvent $event)
     {
         $value = $event->getValue();

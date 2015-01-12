@@ -11,8 +11,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
-
 /**
+ * IconModel class for the tl_leaflet_icon table.
+ *
  * @property mixed|null iconImage
  * @property mixed|null iconAnchor
  * @property mixed|null popupAnchor
@@ -23,5 +24,10 @@ namespace Netzmacht\Contao\Leaflet\Model;
  */
 class IconModel extends AbstractActiveModel
 {
+    /**
+     * Model table.
+     *
+     * @var string
+     */
     protected static $strTable = 'tl_leaflet_icon';
 }

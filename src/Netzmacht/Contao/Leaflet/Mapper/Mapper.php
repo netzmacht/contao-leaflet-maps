@@ -14,12 +14,17 @@ namespace Netzmacht\Contao\Leaflet\Mapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
+/**
+ * Interface Mapper describes the Mapper which translates a given configuration to the Leaflet definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper
+ */
 interface Mapper
 {
     /**
      * Map model to the definition.
      *
-     * @param \Model|mixed     $model     The model being built. Usually a contao model. but can be anything
+     * @param \Model|mixed     $model     The model being built. Usually a contao model, but can be anything.
      * @param DefinitionMapper $mapper    The definition builder.
      * @param LatLngBounds     $bounds    Optional bounds where elements should be in.
      * @param string           $elementId Optional element id.

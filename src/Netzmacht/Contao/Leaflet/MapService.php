@@ -44,6 +44,8 @@ class MapService
     private $leaflet;
 
     /**
+     * The event dispatcher.
+     *
      * @var EventDispatcher
      */
     private $eventDispatcher;
@@ -130,6 +132,8 @@ class MapService
      * @param LatLngBounds   $bounds  Filter features in the bounds.
      *
      * @return FeatureCollection
+     *
+     * @throws \InvalidArgumentException If a layer could not be found.
      */
     public function getFeatureCollection($layerId, LatLngBounds $bounds = null)
     {

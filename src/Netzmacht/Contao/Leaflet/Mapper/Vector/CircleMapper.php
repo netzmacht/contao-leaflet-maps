@@ -11,13 +11,17 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 
+/**
+ * Class CircleMapper maps the database model to the circle definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class CircleMapper extends AbstractVectorMapper
 {
     /**
@@ -34,6 +38,9 @@ class CircleMapper extends AbstractVectorMapper
      */
     protected static $type = 'circle';
 
+    /**
+     * {@inheritdoc}
+     */
     protected function initialize()
     {
         parent::initialize();
@@ -41,6 +48,9 @@ class CircleMapper extends AbstractVectorMapper
         $this->addOption('radius');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function build(
         Definition $definition,
         \Model $model,

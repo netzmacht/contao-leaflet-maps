@@ -24,6 +24,11 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
 use Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax;
 
+/**
+ * Class MarkersLayerMapper maps the layer model to the markers definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Layer
+ */
 class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 {
     /**
@@ -81,11 +86,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     }
 
     /**
-     * @param \Model           $model
-     * @param DefinitionMapper $mapper
-     * @param LatLngBounds     $bounds
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function handleGeoJson(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
@@ -106,18 +107,14 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     }
 
     /**
-     * @param \Model $model
+     * Load all layer markers.
+     *
+     * @param \Model $model The layer model.
      *
      * @return \Model\Collection|null
      */
     protected function loadMarkerModels(\Model $model)
     {
-        $collection = MarkerModel::findBy(
-            array('active=1', 'pid=?'),
-            array($model->id),
-            array('order' => 'sorting')
-        );
-
-        return $collection;
+        return MarkerModel::findActiveBy('pid', $model->id, array('order' => 'sorting'));
     }
 }

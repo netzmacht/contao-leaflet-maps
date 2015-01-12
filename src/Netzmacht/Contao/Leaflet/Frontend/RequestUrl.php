@@ -25,27 +25,27 @@ class RequestUrl
     /**
      * Create the request url.
      *
-     * @param int         $id     Object id.
+     * @param int         $dataId The data object id.
      * @param string|null $type   Object type. If empty it assumes a layer.
      * @param string|null $format Data format. If empty it assumes geojson.
      *
      * @return string
      */
-    public static function create($id, $type = null, $format = null)
+    public static function create($dataId, $type = null, $format = null)
     {
-        return self::createBuilder($id, $type, $format)->getUrl();
+        return self::createBuilder($dataId, $type, $format)->getUrl();
     }
 
     /**
      * Create the request builder.
      *
-     * @param int         $id     Object id.
+     * @param int         $dataId The data object id.
      * @param string|null $type   Object type. If empty it assumes a layer.
      * @param string|null $format Data format. If empty it assumes geojson.
      *
      * @return UrlBuilder
      */
-    public static function createBuilder($id, $type = null, $format = null)
+    public static function createBuilder($dataId, $type = null, $format = null)
     {
         $path    = \Config::get('websitePath') . '/' . static::BASE;
         $builder = new UrlBuilder();
@@ -53,7 +53,7 @@ class RequestUrl
             ->setPath($path)
             ->setQueryParameter('type', $type ?: 'layer')
             ->setQueryParameter('format', $format ?: 'geojson')
-            ->setQueryParameter('id', $id);
+            ->setQueryParameter('id', $dataId);
 
         return $builder;
     }

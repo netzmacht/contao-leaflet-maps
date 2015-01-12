@@ -24,7 +24,7 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 abstract class AbstractMapper implements Mapper
 {
     const VALUE_NOT_EMPTY = '__value_not_empty__';
-    const VALUE_EMPTY = '__value_empty__';
+    const VALUE_EMPTY     = '__value_empty__';
 
     /**
      * Class of the model being build.
@@ -190,6 +190,8 @@ abstract class AbstractMapper implements Mapper
      * @param LatLngBounds     $bounds     Optional bounds where elements should be in.
      *
      * @return void
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function build(
         Definition $definition,
@@ -224,12 +226,14 @@ abstract class AbstractMapper implements Mapper
     /**
      * Get construct arguments.
      *
-     * @param \Model           $model  The model.
-     * @param DefinitionMapper $mapper The definition mapper.
-     * @param LatLngBounds     $bounds Optional bounds where elements should be in.
+     * @param \Model           $model     The model.
+     * @param DefinitionMapper $mapper    The definition mapper.
+     * @param LatLngBounds     $bounds    Optional bounds where elements should be in.
      * @param string|null      $elementId Optional element id.
      *
      * @return array
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function buildConstructArguments(
         \Model $model,
@@ -301,6 +305,8 @@ abstract class AbstractMapper implements Mapper
      * @param array      $options    The options.
      * @param Definition $definition The definition being built.
      * @param \Model     $model      The model.
+     *
+     * @return void
      */
     protected function applyOptions($options, $definition, $model)
     {
@@ -312,8 +318,7 @@ abstract class AbstractMapper implements Mapper
                 if (((bool) $model->$option) !== $default) {
                     $definition->$setter($model->$mapping);
                 }
-            }
-            elseif ($model->$mapping !== $default) {
+            } elseif ($model->$mapping !== $default) {
                 $definition->$setter($model->$mapping);
             }
         }
@@ -351,6 +356,8 @@ abstract class AbstractMapper implements Mapper
      * @param LatLngBounds     $bounds Optional bounds where elements should be in.
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {

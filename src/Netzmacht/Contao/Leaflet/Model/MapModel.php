@@ -11,13 +11,26 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
+use Model\Collection;
 
+/**
+ * Class MapModel for the tl_leaflet_map table.
+ *
+ * @package Netzmacht\Contao\Leaflet\Model
+ */
 class MapModel extends \Model
 {
+    /**
+     * Model table.
+     *
+     * @var string
+     */
     protected static $strTable = 'tl_leaflet_map';
 
     /**
-     * @return \Model\Collection
+     * Find all related layers.
+     *
+     * @return Collection|null
      */
     public function findLayers()
     {
@@ -26,19 +39,34 @@ class MapModel extends \Model
             ->prepare($query)
             ->execute($this->id);
 
-        return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
+        if ($result->numRows < 1) {
+            return null;
+        }
+
+        return Collection::createFromDbResult($result, 'tl_leaflet_layer');
     }
 
     /**
-     * @return \Model\Collection
+     * Find all active layers.
+     *
+     * @return Collection|null
      */
     public function findActiveLayers()
     {
-        $query  = 'SELECT l.* FROM tl_leaflet_layer l LEFT JOIN tl_leaflet_map_layer m ON l.id = m.lid WHERE m.mid=? AND l.active=1';
-        $result = \Database::getInstance()
-            ->prepare($query)
-            ->execute($this->id);
+        $query = <<<SQL
+SELECT    l.*
+FROM      tl_leaflet_layer l
+LEFT JOIN tl_leaflet_map_layer m
+ON        l.id = m.lid
+WHERE     m.mid=? AND l.active=1
+SQL;
 
-        return \Model\Collection::createFromDbResult($result, 'tl_leaflet_layer');
+        $result = \Database::getInstance()->prepare($query)->execute($this->id);
+
+        if ($result->numRows) {
+            return Collection::createFromDbResult($result, 'tl_leaflet_layer');
+        }
+
+        return null;
     }
 }

@@ -11,12 +11,16 @@
 
 namespace Netzmacht\Contao\Leaflet\Definition\Style;
 
-
 use Netzmacht\Contao\Leaflet\Definition\Style;
 use Netzmacht\LeafletPHP\Definition\AbstractDefinition;
 use Netzmacht\LeafletPHP\Definition\OptionsTrait;
 use Netzmacht\LeafletPHP\Definition\Vector\Path;
 
+/**
+ * Class FixedStyle is a style which simple has fixed definitions.
+ *
+ * @package Netzmacht\Contao\Leaflet\Definition\Style
+ */
 class FixedStyle extends AbstractDefinition implements Style
 {
     use OptionsTrait;

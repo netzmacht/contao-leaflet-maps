@@ -14,18 +14,23 @@ namespace Netzmacht\Contao\Leaflet;
 use Netzmacht\LeafletPHP\Assets;
 
 /**
- * Class ContaoAssets
+ * Class ContaoAssets handles leaflet assets and integrate them into the Contao assets registry (Superglobals).
+ *
  * @package Netzmacht\Contao\Leaflet
  */
 class ContaoAssets implements Assets
 {
     /**
-     * @var
+     * The map javascript.
+     *
+     * @var string
      */
     private $map;
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function addJavascript($script, $type = self::TYPE_SOURCE)
     {
@@ -48,6 +53,8 @@ class ContaoAssets implements Assets
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function addStylesheet($stylesheet, $type = self::TYPE_FILE)
     {

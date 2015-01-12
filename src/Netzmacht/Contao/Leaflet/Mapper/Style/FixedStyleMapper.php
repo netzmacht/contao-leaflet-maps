@@ -13,6 +13,11 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Style;
 
 use Netzmacht\LeafletPHP\Definition;
 
+/**
+ * Class FixedStyleMapper maps the fixed style to the corresponding definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Style
+ */
 class FixedStyleMapper extends AbstractStyleMapper
 {
     /**

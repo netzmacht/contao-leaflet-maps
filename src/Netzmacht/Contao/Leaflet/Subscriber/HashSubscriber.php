@@ -11,10 +11,14 @@
 
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
-
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class HashSubscriber creates hashes for models and for data which does not have a hash created by other subscribers.
+ *
+ * @package Netzmacht\Contao\Leaflet\Subscriber
+ */
 class HashSubscriber implements EventSubscriberInterface
 {
     /**
@@ -33,7 +37,9 @@ class HashSubscriber implements EventSubscriberInterface
     /**
      * Get hash for a model object.
      *
-     * @param GetHashEvent $event
+     * @param GetHashEvent $event The subscribed event.
+     *
+     * @return void
      */
     public function getModelHash(GetHashEvent $event)
     {
@@ -47,7 +53,9 @@ class HashSubscriber implements EventSubscriberInterface
     /**
      * Get hash fallback if no hash was created so far.
      *
-     * @param GetHashEvent $event
+     * @param GetHashEvent $event The subscribed event.
+     *
+     * @return void
      */
     public function getFallback(GetHashEvent $event)
     {

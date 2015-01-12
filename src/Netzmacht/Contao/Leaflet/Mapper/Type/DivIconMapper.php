@@ -11,12 +11,16 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\DivIcon;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
+/**
+ * Class DivIconMapper maps the icon model to the div icon definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Type
+ */
 class DivIconMapper extends AbstractIconMapper
 {
     /**

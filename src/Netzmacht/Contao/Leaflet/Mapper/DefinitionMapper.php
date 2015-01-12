@@ -27,9 +27,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatche
 class DefinitionMapper
 {
     /**
-     * Registered builders.
+     * Lit of all registered mappers.
      *
-     * @var AbstractMapper[][]
+     * @var Mapper[][]
      */
     private $builders = array();
 
@@ -41,6 +41,8 @@ class DefinitionMapper
     private $eventDispatcher;
 
     /**
+     * Cache of mapped definitions.
+     *
      * @var array
      */
     private $mapped = array();
@@ -79,7 +81,9 @@ class DefinitionMapper
      * @param LatLngBounds $bounds    Optional bounds where elements should be in.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
-     * @return Definition
+     * @return Definition|null
+     *
+     * @throws \RuntimeException If model could not be mapped to a definition.
      */
     public function handle($model, LatLngBounds $bounds = null, $elementId = null)
     {
@@ -90,7 +94,7 @@ class DefinitionMapper
         }
 
         foreach ($this->builders as $builders) {
-            foreach($builders as $builder) {
+            foreach ($builders as $builder) {
                 if ($builder->match($model)) {
                     $definition = $builder->handle($model, $this, $bounds, $elementId);
 
@@ -118,10 +122,12 @@ class DefinitionMapper
     /**
      * Build a model.
      *
-     * @param mixed        $model     The definition model.
-     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
+     * @param mixed        $model  The definition model.
+     * @param LatLngBounds $bounds Optional bounds where elements should be in.
      *
-     * @return FeatureCollection|Feature
+     * @return FeatureCollection|Feature|null
+     *
+     * @throws \RuntimeException If a model could not be mapped to the GeoJSON representation.
      */
     public function handleGeoJson($model, LatLngBounds $bounds = null)
     {
@@ -155,9 +161,14 @@ class DefinitionMapper
     }
 
     /**
-     * @param $model
+     * Get the hash of a model.
+     *
+     * @param mixed       $model     The definition model.
+     * @param string|null $elementId Optional defined extra element id.
      *
      * @return string
+     *
+     * @throws \RuntimeException If no hash was created.
      */
     protected function getHash($model, $elementId)
     {

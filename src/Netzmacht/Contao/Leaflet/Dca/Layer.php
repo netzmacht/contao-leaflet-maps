@@ -11,22 +11,38 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-
 use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\DevTools\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
+/**
+ * Class Layer is the helper class for the tl_leaflet_layer dca.
+ *
+ * @package Netzmacht\Contao\Leaflet\Dca
+ */
 class Layer
 {
     use ServiceContainerTrait;
 
+    /**
+     * Layers definition.
+     *
+     * @var array
+     */
     private $layers;
 
     /**
+     * The database connection.
+     *
      * @var \Database
      */
     private $database;
 
+    /**
+     * Construct.
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     public function __construct()
     {
         $this->layers   = &$GLOBALS['LEAFLET_LAYERS'];
@@ -36,6 +52,15 @@ class Layer
 
     }
 
+    /**
+     * Get variants of the tile provider.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return array
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     public function getVariants($dataContainer)
     {
         if ($dataContainer->activeRecord
@@ -48,6 +73,16 @@ class Layer
         return array();
     }
 
+    /**
+     * Generate a row.
+     *
+     * @param array  $row   The data row.
+     * @param string $label Current row label.
+     *
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
     public function generateRow($row, $label)
     {
         $alt = empty($GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0])
@@ -74,11 +109,16 @@ class Layer
         return $icon . ' ' . $label;
     }
 
+    /**
+     * Get all marker cluster layers.
+     *
+     * @return array
+     */
     public function getMarkerClusterLayers()
     {
         $types = array_keys(
             array_filter(
-                $GLOBALS['LEAFLET_LAYERS'],
+                $this->layers,
                 function ($item) {
                     return !empty($item['markerCluster']);
                 }
@@ -89,7 +129,7 @@ class Layer
         $builder    = OptionsBuilder::fromCollection(
             $collection,
             'id',
-            function($row) {
+            function ($row) {
                 return sprintf('%s [%s]', $row['title'], $row['type']);
             }
         );
@@ -97,7 +137,20 @@ class Layer
         return $builder->getOptions();
     }
 
-    // Call paste_button_callback (&$dc, $row, $table, $cr, $childs, $previous, $next)
+    /**
+     * Get the paste buttons depending on the layer type.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     * @param array          $row           The data row.
+     * @param string         $table         The table name.
+     * @param null           $whatever      Who knows what the purpose of this var is.
+     * @param array          $children      The child content.
+     *
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getPasteButtons($dataContainer, $row, $table, $whatever, $children)
     {
         $pasteAfterUrl = \Controller::addToUrl(
@@ -142,6 +195,18 @@ class Layer
         return $buffer;
     }
 
+    /**
+     * Generate the markers button.
+     *
+     * @param array  $row        Current row.
+     * @param string $href       The button href.
+     * @param string $label      The button label.
+     * @param string $title      The button title.
+     * @param string $icon       The button icon.
+     * @param string $attributes Optional attributes.
+     *
+     * @return string
+     */
     public function generateMarkersButton($row, $href, $label, $title, $icon, $attributes)
     {
         if (empty($this->layers[$row['type']]['markers'])) {
@@ -151,6 +216,18 @@ class Layer
         return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
     }
 
+    /**
+     * Generate the vectors button.
+     *
+     * @param array  $row        Current row.
+     * @param string $href       The button href.
+     * @param string $label      The button label.
+     * @param string $title      The button title.
+     * @param string $icon       The button icon.
+     * @param string $attributes Optional attributes.
+     *
+     * @return string
+     */
     public function generateVectorsButton($row, $href, $label, $title, $icon, $attributes)
     {
         if (empty($this->layers[$row['type']]['vectors'])) {
@@ -160,6 +237,13 @@ class Layer
         return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
     }
 
+    /**
+     * Get all layers except of the current layer.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return array
+     */
     public function getLayers($dataContainer)
     {
         $collection = LayerModel::findBy('id !', $dataContainer->id);
@@ -169,7 +253,14 @@ class Layer
             ->getOptions();
     }
 
-
+    /**
+     * Delete the relations when the layer is deleted.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     * @param int            $undoId        The id of the undo entry.
+     *
+     * @return void
+     */
     public function deleteRelations($dataContainer, $undoId)
     {
         if ($undoId) {
@@ -212,12 +303,14 @@ class Layer
     }
 
     /**
-     * @param $row
-     * @param $href
-     * @param $label
-     * @param $title
-     * @param $icon
-     * @param $attributes
+     * Generate a button.
+     *
+     * @param array  $row        Current row.
+     * @param string $href       The button href.
+     * @param string $label      The button label.
+     * @param string $title      The button title.
+     * @param string $icon       The button icon.
+     * @param string $attributes Optional attributes.
      *
      * @return string
      */

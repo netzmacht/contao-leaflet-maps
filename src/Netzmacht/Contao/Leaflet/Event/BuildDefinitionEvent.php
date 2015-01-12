@@ -52,7 +52,7 @@ class BuildDefinitionEvent extends Event
      * @param \Model       $model      The definition model.
      * @param LatLngBounds $bounds     Optional bounds where elements should be in.
      */
-    public function __construct(Definition $definition = null, \Model $model, LatLngBounds $bounds = null)
+    public function __construct(Definition $definition, \Model $model, LatLngBounds $bounds = null)
     {
         $this->definition = $definition;
         $this->model      = $model;

@@ -11,19 +11,23 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\MapMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
 
+/**
+ * Class Leaflet is the base helper providing different methods.
+ *
+ * @package Netzmacht\Contao\Leaflet\Dca
+ */
 class Leaflet
 {
     /**
      * Validate a coordinate.
      *
-     * @param $value
+     * @param mixed $value The given value.
      *
      * @return mixed
      */
@@ -38,29 +42,44 @@ class Leaflet
         return $value;
     }
 
-
+    /**
+     * Create the zoom range.
+     *
+     * @return array
+     */
     public function getZoomLevels()
     {
         return range(1, 20);
     }
 
-
+    /**
+     * Get the geocoder wizard.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return string
+     */
     public function getGeocoder($dataContainer)
     {
-        $template = new \BackendTemplate('be_leaflet_geocode');
+        $template        = new \BackendTemplate('be_leaflet_geocode');
         $template->field = 'ctrl_' . $dataContainer->field;
 
         try {
             $latLng           = LatLng::fromString($dataContainer->value);
             $template->marker = json_encode($latLng);
-        } catch(\Exception $e) {
-
+        } catch (\Exception $e) {
+            // LatLng throws an exeption of value could not be created. Just let the value empty when.
         }
 
 
         return $template->parse();
     }
 
+    /**
+     * Get all layers.
+     *
+     * @return array
+     */
     public function getLayers()
     {
         $options    = array();

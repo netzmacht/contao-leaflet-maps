@@ -15,7 +15,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class InitializeDefinitionMapperEvent
+ * Class InitializeDefinitionMapperEvent is emitted when the definition mapper is created.
  *
  * @package Netzmacht\Contao\Leaflet\Event
  */
@@ -24,6 +24,8 @@ class InitializeDefinitionMapperEvent extends Event
     const NAME = 'leaflet.boot.initialize-definition-mapper';
 
     /**
+     * The definitino mapper.
+     *
      * @var DefinitionMapper
      */
     private $definitionMapper;

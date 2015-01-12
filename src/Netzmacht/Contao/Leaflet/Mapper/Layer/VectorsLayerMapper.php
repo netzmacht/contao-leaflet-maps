@@ -26,6 +26,11 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector;
 use Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax;
 
+/**
+ * Class VectorsLayerMapper maps the layer model for the Vectors layer definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Layer
+ */
 class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 {
     /**
@@ -87,11 +92,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     }
 
     /**
-     * @param \Model           $model
-     * @param DefinitionMapper $mapper
-     * @param LatLngBounds     $bounds
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function handleGeoJson(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
@@ -114,19 +115,14 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     }
 
     /**
-     * @param \Model $model
+     * Load vector models.
+     *
+     * @param \Model $model The layer model.
      *
      * @return \Model\Collection|null
      */
     protected function loadVectorModels(\Model $model)
     {
-        $collection = VectorModel::findBy(
-            array('active=1', 'pid=?'),
-            array($model->id),
-            array('order' => 'sorting')
-        );
-
-        return $collection;
+        return VectorModel::findActiveBy('pid', $model->id, array('order' => 'sorting'));
     }
 }
-

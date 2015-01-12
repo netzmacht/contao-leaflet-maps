@@ -11,7 +11,6 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
@@ -19,6 +18,11 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\MultiPolyline;
 use Netzmacht\LeafletPHP\Definition\Vector\Polyline;
 
+/**
+ * Class MultiPolylineMapper maps the databse model it the multi polyline definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Vector
+ */
 class MultiPolylineMapper extends AbstractVectorMapper
 {
     /**
@@ -35,7 +39,9 @@ class MultiPolylineMapper extends AbstractVectorMapper
      */
     protected static $type = 'multiPolyline';
 
-
+    /**
+     * {@inheritdoc}
+     */
     protected function build(
         Definition $definition,
         \Model $model,
@@ -45,18 +51,31 @@ class MultiPolylineMapper extends AbstractVectorMapper
         parent::build($definition, $model, $builder, $bounds);
 
         if ($definition instanceof MultiPolyline) {
-            $latLngs = array();
-
-            foreach (deserialize($model->multiData, true) as $data) {
-                $latLngs[] = array_map(
-                    function ($row) {
-                        return LatLng::fromString($row);
-                    },
-                    explode("\n", $data)
-                );
-            }
-
-            $definition->setLatLngs($latLngs);
+            $this->createLatLngs($definition, $model);
         }
+    }
+
+    /**
+     * Create lat lngs for the definition.
+     *
+     * @param MultiPolyline $definition The multi polyline.
+     * @param \Model        $model      The definition model.
+     *
+     * @return void
+     */
+    protected function createLatLngs(MultiPolyline $definition, \Model $model)
+    {
+        $latLngs = array();
+
+        foreach (deserialize($model->multiData, true) as $data) {
+            $latLngs[] = array_map(
+                function ($row) {
+                    return LatLng::fromString($row);
+                },
+                explode("\n", $data)
+            );
+        }
+
+        $definition->setLatLngs($latLngs);
     }
 }

@@ -11,11 +11,30 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
+use Model\Collection;
 
+/**
+ * Class LayerModel for the tl_leaflet_layer table.
+ *
+ * @package Netzmacht\Contao\Leaflet\Model
+ */
 class LayerModel extends AbstractActiveModel
 {
+    /**
+     * Model table.
+     *
+     * @var string
+     */
     protected static $strTable = 'tl_leaflet_layer';
 
+    /**
+     * Find multiple layers by given type.
+     *
+     * @param array $types   List of layer types.
+     * @param array $options Query options.
+     *
+     * @return Collection|null
+     */
     public static function findMultipleByTypes(array $types, $options = array())
     {
         if (empty($types)) {
@@ -29,7 +48,8 @@ class LayerModel extends AbstractActiveModel
             )
         );
 
-        $options['value'] = $types;
+        $options['value']  = $types;
+        $options['return'] = 'Collection';
 
         return static::find($options);
     }

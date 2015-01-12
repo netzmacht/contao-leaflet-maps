@@ -11,12 +11,16 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
-
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
+/**
+ * Class LayersControlMapper maps the control model to the layers control definition.
+ *
+ * @package Netzmacht\Contao\Leaflet\Mapper\Control
+ */
 class LayersControlMapper extends AbstractControlMapper
 {
     /**
