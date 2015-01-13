@@ -14,6 +14,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
 use Netzmacht\Javascript\Builder;
 use Netzmacht\Javascript\Encoder;
+use Netzmacht\Javascript\Output;
 use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -73,7 +74,7 @@ $container['leaflet.definition.builder'] = $container->share(function($container
     $boot       = $container['leaflet.boot'];
     $dispatcher = $container['leaflet.definition.builder.event-dispatcher'];
 
-    $encoder = new Encoder($dispatcher, JSON_UNESCAPED_SLASHES);
+    $encoder = new Encoder($dispatcher, new Output(), JSON_UNESCAPED_SLASHES);
     $builder = new Builder($encoder, $dispatcher);
     $leaflet = new Leaflet($builder);
 
