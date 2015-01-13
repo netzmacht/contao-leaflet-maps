@@ -22,9 +22,9 @@ use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
+use Netzmacht\LeafletPHP\Definition\Layer;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector;
-use Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax;
 
 /**
  * Class VectorsLayerMapper maps the layer model for the Vectors layer definition.
@@ -53,10 +53,43 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
         if ($model->deferred) {
-            return 'Netzmacht\LeafletPHP\Plugins\Ajax\GeoJsonAjax';
+            return 'Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson';
         }
 
         return parent::getClassName($model, $mapper, $bounds);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function buildConstructArguments(
+        \Model $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null
+    ) {
+        if ($model->deferred) {
+            $options = array();
+
+            if ($model->pointToLayer) {
+                $options['pointToLayer'] = new Expression($model->pointToLayer);
+            }
+
+            if ($model->onEachFeature) {
+                $options['onEachFeature'] = new Expression($model->onEachFeature);
+            }
+
+            if (!empty($options)) {
+                $layer = new GeoJson($this->getElementId($model, $elementId) . '_1');
+                $layer->setOptions($options);
+
+                return array($this->getElementId($model, $elementId), RequestUrl::create($model->id), array(), $layer);
+            }
+
+            return array($this->getElementId($model, $elementId), RequestUrl::create($model->id));
+        }
+
+        return parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
     }
 
     /**
@@ -68,19 +101,21 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         DefinitionMapper $mapper,
         LatLngBounds $bounds = null
     ) {
-        if ($definition instanceof GeoJsonAjax) {
-            $definition->setUrl(RequestUrl::create($model->id));
-        } elseif ($definition instanceof LayerGroup) {
+        if ($definition instanceof LayerGroup) {
             $collection = $this->loadVectorModels($model);
 
             if ($collection) {
                 foreach ($collection as $item) {
-                    $definition->addLayer($mapper->handle($item));
+                    $vector = $mapper->handle($item);
+
+                    if ($vector instanceof Layer) {
+                        $definition->addLayer($vector);
+                    }
                 }
             }
         }
 
-        if ($definition instanceof GeoJson || $definition instanceof GeoJsonAjax) {
+        if ($definition instanceof GeoJson) {
             if ($model->pointToLayer) {
                 $definition->setPointToLayer(new Expression($model->pointToLayer));
             }
@@ -104,8 +139,10 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 $vector = $mapper->handle($item);
 
                 if ($vector instanceof ConvertsToGeoJsonFeature) {
-                    $feature->addFeature($vector->toGeoJsonFeature());
-                } elseif ($vector instanceof GeoJsonFeature) {
+                    $vector = $vector->toGeoJsonFeature();
+                }
+
+                if ($vector instanceof GeoJsonFeature) {
                     $feature->addFeature($vector);
                 }
             }

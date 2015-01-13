@@ -11,10 +11,13 @@
 
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
+use Netzmacht\Javascript\Encoder;
 use Netzmacht\Javascript\Event\BuildEvent;
 use Netzmacht\Javascript\Event\EncodeValueEvent;
+use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
+use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -35,7 +38,8 @@ class EncoderSubscriber implements EventSubscriberInterface
                 array('endWrapper', -1000),
             ),
             EncodeValueEvent::NAME => array(
-                array('encodeIcons', 100)
+                array('encodeIcons', 100),
+                array('loadLayer', 100),
             ),
         );
     }
@@ -92,5 +96,49 @@ class EncoderSubscriber implements EventSubscriberInterface
             $event->addLine('ContaoLeaflet.getIcon(\'' . $value->getId() . '\')');
             $event->stopPropagation();
         }
+    }
+
+    public function loadLayer(EncodeValueEvent $event)
+    {
+        $value   = $event->getValue();
+        $encoder = $event->getEncoder();
+
+        if ($event->getReferenced() < Encoder::VALUE_REFERENCE_REQUIRED && $value instanceof OmnivoreLayer) {
+            //$event->stopPropagation();
+            $event->addLine(
+                sprintf(
+                    '%s = ContaoLeaflet.loadLayer(%s, %s, %s, %s, map.map);',
+                    $encoder->encodeReference($value),
+                    $encoder->encodeValue($value->getUrl()),
+                    $encoder->encodeValue(strtolower(str_replace('Omnivore.', '', $value->getType()))),
+                    $encoder->encodeValue($value->getOptions()),
+                    $this->encodeCustomLayer($value, $encoder)
+                )
+            );
+        }
+    }
+
+    /**
+     * Encode a custom layer for the omnivore plugin.
+     *
+     * @param OmnivoreLayer $layer   The layer.
+     * @param Encoder       $encoder The javascript encoder.
+     *
+     * @return string
+     */
+    protected function encodeCustomLayer(OmnivoreLayer $layer, Encoder $encoder)
+    {
+        $customLayer = $layer->getCustomLayer();
+
+        if ($customLayer instanceof GeoJson && !$customLayer->getMethodCalls()) {
+            return sprintf(
+                'L.geoJson(null, %s)',
+                $encoder->encodeValue($customLayer->getOptions())
+            );
+        } elseif ($customLayer) {
+            return $encoder->encodeReference($customLayer);
+        }
+
+        return 'null';
     }
 }

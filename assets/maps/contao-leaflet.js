@@ -24,7 +24,6 @@ L.Contao = L.Class.extend({
     initialize: function() {
         L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
 
-        this.bindDataLoadingEvents();
         this.setGeoJsonListeners(L.GeoJSON);
         this.setGeoJsonListeners(L.GeoJSON.AJAX);
     },
@@ -107,6 +106,38 @@ L.Contao = L.Class.extend({
     },
 
     /**
+     * Layer a url into a layer using omnivore.
+     *
+     * @param url         The url being loaded.
+     * @param type        The response content format.
+     * @param options     Parser options
+     * @param customLayer optional custom layer.
+     * @param map         Pass a map object so that the data loading events are passed to the map.
+     */
+    loadLayer: function(url, type, options, customLayer, map) {
+        if (map) {
+            map.fire('dataloading');
+        }
+
+        var layer = omnivore[type](url, options, customLayer);
+
+        layer.on('ready', function(e) {
+            if (map) {
+                map.fire('dataload');
+            }
+        });
+
+        layer.on('error', function(e) {
+            if (map) {
+                map.fire('dataload');
+            }
+
+        });
+
+        return layer;
+    },
+
+    /**
      * Point to layer callback. Adds a geo json point to the layer.
      *
      * @param feature The geo json feature.
@@ -184,25 +215,6 @@ L.Contao = L.Class.extend({
     },
 
     /**
-     *  Bind triggered data:loading and data:loaded events to the map.
-     *
-     *  These events are fired by leaflet.ajax. The loading indicator listens to the map dataloading and dataloaded
-     *  events which is also used by the tile layers.
-     */
-    bindDataLoadingEvents: function() {
-        L.Map.addInitHook(function () {
-            var map = this;
-
-            this.on('layeradd', function(e) {
-                if (e.layer.on) {
-                    e.layer.on('data:loading', function() { map.fire('dataloading'); });
-                    e.layer.on('data:loaded', function() { map.fire('dataload'); });
-                }
-            });
-        });
-    },
-
-    /**
      * Set the default geojson listeners to the prototype.
      *
      * @param obj
@@ -215,7 +227,6 @@ L.Contao = L.Class.extend({
             };
         }
     }
-
 });
 
 window.ContaoLeaflet = new L.Contao();
