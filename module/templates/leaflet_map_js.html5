@@ -1,0 +1,5 @@
+ContaoLeaflet.addMap('<?php echo $mapId; ?>', function() {
+<?php echo $javascript; ?>
+
+return { map: map, layers:   layers, controls: controls, icons: icons };
+}());

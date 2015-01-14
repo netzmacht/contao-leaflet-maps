@@ -74,9 +74,7 @@ $container['leaflet.definition.builder'] = $container->share(function($container
     $boot       = $container['leaflet.boot'];
     $dispatcher = $container['leaflet.definition.builder.event-dispatcher'];
 
-    $encoder = new Encoder($dispatcher, new Output(), JSON_UNESCAPED_SLASHES);
-    $builder = new Builder($encoder, $dispatcher);
-    $leaflet = new Leaflet($builder);
+    $leaflet = new Leaflet($dispatcher, array(), JSON_UNESCAPED_SLASHES);
 
     return $boot->initializeLeafletBuilder($leaflet);
 });

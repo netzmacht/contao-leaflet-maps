@@ -113,13 +113,21 @@ class MapService
      *
      * @return string
      */
-    public function getJavascript($mapId, LatLngBounds $bounds = null, $elementId = null)
+    public function getJavascript($mapId, LatLngBounds $bounds = null, $elementId = null, $template = 'leaflet_map_js')
     {
         $definition = $this->getDefinition($mapId, $bounds, $elementId);
         $assets     = new ContaoAssets();
-        $javascript = $this->leaflet->build($definition, $assets);
 
-        $event = new GetJavascriptEvent($definition, $javascript);
+        $template   = \Controller::getTemplate($template);
+        $javascript = $this->leaflet->build($definition, $assets);
+        $mapId      = $definition->getId();
+
+        ob_start();
+        include $template;
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        $event = new GetJavascriptEvent($definition, $content);
         $this->eventDispatcher->dispatch($event::NAME, $event);
 
         return $event->getJavascript();
