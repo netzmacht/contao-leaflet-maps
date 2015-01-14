@@ -1,0 +1,4 @@
+<div id="<?php echo $mapId; ?>"></div>
+<script>
+    <?php include \Controller::getTemplate('leaflet_map_js'); ?>
+</script>
