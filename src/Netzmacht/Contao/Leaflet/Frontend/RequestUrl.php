@@ -47,7 +47,7 @@ class RequestUrl
             'format' => $format != 'geojson' ? $format: null
         );
 
-        $param = rawurlencode(base64_encode(implode(',', $params)) . '==');
+        $param = rawurlencode(base64_encode(implode(',', $params)));
 
         return \Config::get('websitePath') . '/' . \Frontend::addToUrl('leaflet=' . $param, false);
     }
