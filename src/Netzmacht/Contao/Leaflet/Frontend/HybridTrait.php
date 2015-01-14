@@ -66,7 +66,6 @@ trait HybridTrait
      */
     public function generate()
     {
-        RequestUrl::setFor($this->getIdentifier());
         $this->handleAjaxRequest();
 
         if (TL_MODE === 'BE') {
@@ -102,8 +101,10 @@ trait HybridTrait
     protected function compile()
     {
         try {
+            RequestUrl::setFor($this->getIdentifier());
             $mapId = 'map_' . ($this->cssID[0] ?: ('ce_' . $this->id));
             $map   = $this->mapService->getJavascript($this->leaflet_map, null, $mapId);
+            RequestUrl::setFor(null);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
 
