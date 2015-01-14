@@ -115,24 +115,22 @@ L.Contao = L.Class.extend({
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
     loadLayer: function(url, type, options, customLayer, map) {
-        if (map) {
-            map.fire('dataloading');
-        }
-
         var layer = omnivore[type](url, options, customLayer);
 
-        layer.on('ready', function(e) {
-            if (map) {
-                map.fire('dataload');
-            }
-        });
+        // Required because Control.Loading tries to get _leafet_id which is created here.
+        L.stamp(layer);
 
-        layer.on('error', function(e) {
-            if (map) {
-                map.fire('dataload');
-            }
+        if (map) {
+            map.fire('dataloading', { layer: layer });
 
-        });
+            layer.on('ready', function() {
+                map.fire('dataload', { layer: layer });
+            });
+
+            layer.on('error', function() {
+                map.fire('dataload', { layer: layer });
+            });
+        }
 
         return layer;
     },
