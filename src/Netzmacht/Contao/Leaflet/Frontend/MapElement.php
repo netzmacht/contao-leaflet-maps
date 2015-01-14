@@ -39,4 +39,9 @@ class MapElement extends \ContentElement
     {
         $this->construct($objElement, $strColumn);
     }
+
+    protected function getIdentifier()
+    {
+        return 'ce_' . $this->id;
+    }
 }

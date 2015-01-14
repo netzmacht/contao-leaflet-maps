@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use Netzmacht\Contao\Leaflet\MapService;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 /**
  * The data controller handles ajax request for sub data.
@@ -28,22 +29,26 @@ class DataController
     private $mapService;
 
     /**
-     * The user input object.
+     * The user input data.
      *
-     * @var \Input
+     * @var array
      */
-    private $input;
+    private $input = array(
+        'format' => 'geojson',
+        'type'   => 'layer',
+        'id'     => null
+    );
 
     /**
      * Construct.
      *
      * @param MapService $mapService The map service.
-     * @param \Input     $input      The user input object.
+     * @param array      $input      The user input as array.
      */
-    public function __construct(MapService $mapService, \Input $input)
+    public function __construct(MapService $mapService, $input)
     {
         $this->mapService = $mapService;
-        $this->input      = $input;
+        $this->input      = array_merge($this->input, $input);
     }
 
     /**
@@ -55,21 +60,9 @@ class DataController
      */
     public function execute()
     {
-        $format = $this->getInput('format', 'geojson');
-        $type   = $this->getInput('type', 'layer');
-        $dataId = $this->getInput('id');
-        $page   = \Input::get('page', true);
-
-        if ($page) {
-            // Fake a page request.
-            \Environment::set('request', base64_decode($page));
-
-            // We need the auto_item being set. So call the getPageIdFromUrl method, this does it internally.
-            \Frontend::getPageIdFromUrl();
-        }
-
         try {
-            list($data, $error) = $this->loadData($type, $dataId);
+            list($data, $error) = $this->loadData($this->input['type'], $this->input['id']);
+            $this->encodeData($this->input['format'], $data);
         } catch (\Exception $e) {
             if (\Config::get('debugMode') || \Config::get('displayErrors')) {
                 throw $e;
@@ -79,13 +72,11 @@ class DataController
 
         if ($error) {
             header('HTTP/1.1 500 Internal Server Error');
-        } else {
-            $this->encodeData($format, $data);
         }
     }
 
     /**
-     * Enocode the data.
+     * Encode the data.
      *
      * @param string $format The requested format.
      * @param mixed  $data   The given data.
@@ -130,18 +121,5 @@ class DataController
         }
 
         return array($data, $error);
-    }
-
-    /**
-     * Get an input value.
-     *
-     * @param string $name    The input name.
-     * @param mixed  $default Optional a default value if empty.
-     *
-     * @return string
-     */
-    protected function getInput($name, $default = null)
-    {
-        return $this->input->get($name) ?: $default;
     }
 }

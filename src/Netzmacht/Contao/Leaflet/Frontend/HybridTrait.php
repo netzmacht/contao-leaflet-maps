@@ -29,6 +29,20 @@ trait HybridTrait
     private $mapService;
 
     /**
+     * The user input.
+     *
+     * @var \Input
+     */
+    private $input;
+
+    /**
+     * The Contao config.
+     *
+     * @var \Config
+     */
+    private $config;
+
+    /**
      * Construct.
      *
      * @param \ContentModel $objElement Content element model.
@@ -41,6 +55,8 @@ trait HybridTrait
         parent::__construct($objElement, $strColumn);
 
         $this->mapService = static::getService('leaflet.map.service');
+        $this->input      = static::getService('input');
+        $this->config     = static::getService('config');
     }
 
     /**
@@ -50,6 +66,9 @@ trait HybridTrait
      */
     public function generate()
     {
+        RequestUrl::setFor($this->getIdentifier());
+        $this->handleAjaxRequest();
+
         if (TL_MODE === 'BE') {
             $model = MapModel::findByPK($this->leaflet_map);
 
@@ -105,6 +124,32 @@ trait HybridTrait
             $this->Template->mapStyle = $style;
         } catch (\Exception $e) {
             throw $e;
+        }
+    }
+
+    /**
+     * Handle ajax request if leaflet parameter is given.
+     *
+     * @throws \Exception
+     */
+    private function handleAjaxRequest()
+    {
+        $input = $this->input->get('leaflet');
+
+        // Handle ajax request.
+        if ($input) {
+            $data = (array) explode(',', base64_decode($input));
+            $data = array_combine(array('for', 'type', 'id', 'format'), $data);
+            $data = array_filter($data);
+
+            if (empty($data['for']) || $data['for'] != $this->getIdentifier()) {
+                return;
+            }
+
+            $controller = new DataController($this->mapService, $data);
+            $controller->execute();
+
+            exit;
         }
     }
 }

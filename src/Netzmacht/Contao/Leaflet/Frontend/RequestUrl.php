@@ -22,6 +22,13 @@ class RequestUrl
 {
     const BASE = 'assets/leaflet/maps/data.php';
 
+    private static $for;
+
+    public static function setFor($for)
+    {
+        static::$for = $for;
+    }
+
     /**
      * Create the request url.
      *
@@ -33,45 +40,15 @@ class RequestUrl
      */
     public static function create($dataId, $type = null, $format = null)
     {
-        return self::createBuilder($dataId, $type, $format)->getUrl();
-    }
+        $params = array(
+            'for'    => static::$for,
+            'type'   => $type != 'layer' ? $type : null,
+            'id'     => $dataId,
+            'format' => $format != 'geojson' ? $format: null
+        );
 
-    /**
-     * Create the request builder.
-     *
-     * @param int         $dataId The data object id.
-     * @param string|null $type   Object type. If empty it assumes a layer.
-     * @param string|null $format Data format. If empty it assumes geojson.
-     *
-     * @return UrlBuilder
-     */
-    public static function createBuilder($dataId, $type = null, $format = null)
-    {
-        $path    = \Config::get('websitePath') . '/' . static::BASE;
-        $builder = new UrlBuilder();
-        $builder
-            ->setPath($path)
-            ->setQueryParameter('type', $type ?: 'layer')
-            ->setQueryParameter('format', $format ?: 'geojson')
-            ->setQueryParameter('id', $dataId)
-            ->setQueryParameter('page', rawurlencode(base64_encode(self::getRequestUri())));
+        $param = base64_encode(implode(',', $params));
 
-        return $builder;
-    }
-
-    /**
-     * Get the request uri without leading slash.
-     *
-     * @return mixed
-     */
-    protected static function getRequestUri()
-    {
-        $uri = \Environment::get('requestUri');
-
-        if (strpos($uri, '/') === 0) {
-            return substr($uri, 1);
-        }
-
-        return $uri;
+        return \Config::get('websitePath') . '/' . \Frontend::addToUrl('leaflet=' . $param);
     }
 }
