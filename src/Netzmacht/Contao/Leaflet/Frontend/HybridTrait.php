@@ -103,7 +103,7 @@ trait HybridTrait
         try {
             RequestUrl::setFor($this->getIdentifier());
             $mapId = 'map_' . ($this->cssID[0] ?: ('ce_' . $this->id));
-            $map   = $this->mapService->getJavascript($this->leaflet_map, null, $mapId);
+            $map   = $this->mapService->generate($this->leaflet_map, null, $mapId);
             RequestUrl::setFor(null);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';

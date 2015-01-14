@@ -87,7 +87,7 @@ class MapService
     /**
      * Get map model.
      *
-     * @param int $mapId Model id.
+     * @param int|string $mapId Model id or alias.
      *
      * @return MapModel
      *
@@ -95,7 +95,7 @@ class MapService
      */
     public function getModel($mapId)
     {
-        $model = MapModel::findByPk($mapId);
+        $model = MapModel::findByIdOrAlias($mapId);
 
         if ($model === null) {
             throw new \InvalidArgumentException(sprintf('Model "%s" not found', $mapId));
@@ -110,17 +110,27 @@ class MapService
      * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
      * @param LatLngBounds $bounds    Optional bounds where elements should be in.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
+     * @param string       $template  The template being used for generating.
+     * @param string       $style     Optional style attributes.
      *
      * @return string
+     * @throws \Exception
      */
-    public function getJavascript($mapId, LatLngBounds $bounds = null, $elementId = null, $template = 'leaflet_map_js')
-    {
+    public function generate(
+        $mapId,
+        LatLngBounds $bounds = null,
+        $elementId = null,
+        $template = 'leaflet_map_js',
+        $style = ''
+    ) {
         $definition = $this->getDefinition($mapId, $bounds, $elementId);
         $assets     = new ContaoAssets();
-
         $template   = \Controller::getTemplate($template);
+
+        // @codingStandardsIgnoreStart - Set for the template.
         $javascript = $this->leaflet->build($definition, $assets);
         $mapId      = $definition->getId();
+        // @codingStandardsIgnoreEnd
 
         ob_start();
         include $template;
