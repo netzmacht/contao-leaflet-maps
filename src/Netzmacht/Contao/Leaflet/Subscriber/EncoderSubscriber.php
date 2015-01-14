@@ -103,7 +103,7 @@ class EncoderSubscriber implements EventSubscriberInterface
         $value   = $event->getValue();
         $encoder = $event->getEncoder();
 
-        if ($event->getReferenced() < Encoder::VALUE_REFERENCE_REQUIRED && $value instanceof OmnivoreLayer) {
+        if ($event->getReferenced() < Encoder::REFERENCE_REQUIRED && $value instanceof OmnivoreLayer) {
             //$event->stopPropagation();
             $event->addLine(
                 sprintf(
