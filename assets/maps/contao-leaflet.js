@@ -1,4 +1,4 @@
-L.Contao = new (L.Class.extend({
+L.contao = new (L.Class.extend({
     includes: L.Mixin.Events,
 
     /**
@@ -33,7 +33,7 @@ L.Contao = new (L.Class.extend({
      * @param id  The map id.
      * @param map The map object.
      *
-     * @returns {L.Contao}
+     * @returns {L.contao}
      */
     addMap: function (id, map) {
         map.map.attributionControl.setPrefix(map.map.attributionControl.options.prefix + this.attribution);
@@ -66,7 +66,7 @@ L.Contao = new (L.Class.extend({
      * @param id   The icon id.
      * @param icon The icon object.
      *
-     * @returns {L.Contao}
+     * @returns {L.contao}
      */
     addIcon: function(id, icon) {
         this.icons[id] = icon;

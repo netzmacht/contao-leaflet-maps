@@ -46,14 +46,14 @@ class EncoderSubscriber implements EventSubscriberInterface
         $value = $event->getObject();
 
         if ($value instanceof Icon) {
-            $event->setReference('L.Contao.getIcon(\'' . $value->getId() . '\')');
+            $event->setReference('L.contao.getIcon(\'' . $value->getId() . '\')');
             $event->stopPropagation();
         }
 
     }
 
     /**
-     * Force that icons are encoded as reference to the L.Contao icon registry.
+     * Force that icons are encoded as reference to the L.contao icon registry.
      *
      * @param EncodeValueEvent $event The subscribed event.
      *
@@ -64,7 +64,7 @@ class EncoderSubscriber implements EventSubscriberInterface
         $value = $event->getValue();
 
         if ($value instanceof Icon) {
-            //$event->addLine('L.Contao.getIcon(\'' . $value->getId() . '\')');
+            //$event->addLine('L.contao.getIcon(\'' . $value->getId() . '\')');
             $event->setSuccessful();
             $event->stopPropagation();
         }
@@ -85,11 +85,11 @@ class EncoderSubscriber implements EventSubscriberInterface
 
             $event->addLine(
                 sprintf(
-                    '%s = L.Contao.loadLayer(%s, %s, %s, %s, map);',
+                    '%s = L.contao.loadLayer(%s, %s, %s, %s, map);',
                     $ref,
                     $encoder->encodeValue($url),
                     $encoder->encodeValue(strtolower(str_replace('Omnivore.', '', $value->getType()))),
-                    $encoder->encodeValue($value->getOptions()),
+                    $encoder->encodeArray($value->getOptions(), JSON_FORCE_OBJECT),
                     $this->encodeCustomLayer($value, $encoder)
                 )
             );
