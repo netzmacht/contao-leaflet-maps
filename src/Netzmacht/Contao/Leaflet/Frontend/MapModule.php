@@ -39,6 +39,11 @@ class MapModule extends \Module
         $this->construct($objElement, $strColumn);
     }
 
+    /**
+     * Get the identifier.
+     *
+     * @return string
+     */
     protected function getIdentifier()
     {
         return 'mod_' . $this->id;

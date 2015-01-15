@@ -47,18 +47,10 @@ class Hooks
             return false;
         }
 
-        $mapService = $this->getMapService();
-        $style      = empty($parts[2]) ? 'width:400px;height:300px' : $parts[2];
-        $template   = empty($parts[3]) ? 'leaflet_map_html' : $parts[3];
+        $style    = empty($parts[2]) ? 'width:400px;height:300px' : $parts[2];
+        $template = empty($parts[3]) ? 'leaflet_map_html' : $parts[3];
 
-        try {
-            return $mapService->generate($parts[1], null, $parts[1], $template, $style);
-        } catch (\Exception $e) {
-            if (static::getService('config')->get('debugMode')) {
-                throw $e;
-            }
-            return false;
-        }
+        return $this->generateMap($parts[1], $template, $style);
     }
 
     /**
@@ -69,5 +61,31 @@ class Hooks
     protected function getMapService()
     {
         return static::getService('leaflet.map.service');
+    }
+
+    /**
+     * Generate the map.
+     *
+     * @param string|int $mapId    The map id/alias.
+     * @param string     $template The template.
+     * @param string     $style    Optional style attribute.
+     *
+     * @return bool|string
+     *
+     * @throws \Exception If debug mode is enabled and something went wrong.
+     */
+    private function generateMap($mapId, $template, $style)
+    {
+        try {
+            $mapService = $this->getMapService();
+
+            return $mapService->generate($mapId, null, $mapId, $template, $style);
+        } catch (\Exception $e) {
+            if (static::getService('config')->get('debugMode')) {
+                throw $e;
+            }
+
+            return false;
+        }
     }
 }

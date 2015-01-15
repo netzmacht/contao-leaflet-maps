@@ -114,7 +114,10 @@ class MapService
      * @param string       $style     Optional style attributes.
      *
      * @return string
-     * @throws \Exception
+     * @throws \Exception If generating went wrong.
+     *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariables)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function generate(
         $mapId,

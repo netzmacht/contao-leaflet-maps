@@ -56,7 +56,7 @@ class RequestUrl implements \JsonSerializable
             'for'    => static::$for,
             'type'   => $type != 'layer' ? $type : null,
             'id'     => $dataId,
-            'format' => $format != 'geojson' ? $format: null
+            'format' => $format != 'geojson' ? $format : null
         );
 
         $hash = base64_encode(implode(',', $params));
@@ -68,7 +68,9 @@ class RequestUrl implements \JsonSerializable
     /**
      * Set the for param.
      *
-     * @param $for
+     * @param string $for The identifier which has the responsibility listen to the request.
+     *
+     * @return void
      */
     public static function setFor($for)
     {
@@ -104,7 +106,7 @@ class RequestUrl implements \JsonSerializable
      */
     public function getUrl()
     {
-        return ;
+        return $this->url;
     }
 
     /**
@@ -120,7 +122,7 @@ class RequestUrl implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return $this->getUrl();
     }

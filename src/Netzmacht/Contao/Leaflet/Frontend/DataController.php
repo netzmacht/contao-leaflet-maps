@@ -65,9 +65,8 @@ class DataController
             $this->encodeData($this->input['format'], $data);
         } catch (\Exception $e) {
             if (\Config::get('debugMode') || \Config::get('displayErrors')) {
-
+                throw $e;
             }
-            throw $e;
             $error = true;
         }
 

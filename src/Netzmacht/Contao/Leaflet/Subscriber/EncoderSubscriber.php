@@ -15,6 +15,7 @@ use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Javascript\Encoder;
 use Netzmacht\Javascript\Event\EncodeValueEvent;
 use Netzmacht\Javascript\Event\GetReferenceEvent;
+use Netzmacht\Javascript\Exception\EncodeValueFailed;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
@@ -41,6 +42,13 @@ class EncoderSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * Create icon reference to the contao leaflet icon registry.
+     *
+     * @param GetReferenceEvent $event The subscribed event.
+     *
+     * @return void
+     */
     public function referenceIcon(GetReferenceEvent $event)
     {
         $value = $event->getObject();
@@ -49,7 +57,6 @@ class EncoderSubscriber implements EventSubscriberInterface
             $event->setReference('L.contao.getIcon(\'' . $value->getId() . '\')');
             $event->stopPropagation();
         }
-
     }
 
     /**
@@ -64,12 +71,19 @@ class EncoderSubscriber implements EventSubscriberInterface
         $value = $event->getValue();
 
         if ($value instanceof Icon) {
-            //$event->addLine('L.contao.getIcon(\'' . $value->getId() . '\')');
+            // Do not encode the icon, as it is generated in an separate icon file.
             $event->setSuccessful();
-            $event->stopPropagation();
         }
     }
 
+    /**
+     * Encode OmnivoreLayers so that the internal used contao.loadLayer method is used.
+     *
+     * @param EncodeValueEvent $event The subscribed event.
+     *
+     * @return void
+     * @throws EncodeValueFailed If encoding failed.
+     */
     public function loadLayer(EncodeValueEvent $event)
     {
         $value   = $event->getValue();
@@ -81,6 +95,9 @@ class EncoderSubscriber implements EventSubscriberInterface
 
             if ($url instanceof RequestUrl) {
                 $url = $url->getHash();
+            } elseif (strpos($url, '/') !== false) {
+                // Slash found, not contao leaflet hash, do not replace encoding.
+                return;
             }
 
             $event->addLine(

@@ -73,10 +73,6 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 return array($this->getElementId($model, $elementId), RequestUrl::create($model->id), array(), $layer);
             }
 
-            if (!empty($options)) {
-
-            }
-
             return array($this->getElementId($model, $elementId), RequestUrl::create($model->id));
         }
 
