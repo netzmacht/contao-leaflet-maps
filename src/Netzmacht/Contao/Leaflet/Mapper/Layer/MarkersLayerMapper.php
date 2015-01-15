@@ -19,7 +19,6 @@ use Netzmacht\Javascript\Type\Value\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
-use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
 
@@ -93,7 +92,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         DefinitionMapper $mapper,
         LatLngBounds $bounds = null
     ) {
-        if ($definition instanceof LayerGroup) {
+        if ($definition instanceof GeoJson) {
             $collection = $this->loadMarkerModels($model);
 
             if ($collection) {
@@ -101,9 +100,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                     $definition->addLayer($mapper->handle($item));
                 }
             }
-        }
 
-        if ($definition instanceof GeoJson) {
             if ($model->pointToLayer) {
                 $definition->setPointToLayer(new Expression($model->pointToLayer));
             }

@@ -101,7 +101,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         DefinitionMapper $mapper,
         LatLngBounds $bounds = null
     ) {
-        if ($definition instanceof LayerGroup) {
+        if ($definition instanceof GeoJson) {
             $collection = $this->loadVectorModels($model);
 
             if ($collection) {
@@ -113,9 +113,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                     }
                 }
             }
-        }
 
-        if ($definition instanceof GeoJson) {
             if ($model->pointToLayer) {
                 $definition->setPointToLayer(new Expression($model->pointToLayer));
             }
