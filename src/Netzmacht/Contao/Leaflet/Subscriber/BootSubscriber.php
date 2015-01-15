@@ -150,7 +150,7 @@ class BootSubscriber implements EventSubscriberInterface
             }
 
             if ($icons) {
-                $buffer = sprintf('ContaoLeaflet.loadIcons(%s);', json_encode($icons));
+                $buffer = sprintf('L.Contao.loadIcons(%s);', json_encode($icons));
             }
 
             $file = new \File('assets/leaflet/js/icons.js');

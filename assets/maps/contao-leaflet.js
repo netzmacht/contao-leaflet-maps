@@ -1,4 +1,4 @@
-L.Contao = L.Class.extend({
+L.Contao = new (L.Class.extend({
     includes: L.Mixin.Events,
 
     /**
@@ -117,10 +117,10 @@ L.Contao = L.Class.extend({
     loadLayer: function(url, type, options, customLayer, map) {
         var layer = omnivore[type](url, options, customLayer);
 
-        // Required because Control.Loading tries to get _leafet_id which is created here.
-        L.stamp(layer);
-
         if (map) {
+            // Required because Control.Loading tries to get _leafet_id which is created here.
+            L.stamp(layer);
+
             map.fire('dataloading', { layer: layer });
 
             layer.on('ready', function() {
@@ -225,6 +225,4 @@ L.Contao = L.Class.extend({
             };
         }
     }
-});
-
-window.ContaoLeaflet = new L.Contao();
+}))();

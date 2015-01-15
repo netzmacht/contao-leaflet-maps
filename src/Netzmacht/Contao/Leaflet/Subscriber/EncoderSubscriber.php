@@ -13,6 +13,7 @@ namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use Netzmacht\Javascript\Encoder;
 use Netzmacht\Javascript\Event\EncodeValueEvent;
+use Netzmacht\Javascript\Event\GetReferenceEvent;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
@@ -32,14 +33,26 @@ class EncoderSubscriber implements EventSubscriberInterface
     {
         return array(
             EncodeValueEvent::NAME => array(
-                array('encodeIcons', 100),
+                array('encodeIcons', 1000),
                 array('loadLayer', 100),
             ),
+            GetReferenceEvent::NAME => array('referenceIcon', 100),
         );
     }
 
+    public function referenceIcon(GetReferenceEvent $event)
+    {
+        $value = $event->getObject();
+
+        if ($value instanceof Icon) {
+            $event->setReference('L.Contao.getIcon(\'' . $value->getId() . '\')');
+            $event->stopPropagation();
+        }
+
+    }
+
     /**
-     * Force that icons are encoded as reference to the ContaoLeaflet icon registry.
+     * Force that icons are encoded as reference to the L.Contao icon registry.
      *
      * @param EncodeValueEvent $event The subscribed event.
      *
@@ -50,7 +63,8 @@ class EncoderSubscriber implements EventSubscriberInterface
         $value = $event->getValue();
 
         if ($value instanceof Icon) {
-            $event->addLine('ContaoLeaflet.getIcon(\'' . $value->getId() . '\')');
+            //$event->addLine('L.Contao.getIcon(\'' . $value->getId() . '\')');
+            $event->setSuccessful();
             $event->stopPropagation();
         }
     }
@@ -59,18 +73,27 @@ class EncoderSubscriber implements EventSubscriberInterface
     {
         $value   = $event->getValue();
         $encoder = $event->getEncoder();
+        $ref     = $encoder->encodeReference($value);
 
         if ($value instanceof OmnivoreLayer) {
             $event->addLine(
                 sprintf(
-                    '%s = ContaoLeaflet.loadLayer(%s, %s, %s, %s, map.map);',
-                    $encoder->encodeReference($value),
+                    '%s = L.Contao.loadLayer(%s, %s, %s, %s, map);',
+                    $ref,
                     $encoder->encodeValue($value->getUrl()),
                     $encoder->encodeValue(strtolower(str_replace('Omnivore.', '', $value->getType()))),
                     $encoder->encodeValue($value->getOptions()),
                     $this->encodeCustomLayer($value, $encoder)
                 )
             );
+
+            foreach ($value->getLayers() as $layer) {
+                $event->addLine(sprintf('%s.addLayer(%s);', $ref, $encoder->encodeReference($layer)));
+            }
+
+            foreach ($value->getMethodCalls() as $call) {
+                $event->addLine($call->encode($encoder, $encoder->getOutput()));
+            }
         }
     }
 

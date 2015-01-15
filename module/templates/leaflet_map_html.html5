@@ -1,7 +1,7 @@
 <div id="<?php echo $mapId; ?>" style="<?php echo $style; ?>"></div>
 <?php $GLOBALS['TL_BODY'][] = <<<HTML
 <script>
-ContaoLeaflet.addMap('{$mapId}', function() {
+L.Contao.addMap('{$mapId}', function() {
 {$javascript}
 return { map: map, layers:   layers, controls: controls, icons: icons };
 }());</script>
