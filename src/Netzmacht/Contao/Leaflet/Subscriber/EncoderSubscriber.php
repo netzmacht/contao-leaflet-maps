@@ -73,6 +73,7 @@ class EncoderSubscriber implements EventSubscriberInterface
         if ($value instanceof Icon) {
             // Do not encode the icon, as it is generated in an separate icon file.
             $event->setSuccessful();
+            $event->stopPropagation();
         }
     }
 
