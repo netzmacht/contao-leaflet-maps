@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
+use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Javascript\Encoder;
 use Netzmacht\Javascript\Event\EncodeValueEvent;
 use Netzmacht\Javascript\Event\GetReferenceEvent;
@@ -76,11 +77,17 @@ class EncoderSubscriber implements EventSubscriberInterface
         $ref     = $encoder->encodeReference($value);
 
         if ($value instanceof OmnivoreLayer) {
+            $url = $value->getUrl();
+
+            if ($url instanceof RequestUrl) {
+                $url = $url->getHash();
+            }
+
             $event->addLine(
                 sprintf(
                     '%s = L.Contao.loadLayer(%s, %s, %s, %s, map);',
                     $ref,
-                    $encoder->encodeValue($value->getUrl()),
+                    $encoder->encodeValue($url),
                     $encoder->encodeValue(strtolower(str_replace('Omnivore.', '', $value->getType()))),
                     $encoder->encodeValue($value->getOptions()),
                     $this->encodeCustomLayer($value, $encoder)

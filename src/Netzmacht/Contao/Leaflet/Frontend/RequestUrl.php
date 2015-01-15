@@ -11,32 +11,44 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use ContaoCommunityAlliance\UrlBuilder\UrlBuilder;
-
 /**
  * Class RequestUrl creates the request url.
  *
  * @package Netzmacht\Contao\Leaflet\Request
  */
-class RequestUrl
+class RequestUrl implements \JsonSerializable
 {
-    const BASE = 'assets/leaflet/maps/data.php';
-
+    /**
+     * The for param is the identifier to the responsible frontend module or content element.
+     *
+     * @var string
+     */
     private static $for;
 
-    public static function setFor($for)
-    {
-        static::$for = $for;
-    }
+    /**
+     * The leaflet hash.
+     *
+     * @var string
+     */
+    private $hash;
+
+    /**
+     * The request url as url path.
+     *
+     * @var string
+     */
+    private $url;
 
     /**
      * Create the request url.
+     *
+     * It combines the params and creates an hash for it.
      *
      * @param int         $dataId The data object id.
      * @param string|null $type   Object type. If empty it assumes a layer.
      * @param string|null $format Data format. If empty it assumes geojson.
      *
-     * @return string
+     * @return RequestUrl
      */
     public static function create($dataId, $type = null, $format = null)
     {
@@ -47,8 +59,69 @@ class RequestUrl
             'format' => $format != 'geojson' ? $format: null
         );
 
-        $param = base64_encode(implode(',', $params));
+        $hash = base64_encode(implode(',', $params));
+        $url  = \Config::get('websitePath') . '/' . \Frontend::addToUrl('leaflet=' . $hash, false);
 
-        return \Config::get('websitePath') . '/' . \Frontend::addToUrl('leaflet=' . $param, false);
+        return new static($url, $hash);
+    }
+
+    /**
+     * Set the for param.
+     *
+     * @param $for
+     */
+    public static function setFor($for)
+    {
+        static::$for = $for;
+    }
+
+    /**
+     * Construct.
+     *
+     * @param string $url  The request url.
+     * @param string $hash The leaflet hash.
+     */
+    public function __construct($url, $hash)
+    {
+        $this->url  = $url;
+        $this->hash = $hash;
+    }
+
+    /**
+     * Get the leaflet url hash.
+     *
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Get the whole url.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return ;
+    }
+
+    /**
+     * Convert to string will always return the whole url.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    function jsonSerialize()
+    {
+        return $this->getUrl();
     }
 }

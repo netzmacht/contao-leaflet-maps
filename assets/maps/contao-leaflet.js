@@ -25,7 +25,6 @@ L.Contao = new (L.Class.extend({
         L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
 
         this.setGeoJsonListeners(L.GeoJSON);
-        this.setGeoJsonListeners(L.GeoJSON.AJAX);
     },
 
     /**
@@ -108,13 +107,14 @@ L.Contao = new (L.Class.extend({
     /**
      * Layer a url into a layer using omnivore.
      *
-     * @param url         The url being loaded.
+     * @param hash        The leaflet url hash.
      * @param type        The response content format.
      * @param options     Parser options
      * @param customLayer optional custom layer.
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
-    loadLayer: function(url, type, options, customLayer, map) {
+    loadLayer: function(hash, type, options, customLayer, map) {
+        var url   = this.createRequestUrl(hash);
         var layer = omnivore[type](url, options, customLayer);
 
         if (map) {
@@ -223,6 +223,40 @@ L.Contao = new (L.Class.extend({
                 pointToLayer: this.pointToLayer.bind(this),
                 onEachFeature: this.onEachFeature.bind(this)
             };
+        }
+    },
+
+    /**
+     * Create request url by appending the hash to the current url.
+     *
+     * @param {string} value The hash
+     *
+     * @returns {string}
+     */
+    createRequestUrl: function(value) {
+        value = encodeURIComponent(value);
+
+        var key    = 'leaflet';
+        var params = document.location.search.substr(1).split('&');
+
+        if (params == '') {
+            return document.location.pathname + '?' + [key, value].join('=');
+        } else {
+            var i = params.length; var x; while (i--) {
+                x = params[i].split('=');
+
+                if (x[0] == key) {
+                    x[1] = value;
+                    params[i] = x.join('=');
+                    break;
+                }
+            }
+
+            if (i < 0) {
+                params[params.length] = [key, value].join('=');
+            }
+
+            return document.location.pathname + params.join('&');
         }
     }
 }))();
