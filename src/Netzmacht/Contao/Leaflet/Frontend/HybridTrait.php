@@ -135,7 +135,7 @@ trait HybridTrait
      */
     private function handleAjaxRequest()
     {
-        $input = $this->input->get('leaflet');
+        $input = $this->input->get('leaflet', true);
 
         // Handle ajax request.
         if ($input) {
