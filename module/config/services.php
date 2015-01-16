@@ -12,15 +12,17 @@
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
-use Netzmacht\Javascript\Builder;
-use Netzmacht\Javascript\Encoder;
-use Netzmacht\Javascript\Output;
+use Netzmacht\JavascriptBuilder\Builder;
+use Netzmacht\JavascriptBuilder\Encoder;
+use Netzmacht\JavascriptBuilder\Encoder\JavascriptEncoder;
+use Netzmacht\JavascriptBuilder\Encoder\ResultCacheEncoder;
+use Netzmacht\JavascriptBuilder\Output;
+use Netzmacht\JavascriptBuilder\Symfony\EventDispatchingEncoder;
 use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /** @var \Pimple $container */
 global $container;
-
 
 /*
  * Leaflet map service is a simply api entry to to get the leaflet map from the database.
@@ -65,6 +67,21 @@ $container['leaflet.definition.builder.event-dispatcher'] = $container->share(fu
     return $boot->initializeEventDispatcher($dispatcher);
 });
 
+/*
+ * The javascript encoder factory being used for building the map javascript.
+ */
+$container['leaflet.definition.builder.encoder-factory'] = function ($container) {
+    $dispatcher = $container['leaflet.definition.builder.event-dispatcher'];
+
+    return function (Output $output) use ($dispatcher) {
+        return new ResultCacheEncoder(
+            new EventDispatchingEncoder(
+                new JavascriptEncoder($output, JSON_UNESCAPED_SLASHES),
+                $dispatcher
+            )
+        );
+    };
+};
 
 /*
  * The leaflet builder transforms the definition to javascript.
@@ -73,8 +90,10 @@ $container['leaflet.definition.builder'] = $container->share(function($container
     /** @var Boot $boot */
     $boot       = $container['leaflet.boot'];
     $dispatcher = $container['leaflet.definition.builder.event-dispatcher'];
+    $factory    = $container['leaflet.definition.builder.encoder-factory'];
 
-    $leaflet = new Leaflet($dispatcher, array(), JSON_UNESCAPED_SLASHES);
+    $builder = new Builder($factory);
+    $leaflet = new Leaflet($builder, $dispatcher, array(), JSON_UNESCAPED_SLASHES);
 
     return $boot->initializeLeafletBuilder($leaflet);
 });
