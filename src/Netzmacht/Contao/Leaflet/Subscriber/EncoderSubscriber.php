@@ -12,10 +12,10 @@
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
-use Netzmacht\Javascript\Encoder;
-use Netzmacht\Javascript\Event\EncodeValueEvent;
-use Netzmacht\Javascript\Event\GetReferenceEvent;
-use Netzmacht\Javascript\Exception\EncodeValueFailed;
+use Netzmacht\JavascriptBuilder\Encoder;
+use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeValueEvent;
+use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeReferenceEvent;
+use Netzmacht\JavascriptBuilder\Exception\EncodeValueFailed;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
@@ -38,18 +38,18 @@ class EncoderSubscriber implements EventSubscriberInterface
                 array('encodeIcons', 1000),
                 array('loadLayer', 100),
             ),
-            GetReferenceEvent::NAME => array('referenceIcon', 100),
+            EncodeReferenceEvent::NAME => array('referenceIcon', 100),
         );
     }
 
     /**
      * Create icon reference to the contao leaflet icon registry.
      *
-     * @param GetReferenceEvent $event The subscribed event.
+     * @param EncodeReferenceEvent $event The subscribed event.
      *
      * @return void
      */
-    public function referenceIcon(GetReferenceEvent $event)
+    public function referenceIcon(EncodeReferenceEvent $event)
     {
         $value = $event->getObject();
 
