@@ -80,7 +80,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
             }
 
             if (!empty($options)) {
-                $layer = new GeoJson($this->getElementId($model, $elementId) . '_1');
+                $layer = new GeoJson($this->getElementId($model, $elementId));
                 $layer->setOptions($options);
 
                 return array($this->getElementId($model, $elementId), RequestUrl::create($model->id), array(), $layer);
@@ -108,8 +108,8 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 foreach ($collection as $item) {
                     $vector = $mapper->handle($item);
 
-                    if ($vector instanceof Layer) {
-                        $definition->addLayer($vector);
+                    if ($vector instanceof ConvertsToGeoJsonFeature) {
+                        $definition->addData($vector->toGeoJsonFeature(), true);
                     }
                 }
             }
