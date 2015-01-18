@@ -16,6 +16,9 @@ use Model\Collection;
 /**
  * Class LayerModel for the tl_leaflet_layer table.
  *
+ * @property mixed|null id
+ * @property mixed|null alias
+ *
  * @package Netzmacht\Contao\Leaflet\Model
  */
 class LayerModel extends AbstractActiveModel
