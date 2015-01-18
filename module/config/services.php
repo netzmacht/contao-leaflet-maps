@@ -14,8 +14,10 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
 use Netzmacht\JavascriptBuilder\Builder;
 use Netzmacht\JavascriptBuilder\Encoder;
+use Netzmacht\JavascriptBuilder\Encoder\Chain\MultipleChain;
+use Netzmacht\JavascriptBuilder\Encoder\ChainEncoder;
 use Netzmacht\JavascriptBuilder\Encoder\JavascriptEncoder;
-use Netzmacht\JavascriptBuilder\Encoder\ResultCacheEncoder;
+use Netzmacht\JavascriptBuilder\Encoder\MultipleObjectsEncoder;
 use Netzmacht\JavascriptBuilder\Output;
 use Netzmacht\JavascriptBuilder\Symfony\EventDispatchingEncoder;
 use Netzmacht\LeafletPHP\Leaflet;
@@ -74,12 +76,13 @@ $container['leaflet.definition.builder.encoder-factory'] = function ($container)
     $dispatcher = $container['leaflet.definition.builder.event-dispatcher'];
 
     return function (Output $output) use ($dispatcher) {
-        return new ResultCacheEncoder(
-            new EventDispatchingEncoder(
-                new JavascriptEncoder($output, JSON_UNESCAPED_SLASHES),
-                $dispatcher
-            )
-        );
+        $encoder = new ChainEncoder();
+        $encoder
+            ->register(new MultipleObjectsEncoder())
+            ->register(new EventDispatchingEncoder($dispatcher))
+            ->register(new JavascriptEncoder($output, JSON_UNESCAPED_SLASHES));
+
+        return $encoder;
     };
 };
 
@@ -93,7 +96,7 @@ $container['leaflet.definition.builder'] = $container->share(function($container
     $factory    = $container['leaflet.definition.builder.encoder-factory'];
 
     $builder = new Builder($factory);
-    $leaflet = new Leaflet($builder, $dispatcher, array(), JSON_UNESCAPED_SLASHES);
+    $leaflet = new Leaflet($builder, $dispatcher, array(), JSON_UNESCAPED_SLASHES ^ Encoder::BUILD_STACK);
 
     return $boot->initializeLeafletBuilder($leaflet);
 });
