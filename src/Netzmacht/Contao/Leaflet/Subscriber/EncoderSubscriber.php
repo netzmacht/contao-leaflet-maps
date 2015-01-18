@@ -86,8 +86,8 @@ class EncoderSubscriber implements EventSubscriberInterface
      */
     public function loadLayer(EncodeValueEvent $event)
     {
-        $value   = $event->getValue();
-        $encoder = $event->getEncoder();
+        $value    = $event->getValue();
+        $encoder  = $event->getEncoder();
         $template = 'L.contao.load(%s, %s, %s, %s, map);';
 
         if ($value instanceof OmnivoreLayer) {
