@@ -16,7 +16,6 @@ use Netzmacht\JavascriptBuilder\Encoder;
 use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeValueEvent;
 use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeReferenceEvent;
 use Netzmacht\JavascriptBuilder\Exception\EncodeValueFailed;
-use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -117,10 +116,6 @@ class EncoderSubscriber implements EventSubscriberInterface
                     $ref
                 )
             );
-
-            foreach ($value->getLayers() as $layer) {
-                $event->addLine(sprintf('%s.addLayer(%s);', $ref, $encoder->encodeReference($layer)));
-            }
 
             foreach ($value->getMethodCalls() as $call) {
                 $event->addLine($call->encode($encoder, $encoder->getOutput()));
