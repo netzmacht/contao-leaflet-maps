@@ -113,7 +113,7 @@ L.contao = new (L.Class.extend({
      * @param customLayer optional custom layer.
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
-    loadLayer: function(hash, type, options, customLayer, map) {
+    load: function(hash, type, options, customLayer, map) {
         var url   = this.createRequestUrl(hash);
         var layer = omnivore[type](url, options, customLayer);
 
