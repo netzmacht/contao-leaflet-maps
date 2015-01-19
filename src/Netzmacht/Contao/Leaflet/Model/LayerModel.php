@@ -18,6 +18,8 @@ use Model\Collection;
  *
  * @property mixed|null id
  * @property mixed|null alias
+ * @property mixed|null pointToLayer
+ * @property mixed|null onEachFeature
  *
  * @package Netzmacht\Contao\Leaflet\Model
  */
