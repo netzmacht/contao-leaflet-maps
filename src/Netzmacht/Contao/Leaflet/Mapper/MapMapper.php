@@ -118,7 +118,7 @@ class MapMapper extends AbstractMapper
             $control = $mapper->handle($control, $bounds);
 
             if ($control instanceof Control) {
-                $map->addControl($control);
+                $control->addTo($map);
             }
         }
     }
@@ -145,7 +145,7 @@ class MapMapper extends AbstractMapper
 
                 $layer = $mapper->handle($layer, $bounds);
                 if ($layer instanceof Layer) {
-                    $map->addLayer($layer);
+                    $layer->addTo($map);
                 }
             }
         }
