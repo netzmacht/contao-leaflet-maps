@@ -48,3 +48,6 @@ Credits
 
 The integrated icons are part of the [Farm Fresh Web Icons](http://www.fatcow.com/free-icons) and are licensed under the
 [CC BY 3.0 US](http://creativecommons.org/licenses/by/3.0/us/)
+
+The about icon is part of the [Web Blog Icons by SEM Labs](http://semlabs.co.uk/) and is licensed under the 	
+[CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).

@@ -13,7 +13,7 @@
         <p>
             This software ships with an visible attribution to <em>netzmacht creative</em> in the map attribution control.
             If you want to remove this attribution, you have to purchase a commercial license.
-            For more details see the <a href="http://contao-leaflet.netzmacht.de" target="_blank">project website</a>.
+            For more details visit the <a href="http://contao-leaflet.netzmacht.de" target="_blank">project website</a>.
         </p>
     </div>
     <div class="right">
@@ -42,10 +42,25 @@
 
     <div class="row">
         <div class="col">
+            <h3>Report issues</h3>
+            <p>If you found a bug, got some troubles or have a feature request - feel free to open an issue.</p>
+            <p><a href="http://github.com/netzmacht/contao-leaflet-maps/issues" class="btn"  target="_blank">Issue tracker</a> </p>
+        </div>
+        <div class="col">
+            <h3>Contribute</h3>
+            <p>There are many ways you can con&shy;tribute. Translations,
+                docu&shy;mentation or code contributions are welcome.
+            </p>
+            <p><a href="http://contao-leaflet.netzmacht.de/contribute.html" class="btn" target="_blank">Contribute</a> </p>
+        </div>
+        <div class="col">
             <h3>Fund a feature</h3>
             <p>Contao Leaflet is not feature complete. Have a look at the list of planned feature and support them.</p>
-            <p><a href="http://contao-leaflet.netzmacht.de/panned-features.html" class="btn"  target="_blank">Planned features</a> </p>
+            <p><a href="http://contao-leaflet.netzmacht.de/planned-features.html" class="btn"  target="_blank">Planned features</a> </p>
         </div>
+    </div>
+    <div class="row">
+
         <div class="col">
             <h3>Individual development</h3>
             <p>If you have special requirements you can hire me for an individual development.</p>

@@ -25,7 +25,7 @@ class About
      */
     public function generate()
     {
-        $template = new \BackendTemplate('be_leaflet_credits');
+        $template = new \BackendTemplate('be_leaflet_about');
 
         $template->headline  = 'Leaftlet maps integration for Contao CMS';
         $template->libraries = $this->getLibraries();
@@ -81,22 +81,22 @@ class About
      */
     private function extractFromComposer()
     {
-        $local    = TL_ROOT . '/composer/vendor/netzmacht/contao-leaflet-maps/composer.json';
-        $composer = TL_ROOT . '/composer/composer.lock';
+        $extFile  = TL_ROOT . '/composer/vendor/netzmacht/contao-leaflet-maps/composer.json';
+        $lockFile = TL_ROOT . '/composer/composer.lock';
 
-        if (!file_exists($local)) {
+        if (!file_exists($extFile) || !file_exists($lockFile)) {
             return array();
         }
 
-        $local     = json_decode(file_get_contents($local), true);
-        $installed = json_decode(file_get_contents($composer), true);
+        $extension = json_decode(file_get_contents($extFile), true);
+        $installed = json_decode(file_get_contents($lockFile), true);
         $deps      = array();
         $version   = null;
 
         foreach ($installed['packages'] as $package) {
             if ($package['name'] === 'netzmacht/contao-leaflet-maps') {
                 $version = $package['version'];
-            } elseif (isset($local['require'][$package['name']])) {
+            } elseif (isset($extension['require'][$package['name']])) {
                 $deps[] = array(
                     'name'     => $package['name'],
                     'version'  => $package['version'],

@@ -16,6 +16,6 @@ TemplateLoader::addFiles(
         'leaflet_map_html'   => 'system/modules/leaflet/templates',
         'mod_leaflet_map'    => 'system/modules/leaflet/templates',
         'be_leaflet_geocode' => 'system/modules/leaflet/templates',
-        'be_leaflet_credits' => 'system/modules/leaflet/templates',
+        'be_leaflet_about'   => 'system/modules/leaflet/templates',
     )
 );
