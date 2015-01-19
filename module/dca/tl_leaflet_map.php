@@ -9,6 +9,8 @@
  *
  */
 
+\Controller::loadLanguageFile('leaflet');
+
 $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
 (
     'config' => array(

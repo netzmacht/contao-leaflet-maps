@@ -71,6 +71,3 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['1'][0]      = 'Enable';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['1'][1]      = 'Enable zoom function.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['center'][0] = 'Center';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['center'][1] = 'If passed \'center\', it will zoom to the center of the view regardless of where the mouse was.';
-
-$GLOBALS['TL_LANG']['tl_leaflet_map']['searchPosition'] = 'Search';
-$GLOBALS['TL_LANG']['tl_leaflet_map']['applyPosition']  = 'Apply position';

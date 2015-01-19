@@ -11,7 +11,6 @@
 
 \Controller::loadLanguageFile('leaflet');
 
-
 $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
 (
     'config' => array(

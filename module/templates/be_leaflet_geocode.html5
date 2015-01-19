@@ -12,7 +12,7 @@
     }).addTo(map);
     var geocoder = L.Control.geocoder({
         collapsed: false,
-        placeholder: '<?php echo $GLOBALS['TL_LANG']['tl_leaflet_map']['searchPosition']; ?>'
+        placeholder: '<?php echo $GLOBALS['TL_LANG']['leaflet']['searchPosition']; ?>'
     }).addTo(map);
 
     geocoder.markGeocode = function(result) {
@@ -21,7 +21,7 @@
         var element   = $('<?php echo $this->field; ?>');
 
         link.set('style', 'margin-left: 10px;');
-        link.appendText('<?php echo $GLOBALS['TL_LANG']['tl_leaflet_map']['applyPosition']; ?>');
+        link.appendText('<?php echo $GLOBALS['TL_LANG']['leaflet']['applyPosition']; ?>');
         link.addEvent('click', function(e) {
             e.stop();
 

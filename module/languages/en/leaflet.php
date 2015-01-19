@@ -36,3 +36,6 @@ $GLOBALS['TL_LANG']['leaflet_vector']['circleMarker'][0]  = 'Circle marker';
 $GLOBALS['TL_LANG']['leaflet_vector']['circleMarker'][1]  = 'Circle marker with fixed pixel width. For more details read the <a href="http://leafletjs.com/reference.html#circlemarker" target="_blank">Leaflet documentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_vector']['rectangle'][0]  = 'Rectangle';
 $GLOBALS['TL_LANG']['leaflet_vector']['rectangle'][1]  = 'Rectangle overlay. For more details read the <a href="http://leafletjs.com/reference.html#rectangle" target="_blank">Leaflet documentation</a>.';
+
+$GLOBALS['TL_LANG']['leaflet']['searchPosition'] = 'Search location';
+$GLOBALS['TL_LANG']['leaflet']['applyPosition']  = 'Apply position';
