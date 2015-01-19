@@ -88,6 +88,12 @@
             <td><a href="http://creativecommons.org/licenses/by/3.0/us/" target="_blank">CC BY 3.0 US</a></td>
             <td><a href="http://www.fatcow.com/free-icons" target="_blank">fatcow.com/free-icons</a></td>
         </tr>
+        <tr>
+            <td>Web Blog Icons by SEM Labs</td>
+            <td>3.9.2</td>
+            <td><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></td>
+            <td><a href="http://semlabs.co.uk/" target="_blank">semlabs.co.uk</a></td>
+        </tr>
     <?php if ($this->dependencies): ?>
         <tr><th colspan="4" class="subtitle">Dependencies</th> </tr>
     <?php endif; ?>

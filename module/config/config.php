@@ -41,11 +41,11 @@ array_insert(
                 'icon'       => 'system/modules/leaflet/assets/img/layers.png',
                 'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
             ),
-            'leaflet_credits' => array
+            'leaflet_about' => array
             (
-                'callback'   => 'Netzmacht\Contao\Leaflet\Backend\Credits',
-                'icon'       => 'system/modules/leaflet/assets/img/info.png',
-                'stylesheet' => 'system/modules/leaflet/assets/css/credits.css',
+                'callback'   => 'Netzmacht\Contao\Leaflet\Backend\About',
+                'icon'       => 'system/modules/leaflet/assets/img/about.png',
+                'stylesheet' => 'system/modules/leaflet/assets/css/about.css',
             )
         )
     )

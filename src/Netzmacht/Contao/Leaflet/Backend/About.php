@@ -16,7 +16,7 @@ namespace Netzmacht\Contao\Leaflet\Backend;
  *
  * @package Netzmacht\Contao\Leaflet\Backend
  */
-class Credits
+class About
 {
     /**
      * Generate the backend view.
