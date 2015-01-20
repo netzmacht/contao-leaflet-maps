@@ -121,7 +121,7 @@ class MapMapper extends AbstractMapper
         }
 
         foreach ($collection as $control) {
-            $control = $mapper->handle($control, $bounds);
+            $control = $mapper->handle($control, $bounds, null, $map);
 
             if ($control instanceof Control) {
                 $control->addTo($map);
@@ -149,7 +149,7 @@ class MapMapper extends AbstractMapper
                     continue;
                 }
 
-                $layer = $mapper->handle($layer, $bounds);
+                $layer = $mapper->handle($layer, $bounds, null, $map);
                 if ($layer instanceof Layer) {
                     $layer->addTo($map);
                 }
