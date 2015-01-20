@@ -54,4 +54,4 @@ $GLOBALS['TL_LANG']['tl_leaflet_vector']['bounds'][1]       = 'Each field define
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['style'][0]        = 'Style';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['style'][1]        = 'Choose a style. If none defined, the default style of leaflet is used.';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['affectBounds'][0] = 'Affect map bounds';
-$GLOBALS['TL_LANG']['tl_leaflet_vector']['affectBounds'][1] = 'If the map support it the vector will be used to affect the initial map bounds.';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['affectBounds'][1] = 'If the map support it the vector will affect the initial map bounds.';
