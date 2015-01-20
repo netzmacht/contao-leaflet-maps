@@ -2,8 +2,9 @@
 /bin/
 /demo/
 /assets/js/*.js
+/node_modules/*
 /.tx/
 
 coverage.xml
-
 composer.lock
+npm-debug.log
