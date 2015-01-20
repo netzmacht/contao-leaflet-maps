@@ -64,6 +64,13 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'][0]    = 'Adjust extra z
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'][1]    = 'Enable if you want to adjust minimum and maximum zoom as well';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['layers'][0]             = 'Default layers';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['layers'][1]             = 'Inital visible layers of the map. For optional layers use the layers control.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBounds'][0]       = 'Adjust bounds';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBounds'][1]       = 'If enabled the map will fit to bounds to objects being marked to affect the bounds.';
+
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load'][0]     = 'At map initialization';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load'][1]     = 'Calculate bounds when the map is initialized. All static and already loaded deferred featured are included.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['deferred'][0] = 'After loading deferred feature';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['deferred'][1] = 'Recalculate bounds when a deferred feature is load.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][0]       = 'Disable';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][1]       = 'Disable zoom function.';

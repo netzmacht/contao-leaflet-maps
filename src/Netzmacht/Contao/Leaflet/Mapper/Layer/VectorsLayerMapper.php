@@ -18,6 +18,7 @@ use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJsonFeature;
+use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
@@ -109,7 +110,13 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                     $vector = $mapper->handle($item);
 
                     if ($vector instanceof ConvertsToGeoJsonFeature) {
-                        $definition->addData($vector->toGeoJsonFeature(), true);
+                        $feature = $vector->toGeoJsonFeature();
+
+                        if ($feature instanceof Feature) {
+                            $feature->setProperty('affectBounds', (bool) $item->affectBounds);
+                        }
+
+                        $definition->addData($feature, true);
                     }
                 }
             }
@@ -141,6 +148,10 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 }
 
                 if ($vector instanceof GeoJsonFeature) {
+                    if ($vector instanceof Feature) {
+                        $vector->setProperty('affectBounds', (bool) $item->affectBounds);
+                    }
+
                     $feature->addFeature($vector);
                 }
             }

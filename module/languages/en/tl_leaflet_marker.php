@@ -48,3 +48,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'][0]         = 'Icon';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'][1]         = 'Select a custom icon.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active'][0]       = 'Activate marker';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active'][1]       = 'Only activated markers are rendered on the map.';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['affectBounds'][0] = 'Affect map bounds';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['affectBounds'][1] = 'If the map support it the marker will be used to affect the initial map bounds.';

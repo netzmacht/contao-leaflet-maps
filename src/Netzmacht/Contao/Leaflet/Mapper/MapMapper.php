@@ -63,6 +63,7 @@ class MapMapper extends AbstractMapper
             $this->buildCustomOptions($map, $model);
             $this->buildControls($map, $model, $builder, $bounds);
             $this->buildLayers($map, $model, $builder, $bounds);
+            $this->buildBoundsCalculation($map, $model);
         }
     }
 
@@ -148,6 +149,25 @@ class MapMapper extends AbstractMapper
                     $layer->addTo($map);
                 }
             }
+        }
+    }
+
+    /**
+     * Build map bounds calculations.
+     *
+     * @param Map      $map    The map being built.
+     * @param MapModel $model  The map model.
+     */
+    private function buildBoundsCalculation(Map $map, MapModel $model)
+    {
+        $adjustBounds = deserialize($model->adjustBounds, true);
+
+        if (in_array('deferred', $adjustBounds)) {
+            $map->setOption('adjustBounds', true);
+        }
+
+        if (in_array('load', $adjustBounds)) {
+            $map->calculateFeatureBounds();
         }
     }
 }

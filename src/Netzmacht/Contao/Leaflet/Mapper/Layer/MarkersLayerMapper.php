@@ -96,7 +96,10 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                     $marker = $mapper->handle($item);
 
                     if ($marker instanceof Marker) {
-                        $definition->addData($marker->toGeoJsonFeature(), true);
+                        $feature = $marker->toGeoJsonFeature();
+                        $feature->setProperty('affectBounds', ($item->affectBounds));
+
+                        $definition->addData($feature, true);
                     }
                 }
             }

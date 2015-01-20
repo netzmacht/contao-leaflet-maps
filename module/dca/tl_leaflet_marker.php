@@ -116,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'riseOffset',
                 'customIcon',
             ),
-            'active'  => array('active')
+            'active'  => array('active', 'affectBounds')
         ),
     ),
     'metasubpalettes' => array(
@@ -285,6 +285,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'default'   => 0,
             'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'clr w50', 'nullIfEmpty' => true),
             'sql'       => "int(5) NULL"
+        ),
+        'affectBounds' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['affectBounds'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
         ),
     ),
 );

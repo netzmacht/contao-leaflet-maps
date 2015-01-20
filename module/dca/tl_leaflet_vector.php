@@ -119,7 +119,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'data'   => array(),
             'popup'  => array(':hide','addPopup'),
             'config' => array(':hide', 'style', 'className', 'clickable'),
-            'active' => array('active')
+            'active' => array('active', 'affectBounds')
         ),
 
         'polyline extends default' => array(
@@ -347,6 +347,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'nullIfEmpty' => true,
             ),
             'sql'           => "mediumblob NULL"
+        ),
+        'affectBounds' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['affectBounds'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
         ),
     ),
 );
