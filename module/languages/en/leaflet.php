@@ -10,6 +10,8 @@ $GLOBALS['TL_LANG']['leaflet_control']['scale'][0]       = 'Scale control';
 $GLOBALS['TL_LANG']['leaflet_control']['scale'][1]       = 'A simple scale control that shows the scale of the current center of the screen. For more details read the <a href="http://leafletjs.com/reference.html#control-scale" target="_blank">Leaflet documentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_control']['loading'][0]     = 'Loading indicator';
 $GLOBALS['TL_LANG']['leaflet_control']['loading'][1]     = 'Leaflet.loading is a simple loading indicator implemented as control. For more details read the <a href="https://github.com/ebrelsford/Leaflet.loading" target="_blank">Plugin documentation</a>.';
+$GLOBALS['TL_LANG']['leaflet_control']['fullscreen'][0]  = 'Fullscreen control';
+$GLOBALS['TL_LANG']['leaflet_control']['fullscreen'][1]  = 'Add a fullscreen toggle button. For more details read the <a href="https://github.com/brunob/leaflet.fullscreen" target="_blank">Plugin documentation</a>.';
 
 $GLOBALS['TL_LANG']['leaflet_layer']['provider'][0]  = 'Leaflet provider';
 $GLOBALS['TL_LANG']['leaflet_layer']['provider'][1]  = 'Leaflet tile provider. For more details read the <a href="https://github.com/leaflet-extras/leaflet-providers" target="_blank">plugin documentation</a>.';

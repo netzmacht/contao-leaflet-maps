@@ -119,7 +119,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ),
         'loading extends default' => array(
             'config' => array('separate', 'zoomControl', 'spinjs')
-        )
+        ),
+        'fullscreen extends default' => array(
+            'config' => array('buttonTitle', 'separate', 'simulateFullScreen')
+        ),
     ),
 
     'metasubpalettes' => array(
@@ -398,6 +401,22 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                  'tl_class'       => 'clr'
             ),
             'sql'       => "mediumtext NULL"
+        ),
+        'simulateFullScreen'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['simulateFullScreen'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'eval'      => array('tl_class' => 'w50 m12'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'buttonTitle'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['buttonTitle'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''"
         ),
     ),
 );
