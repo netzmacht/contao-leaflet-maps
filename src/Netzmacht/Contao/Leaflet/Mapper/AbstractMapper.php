@@ -322,7 +322,11 @@ abstract class AbstractMapper implements Mapper
             $default = $this->getDefaultOption($option, $definition);
 
             if ($model->$mapping === '1' || $model->$mapping === '') {
-                if (((bool) $model->$option) !== $default) {
+                if (((bool) $model->$mapping) !== $default) {
+                    $definition->$setter($model->$mapping);
+                }
+            } elseif (is_numeric($default)) {
+                if ($model->$mapping != $default) {
                     $definition->$setter($model->$mapping);
                 }
             } elseif ($model->$mapping !== $default) {
