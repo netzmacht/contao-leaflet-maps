@@ -1,7 +1,5 @@
 var gulp       = require('gulp');
 var del        = require('del');
-var sourcemaps = require('gulp-sourcemaps');
-var rename     = require('gulp-rename');
 var uglify     = require('gulp-uglify');
 var concat     = require('gulp-concat');
 

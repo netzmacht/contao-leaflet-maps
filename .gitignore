@@ -2,7 +2,7 @@
 /bin/
 /demo/
 /assets/js/*.js
-/node_modules/*
+/node_modules/
 /.tx/
 
 coverage.xml
