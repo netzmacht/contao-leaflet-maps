@@ -1,4 +1,9 @@
-L.contao = new (L.Class.extend({
+/**
+ * Leaflet integration into contao.
+ *
+ * This class provides some helpers for loading layer data manages maps and map objects.
+ */
+L.Contao = L.Class.extend({
     includes: L.Mixin.Events,
 
     /**
@@ -21,7 +26,7 @@ L.contao = new (L.Class.extend({
     /**
      * Initialize Contao leaflet integration.
      */
-    initialize: function() {
+    initialize: function () {
         L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
 
         this.setGeoJsonListeners(L.GeoJSON);
@@ -40,7 +45,7 @@ L.contao = new (L.Class.extend({
 
         this.maps[id] = map;
 
-        this.fire('map:added', { id: id, map: map});
+        this.fire('map:added', {id: id, map: map});
 
         return this;
     },
@@ -68,9 +73,9 @@ L.contao = new (L.Class.extend({
      *
      * @returns {L.contao}
      */
-    addIcon: function(id, icon) {
+    addIcon: function (id, icon) {
         this.icons[id] = icon;
-        this.fire('icon:added', { id: id, icon: icon});
+        this.fire('icon:added', {id: id, icon: icon});
 
         return this;
     },
@@ -82,7 +87,7 @@ L.contao = new (L.Class.extend({
      *
      * @return void
      */
-    loadIcons: function(icons) {
+    loadIcons: function (icons) {
         for (var i = 0; i < icons.length; i++) {
             var icon = L[icons[i].type](icons[i].options);
             this.addIcon(icons[i].id, icon);
@@ -96,7 +101,7 @@ L.contao = new (L.Class.extend({
      *
      * @returns {L.Icon}|{L.DivIcon}|{*}
      */
-    getIcon: function(id) {
+    getIcon: function (id) {
         if (typeof (this.icons[id]) === 'undefined') {
             return null;
         }
@@ -113,22 +118,23 @@ L.contao = new (L.Class.extend({
      * @param customLayer optional custom layer.
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
-    load: function(hash, type, options, customLayer, map) {
-        var url   = this.createRequestUrl(hash);
+    load: function (hash, type, options, customLayer, map) {
+        var url = this.createRequestUrl(hash);
         var layer = omnivore[type](url, options, customLayer);
 
         if (map) {
             // Required because Control.Loading tries to get _leafet_id which is created here.
             L.stamp(layer);
 
-            map.fire('dataloading', { layer: layer });
+            map.fire('dataloading', {layer: layer});
 
-            layer.on('ready', function() {
-                map.fire('dataload', { layer: layer });
+            layer.on('ready', function () {
+                map.calculateFeatureBounds(layer);
+                map.fire('dataload', {layer: layer});
             });
 
-            layer.on('error', function() {
-                map.fire('dataload', { layer: layer });
+            layer.on('error', function () {
+                map.fire('dataload', {layer: layer});
             });
         }
 
@@ -143,11 +149,13 @@ L.contao = new (L.Class.extend({
      *
      * @returns {L.Marker}|{*}
      */
-    pointToLayer: function(feature, latlng) {
-        var type   = 'marker';
+    pointToLayer: function (feature, latlng) {
+        var type = 'marker';
         var marker = null;
 
         if (feature.properties) {
+            feature.properties.bounds = true;
+
             if (feature.properties.type) {
                 type = feature.properties.type;
             }
@@ -179,7 +187,7 @@ L.contao = new (L.Class.extend({
             this.bindPopupFromFeature(marker, feature);
         }
 
-        this.fire('point:added', { marker: marker, feature: feature, latlng: latlng, type: type });
+        this.fire('point:added', {marker: marker, feature: feature, latlng: latlng, type: type});
 
         return marker;
     },
@@ -190,7 +198,7 @@ L.contao = new (L.Class.extend({
 
             this.bindPopupFromFeature(layer, feature);
 
-            this.fire('feature:added', { feature: feature, layer: layer});
+            this.fire('feature:added', {feature: feature, layer: layer});
         }
     },
 
@@ -217,7 +225,7 @@ L.contao = new (L.Class.extend({
      *
      * @param obj
      */
-    setGeoJsonListeners: function(obj) {
+    setGeoJsonListeners: function (obj) {
         if (obj && obj.prototype) {
             obj.prototype.options = {
                 pointToLayer: this.pointToLayer.bind(this),
@@ -233,16 +241,18 @@ L.contao = new (L.Class.extend({
      *
      * @returns {string}
      */
-    createRequestUrl: function(value) {
+    createRequestUrl: function (value) {
         value = encodeURIComponent(value);
 
-        var key    = 'leaflet';
+        var key = 'leaflet';
         var params = document.location.search.substr(1).split('&');
 
         if (params == '') {
             return document.location.pathname + '?' + [key, value].join('=');
         } else {
-            var i = params.length; var x; while (i--) {
+            var i = params.length;
+            var x;
+            while (i--) {
                 x = params[i].split('=');
 
                 if (x[0] == key) {
@@ -259,4 +269,6 @@ L.contao = new (L.Class.extend({
             return document.location.pathname + params.join('&');
         }
     }
-}))();
+});
+
+L.contao = new L.Contao();
