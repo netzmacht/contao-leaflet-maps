@@ -33,8 +33,13 @@ class ReferenceLayerMapper extends AbstractLayerMapper
     /**
      * {@inheritdoc}
      */
-    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null, $elementId = null, Definition $parent = null)
-    {
+    public function handle(
+        $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null,
+        Definition $parent = null
+    ) {
         $reference = LayerModel::findByPk($model->reference);
 
         if (!$reference || !$reference->active) {

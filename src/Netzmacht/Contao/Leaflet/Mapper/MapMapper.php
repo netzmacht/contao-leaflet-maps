@@ -12,7 +12,6 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
-use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control;
@@ -160,8 +159,10 @@ class MapMapper extends AbstractMapper
     /**
      * Build map bounds calculations.
      *
-     * @param Map      $map    The map being built.
-     * @param MapModel $model  The map model.
+     * @param Map      $map   The map being built.
+     * @param MapModel $model The map model.
+     *
+     * @return void
      */
     private function buildBoundsCalculation(Map $map, MapModel $model)
     {
