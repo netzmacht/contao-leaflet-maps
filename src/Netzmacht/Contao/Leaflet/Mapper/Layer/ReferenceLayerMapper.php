@@ -13,6 +13,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
@@ -32,7 +33,7 @@ class ReferenceLayerMapper extends AbstractLayerMapper
     /**
      * {@inheritdoc}
      */
-    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null, $elementId = null)
+    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null, $elementId = null, Definition $parent = null)
     {
         $reference = LayerModel::findByPk($model->reference);
 

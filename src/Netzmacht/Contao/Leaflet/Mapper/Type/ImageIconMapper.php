@@ -67,7 +67,8 @@ class ImageIconMapper extends AbstractIconMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
         if ($definition instanceof ImageIcon) {
             $this->addIcon($definition, $model);

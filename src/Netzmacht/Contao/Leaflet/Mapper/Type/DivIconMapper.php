@@ -54,7 +54,8 @@ class DivIconMapper extends AbstractIconMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
         parent::build($definition, $model, $mapper, $bounds);
 

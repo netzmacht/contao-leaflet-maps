@@ -151,13 +151,18 @@ abstract class AbstractMapper implements Mapper
     /**
      * {@inheritdoc}
      */
-    public function handle($model, DefinitionMapper $mapper, LatLngBounds $bounds = null, $elementId = null)
-    {
+    public function handle(
+        $model,
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        $elementId = null,
+        Definition $parent = null
+    ) {
         $definition = $this->createInstance($model, $mapper, $bounds, $elementId);
 
         $this->buildOptions($definition, $model);
         $this->buildConditionals($definition, $model);
-        $this->build($definition, $model, $mapper, $bounds);
+        $this->build($definition, $model, $mapper, $bounds, $parent);
 
         return $definition;
     }
@@ -188,6 +193,7 @@ abstract class AbstractMapper implements Mapper
      * @param \Model           $model      The model.
      * @param DefinitionMapper $mapper     The definition mapper.
      * @param LatLngBounds     $bounds     Optional bounds where elements should be in.
+     * @param Definition|null  $parent     The parent object.
      *
      * @return void
      *
@@ -197,7 +203,8 @@ abstract class AbstractMapper implements Mapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
     }
 

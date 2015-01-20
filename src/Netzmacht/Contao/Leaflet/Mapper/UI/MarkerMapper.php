@@ -73,8 +73,9 @@ class MarkerMapper extends AbstractMapper
     protected function build(
         Definition $definition,
         \Model $model,
-        DefinitionMapper $builder,
-        LatLngBounds $bounds = null
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
         if ($definition instanceof Marker) {
             if ($model->addPopup) {
@@ -90,7 +91,7 @@ class MarkerMapper extends AbstractMapper
 
                 if ($iconModel) {
                     /** @var ImageIcon $icon */
-                    $icon = $builder->handle($iconModel);
+                    $icon = $mapper->handle($iconModel);
                     $definition->setIcon($icon);
                 }
             }

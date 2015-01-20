@@ -73,8 +73,9 @@ class ProviderLayerMapper extends AbstractLayerMapper
     protected function build(
         Definition $definition,
         \Model $model,
-        DefinitionMapper $builder,
-        LatLngBounds $bounds = null
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
         if (!empty($this->providers[$model->tile_provider]['options'])) {
             $this->applyOptions(

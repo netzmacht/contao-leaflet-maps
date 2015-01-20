@@ -58,7 +58,8 @@ class GroupLayerMapper extends AbstractLayerMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
         if (!$definition instanceof LayerGroup) {
             return;

@@ -77,15 +77,16 @@ class DefinitionMapper
     /**
      * Build a model.
      *
-     * @param mixed        $model     The definition model.
-     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
-     * @param string       $elementId Optional element id. If none given the mapId or alias is used.
+     * @param mixed           $model     The definition model.
+     * @param LatLngBounds    $bounds    Optional bounds where elements should be in.
+     * @param string          $elementId Optional element id. If none given the mapId or alias is used.
+     * @param Definition|null $parent    Optional pass the parent object.
      *
      * @return Definition|null
      *
      * @throws \RuntimeException If model could not be mapped to a definition.
      */
-    public function handle($model, LatLngBounds $bounds = null, $elementId = null)
+    public function handle($model, LatLngBounds $bounds = null, $elementId = null, $parent = null)
     {
         $hash = $this->getHash($model, $elementId);
 
@@ -96,7 +97,7 @@ class DefinitionMapper
         foreach ($this->builders as $builders) {
             foreach ($builders as $builder) {
                 if ($builder->match($model)) {
-                    $definition = $builder->handle($model, $this, $bounds, $elementId);
+                    $definition = $builder->handle($model, $this, $bounds, $elementId, $parent);
 
                     if ($definition) {
                         $event = new BuildDefinitionEvent($definition, $model, $bounds);

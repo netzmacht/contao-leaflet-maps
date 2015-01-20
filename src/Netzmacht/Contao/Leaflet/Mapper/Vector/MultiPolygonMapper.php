@@ -44,10 +44,11 @@ class MultiPolygonMapper extends MultiPolylineMapper
     protected function build(
         Definition $definition,
         \Model $model,
-        DefinitionMapper $builder,
-        LatLngBounds $bounds = null
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
-        parent::build($definition, $model, $builder, $bounds);
+        parent::build($definition, $model, $mapper, $bounds);
 
         if ($definition instanceof MultiPolygon) {
             $this->createLatLngs($definition, $model);

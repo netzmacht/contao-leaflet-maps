@@ -86,7 +86,8 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
         if ($definition instanceof GeoJson) {
             $collection = $this->loadMarkerModels($model);

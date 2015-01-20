@@ -44,10 +44,11 @@ class PolylineMapper extends AbstractVectorMapper
     protected function build(
         Definition $definition,
         \Model $model,
-        DefinitionMapper $builder,
-        LatLngBounds $bounds = null
+        DefinitionMapper $mapper,
+        LatLngBounds $bounds = null,
+        Definition $parent = null
     ) {
-        parent::build($definition, $model, $builder, $bounds);
+        parent::build($definition, $model, $mapper, $bounds);
 
         if ($definition instanceof Polyline) {
             array_map(
