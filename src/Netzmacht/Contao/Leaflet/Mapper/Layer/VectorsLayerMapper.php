@@ -118,8 +118,8 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                     if ($vector instanceof ConvertsToGeoJsonFeature) {
                         $feature = $vector->toGeoJsonFeature();
 
-                        if ($feature instanceof Feature) {
-                            $feature->setProperty('ignoreForBounds', (bool) $item->ignoreForBounds);
+                        if ($feature instanceof Feature && ($item->ignoreForBounds || !$model->affectBounds)) {
+                            $feature->setProperty('ignoreForBounds', true);
                         }
 
                         $definition->addData($feature, true);
@@ -154,8 +154,8 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 }
 
                 if ($vector instanceof GeoJsonFeature) {
-                    if ($vector instanceof Feature) {
-                        $vector->setProperty('ignoreForBounds', (bool) $item->ignoreForBounds);
+                    if ($vector instanceof Feature && ($item->ignoreForBounds || !$model->affectBounds)) {
+                        $vector->setProperty('ignoreForBounds', true);
                     }
 
                     $feature->addFeature($vector);

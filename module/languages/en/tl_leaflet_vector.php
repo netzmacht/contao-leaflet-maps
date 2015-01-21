@@ -53,5 +53,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_vector']['bounds'][0]          = 'Bounds';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['bounds'][1]          = 'Each field defines a corner of the bounds as comma separated value (Latitude, longitude [, altitude]).';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['style'][0]           = 'Style';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['style'][1]           = 'Choose a style. If none defined, the default style of leaflet is used.';
-$GLOBALS['TL_LANG']['tl_leaflet_vector']['ignoreForBounds'][0] = 'Ignore for bounds';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['ignoreForBounds'][0] = 'Exclude from bounds';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['ignoreForBounds'][1] = 'Do not include this item in the bounds calculation.';

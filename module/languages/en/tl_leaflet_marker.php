@@ -48,5 +48,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'][0]            = 'Icon';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'][1]            = 'Select a custom icon.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active'][0]          = 'Activate marker';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active'][1]          = 'Only activated markers are rendered on the map.';
-$GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds'][0] = 'Ignore for bounds';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds'][0] = 'Exclude from bounds';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds'][1] = 'Do not include this item in the bounds calculation.';

@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
@@ -96,9 +97,11 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         LatLngBounds $bounds = null,
         Definition $parent = null
     ) {
-        $definition->setOption('affectBounds', (bool) $model->affectBounds);
-
         if ($definition instanceof GeoJson) {
+            if ($model->affectBounds) {
+                $definition->setOption('affectBounds', true);
+            }
+
             $collection = $this->loadMarkerModels($model);
 
             if ($collection) {
@@ -107,7 +110,10 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
                     if ($marker instanceof Marker) {
                         $feature = $marker->toGeoJsonFeature();
-                        $feature->setProperty('ignoreForBounds', ($item->ignoreForBounds));
+
+                        if ($item->ignoreForBounds || !$model->affectBounds) {
+                            $feature->setProperty('ignoreForBounds', true);
+                        }
 
                         $definition->addData($feature, true);
                     }
@@ -133,7 +139,13 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 $marker = $mapper->handle($item);
 
                 if ($marker instanceof Marker) {
-                    $feature->addFeature($marker->toGeoJsonFeature());
+                    $point = $marker->toGeoJsonFeature();
+
+                    if ($point instanceof Feature && ($item->ignoreForBounds || !$model->affectBounds)) {
+                        $point->setProperty('ignoreForBounds', true);
+                    }
+
+                    $feature->addFeature($point);
                 }
             }
         }
