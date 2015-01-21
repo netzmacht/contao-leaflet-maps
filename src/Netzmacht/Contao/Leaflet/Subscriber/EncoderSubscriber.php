@@ -118,7 +118,7 @@ class EncoderSubscriber implements EventSubscriberInterface
             );
 
             foreach ($value->getMethodCalls() as $call) {
-                $event->addLine($call->encode($encoder, $encoder->getOutput()));
+                $event->addLine($call->encode($encoder, Encoder::CLOSE_STATEMENT));
             }
         }
     }
