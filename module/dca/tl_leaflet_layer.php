@@ -145,14 +145,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'markers extends default' => array(
             '+expert' => array('pointToLayer'),
-            '+active' => array('deferred')
+            '+active' => array('deferred', 'affectBounds')
         ),
         'group extends default' => array(
             '+title' => array('groupType'),
+            '+active' => array('affectBounds')
         ),
         'vectors extends default' => array(
             '+expert' => array('onEachFeature', 'pointToLayer'),
-            '+active' => array('deferred'),
+            '+active' => array('deferred', 'affectBounds'),
         ),
         'reference extends default' => array(
             '+title' => array('reference', 'standalone')
@@ -173,6 +174,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'iconCreateFunction',
                 'disableDefaultStyle'
             ),
+            '+active' => array(
+                'affectBounds'
+            )
         ),
     ),
 
@@ -498,6 +502,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'inputType' => 'checkbox',
             'default'   => false,
             'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'affectBounds' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['affectBounds'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),
     )

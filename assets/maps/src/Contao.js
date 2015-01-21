@@ -163,6 +163,7 @@ L.Contao = L.Class.extend({
             // constructor arguments given, use them.
             if (feature.properties.arguments) {
                 marker = L[type].apply(L[type], feature.properties.arguments);
+
                 L.Util.setOptions(marker, feature.properties.options);
             }
         }

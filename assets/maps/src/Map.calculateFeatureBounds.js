@@ -1,3 +1,4 @@
+
 /**
  * Extend map so that it can calculate their bounds depending of the features with the property affectBounds.
  */
@@ -42,7 +43,7 @@ L.Map.include({
     _scanForBounds: function(layer) {
         var source;
 
-        if (layer.feature && layer.feature.properties && layer.feature.properties.affectBounds) {
+        if (layer.feature && (!layer.feature.properties || !layer.feature.properties.ignoreForBounds)) {
             if (layer.getBounds) {
                 source = layer.getBounds();
 
@@ -62,7 +63,17 @@ L.Map.include({
                     this._dynamicBounds = L.latLngBounds(source, source);
                 }
             }
-        } else if (layer.eachLayer) {
+        } else if (layer instanceof L.MarkerClusterGroup && layer.options.affectBounds) {
+            source = layer.getBounds();
+
+            if (source.isValid()) {
+                if (this._dynamicBounds) {
+                    this._dynamicBounds.extend(source);
+                } else {
+                    this._dynamicBounds = L.latLngBounds(source.getSouthWest(), source.getNorthEast());
+                }
+            }
+        } else if ((!layer.options || (layer.options && layer.options.affectBounds)) && layer.eachLayer) {
             layer.eachLayer(this._scanForBounds, this);
         }
     }

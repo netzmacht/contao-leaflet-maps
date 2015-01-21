@@ -80,6 +80,10 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 $options['onEachFeature'] = new Expression($model->onEachFeature);
             }
 
+            if ($model->affectBounds) {
+                $options['affectBounds'] = (bool) $model->affectBounds;
+            }
+
             if (!empty($options)) {
                 $layer = new GeoJson($this->getElementId($model, $elementId));
                 $layer->setOptions($options);
@@ -105,6 +109,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     ) {
         if ($definition instanceof GeoJson) {
             $collection = $this->loadVectorModels($model);
+            $definition->setOption('affectBounds', (bool) $model->affectBounds);
 
             if ($collection) {
                 foreach ($collection as $item) {
@@ -114,7 +119,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                         $feature = $vector->toGeoJsonFeature();
 
                         if ($feature instanceof Feature) {
-                            $feature->setProperty('affectBounds', (bool) $item->affectBounds);
+                            $feature->setProperty('ignoreForBounds', (bool) $item->ignoreForBounds);
                         }
 
                         $definition->addData($feature, true);
@@ -150,7 +155,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
                 if ($vector instanceof GeoJsonFeature) {
                     if ($vector instanceof Feature) {
-                        $vector->setProperty('affectBounds', (bool) $item->affectBounds);
+                        $vector->setProperty('ignoreForBounds', (bool) $item->ignoreForBounds);
                     }
 
                     $feature->addFeature($vector);

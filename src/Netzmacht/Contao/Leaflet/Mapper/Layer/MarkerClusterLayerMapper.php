@@ -87,6 +87,8 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
             $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/leaflet-markercluster/MarkerCluster.Default.css||static';
         }
 
+        $definition->setOption('affectBounds', (bool) $model->affectBounds);
+
         $collection = LayerModel::findBy(
             array('pid=?', 'active=1'),
             array($model->id),

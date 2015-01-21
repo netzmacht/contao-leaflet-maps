@@ -76,6 +76,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['iconCreateFunction'][0]         = 'Crea
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['iconCreateFunction'][1]         = 'Function used to create the cluster icon.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['disableDefaultStyle'][0]        = 'Disable default style';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['disableDefaultStyle'][1]        = 'Do not load default marker cluster stylesheets.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['affectBounds'][0]               = 'Affect map bounds';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['affectBounds'][1]               = 'If the map support it the marker will be used to affect the initial map bounds.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';

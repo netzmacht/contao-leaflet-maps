@@ -66,9 +66,10 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     ) {
         if ($model->deferred) {
 
-            if ($model->pointToLayer) {
+            if ($model->pointToLayer || $model->affectBounds) {
                 $layer = new GeoJson($this->getElementId($model, $elementId));
                 $layer->setPointToLayer(new Expression($model->pointToLayer));
+                $layer->setOption('affectBounds', (bool) $model->affectBounds);
 
                 return array($this->getElementId($model, $elementId), RequestUrl::create($model->id), array(), $layer);
             }
@@ -89,6 +90,8 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         LatLngBounds $bounds = null,
         Definition $parent = null
     ) {
+        $definition->setOption('affectBounds', (bool) $model->affectBounds);
+
         if ($definition instanceof GeoJson) {
             $collection = $this->loadMarkerModels($model);
 
@@ -98,7 +101,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
                     if ($marker instanceof Marker) {
                         $feature = $marker->toGeoJsonFeature();
-                        $feature->setProperty('affectBounds', ($item->affectBounds));
+                        $feature->setProperty('ignoreForBounds', ($item->ignoreForBounds));
 
                         $definition->addData($feature, true);
                     }
