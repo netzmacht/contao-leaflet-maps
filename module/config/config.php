@@ -92,6 +92,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLa
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ReferenceLayerMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\MarkerClusterLayerMapper';
 
 // Control mappers.
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\ZoomControlMapper';
@@ -209,6 +210,11 @@ $GLOBALS['LEAFLET_LAYERS'] = array
 
             return $label;
         }
+    ),
+    'markercluster' => array
+    (
+        'children' => true,
+        'icon'     => 'system/modules/leaflet/assets/img/cluster.png',
     )
 );
 

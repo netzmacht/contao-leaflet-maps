@@ -144,7 +144,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'active'   => array('active'),
         ),
         'markers extends default' => array(
-            '+title'  => array('markerCluster'),
             '+expert' => array('pointToLayer'),
             '+active' => array('deferred')
         ),
@@ -157,7 +156,24 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'reference extends default' => array(
             '+title' => array('reference', 'standalone')
-        )
+        ),
+        'markercluster extends default' => array(
+            'config' => array(
+                'showCoverageOnHover',
+                'zoomToBoundsOnClick',
+                'removeOutsideVisibleBounds',
+                'animateAddingMarkers',
+                'spiderfyOnMaxZoom',
+                'disableClusteringAtZoom',
+                'maxClusterRadius',
+                'singleMarkerMode',
+            ),
+            '+expert' => array(
+                'polygonOptions',
+                'iconCreateFunction',
+                'disableDefaultStyle'
+            ),
+        ),
     ),
 
     'metasubselectpalettes' => array(
@@ -169,6 +185,11 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'HERE'   => array('tile_provider_key', 'tile_provider_code'),
         ),
     ),
+
+    'metasubpalettes' => array(
+        'spiderfyOnMaxZoom' => array('spiderfyDistanceMultiplier')
+    ),
+
     'fields' => array
     (
         'id'                    => array
@@ -278,22 +299,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
-        'markerCluster'         => array
-        (
-            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['markerCluster'],
-            'exclude'          => true,
-            'inputType'        => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getMarkerClusterLayers'),
-            'reference'        => &$GLOBALS['TL_LANG']['leaflet_layer'],
-            'eval' => array(
-                'mandatory'          => false,
-                'maxlength'          => 255,
-                'tl_class'           => 'w50',
-                'chosen'             => true,
-                'includeBlankOption' => true
-            ),
-            'sql'              => "varchar(255) NOT NULL default ''"
-        ),
         'deferred'  => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['deferred'],
@@ -369,6 +374,131 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'tl_class'       => 'clr'
             ),
             'sql'       => "mediumtext NULL"
+        ),
+        'showCoverageOnHover' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['showCoverageOnHover'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'zoomToBoundsOnClick' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['zoomToBoundsOnClick'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'spiderfyOnMaxZoom' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['spiderfyOnMaxZoom'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'removeOutsideVisibleBounds' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['removeOutsideVisibleBounds'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default '1'"
+        ),
+        'animateAddingMarkers' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['animateAddingMarkers'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'disableClusteringAtZoom' => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['disableClusteringAtZoom'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'default'          => '',
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "int(4) NULL"
+        ),
+        'maxClusterRadius' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['maxClusterRadius'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
+            'sql'       => "int(5) NULL"
+        ),
+        'singleMarkerMode' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['singleMarkerMode'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'polygonOptions'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['polygonOptions'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|json',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
+        ),
+        'spiderfyDistanceMultiplier' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['spiderfyDistanceMultiplier'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
+            'sql'       => "int(5) NULL"
+        ),
+        'iconCreateFunction'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['iconCreateFunction'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|javascript',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
+        ),
+        'disableDefaultStyle' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['disableDefaultStyle'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'sql'       => "char(1) NOT NULL default ''"
         ),
     )
 );

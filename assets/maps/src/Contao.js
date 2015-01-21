@@ -119,8 +119,8 @@ L.Contao = L.Class.extend({
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
     load: function (hash, type, options, customLayer, map) {
-        var url = this.createRequestUrl(hash);
-        var layer = omnivore[type](url, options, customLayer);
+        var url   = this.createRequestUrl(hash),
+            layer = omnivore[type](url, options, customLayer);
 
         if (map) {
             // Required because Control.Loading tries to get _leafet_id which is created here.
