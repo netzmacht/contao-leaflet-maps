@@ -68,8 +68,14 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
             if ($model->pointToLayer || $model->affectBounds) {
                 $layer = new GeoJson($this->getElementId($model, $elementId));
-                $layer->setPointToLayer(new Expression($model->pointToLayer));
-                $layer->setOption('affectBounds', (bool) $model->affectBounds);
+
+                if ($model->pointToLayer ) {
+                    $layer->setPointToLayer(new Expression($model->pointToLayer));
+                }
+
+                if ($model->affectBounds) {
+                    $layer->setOption('affectBounds', (bool) $model->affectBounds);
+                }
 
                 return array($this->getElementId($model, $elementId), RequestUrl::create($model->id), array(), $layer);
             }

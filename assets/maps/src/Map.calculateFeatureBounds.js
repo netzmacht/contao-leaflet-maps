@@ -63,7 +63,7 @@ L.Map.include({
                     this._dynamicBounds = L.latLngBounds(source, source);
                 }
             }
-        } else if (layer instanceof L.MarkerClusterGroup && layer.options.affectBounds) {
+        } else if (L.MarkerClusterGroup && layer instanceof L.MarkerClusterGroup && layer.options.affectBounds) {
             source = layer.getBounds();
 
             if (source.isValid()) {

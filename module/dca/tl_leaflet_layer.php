@@ -173,9 +173,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'polygonOptions',
                 'iconCreateFunction',
                 'disableDefaultStyle'
-            ),
-            '+active' => array(
-                'affectBounds'
             )
         ),
     ),
