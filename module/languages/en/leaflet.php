@@ -13,16 +13,20 @@ $GLOBALS['TL_LANG']['leaflet_control']['loading'][1]     = 'Leaflet.loading is a
 $GLOBALS['TL_LANG']['leaflet_control']['fullscreen'][0]  = 'Fullscreen control';
 $GLOBALS['TL_LANG']['leaflet_control']['fullscreen'][1]  = 'Add a fullscreen toggle button. For more details read the <a href="https://github.com/brunob/leaflet.fullscreen" target="_blank">Plugin documentation</a>.';
 
-$GLOBALS['TL_LANG']['leaflet_layer']['provider'][0]  = 'Leaflet provider';
-$GLOBALS['TL_LANG']['leaflet_layer']['provider'][1]  = 'Leaflet tile provider. For more details read the <a href="https://github.com/leaflet-extras/leaflet-providers" target="_blank">plugin documentation</a>.';
-$GLOBALS['TL_LANG']['leaflet_layer']['group'][0]     = 'Layer group';
-$GLOBALS['TL_LANG']['leaflet_layer']['group'][1]     = 'Layer groups combines different layers. For more details read the <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">Leaflet documentation</a>. ';
-$GLOBALS['TL_LANG']['leaflet_layer']['markers'][0]   = 'Markers';
-$GLOBALS['TL_LANG']['leaflet_layer']['markers'][1]   = 'Layer containing Markers.';
-$GLOBALS['TL_LANG']['leaflet_layer']['vectors'][0]   = 'Vectors';
-$GLOBALS['TL_LANG']['leaflet_layer']['vectors'][1]   = 'Vectors layer containing vectors like polygons, polylines, etc.';
-$GLOBALS['TL_LANG']['leaflet_layer']['reference'][0] = 'Reference';
-$GLOBALS['TL_LANG']['leaflet_layer']['reference'][1] = 'The reference layer is a link to another layer.';
+$GLOBALS['TL_LANG']['leaflet_layer']['provider'][0]      = 'Leaflet provider';
+$GLOBALS['TL_LANG']['leaflet_layer']['provider'][1]      = 'Leaflet tile provider. For more details read the <a href="https://github.com/leaflet-extras/leaflet-providers" target="_blank">plugin documentation</a>.';
+$GLOBALS['TL_LANG']['leaflet_layer']['group'][0]         = 'Layer group';
+$GLOBALS['TL_LANG']['leaflet_layer']['group'][1]         = 'Layer groups combines different layers. For more details read the <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">Leaflet documentation</a>. ';
+$GLOBALS['TL_LANG']['leaflet_layer']['markers'][0]       = 'Markers';
+$GLOBALS['TL_LANG']['leaflet_layer']['markers'][1]       = 'Layer containing Markers.';
+$GLOBALS['TL_LANG']['leaflet_layer']['vectors'][0]       = 'Vectors';
+$GLOBALS['TL_LANG']['leaflet_layer']['vectors'][1]       = 'Vectors layer containing vectors like polygons, polylines, etc.';
+$GLOBALS['TL_LANG']['leaflet_layer']['reference'][0]     = 'Reference';
+$GLOBALS['TL_LANG']['leaflet_layer']['reference'][1]     = 'The reference layer is a link to another layer.';
+$GLOBALS['TL_LANG']['leaflet_layer']['markercluster'][0] = 'Marker cluster';
+$GLOBALS['TL_LANG']['leaflet_layer']['markercluster'][1] = 'Marker cluster layer based on <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a.';
+$GLOBALS['TL_LANG']['leaflet_layer']['tile'][0]          = 'Tile layer';
+$GLOBALS['TL_LANG']['leaflet_layer']['tile'][1]          = 'Tile layer with full config options.';
 
 $GLOBALS['TL_LANG']['leaflet_vector']['polyline'][0]  = 'Polyline';
 $GLOBALS['TL_LANG']['leaflet_vector']['polyline'][1]  = 'Polyline overlay. For more details read the <a href="http://leafletjs.com/reference.html#polyline" target="_blank">Leaflet documentation</a>.';
