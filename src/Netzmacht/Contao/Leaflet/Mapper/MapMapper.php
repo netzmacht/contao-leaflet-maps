@@ -45,7 +45,7 @@ class MapMapper extends AbstractMapper
      */
     protected function initialize()
     {
-        $this
+        $this->optionsBuilder
             ->addOptions('center', 'zoom', 'zoomControl')
             ->addOptions('dragging', 'touchZoom', 'scrollWheelZoom', 'doubleClickZoom', 'boxZoom', 'tap', 'keyboard')
             ->addOptions('trackResize', 'closeOnClick', 'bounceAtZoomLimits')

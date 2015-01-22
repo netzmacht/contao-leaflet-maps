@@ -44,7 +44,7 @@ class AttributionControlMapper extends AbstractControlMapper
     {
         parent::initialize();
 
-        $this->addConditionalOption('prefix');
+        $this->optionsBuilder->addConditionalOption('prefix');
     }
 
     /**

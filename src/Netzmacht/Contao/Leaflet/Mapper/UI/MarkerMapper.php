@@ -60,7 +60,7 @@ class MarkerMapper extends AbstractMapper
      */
     protected function initialize()
     {
-        $this
+        $this->optionsBuilder
             ->addConditionalOption('tooltip', 'title', 'tooltip')
             ->addConditionalOption('alt')
             ->addConditionalOption('zIndexOffset')

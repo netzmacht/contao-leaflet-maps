@@ -45,7 +45,7 @@ class CircleMapper extends AbstractVectorMapper
     {
         parent::initialize();
 
-        $this->addOption('radius');
+        $this->optionsBuilder->addOption('radius');
     }
 
     /**

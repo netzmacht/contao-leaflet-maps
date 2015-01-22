@@ -32,6 +32,6 @@ class AbstractIconMapper extends AbstractTypeMapper
      */
     protected function initialize()
     {
-        $this->addConditionalOption('className');
+        $this->optionsBuilder->addConditionalOption('className');
     }
 }

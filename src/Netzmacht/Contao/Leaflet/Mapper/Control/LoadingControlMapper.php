@@ -59,7 +59,7 @@ class LoadingControlMapper extends AbstractControlMapper
     {
         parent::initialize();
 
-        $this->addOption('separate');
+        $this->optionsBuilder->addOption('separate');
     }
 
     /**

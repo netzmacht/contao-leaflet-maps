@@ -39,7 +39,7 @@ class ZoomControlMapper extends AbstractControlMapper
     {
         parent::initialize();
 
-        $this
+        $this->optionsBuilder
             ->addConditionalOption('zoomInText')
             ->addConditionalOption('zoomOutText')
             ->addConditionalOption('zoomInTitle')

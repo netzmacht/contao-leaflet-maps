@@ -41,7 +41,7 @@ class FullscreenControlMapper extends AbstractControlMapper
     {
         parent::initialize();
 
-        $this
+        $this->optionsBuilder
             ->addOption('forceSeparateButton', 'separate')
             ->addConditionalOption('title', 'title', 'buttonTitle')
             ->addOption('forcePseudoFullScreen', 'simulateFullScreen');

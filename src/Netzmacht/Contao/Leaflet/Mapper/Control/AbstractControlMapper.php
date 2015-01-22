@@ -32,6 +32,6 @@ class AbstractControlMapper extends AbstractTypeMapper
      */
     protected function initialize()
     {
-        $this->addOption('position');
+        $this->optionsBuilder->addOption('position');
     }
 }

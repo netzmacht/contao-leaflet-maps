@@ -16,7 +16,6 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\JavascriptBuilder\Type\AnonymousFunction;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\HasEvents;
 use Netzmacht\LeafletPHP\Definition\Layer;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Plugins\MarkerCluster\MarkerClusterGroup;
@@ -50,7 +49,7 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
     {
         parent::initialize();
 
-        $this
+        $this->optionsBuilder
             ->addOptions('showCoverageOnHover', 'zoomToBoundsOnClick', 'spiderfyOnMaxZoom')
             ->addOption('removeOutsideVisibleBounds')
             ->addConditionalOption('maxClusterRadius')

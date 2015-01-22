@@ -41,7 +41,7 @@ class FixedStyleMapper extends AbstractStyleMapper
     {
         parent::initialize();
 
-        $this
+        $this->optionsBuilder
             ->addOptions('stroke', 'weight', 'opacity', 'clickable', 'className')
             ->addConditionalOption('color')
             ->addConditionalOption('lineCap')

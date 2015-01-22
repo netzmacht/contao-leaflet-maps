@@ -39,6 +39,6 @@ class ScaleControlMapper extends AbstractControlMapper
     {
         parent::initialize();
 
-        $this->addOptions('maxWidth', 'metric', 'imperial', 'updateWhenIdle');
+        $this->optionsBuilder->addOptions('maxWidth', 'metric', 'imperial', 'updateWhenIdle');
     }
 }

@@ -34,6 +34,6 @@ class AbstractLayerMapper extends AbstractTypeMapper
     {
         parent::initialize();
 
-        $this->addOption('label', 'title');
+        $this->optionsBuilder->addOption('label', 'title');
     }
 }

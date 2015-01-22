@@ -44,7 +44,7 @@ class DivIconMapper extends AbstractIconMapper
     {
         parent::initialize();
 
-        $this->addOption('html');
+        $this->optionsBuilder->addOption('html');
     }
 
     /**
