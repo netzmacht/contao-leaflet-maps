@@ -20,9 +20,9 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**
- * Class DefinitionBuilder is the main builder instance which contains all other builders as children.
+ * Class DefinitionMapper is the main mapper instance which contains all other mappers as children.
  *
- * @package Netzmacht\Contao\Leaflet\Builder
+ * @package Netzmacht\Contao\Leaflet\Mapper
  */
 class DefinitionMapper
 {
@@ -31,7 +31,7 @@ class DefinitionMapper
      *
      * @var Mapper[][]
      */
-    private $builders = array();
+    private $mappers = array();
 
     /**
      * The event dispatcher.
@@ -58,18 +58,18 @@ class DefinitionMapper
     }
 
     /**
-     * Add a builder.
+     * Add a mapper.
      *
-     * @param Mapper $builder  The builder.
+     * @param Mapper $mapper  The mapper.
      * @param int    $priority The priority. The higher priorities get called first.
      *
      * @return $this
      */
-    public function register(Mapper $builder, $priority = 0)
+    public function register(Mapper $mapper, $priority = 0)
     {
-        $this->builders[$priority][] = $builder;
+        $this->mappers[$priority][] = $mapper;
 
-        krsort($this->builders);
+        krsort($this->mappers);
 
         return $this;
     }
@@ -88,36 +88,21 @@ class DefinitionMapper
      */
     public function handle($model, LatLngBounds $bounds = null, $elementId = null, $parent = null)
     {
-        $hash = $this->getHash($model, $elementId);
+        $hash = $this->hash($model, $elementId);
 
-        if (isset($this->mapped[$hash])) {
-            return $this->mapped[$hash];
-        }
+        if (!isset($this->mapped[$hash])) {
+            $mapper     = $this->getMapper($model);
+            $definition = $mapper->handle($model, $this, $bounds, $elementId, $parent);
 
-        foreach ($this->builders as $builders) {
-            foreach ($builders as $builder) {
-                if ($builder->match($model)) {
-                    $definition = $builder->handle($model, $this, $bounds, $elementId, $parent);
-
-                    if ($definition) {
-                        $event = new BuildDefinitionEvent($definition, $model, $bounds);
-                        $this->eventDispatcher->dispatch($event::NAME, $event);
-                    }
-
-                    $this->mapped[$hash] = $definition;
-
-                    return $definition;
-                }
+            if ($definition) {
+                $event = new BuildDefinitionEvent($definition, $model, $bounds);
+                $this->eventDispatcher->dispatch($event::NAME, $event);
             }
+
+            $this->mapped[$hash] = $definition;
         }
 
-        throw new \RuntimeException(
-            sprintf(
-                'Could not build model "%s::%s". No matching builders found.',
-                $model->getTable(),
-                $model->{$model->getPk()}
-            )
-        );
+        return $this->mapped[$hash];
     }
 
     /**
@@ -132,29 +117,15 @@ class DefinitionMapper
      */
     public function handleGeoJson($model, LatLngBounds $bounds = null)
     {
-        foreach ($this->builders as $builders) {
-            foreach ($builders as $builder) {
-                if (!$builder->match($model)) {
-                    continue;
-                }
+        $mapper = $this->getMapper($model);
 
-                if ($builder instanceof GeoJsonMapper) {
-                    return $builder->handleGeoJson($model, $this, $bounds);
-                }
-
-                throw new \RuntimeException(
-                    sprintf(
-                        'Builder for model "%s::%s" is not a GeoJsonMapper',
-                        $model->getTable(),
-                        $model->{$model->getPk()}
-                    )
-                );
-            }
+        if ($mapper instanceof GeoJsonMapper) {
+            return $mapper->handleGeoJson($model, $this, $bounds);
         }
 
         throw new \RuntimeException(
             sprintf(
-                'Could not build geo json of model "%s::%s". No matching builders found.',
+                'Mapper for model "%s::%s" is not a GeoJsonMapper',
                 $model->getTable(),
                 $model->{$model->getPk()}
             )
@@ -171,7 +142,7 @@ class DefinitionMapper
      *
      * @throws \RuntimeException If no hash was created.
      */
-    protected function getHash($model, $elementId)
+    private function hash($model, $elementId = null)
     {
         $event = new GetHashEvent($model);
         $this->eventDispatcher->dispatch($event::NAME, $event);
@@ -186,5 +157,30 @@ class DefinitionMapper
         }
 
         return $hash;
+    }
+
+    /**
+     * Get the mapper for a definition model.
+     *
+     * @param mixed $model The data model.
+     *
+     * @return Mapper
+     */
+    private function getMapper($model)
+    {
+        foreach ($this->mappers as $mappers) {
+            foreach ($mappers as $mapper) {
+                if ($mapper->match($model)) {
+                    return $mapper;
+                }
+            }
+        }
+
+        throw new \RuntimeException(
+            sprintf(
+                'Could not build model "". No matching mappers found.',
+                $this->hash($model)
+            )
+        );
     }
 }
