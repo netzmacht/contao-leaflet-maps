@@ -115,7 +115,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'config' => array('maxWidth', 'metric', 'imperial', 'updateWhenIdle')
         ),
         'attribution extends default' => array(
-            'config' => array('attributions', 'prefix')
+            'config' => array('attributions', 'prefix', 'disableDefault')
         ),
         'loading extends default' => array(
             'config' => array('separate', 'zoomControl', 'spinjs')
@@ -417,6 +417,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'disableDefault'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['disableDefault'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => true,
+            'eval'      => array('tl_class' => 'w50 m12'),
+            'sql'       => "char(1) NOT NULL default ''"
         ),
     ),
 );

@@ -75,6 +75,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_control']['buttonTitle'][0]        = 'Button tit
 $GLOBALS['TL_LANG']['tl_leaflet_control']['buttonTitle'][1]        = 'Title attribute of the control button.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['simulateFullScreen'][0] = 'Always simulate fullscreen';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['simulateFullScreen'][1] = 'Simulate fullscreen no matter if the browser supports the Fullscreen API.';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['disableDefault'][0]     = 'Replace default control';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['disableDefault'][1]     = 'If enabled the default control will be disabled.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_control']['bottomleft'][0]  = 'Bottom left';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['bottomleft'][1]  = 'Bottom left of the map.';

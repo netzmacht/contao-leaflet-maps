@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control\Attribution;
+use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
@@ -59,6 +60,10 @@ class AttributionControlMapper extends AbstractControlMapper
     ) {
         if (!$definition instanceof Attribution) {
             return;
+        }
+
+        if ($model->disableDefault && $parent instanceof Map) {
+            $parent->setAttributionControl(false);
         }
 
         $attributions = deserialize($model->attributions, true);
