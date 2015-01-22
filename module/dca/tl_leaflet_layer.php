@@ -175,6 +175,32 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'disableDefaultStyle'
             )
         ),
+        'tile extends default' => array(
+            'config' => array(
+                'tileUrl',
+                'subdomains',
+                'attribution',
+                'minZoom',
+                'maxZoom',
+            ),
+            '+expert' => array(
+                'errorTileUrl',
+                'tileSize',
+                'tms',
+                'continuousWorld',
+                'noWrap',
+                'zoomReverse',
+                'zoomOffset',
+                'maxNativeZoom',
+                'opacity',
+                'zIndex',
+                'unloadvisibleTiles',
+                'updateWhenIdle',
+                'detectRetina',
+                'reuseTiles',
+                'bounds'
+            )
+        )
     ),
 
     'metasubselectpalettes' => array(
@@ -509,6 +535,211 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'default'   => false,
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'tileUrl' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tileUrl'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '',
+            'eval'      => array('maxlength' => 255, 'tl_class' => 'w50', 'mandatory' => true),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'minZoom'  => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoom'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "int(4) NULL"
+        ),
+        'maxZoom' => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['maxZoom'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "int(4) NULL"
+        ),
+        'maxNativeZoom' => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['maxNativeZoom'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "int(4) NULL"
+        ),
+        'tileSize' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tileSize'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
+            'sql'       => "int(5) NULL"
+        ),
+        'subdomains' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['subdomains'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '',
+            'eval'      => array('maxlength' => 16, 'tl_class' => 'w50'),
+            'sql'       => "varchar(16) NOT NULL default ''"
+        ),
+        'errorTileUrl' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['errorTileUrl'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '',
+            'eval'      => array('maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'attribution' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['attribution'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '',
+            'eval'      => array('maxlength' => 255, 'tl_class' => 'long', 'allowHtml' => true),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'tms' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tms'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'continuousWorld' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['continuousWorld'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'noWrap' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['noWrap'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'zoomOffset' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['zoomOffset'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
+            'sql'       => "int(5) NULL"
+        ),
+        'zoomReverse' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['zoomReverse'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'opacity'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['opacity'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '1.0',
+            'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50 clr'),
+            'sql'       => "varchar(4) NOT NULL default ''"
+        ),
+        'zIndex' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['zIndex'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
+            'sql'       => "int(5) NULL"
+        ),
+        'unloadvisibleTiles' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['unloadvisibleTiles'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'updateWhenIdle' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['updateWhenIdle'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'detectRetina' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['detectRetina'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'reuseTiles' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['reuseTiles'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'bounds'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['bounds'],
+            'exclude'       => true,
+            'inputType'     => 'text',
+            'save_callback' => array(
+            ),
+            'eval'          => array(
+                'maxlength'   => 255,
+                'multiple'=>true,
+                'size'=>2,
+                'tl_class'    => 'long clr',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => "mediumblob NULL"
         ),
     )
 );

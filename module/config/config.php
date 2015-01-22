@@ -87,6 +87,7 @@ $GLOBALS['LEAFLET_MAPPERS']   = array();
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\MapMapper';
 
 // Layer mappers.
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\TileLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ProviderLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper';
@@ -215,7 +216,11 @@ $GLOBALS['LEAFLET_LAYERS'] = array
     (
         'children' => true,
         'icon'     => 'system/modules/leaflet/assets/img/cluster.png',
-    )
+    ),
+    'tile' => array(
+        'children' => false,
+        'icon'     => 'system/modules/leaflet/assets/img/tile.png',
+    ),
 );
 
 /*
