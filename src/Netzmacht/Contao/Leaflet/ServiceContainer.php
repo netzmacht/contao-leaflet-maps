@@ -14,7 +14,7 @@ namespace Netzmacht\Contao\Leaflet;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 
 /**
- * Class ServiceContainer
+ * Class ServiceContainer provides the services which are available for Contao leaflet.
  *
  * @package Netzmacht\Contao\Leaflet
  */

@@ -21,8 +21,10 @@ class FrontendApi extends \Frontend
     /**
      * {@inheritdoc}
      */
+    // @codingStandardsIgnoreStart
     public function replaceInsertTags($strBuffer, $blnCache = true)
     {
         return parent::replaceInsertTags($strBuffer, $blnCache);
     }
+    // @codingStandardsIgnoreEnd
 }

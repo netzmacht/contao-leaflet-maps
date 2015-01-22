@@ -43,7 +43,7 @@ class ValueFilter
      * The idea behind this extra method is that we just have to change one place if anything else than the
      * insert tags has to be replaced.
      *
-     * @param string $value The given value
+     * @param string $value The given value.
      *
      * @return string
      */

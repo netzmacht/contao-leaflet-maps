@@ -102,7 +102,10 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     ) {
         if ($definition instanceof GeoJson) {
             $collection = $this->loadVectorModels($model);
-            $definition->setOption('affectBounds', (bool) $model->affectBounds);
+
+            if ($model->affectBounds) {
+                $definition->setOption('affectBounds', true);
+            }
 
             if ($collection) {
                 foreach ($collection as $item) {
@@ -120,13 +123,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 }
             }
 
-            if ($model->pointToLayer) {
-                $definition->setPointToLayer(new Expression($model->pointToLayer));
-            }
-
-            if ($model->onEachFeature) {
-                $definition->setOnEachFeature(new Expression($model->onEachFeature));
-            }
+            $this->addCallbacks($definition, $model);
         }
     }
 
@@ -169,5 +166,24 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     protected function loadVectorModels(\Model $model)
     {
         return VectorModel::findActiveBy('pid', $model->id, array('order' => 'sorting'));
+    }
+
+    /**
+     * Add javascript callbacks.
+     *
+     * @param GeoJson $definition The definition.
+     * @param \Model  $model      The database model.
+     *
+     * @return void
+     */
+    protected function addCallbacks(GeoJson $definition, \Model $model)
+    {
+        if ($model->pointToLayer) {
+            $definition->setPointToLayer(new Expression($model->pointToLayer));
+        }
+
+        if ($model->onEachFeature) {
+            $definition->setOnEachFeature(new Expression($model->onEachFeature));
+        }
     }
 }

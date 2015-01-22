@@ -60,7 +60,7 @@ class DefinitionMapper
     /**
      * Add a mapper.
      *
-     * @param Mapper $mapper  The mapper.
+     * @param Mapper $mapper   The mapper.
      * @param int    $priority The priority. The higher priorities get called first.
      *
      * @return $this
@@ -165,6 +165,7 @@ class DefinitionMapper
      * @param mixed $model The data model.
      *
      * @return Mapper
+     * @throws \RuntimeException If the mapper could not be found.
      */
     private function getMapper($model)
     {
@@ -178,7 +179,7 @@ class DefinitionMapper
 
         throw new \RuntimeException(
             sprintf(
-                'Could not build model "". No matching mappers found.',
+                'Could not build model "%s". No matching mappers found.',
                 $this->hash($model)
             )
         );

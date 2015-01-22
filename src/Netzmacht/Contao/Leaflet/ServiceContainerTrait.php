@@ -22,6 +22,7 @@ trait ServiceContainerTrait
      * Get the service container.
      *
      * @return ServiceContainer
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function getServiceContainer()
     {

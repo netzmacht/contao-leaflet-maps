@@ -41,7 +41,7 @@ abstract class AbstractMapper implements Mapper
     protected static $definitionClass = null;
 
     /**
-     * Options builder
+     * Options builder.
      *
      * @var OptionsBuilder
      */

@@ -46,7 +46,7 @@ class HashSubscriber implements EventSubscriberInterface
         $data = $event->getData();
 
         if ($data instanceof \Model) {
-            $event->setHash($data->getTable() . '.' . $data->{$data->getPk()});
+            $event->setHash($data->getTable() . '::' . $data->{$data->getPk()});
         }
     }
 
