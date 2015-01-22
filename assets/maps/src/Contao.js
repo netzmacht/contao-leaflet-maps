@@ -6,12 +6,14 @@
 L.Contao = L.Class.extend({
     includes: L.Mixin.Events,
 
-    /**
-     * Contao extension attribution.
-     *
-     * You are not allowed to remove or change it. Contact me if you want to buy an removal license.
-     */
-    attribution: ' | <a href="http://contao-leaflet.netzmacht.de/" title="Leaflet extension for Contao CMS">netzmacht <em>creative</em></a>',
+    statics: {
+        /**
+         * Contao extension attribution.
+         *
+         * You are not allowed to remove or change it. Contact me if you want to buy an removal license.
+         */
+        ATTRIBUTION: ' | <a href="http://contao-leaflet.netzmacht.de/" title="Leaflet extension for Contao CMS">netzmacht <em>creative</em></a>'
+    },
 
     /**
      * The map registry.
@@ -41,8 +43,6 @@ L.Contao = L.Class.extend({
      * @returns {L.contao}
      */
     addMap: function (id, map) {
-        map.map.attributionControl.setPrefix(map.map.attributionControl.options.prefix + this.attribution);
-
         this.maps[id] = map;
 
         this.fire('map:added', {id: id, map: map});
@@ -272,4 +272,29 @@ L.Contao = L.Class.extend({
     }
 });
 
+/**
+ * Attribution handling.
+ */
+L.Contao.Attribution = {
+    setPrefix: function(prefix) {
+        if (prefix.indexOf(L.Contao.ATTRIBUTION) === -1) {
+            prefix += L.Contao.ATTRIBUTION;
+        }
+
+        this.options.prefix = prefix;
+
+        this._update();
+        return this;
+    }
+};
+
+L.Control.Attribution.addInitHook(function() {
+    this.options.prefix += L.Contao.ATTRIBUTION;
+});
+
+L.Control.Attribution.include(L.Contao.Attribution);
+
+/**
+ * Start Contao integration.
+ */
 L.contao = new L.Contao();
