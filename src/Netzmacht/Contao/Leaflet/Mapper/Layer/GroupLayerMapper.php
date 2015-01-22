@@ -26,13 +26,6 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 class GroupLayerMapper extends AbstractLayerMapper
 {
     /**
-     * Class of the definition being created.
-     *
-     * @var string
-     */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Group\LayerGroup';
-
-    /**
      * Layer type.
      *
      * @var string
@@ -48,7 +41,7 @@ class GroupLayerMapper extends AbstractLayerMapper
             return 'Netzmacht\LeafletPHP\Definition\Group\FeatureGroup';
         }
 
-        return parent::getClassName($model, $mapper, $bounds);
+        return 'Netzmacht\LeafletPHP\Definition\Group\LayerGroup';
     }
 
     /**

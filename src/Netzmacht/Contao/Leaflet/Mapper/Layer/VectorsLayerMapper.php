@@ -35,13 +35,6 @@ use Netzmacht\LeafletPHP\Definition\Vector;
 class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 {
     /**
-     * Class of the definition being created.
-     *
-     * @var string
-     */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Group\GeoJson';
-
-    /**
      * Layer type.
      *
      * @var string
@@ -57,7 +50,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
             return 'Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson';
         }
 
-        return parent::getClassName($model, $mapper, $bounds);
+        return 'Netzmacht\LeafletPHP\Definition\Group\GeoJson';
     }
 
     /**

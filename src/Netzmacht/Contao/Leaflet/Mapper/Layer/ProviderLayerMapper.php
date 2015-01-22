@@ -24,13 +24,6 @@ use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 class ProviderLayerMapper extends AbstractLayerMapper
 {
     /**
-     * Class of the definition being created.
-     *
-     * @var string
-     */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\Provider';
-
-    /**
      * Layer type.
      *
      * @var string
@@ -65,7 +58,7 @@ class ProviderLayerMapper extends AbstractLayerMapper
             return $this->providers[$model->tile_provider]['class'];
         }
 
-        return parent::getClassName($model, $mapper, $bounds);
+        return 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\Provider';
     }
 
     /**

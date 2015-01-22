@@ -27,13 +27,6 @@ use Netzmacht\LeafletPHP\Plugins\Loading\SpinJsLoadingControl;
 class LoadingControlMapper extends AbstractControlMapper
 {
     /**
-     * Class of the definition being created.
-     *
-     * @var string
-     */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Plugins\Loading\LoadingControl';
-
-    /**
      * Layer type.
      *
      * @var string
@@ -49,7 +42,7 @@ class LoadingControlMapper extends AbstractControlMapper
             return 'Netzmacht\LeafletPHP\Plugins\Loading\SpinJsLoadingControl';
         }
 
-        return parent::getClassName($model, $mapper, $bounds);
+        return 'Netzmacht\LeafletPHP\Plugins\Loading\LoadingControl';
     }
 
     /**
