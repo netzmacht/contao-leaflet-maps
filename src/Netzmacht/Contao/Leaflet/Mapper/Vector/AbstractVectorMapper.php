@@ -15,6 +15,7 @@ use Netzmacht\Contao\Leaflet\Definition\Style;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
+use Netzmacht\Contao\Leaflet\ServiceContainerTrait;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
@@ -27,6 +28,8 @@ use Netzmacht\LeafletPHP\Definition\Vector\Path;
  */
 class AbstractVectorMapper extends AbstractTypeMapper
 {
+    use ServiceContainerTrait;
+
     /**
      * Class of the model being build.
      *
@@ -59,7 +62,12 @@ class AbstractVectorMapper extends AbstractTypeMapper
         }
 
         if ($definition instanceof HasPopup && $model->addPopup) {
-            $definition->bindPopup($model->popupContent);
+            $content = $this
+                ->getServiceContainer()
+                ->getFrontendValueFilter()
+                ->filter($model->popupContent);
+
+            $definition->bindPopup($content);
         }
     }
 }

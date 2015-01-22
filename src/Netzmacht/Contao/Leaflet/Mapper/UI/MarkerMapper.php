@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\UI;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\ServiceContainerTrait;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
@@ -26,6 +27,8 @@ use Netzmacht\LeafletPHP\Definition\UI\Marker;
  */
 class MarkerMapper extends AbstractMapper
 {
+    use ServiceContainerTrait;
+
     /**
      * Class of the model being build.
      *
@@ -79,7 +82,12 @@ class MarkerMapper extends AbstractMapper
     ) {
         if ($definition instanceof Marker) {
             if ($model->addPopup) {
-                $definition->bindPopup($model->popupContent);
+                $content = $this
+                    ->getServiceContainer()
+                    ->getFrontendValueFilter()
+                    ->filter($model->popupContent);
+
+                $definition->bindPopup($content);
             }
 
             if ($model->customIcon) {

@@ -10,8 +10,11 @@
  */
 
 use Netzmacht\Contao\Leaflet\Boot;
+use Netzmacht\Contao\Leaflet\Frontend\Helper\FrontendApi;
+use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
+use Netzmacht\Contao\Leaflet\ServiceContainer;
 use Netzmacht\JavascriptBuilder\Builder;
 use Netzmacht\JavascriptBuilder\Encoder;
 use Netzmacht\JavascriptBuilder\Encoder\Chain\MultipleChain;
@@ -99,4 +102,12 @@ $container['leaflet.definition.builder'] = $container->share(function($container
     $leaflet = new Leaflet($builder, $dispatcher, array(), JSON_UNESCAPED_SLASHES ^ Encoder::BUILD_STACK);
 
     return $boot->initializeLeafletBuilder($leaflet);
+});
+
+$container['leaflet.frontend.value-filter'] = $container->share(function() {
+    return new ValueFilter(new FrontendApi());
+});
+
+$container['leaflet.service-container'] = $container->share(function($container) {
+    return new ServiceContainer($container);
 });
