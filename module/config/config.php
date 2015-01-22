@@ -148,7 +148,7 @@ $GLOBALS['LEAFLET_LAYERS'] = array
     'provider' => array
     (
         'children' => false,
-        'icon'     => 'system/modules/leaflet/assets/img/tile.png',
+        'icon'     => 'system/modules/leaflet/assets/img/provider.png',
         'label'    => function ($row, $label) {
             if (!empty($GLOBALS['TL_LANG']['leaflet_provider'][$row['tile_provider']][0])) {
                 $provider = $GLOBALS['TL_LANG']['leaflet_provider'][$row['tile_provider']][0];
