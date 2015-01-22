@@ -129,7 +129,7 @@ class Control
         $sorting = 0;
 
         foreach ($new as $layer) {
-            if (!isset($values[$layer['layer']]) || $values[$layer['layer']]['mode'] != $layer['mode']) {
+            if (!isset($values[$layer['layer']])) {
                 $this->database
                     ->prepare('INSERT INTO tl_leaflet_control_layer %s')
                     ->set(
