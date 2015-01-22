@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Mapper\OptionsBuilder;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
@@ -78,7 +79,7 @@ class ProviderLayerMapper extends AbstractLayerMapper
         Definition $parent = null
     ) {
         if (!empty($this->providers[$model->tile_provider]['options'])) {
-            $this->applyOptions(
+            OptionsBuilder::applyOptions(
                 $this->providers[$model->tile_provider]['options'],
                 $definition,
                 $model

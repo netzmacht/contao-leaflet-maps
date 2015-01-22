@@ -41,24 +41,18 @@ abstract class AbstractMapper implements Mapper
     protected static $definitionClass = null;
 
     /**
-     * Options mapping.
+     * Options builder
      *
-     * @var array
+     * @var OptionsBuilder
      */
-    private $options = array();
-
-    /**
-     * Conditional option mapping.
-     *
-     * @var array
-     */
-    private $conditional = array();
+    protected $optionsBuilder;
 
     /**
      * Construct.
      */
     public function __construct()
     {
+        $this->optionsBuilder = new OptionsBuilder();
         $this->initialize();
     }
 
@@ -72,9 +66,12 @@ abstract class AbstractMapper implements Mapper
      */
     public function addOption($option, $mapping = null)
     {
-        if (!isset($this->options[$option])) {
-            $this->options[$option] = $this->getMapping($option, $mapping);
-        }
+        trigger_error(
+            __METHOD__ . ' is deprecated. Use $this->optionsBuilder->' . __FUNCTION__ . '()',
+            E_USER_DEPRECATED
+        );
+
+        $this->optionsBuilder->addOption($option, $mapping);
 
         return $this;
     }
@@ -88,19 +85,14 @@ abstract class AbstractMapper implements Mapper
      */
     public function addOptions($options)
     {
+        trigger_error(
+            __METHOD__ . ' is deprecated. Use $this->optionsBuilder->' . __FUNCTION__ . '()',
+            E_USER_DEPRECATED
+        );
+
         $arguments = func_get_args();
 
-        if (count($arguments) > 1) {
-            $options = $arguments;
-        }
-
-        foreach ($options as $key => $value) {
-            if (is_numeric($key)) {
-                $this->addOption($value);
-            } else {
-                $this->addOption($key, $value);
-            }
-        }
+        $this->optionsBuilder->addOptions($arguments);
 
         return $this;
     }
@@ -117,11 +109,12 @@ abstract class AbstractMapper implements Mapper
      */
     public function addConditionalOption($column, $option = null, $mapping = null, $value = self::VALUE_NOT_EMPTY)
     {
-        $option = $option ?: $column;
+        trigger_error(
+            __METHOD__ . ' is deprecated. Use $this->optionsBuilder->' . __FUNCTION__ . '()',
+            E_USER_DEPRECATED
+        );
 
-        if (!isset($this->conditional[$column][$value][$option])) {
-            $this->conditional[$column][$value][$option] = $this->getMapping($option, $mapping);
-        }
+        $this->optionsBuilder->addConditionalOption($column, $option, $mapping, $value);
 
         return $this;
     }
@@ -137,13 +130,12 @@ abstract class AbstractMapper implements Mapper
      */
     public function addConditionalOptions($column, array $options, $value = self::VALUE_NOT_EMPTY)
     {
-        foreach ($options as $key => $option) {
-            if (is_numeric($key)) {
-                $this->addConditionalOption($column, $option, null, $value);
-            } else {
-                $this->addConditionalOption($column, $key, $option, $value);
-            }
-        }
+        trigger_error(
+            __METHOD__ . ' is deprecated. Use $this->optionsBuilder->' . __FUNCTION__ . '()',
+            E_USER_DEPRECATED
+        );
+
+        $this->optionsBuilder->addConditionalOptions($column, $options, $value);
 
         return $this;
     }
@@ -160,8 +152,7 @@ abstract class AbstractMapper implements Mapper
     ) {
         $definition = $this->createInstance($model, $mapper, $bounds, $elementId);
 
-        $this->buildOptions($definition, $model);
-        $this->buildConditionals($definition, $model);
+        $this->optionsBuilder->build($definition, $model);
         $this->build($definition, $model, $mapper, $bounds, $parent);
 
         return $definition;
@@ -251,112 +242,6 @@ abstract class AbstractMapper implements Mapper
         return array(
             $this->getElementId($model, $elementId)
         );
-    }
-
-    /**
-     * Build options.
-     *
-     * @param Definition $definition The definition being built.
-     * @param \Model     $model      The model.
-     *
-     * @return void
-     */
-    private function buildOptions($definition, $model)
-    {
-        $this->applyOptions($this->options, $definition, $model);
-    }
-
-    /**
-     * Build conditional options.
-     *
-     * @param Definition $definition The definition being built.
-     * @param \Model     $model      The model.
-     *
-     * @return void
-     */
-    private function buildConditionals(Definition $definition, \Model $model)
-    {
-        foreach ($this->conditional as $column => $conditions) {
-            foreach ($conditions as $value => $options) {
-                if ($value === static::VALUE_EMPTY && empty($model->$column)) {
-                    $this->applyOptions($options, $definition, $model);
-                } elseif ($value === static::VALUE_NOT_EMPTY && !empty($model->$column)) {
-                    $this->applyOptions($options, $definition, $model);
-                } elseif ($model->$column == $value) {
-                    $this->applyOptions($options, $definition, $model);
-                }
-            }
-        }
-    }
-
-    /**
-     * Get the mapping column.
-     *
-     * @param string      $option  Option name.
-     * @param string|null $mapping Mapping column.
-     *
-     * @return string
-     */
-    private function getMapping($option, $mapping)
-    {
-        if ($mapping === null) {
-            return $option;
-        }
-
-        return $mapping;
-    }
-
-    /**
-     * Apply options from the model to the definition.
-     *
-     * @param array      $options    The options.
-     * @param Definition $definition The definition being built.
-     * @param \Model     $model      The model.
-     *
-     * @return void
-     */
-    protected function applyOptions($options, $definition, $model)
-    {
-        foreach ($options as $option => $mapping) {
-            $setter  = 'set' . ucfirst($option);
-            $default = $this->getDefaultOption($option, $definition);
-
-            if ($model->$mapping === '1' || $model->$mapping === '') {
-                if (((bool) $model->$mapping) !== $default) {
-                    $definition->$setter($model->$mapping);
-                }
-            } elseif (is_numeric($default)) {
-                if ($model->$mapping != $default) {
-                    $definition->$setter($model->$mapping);
-                }
-            } elseif ($model->$mapping !== $default) {
-                $definition->$setter($model->$mapping);
-            }
-        }
-    }
-
-    /**
-     * Get default option value.
-     *
-     * @param string     $option     The option name.
-     * @param Definition $definition The definition being built.
-     *
-     * @return mixed
-     */
-    private function getDefaultOption($option, $definition)
-    {
-        $keys   = array('has', 'is', 'get');
-        $suffix = ucfirst($option);
-
-        foreach ($keys as $key) {
-            $method = $key . $suffix;
-
-            if (method_exists($definition, $method)) {
-                return $definition->$method();
-            }
-        }
-
-        return null;
     }
 
     /**
