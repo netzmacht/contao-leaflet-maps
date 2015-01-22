@@ -19,3 +19,10 @@ gulp.task('scripts', ['clear'], function() {
         .pipe(uglify())
         .pipe(gulp.dest(paths.dest));
 });
+
+
+gulp.task('default', ['scripts']);
+
+gulp.task('watch', function() {
+   gulp.watch(paths.scripts, ['scripts']);
+});
