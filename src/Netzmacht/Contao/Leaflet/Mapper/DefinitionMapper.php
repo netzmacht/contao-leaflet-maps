@@ -142,6 +142,7 @@ class DefinitionMapper
      * @param mixed      $model      The corresponding definition model.
      *
      * @return GeoJsonFeature
+     * @throws \RuntimeException If a definition type is not supported.
      */
     public function convertToGeoJsonFeature(Definition $definition, $model)
     {
@@ -150,7 +151,12 @@ class DefinitionMapper
         } elseif ($definition instanceof ConvertsToGeoJsonFeature) {
             $feature = $definition->toGeoJsonFeature();
         } else {
-            throw new \RuntimeException('Unsupported definition');
+            throw new \RuntimeException(
+                sprintf(
+                    'Definition of class "%s" could not be converted to a geo json feature.',
+                    get_class($definition)
+                )
+            );
         }
 
         $event = new ConvertToGeoJsonEvent($definition, $feature, $model);

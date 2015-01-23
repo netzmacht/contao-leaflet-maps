@@ -23,6 +23,11 @@ use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 use Netzmacht\LeafletPHP\Definition\Vector\CircleMarker;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Class GeoJsonSubscriber provides subscribers when a definition is converted to a geo json feature.
+ *
+ * @package Netzmacht\Contao\Leaflet\Subscriber
+ */
 class GeoJsonSubscriber implements EventSubscriberInterface
 {
     /**
@@ -65,7 +70,11 @@ class GeoJsonSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param ConvertToGeoJsonEvent $event
+     * Enrich marker with feature data and bounds information.
+     *
+     * @param ConvertToGeoJsonEvent $event The subscribed event.
+     *
+     * @return void
      */
     public function enrichMarker(ConvertToGeoJsonEvent $event)
     {
@@ -74,24 +83,17 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         $model      = $event->getModel();
 
         if ($definition instanceof Marker && $model instanceof MarkerModel && $feature instanceof Feature) {
-            if ($model->featureData) {
-                $feature->setProperty('data', json_decode($model->featureData, true));
-            }
-
-            if ($model->ignoreForBounds) {
-                $feature->setProperty('ignoreForBounds', true);
-            } else {
-                $parent = LayerModel::findByPk($model->pid);
-
-                if ($parent && !$parent->affectBounds) {
-                    $feature->setProperty('ignoreForBounds', true);
-                }
-            }
+            $this->setDataProperty($model, $feature);
+            $this->setBoundsInformation($model, $feature);
         }
     }
 
     /**
-     * @param ConvertToGeoJsonEvent $event
+     * Enrich vector with feature data and bounds information.
+     *
+     * @param ConvertToGeoJsonEvent $event The subscribed event.
+     *
+     * @return void
      */
     public function enrichVector(ConvertToGeoJsonEvent $event)
     {
@@ -100,19 +102,8 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         $model      = $event->getModel();
 
         if ($definition instanceof Vector && $model instanceof VectorModel && $feature instanceof Feature) {
-            if ($model->featureData) {
-                $feature->setProperty('data', json_decode($model->featureData, true));
-            }
-
-            if ($model->ignoreForBounds) {
-                $feature->setProperty('ignoreForBounds', true);
-            } else {
-                $parent = LayerModel::findByPk($model->pid);
-
-                if ($parent && !$parent->affectBounds) {
-                    $feature->setProperty('ignoreForBounds', true);
-                }
-            }
+            $this->setDataProperty($model, $feature);
+            $this->setBoundsInformation($model, $feature);
         }
     }
 
@@ -120,6 +111,7 @@ class GeoJsonSubscriber implements EventSubscriberInterface
      * Enrich the the circle with constructor arguments.
      *
      * @param ConvertToGeoJsonEvent $event The subscribed events.
+     *
      * @return void
      */
     public function enrichCircle(ConvertToGeoJsonEvent $event)
@@ -136,7 +128,9 @@ class GeoJsonSubscriber implements EventSubscriberInterface
      * Pass configured properties on an model to  the properties.model key.
      *
      * @param ConvertToGeoJsonEvent $event The subscribed events.
+     *
      * @return void
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function setModelData(ConvertToGeoJsonEvent $event)
     {
@@ -173,7 +167,7 @@ class GeoJsonSubscriber implements EventSubscriberInterface
     {
         if (is_array($property)) {
             list($property, $type) = $property;
-            $value = $model->$property;
+            $value                 = $model->$property;
 
             switch ($type) {
                 case 'array':
@@ -204,5 +198,41 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         }
 
         return $value;
+    }
+
+    /**
+     * Set the bounds information.
+     *
+     * @param \Model  $model   The model.
+     * @param Feature $feature The feature.
+     *
+     * @return void
+     */
+    protected function setBoundsInformation($model, $feature)
+    {
+        if ($model->ignoreForBounds) {
+            $feature->setProperty('ignoreForBounds', true);
+        } else {
+            $parent = LayerModel::findByPk($model->pid);
+
+            if ($parent && !$parent->affectBounds) {
+                $feature->setProperty('ignoreForBounds', true);
+            }
+        }
+    }
+
+    /**
+     * Set the data property.
+     *
+     * @param \Model  $model   The model.
+     * @param Feature $feature The feature.
+     *
+     * @return void
+     */
+    protected function setDataProperty($model, $feature)
+    {
+        if ($model->featureData) {
+            $feature->setProperty('data', json_decode($model->featureData, true));
+        }
     }
 }
