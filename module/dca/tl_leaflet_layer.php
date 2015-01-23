@@ -9,8 +9,6 @@
  *
  */
 
-\Controller::loadLanguageFile('leaflet');
-
 $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
 (
     'config' => array(
@@ -29,6 +27,11 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'alias' => 'unique',
             )
         ),
+        'onload_callback' => array(
+            function() {
+                \Controller::loadLanguageFile('leaflet');
+            }
+        )
     ),
     'list' => array
     (
