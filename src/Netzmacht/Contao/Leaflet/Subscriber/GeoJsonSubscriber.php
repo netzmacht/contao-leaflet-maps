@@ -35,7 +35,8 @@ class GeoJsonSubscriber implements EventSubscriberInterface
                 array('addPopup'),
                 array('enrichMarker'),
                 array('enrichVector'),
-                array('enrichCircle')
+                array('enrichCircle'),
+                array('setModelData')
             )
         );
     }
@@ -129,5 +130,79 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         if ($definition instanceof Circle && !$definition instanceof CircleMarker && $feature instanceof Feature) {
             $feature->setProperty('arguments', array($definition->getLatLng(), $definition->getRadius()));
         }
+    }
+
+    /**
+     * Pass configured properties on an model to  the properties.model key.
+     *
+     * @param ConvertToGeoJsonEvent $event The subscribed events.
+     * @return void
+     */
+    public function setModelData(ConvertToGeoJsonEvent $event)
+    {
+        $feature = $event->getGeoJson();
+        $model   = $event->getModel();
+
+        if (!$model instanceof \Model || !$feature instanceof Feature
+            || empty($GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES'][$model->getTable()])) {
+            return;
+        }
+
+        $mapping = $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES'][$model->getTable()];
+        $data    = (array) $feature->getProperty('model');
+
+        foreach ((array) $mapping as $property) {
+            $value = $this->parseModelValue($model, $property);
+
+            // Important: Do not combine with line above as the property can be modified if it's an array.
+            $data[$property] = $value;
+        }
+
+        $feature->setProperty('model', $data);
+    }
+
+    /**
+     * Parse the model value based on the config.
+     *
+     * @param \Model $model    The model.
+     * @param mixed  $property The property config.
+     *
+     * @return array|mixed|null
+     */
+    private function parseModelValue(\Model $model, &$property)
+    {
+        if (is_array($property)) {
+            list($property, $type) = $property;
+            $value = $model->$property;
+
+            switch ($type) {
+                case 'array':
+                case 'object':
+                    $value = deserialize($value, true);
+                    break;
+
+                case 'file':
+                    $file  = \FilesModel::findByUuid($value);
+                    $value = $file->path;
+                    break;
+
+                case 'files':
+                    $collection = \FilesModel::findMultipleByUuids(deserialize($value, true));
+
+                    if ($collection) {
+                        $value = $collection->fetchEach('path');
+                    } else {
+                        $value = array();
+                    }
+                    break;
+
+                default:
+                    $value = null;
+            }
+        } else {
+            $value = $model->$property;
+        }
+
+        return $value;
     }
 }

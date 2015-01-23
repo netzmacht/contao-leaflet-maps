@@ -287,3 +287,23 @@ require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
 if (!isset($GLOBALS['LEAFLET_LIBRARIES'])) {
     $GLOBALS['LEAFLET_LIBRARIES'] = array();
 }
+
+/*
+ * When creating a GeoJSON feature of a map object a feature.properties.model object is passed.
+ * Define the properties you always want to set.
+ *
+ * For more control you can subscribe the ConvertToGeoJsonEvent.
+ *
+ * The entry can be a string or an array. If an array is passed, the 2nd value is the type. Following types
+ * are supported.
+ *  - array:  Use deserialize before adding the value
+ *  - file:   Thread value a uuid and find the path.
+ *  - files:  Thread values as a list of file uuids and get an array of paths.
+ */
+$GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_marker'][] = 'id';
+$GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_marker'][] = 'title';
+$GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_marker'][] = 'alias';
+
+$GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_vector'][] = 'id';
+$GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_vector'][] = 'title';
+$GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_vector'][] = 'alias';
