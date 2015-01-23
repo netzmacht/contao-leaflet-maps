@@ -17,7 +17,6 @@ use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
@@ -59,7 +58,6 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         $elementId = null
     ) {
         if ($model->deferred) {
-
             if ($model->pointToLayer || $model->affectBounds) {
                 $layer = new GeoJson($this->getElementId($model, $elementId));
 
@@ -100,15 +98,10 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
             if ($collection) {
                 foreach ($collection as $item) {
                     $marker = $mapper->handle($item);
+                    $point  = $mapper->convertToGeoJsonFeature($marker, $item);
 
-                    if ($marker instanceof Marker) {
-                        $feature = $marker->toGeoJsonFeature();
-
-                        if ($item->ignoreForBounds || !$model->affectBounds) {
-                            $feature->setProperty('ignoreForBounds', true);
-                        }
-
-                        $definition->addData($feature, true);
+                    if ($point) {
+                        $definition->addData($point);
                     }
                 }
             }
@@ -130,14 +123,9 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         if ($collection) {
             foreach ($collection as $item) {
                 $marker = $mapper->handle($item);
+                $point  = $mapper->convertToGeoJsonFeature($marker, $item);
 
-                if ($marker instanceof Marker) {
-                    $point = $marker->toGeoJsonFeature();
-
-                    if ($point instanceof Feature && ($item->ignoreForBounds || !$model->affectBounds)) {
-                        $point->setProperty('ignoreForBounds', true);
-                    }
-
+                if ($point) {
                     $feature->addFeature($point);
                 }
             }

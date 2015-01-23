@@ -12,10 +12,13 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\Contao\Leaflet\Event\BuildDefinitionEvent;
+use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
+use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
@@ -130,6 +133,30 @@ class DefinitionMapper
                 $model->{$model->getPk()}
             )
         );
+    }
+
+    /**
+     * Convert a definition to a geo json feature.
+     *
+     * @param Definition $definition The leaflet definition object.
+     * @param mixed      $model      The corresponding definition model.
+     *
+     * @return GeoJsonFeature
+     */
+    public function convertToGeoJsonFeature(Definition $definition, $model)
+    {
+        if ($definition instanceof GeoJsonFeature) {
+            $feature = $definition;
+        } elseif ($definition instanceof ConvertsToGeoJsonFeature) {
+            $feature = $definition->toGeoJsonFeature();
+        } else {
+            throw new \RuntimeException('Unsupported definition');
+        }
+
+        $event = new ConvertToGeoJsonEvent($definition, $feature, $model);
+        $this->eventDispatcher->dispatch($event::NAME, $event);
+
+        return $feature;
     }
 
     /**

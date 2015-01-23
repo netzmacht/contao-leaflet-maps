@@ -22,8 +22,6 @@ use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
-use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
-use Netzmacht\LeafletPHP\Definition\Layer;
 use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector;
 
@@ -109,15 +107,10 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
             if ($collection) {
                 foreach ($collection as $item) {
-                    $vector = $mapper->handle($item);
+                    $vector  = $mapper->handle($item);
+                    $feature = $mapper->convertToGeoJsonFeature($vector, $item);
 
-                    if ($vector instanceof ConvertsToGeoJsonFeature) {
-                        $feature = $vector->toGeoJsonFeature();
-
-                        if ($feature instanceof Feature && ($item->ignoreForBounds || !$model->affectBounds)) {
-                            $feature->setProperty('ignoreForBounds', true);
-                        }
-
+                    if ($feature) {
                         $definition->addData($feature, true);
                     }
                 }
@@ -132,28 +125,21 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      */
     public function handleGeoJson(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
     {
-        $feature    = new FeatureCollection();
+        $definition = new FeatureCollection();
         $collection = $this->loadVectorModels($model);
 
         if ($collection) {
             foreach ($collection as $item) {
-                $vector = $mapper->handle($item);
+                $vector  = $mapper->handle($item);
+                $feature = $mapper->convertToGeoJsonFeature($vector, $item);
 
-                if ($vector instanceof ConvertsToGeoJsonFeature) {
-                    $vector = $vector->toGeoJsonFeature();
-                }
-
-                if ($vector instanceof GeoJsonFeature) {
-                    if ($vector instanceof Feature && ($item->ignoreForBounds || !$model->affectBounds)) {
-                        $vector->setProperty('ignoreForBounds', true);
-                    }
-
-                    $feature->addFeature($vector);
+                if ($feature) {
+                    $definition->addFeature($feature, true);
                 }
             }
         }
 
-        return $feature;
+        return $definition;
     }
 
     /**

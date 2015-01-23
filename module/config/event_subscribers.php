@@ -11,4 +11,5 @@
 return array(
     'Netzmacht\Contao\Leaflet\Subscriber\BootSubscriber',
     'Netzmacht\Contao\Leaflet\Subscriber\HashSubscriber',
+    'Netzmacht\Contao\Leaflet\Subscriber\GeoJsonSubscriber',
 );
