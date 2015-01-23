@@ -14,8 +14,6 @@ namespace Netzmacht\Contao\Leaflet\Subscriber;
 use Netzmacht\Contao\Leaflet\Dca\Vector;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
-use Netzmacht\Contao\Leaflet\Model\MarkerModel;
-use Netzmacht\Contao\Leaflet\Model\VectorModel;
 use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
@@ -38,8 +36,7 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         return array(
             ConvertToGeoJsonEvent::NAME => array(
                 array('addPopup'),
-                array('enrichMarker'),
-                array('enrichVector'),
+                array('enrichObjects'),
                 array('enrichCircle'),
                 array('setModelData')
             )
@@ -70,38 +67,20 @@ class GeoJsonSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Enrich marker with feature data and bounds information.
+     * Enrich map object with feature data and bounds information.
      *
      * @param ConvertToGeoJsonEvent $event The subscribed event.
      *
      * @return void
      */
-    public function enrichMarker(ConvertToGeoJsonEvent $event)
+    public function enrichObjects(ConvertToGeoJsonEvent $event)
     {
         $feature    = $event->getGeoJson();
         $definition = $event->getDefinition();
         $model      = $event->getModel();
 
-        if ($definition instanceof Marker && $model instanceof MarkerModel && $feature instanceof Feature) {
-            $this->setDataProperty($model, $feature);
-            $this->setBoundsInformation($model, $feature);
-        }
-    }
-
-    /**
-     * Enrich vector with feature data and bounds information.
-     *
-     * @param ConvertToGeoJsonEvent $event The subscribed event.
-     *
-     * @return void
-     */
-    public function enrichVector(ConvertToGeoJsonEvent $event)
-    {
-        $feature    = $event->getGeoJson();
-        $definition = $event->getDefinition();
-        $model      = $event->getModel();
-
-        if ($definition instanceof Vector && $model instanceof VectorModel && $feature instanceof Feature) {
+        if (($definition instanceof Marker || $definition instanceof Vector)
+            && $model instanceof \Model && $feature instanceof Feature) {
             $this->setDataProperty($model, $feature);
             $this->setBoundsInformation($model, $feature);
         }
