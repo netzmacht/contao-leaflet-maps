@@ -4,6 +4,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['title_legend']   = 'Title and type';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['content_legend'] = 'Content';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['config_legend']  = 'Configuration';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active_legend']  = 'Activation';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['expert_legend']      = 'Expert settings';
+
 
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['new'][0]    = 'Create marker';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['new'][1]    = 'Create new marker';
@@ -50,3 +52,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['active'][0]          = 'Activate marke
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active'][1]          = 'Only activated markers are rendered on the map.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds'][0] = 'Exclude from bounds';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds'][1] = 'Do not include this item in the bounds calculation.';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['featureData'][0]     = 'Feature data';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['featureData'][1]     = 'The marker is transferred as GeoJSON feature. These data is passed as <em>feature.properties.data</em>.';

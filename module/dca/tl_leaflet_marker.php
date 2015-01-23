@@ -116,6 +116,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'riseOffset',
                 'customIcon',
             ),
+            'expert'  => array(':hide', 'featureData'),
             'active'  => array('active', 'ignoreForBounds')
         ),
     ),
@@ -294,6 +295,18 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'default'   => false,
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'featureData'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['featureData'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval' => array('tl_class'  => 'clr lng',
+                            'allowHtml' => true,
+                            'style'     => 'min-height: 40px;',
+                            'rte'       => 'ace|json'
+            ),
+            'sql'       => "text NULL"
         ),
     ),
 );

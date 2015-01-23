@@ -5,6 +5,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_vector']['active_legend'] = 'Activation';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['data_legend']   = 'Vector data';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['popup_legend']  = 'Popup';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['expert_legend']      = 'Expert settings';
+
 
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['new'][0]    = 'Create vector';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['new'][1]    = 'Create new vector';
@@ -55,3 +57,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_vector']['style'][0]           = 'Style';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['style'][1]           = 'Choose a style. If none defined, the default style of leaflet is used.';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['ignoreForBounds'][0] = 'Exclude from bounds';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['ignoreForBounds'][1] = 'Do not include this item in the bounds calculation.';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['featureData'][0]     = 'Feature data';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['featureData'][1]     = 'The marker is transferred as GeoJSON feature. These data is passed as <em>feature.properties.data</em>.';
