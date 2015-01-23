@@ -367,8 +367,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['options'],
             'exclude'   => true,
             'inputType' => 'textarea',
-            'eval'      => array('tl_class' => 'clr lng', 'allowHtml'=>true, 'style' => 'min-height: 40px;'),
-            'sql'       => "char(1) NOT NULL default ''"
+            'eval' => array('tl_class'  => 'clr lng',
+                            'allowHtml' => true,
+                            'style'     => 'min-height: 40px;',
+                            'rte'       => 'ace|json'
+            ),
+            'sql'       => "text NULL"
         ),
         'adjustBounds' => array
         (
