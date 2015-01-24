@@ -16,6 +16,7 @@ use Model\Collection;
 /**
  * Class MapModel for the tl_leaflet_map table.
  *
+ * @property mixed|null locate
  * @package Netzmacht\Contao\Leaflet\Model
  */
 class MapModel extends \Model

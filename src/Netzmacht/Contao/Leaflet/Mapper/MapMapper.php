@@ -13,6 +13,8 @@ namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\JavascriptBuilder\Type\AnonymousFunction;
+use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control;
 use Netzmacht\LeafletPHP\Definition\Layer;
@@ -68,6 +70,7 @@ class MapMapper extends AbstractMapper
             $this->buildControls($map, $model, $mapper, $bounds);
             $this->buildLayers($map, $model, $mapper, $bounds);
             $this->buildBoundsCalculation($map, $model);
+            $this->buildLocate($map, $model);
         }
     }
 
@@ -174,6 +177,48 @@ class MapMapper extends AbstractMapper
 
         if (in_array('load', $adjustBounds)) {
             $map->calculateFeatureBounds();
+        }
+    }
+
+
+    /**
+     * Build map bounds calculations.
+     *
+     * @param Map      $map   The map being built.
+     * @param MapModel $model The map model.
+     *
+     * @return void
+     */
+    private function buildLocate(Map $map, MapModel $model)
+    {
+        if ($model->locate) {
+            $options = array();
+
+            $mapping = array(
+                'setView'            => 'locateSetView',
+                'watch'              => 'locateWatch',
+                'enableHighAccuracy' => 'enableHighAccuracy',
+            );
+
+            foreach ($mapping as $option => $property) {
+                if ($model->$property) {
+                    $options[$option] = (bool) $model->$property;
+                }
+            }
+
+            $mapping = array(
+                'maxZoom'    => 'locateMaxZoom',
+                'timeout'    => 'locateTimeout',
+                'maximumAge' => 'locateMaximumAge',
+            );
+
+            foreach ($mapping as $option => $property) {
+                if ($model->$property) {
+                    $options[$option] = (int) $model->$property;
+                }
+            }
+
+            $map->locate($options);
         }
     }
 }
