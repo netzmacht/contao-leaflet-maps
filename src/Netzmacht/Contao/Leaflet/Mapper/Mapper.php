@@ -11,8 +11,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
  * Interface Mapper describes the Mapper which translates a given configuration to the Leaflet definition.
@@ -26,7 +26,7 @@ interface Mapper
      *
      * @param \Model|mixed     $model     The model being built. Usually a contao model, but can be anything.
      * @param DefinitionMapper $mapper    The definition builder.
-     * @param LatLngBounds     $bounds    Optional bounds where elements should be in.
+     * @param Filter           $filter    Optional filter bounds.
      * @param string           $elementId Optional element.
      * @param Definition|null  $parent    Optional passed parent.
      *
@@ -35,7 +35,7 @@ interface Mapper
     public function handle(
         $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null,
         Definition $parent = null
     );
@@ -43,10 +43,10 @@ interface Mapper
     /**
      * Check if mapper is responsible for the model.
      *
-     * @param \Model       $model  The model being build.
-     * @param LatLngBounds $bounds Optional bounds where elements should be in.
+     * @param \Model $model  The model being build.
+     * @param Filter $filter Optional filter bounds.
      *
      * @return bool
      */
-    public function match($model, LatLngBounds $bounds = null);
+    public function match($model, Filter $filter = null);
 }

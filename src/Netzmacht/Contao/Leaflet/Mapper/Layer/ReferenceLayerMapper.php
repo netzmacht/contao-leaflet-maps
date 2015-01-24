@@ -11,10 +11,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
  * Class ReferenceLayerMapper maps an reference layer to another layer.
@@ -36,7 +36,7 @@ class ReferenceLayerMapper extends AbstractLayerMapper
     public function handle(
         $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null,
         Definition $parent = null
     ) {
@@ -48,6 +48,6 @@ class ReferenceLayerMapper extends AbstractLayerMapper
 
         $elementId = $model->standalone ? $this->getElementId($model, $elementId) : null;
 
-        return $mapper->handle($reference, $bounds, $elementId);
+        return $mapper->handle($reference, $filter, $elementId);
     }
 }

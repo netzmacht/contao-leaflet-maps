@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Raster\TileLayer;
@@ -64,10 +65,10 @@ class TileLayerMapper extends AbstractLayerMapper
     protected function buildConstructArguments(
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null
     ) {
-        $arguments = parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
+        $arguments = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
 
         $arguments[] = $model->tileUrl;
 
@@ -81,24 +82,24 @@ class TileLayerMapper extends AbstractLayerMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $bounds, $parent);
+        parent::build($definition, $model, $mapper, $filter, $parent);
 
         /** @var TileLayer $definition */
-        $bounds = deserialize($model->bounds);
+        $filter = deserialize($model->bounds);
 
-        if ($bounds[0] && $bounds[1]) {
-            $bounds = array_map(
+        if ($filter[0] && $filter[1]) {
+            $filter = array_map(
                 function ($value) {
                     return explode(',', $value, 3);
                 },
-                $bounds
+                $filter
             );
 
-            $bounds = LatLngBounds::fromArray($bounds);
-            $definition->setBounds($bounds);
+            $filter = LatLngBounds::fromArray($filter);
+            $definition->setBounds($filter);
         }
     }
 }

@@ -11,12 +11,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\LatLng;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\MultiPolyline;
-use Netzmacht\LeafletPHP\Definition\Vector\Polyline;
 
 /**
  * Class MultiPolylineMapper maps the databse model it the multi polyline definition.
@@ -46,10 +45,10 @@ class MultiPolylineMapper extends AbstractVectorMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $bounds);
+        parent::build($definition, $model, $mapper, $filter);
 
         if ($definition instanceof MultiPolyline) {
             $this->createLatLngs($definition, $model);

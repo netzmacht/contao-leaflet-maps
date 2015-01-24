@@ -11,12 +11,12 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
 use Netzmacht\LeafletPHP\Definition\Layer;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
  * Class GroupLayerMapper maps the layer model to the group layer definition.
@@ -35,7 +35,7 @@ class GroupLayerMapper extends AbstractLayerMapper
     /**
      * {@inheritdoc}
      */
-    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
     {
         if ($model->groupType === 'feature') {
             return 'Netzmacht\LeafletPHP\Definition\Group\FeatureGroup';
@@ -51,7 +51,7 @@ class GroupLayerMapper extends AbstractLayerMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
         if (!$definition instanceof LayerGroup) {

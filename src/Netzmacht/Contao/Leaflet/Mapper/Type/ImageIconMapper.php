@@ -11,11 +11,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
  * Class ImageIconMapper maps the icon model to the image icon definition.
@@ -44,10 +44,10 @@ class ImageIconMapper extends AbstractIconMapper
     protected function buildConstructArguments(
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null
     ) {
-        $arguments = parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
+        $arguments = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
 
         if ($model->iconImage) {
             $file = \FilesModel::findByUuid($model->iconImage);
@@ -67,7 +67,7 @@ class ImageIconMapper extends AbstractIconMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
         if ($definition instanceof ImageIcon) {

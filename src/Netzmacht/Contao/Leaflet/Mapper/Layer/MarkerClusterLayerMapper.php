@@ -11,13 +11,13 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\JavascriptBuilder\Type\AnonymousFunction;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Layer;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Plugins\MarkerCluster\MarkerClusterGroup;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
 
@@ -67,10 +67,10 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $bounds, $parent);
+        parent::build($definition, $model, $mapper, $filter, $parent);
 
         /** @var MarkerClusterGroup $definition */
 

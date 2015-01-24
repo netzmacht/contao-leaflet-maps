@@ -11,18 +11,15 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\VectorModel;
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJsonFeature;
-use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
-use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector;
 
 /**
@@ -42,7 +39,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * {@inheritdoc}
      */
-    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
     {
         if ($model->deferred) {
             return 'Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson';
@@ -57,7 +54,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     protected function buildConstructArguments(
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null
     ) {
         if ($model->deferred) {
@@ -85,7 +82,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
             return array($this->getElementId($model, $elementId), RequestUrl::create($model->id));
         }
 
-        return parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
+        return parent::buildConstructArguments($model, $mapper, $filter, $elementId);
     }
 
     /**
@@ -95,7 +92,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
         if ($definition instanceof GeoJson) {
@@ -123,7 +120,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * {@inheritdoc}
      */
-    public function handleGeoJson(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    public function handleGeoJson(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
     {
         $definition = new FeatureCollection();
         $collection = $this->loadVectorModels($model);

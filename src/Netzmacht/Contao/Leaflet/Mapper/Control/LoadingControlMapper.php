@@ -11,11 +11,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control\Zoom;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Plugins\Loading\LoadingControl;
 use Netzmacht\LeafletPHP\Plugins\Loading\SpinJsLoadingControl;
 
@@ -36,7 +36,7 @@ class LoadingControlMapper extends AbstractControlMapper
     /**
      * {@inheritdoc}
      */
-    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
     {
         if ($model->spinjs) {
             return 'Netzmacht\LeafletPHP\Plugins\Loading\SpinJsLoadingControl';
@@ -62,10 +62,10 @@ class LoadingControlMapper extends AbstractControlMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $bounds);
+        parent::build($definition, $model, $mapper, $filter);
 
         if ($definition instanceof SpinJsLoadingControl && $model->spin) {
             $config = json_decode($model->spin, true);

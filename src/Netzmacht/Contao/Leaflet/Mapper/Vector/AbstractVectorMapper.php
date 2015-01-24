@@ -12,13 +12,13 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
 use Netzmacht\Contao\Leaflet\Definition\Style;
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 use Netzmacht\Contao\Leaflet\ServiceContainerTrait;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\Vector\Path;
 
 /**
@@ -44,10 +44,10 @@ class AbstractVectorMapper extends AbstractTypeMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $bounds);
+        parent::build($definition, $model, $mapper, $filter);
 
         if ($definition instanceof Path && $model->style) {
             $styleModel = StyleModel::findActiveByPk($model->style);

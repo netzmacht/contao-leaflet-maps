@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper;
 use Netzmacht\Contao\Leaflet\Event\BuildDefinitionEvent;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
@@ -81,7 +82,7 @@ class DefinitionMapper
      * Build a model.
      *
      * @param mixed           $model     The definition model.
-     * @param LatLngBounds    $bounds    Optional bounds where elements should be in.
+     * @param Filter          $filter    Optional request filter.
      * @param string          $elementId Optional element id. If none given the mapId or alias is used.
      * @param Definition|null $parent    Optional pass the parent object.
      *
@@ -89,16 +90,16 @@ class DefinitionMapper
      *
      * @throws \RuntimeException If model could not be mapped to a definition.
      */
-    public function handle($model, LatLngBounds $bounds = null, $elementId = null, $parent = null)
+    public function handle($model, Filter $filter = null, $elementId = null, $parent = null)
     {
         $hash = $this->hash($model, $elementId);
 
         if (!isset($this->mapped[$hash])) {
             $mapper     = $this->getMapper($model);
-            $definition = $mapper->handle($model, $this, $bounds, $elementId, $parent);
+            $definition = $mapper->handle($model, $this, $filter, $elementId, $parent);
 
             if ($definition) {
-                $event = new BuildDefinitionEvent($definition, $model, $bounds);
+                $event = new BuildDefinitionEvent($definition, $model, $filter);
                 $this->eventDispatcher->dispatch($event::NAME, $event);
             }
 
@@ -111,19 +112,19 @@ class DefinitionMapper
     /**
      * Build a model.
      *
-     * @param mixed        $model  The definition model.
-     * @param LatLngBounds $bounds Optional bounds where elements should be in.
+     * @param mixed  $model  The definition model.
+     * @param Filter $filter Optional request filter.
      *
      * @return FeatureCollection|Feature|null
      *
      * @throws \RuntimeException If a model could not be mapped to the GeoJSON representation.
      */
-    public function handleGeoJson($model, LatLngBounds $bounds = null)
+    public function handleGeoJson($model, Filter $filter = null)
     {
         $mapper = $this->getMapper($model);
 
         if ($mapper instanceof GeoJsonMapper) {
-            return $mapper->handleGeoJson($model, $this, $bounds);
+            return $mapper->handleGeoJson($model, $this, $filter);
         }
 
         throw new \RuntimeException(

@@ -11,13 +11,13 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\UI;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\ServiceContainerTrait;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
 
 /**
@@ -49,10 +49,10 @@ class MarkerMapper extends AbstractMapper
     protected function buildConstructArguments(
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null
     ) {
-        $arguments   = parent::buildConstructArguments($model, $mapper, $bounds, $elementId);
+        $arguments   = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
         $arguments[] = $model->coordinates ?: null;
 
         return $arguments;
@@ -77,7 +77,7 @@ class MarkerMapper extends AbstractMapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
         if ($definition instanceof Marker) {

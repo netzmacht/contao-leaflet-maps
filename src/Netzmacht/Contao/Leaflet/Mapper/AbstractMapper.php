@@ -11,8 +11,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
 
 /**
  * Class AbstractMapper is made for mapping Contao models to the definition.
@@ -62,14 +62,14 @@ abstract class AbstractMapper implements Mapper
     public function handle(
         $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null,
         Definition $parent = null
     ) {
-        $definition = $this->createInstance($model, $mapper, $bounds, $elementId);
+        $definition = $this->createInstance($model, $mapper, $filter, $elementId);
 
         $this->optionsBuilder->build($definition, $model);
-        $this->build($definition, $model, $mapper, $bounds, $parent);
+        $this->build($definition, $model, $mapper, $filter, $parent);
 
         return $definition;
     }
@@ -77,7 +77,7 @@ abstract class AbstractMapper implements Mapper
     /**
      * {@inheritdoc}
      */
-    public function match($model, LatLngBounds $bounds = null)
+    public function match($model, Filter $filter = null)
     {
         $modelClass = static::$modelClass;
 
@@ -99,7 +99,7 @@ abstract class AbstractMapper implements Mapper
      * @param Definition       $definition The definition being built.
      * @param \Model           $model      The model.
      * @param DefinitionMapper $mapper     The definition mapper.
-     * @param LatLngBounds     $bounds     Optional bounds where elements should be in.
+     * @param Filter|null      $filter     Optional request filter.
      * @param Definition|null  $parent     The parent object.
      *
      * @return void
@@ -110,7 +110,7 @@ abstract class AbstractMapper implements Mapper
         Definition $definition,
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         Definition $parent = null
     ) {
     }
@@ -120,7 +120,7 @@ abstract class AbstractMapper implements Mapper
      *
      * @param \Model           $model     The model.
      * @param DefinitionMapper $mapper    The definition mapper.
-     * @param LatLngBounds     $bounds    Optional bounds where elements should be in.
+     * @param Filter           $filter    Optional request filter.
      * @param string|null      $elementId Optional element id.
      *
      * @return Definition
@@ -128,11 +128,11 @@ abstract class AbstractMapper implements Mapper
     protected function createInstance(
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null
     ) {
-        $reflector = new \ReflectionClass($this->getClassName($model, $mapper, $bounds));
-        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $bounds, $elementId));
+        $reflector = new \ReflectionClass($this->getClassName($model, $mapper, $filter));
+        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $filter, $elementId));
 
         return $instance;
     }
@@ -142,7 +142,7 @@ abstract class AbstractMapper implements Mapper
      *
      * @param \Model           $model     The model.
      * @param DefinitionMapper $mapper    The definition mapper.
-     * @param LatLngBounds     $bounds    Optional bounds where elements should be in.
+     * @param Filter           $filter    Optional request filter.
      * @param string|null      $elementId Optional element id.
      *
      * @return array
@@ -152,7 +152,7 @@ abstract class AbstractMapper implements Mapper
     protected function buildConstructArguments(
         \Model $model,
         DefinitionMapper $mapper,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null
     ) {
         return array(
@@ -165,13 +165,13 @@ abstract class AbstractMapper implements Mapper
      *
      * @param \Model           $model  The model.
      * @param DefinitionMapper $mapper The definition mapper.
-     * @param LatLngBounds     $bounds Optional bounds where elements should be in.
+     * @param Filter           $filter Optional request filter.
      *
      * @return string
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    protected function getClassName(\Model $model, DefinitionMapper $mapper, LatLngBounds $bounds = null)
+    protected function getClassName(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
     {
         return static::$definitionClass;
     }

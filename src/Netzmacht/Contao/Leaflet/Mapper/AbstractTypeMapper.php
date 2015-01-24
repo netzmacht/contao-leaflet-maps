@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 
 /**
  * Class AbstractTypeMapper is the base mapper for tables containing different types of definitins.
@@ -30,7 +30,7 @@ abstract class AbstractTypeMapper extends AbstractMapper
     /**
      * {@inheritdoc}
      */
-    public function match($model, LatLngBounds $bounds = null)
+    public function match($model, Filter $filter = null)
     {
         return parent::match($model) && $model->type === static::$type;
     }
