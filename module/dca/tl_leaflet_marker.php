@@ -176,17 +176,43 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
+                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate'),
+                array('Netzmacht\Contao\Leaflet\Dca\Marker', 'saveCoordinates')
             ),
             'wizard'        => array(
                 array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getGeocoder')
             ),
             'eval'          => array(
-                'maxlength'   => 255,
-                'tl_class'    => 'long clr',
-                'nullIfEmpty' => true,
+                'maxlength'      => 255,
+                'tl_class'       => 'long clr',
+                'nullIfEmpty'    => true,
+                'doNotSaveEmpty' => true,
             ),
             'sql'           => "varchar(255) NULL"
+        ),
+        'latitude'      => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['latitude'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'       => "float NULL"
+        ),
+        'longitude'      => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['longitude'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'       => "float NULL"
+        ),
+        'altitude'      => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['altitude'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
+            'sql'       => "float NULL"
         ),
         'active'                => array
         (

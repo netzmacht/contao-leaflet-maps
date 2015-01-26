@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet;
 
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
@@ -68,12 +69,12 @@ class MapService
      * Get map definition.
      *
      * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
-     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
+     * @param Filter       $filter    Optional request filter.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
      * @return Map
      */
-    public function getDefinition($mapId, LatLngBounds $bounds = null, $elementId = null)
+    public function getDefinition($mapId, Filter $filter = null, $elementId = null)
     {
         if ($mapId instanceof MapModel) {
             $model = $mapId;
@@ -81,7 +82,7 @@ class MapService
             $model = $this->getModel($mapId);
         }
 
-        return $this->mapper->handle($model, $bounds, $elementId);
+        return $this->mapper->handle($model, $filter, $elementId);
     }
 
     /**
@@ -150,13 +151,13 @@ class MapService
      * Get feature collection of a layer.
      *
      * @param LayerModel|int $layerId The layer database id or layer model.
-     * @param LatLngBounds   $bounds  Filter features in the bounds.
+     * @param Filter|null    $filter  Filter data.
      *
      * @return FeatureCollection
      *
      * @throws \InvalidArgumentException If a layer could not be found.
      */
-    public function getFeatureCollection($layerId, LatLngBounds $bounds = null)
+    public function getFeatureCollection($layerId, Filter $filter = null)
     {
         if ($layerId instanceof LayerModel) {
             $model = $layerId;
@@ -168,6 +169,6 @@ class MapService
             throw new \InvalidArgumentException(sprintf('Could not find layer "%s"', $layerId));
         }
 
-        return $this->mapper->handleGeoJson($model, $bounds);
+        return $this->mapper->handleGeoJson($model, $filter);
     }
 }

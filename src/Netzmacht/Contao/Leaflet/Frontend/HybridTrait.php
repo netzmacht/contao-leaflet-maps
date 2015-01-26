@@ -133,7 +133,7 @@ trait HybridTrait
      *
      * @return void
      *
-     * @throws \HttpRequestException If a bad leaflet param hash is given.
+     * @throws \RuntimeException If a bad leaflet param hash is given.
      * @SuppressWarnings(ExitExpression)
      */
     private function handleAjaxRequest()
@@ -142,13 +142,15 @@ trait HybridTrait
 
         // Handle ajax request.
         if ($input) {
-            $data = explode(',', base64_decode($input));
+            $data   = explode(',', base64_decode($input));
+            $data[] = $this->input->get('f');
+            $data[] = $this->input->get('v');
 
-            if (count($data) != 4) {
-                throw new \HttpRequestException('Bad request. Could not resolve query params');
+            if (count($data) != 6) {
+                throw new \RuntimeException('Bad request. Could not resolve query params');
             }
 
-            $data = array_combine(array('for', 'type', 'id', 'format'), $data);
+            $data = array_combine(array('for', 'type', 'id', 'format', 'filter', 'values'), $data);
             $data = array_filter($data);
 
             if (empty($data['for']) || $data['for'] != $this->getIdentifier()) {

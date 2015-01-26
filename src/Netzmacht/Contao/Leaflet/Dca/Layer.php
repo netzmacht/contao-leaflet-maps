@@ -303,6 +303,30 @@ class Layer
     }
 
     /**
+     * Get bounds modes supported by the layer.
+     *
+     * @param \DataContainer $dataContainer The data container.
+     *
+     * @return array
+     */
+    public function getBoundsModes($dataContainer)
+    {
+        $options = array();
+
+        if ($dataContainer->activeRecord && !empty($this->layers[$dataContainer->activeRecord->type]['boundsMode'])) {
+            foreach ($this->layers[$dataContainer->activeRecord->type]['boundsMode'] as $mode => $enabled) {
+                if ($enabled === true) {
+                    $options[] = $mode;
+                } elseif ($enabled === 'deferred' && $dataContainer->activeRecord->deferred) {
+                    $options[] = $mode;
+                }
+            }
+        }
+
+        return $options;
+    }
+
+    /**
      * Generate a button.
      *
      * @param array  $row        Current row.

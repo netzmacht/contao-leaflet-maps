@@ -68,18 +68,26 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 $options['onEachFeature'] = new Expression($model->onEachFeature);
             }
 
-            if ($model->affectBounds) {
-                $options['affectBounds'] = (bool) $model->affectBounds;
+            if ($model->boundsMode) {
+                $options['boundsMode'] = $model->boundsMode;
             }
 
             if (!empty($options)) {
                 $layer = new GeoJson($this->getElementId($model, $elementId));
                 $layer->setOptions($options);
 
-                return array($this->getElementId($model, $elementId), RequestUrl::create($model->id), array(), $layer);
+                return array(
+                    $this->getElementId($model, $elementId),
+                    RequestUrl::create($model->id, null, null, $filter),
+                    array(),
+                    $layer
+                );
             }
 
-            return array($this->getElementId($model, $elementId), RequestUrl::create($model->id));
+            return array(
+                $this->getElementId($model, $elementId),
+                RequestUrl::create($model->id, null, null, $filter)
+            );
         }
 
         return parent::buildConstructArguments($model, $mapper, $filter, $elementId);
@@ -98,8 +106,8 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         if ($definition instanceof GeoJson) {
             $collection = $this->loadVectorModels($model);
 
-            if ($model->affectBounds) {
-                $definition->setOption('affectBounds', true);
+            if ($model->boundsMode) {
+                $definition->setOption('boundsMode', $model->boundsMode);
             }
 
             if ($collection) {

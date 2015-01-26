@@ -11,6 +11,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
+
 /**
  * Class RequestUrl creates the request url.
  *
@@ -40,6 +42,13 @@ class RequestUrl implements \JsonSerializable
     private $url;
 
     /**
+     * Request filter.
+     *
+     * @var Filter|null
+     */
+    private $filter;
+
+    /**
      * Create the request url.
      *
      * It combines the params and creates an hash for it.
@@ -47,10 +56,11 @@ class RequestUrl implements \JsonSerializable
      * @param int         $dataId The data object id.
      * @param string|null $type   Object type. If empty it assumes a layer.
      * @param string|null $format Data format. If empty it assumes geojson.
+     * @param Filter      $filter Optional filter.
      *
      * @return RequestUrl
      */
-    public static function create($dataId, $type = null, $format = null)
+    public static function create($dataId, $type = null, $format = null, Filter $filter = null)
     {
         $params = array(
             'for'    => static::$for,
@@ -59,10 +69,16 @@ class RequestUrl implements \JsonSerializable
             'format' => $format != 'geojson' ? $format : null
         );
 
-        $hash = base64_encode(implode(',', $params));
-        $url  = \Config::get('websitePath') . '/' . \Frontend::addToUrl('leaflet=' . $hash, false);
+        $hash  = base64_encode(implode(',', $params));
+        $query = 'leaflet=' . $hash;
 
-        return new static($url, $hash);
+        if ($filter) {
+            $query .= '&amp;f=' . $filter->getName() . '&amp;v=' . $filter->toRequest();
+        }
+
+        $url = \Config::get('websitePath') . '/' . \Frontend::addToUrl($query, false);
+
+        return new static($url, $hash, $filter);
     }
 
     /**
@@ -107,6 +123,16 @@ class RequestUrl implements \JsonSerializable
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Get request filter.
+     *
+     * @return Filter|null
+     */
+    public function getFilter()
+    {
+        return $this->filter;
     }
 
     /**

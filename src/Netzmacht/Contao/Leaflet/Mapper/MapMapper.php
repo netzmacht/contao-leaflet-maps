@@ -100,6 +100,8 @@ class MapMapper extends AbstractMapper
         if ($model->options) {
             $map->setOptions(json_decode($model->options, true));
         }
+
+        $map->setOption('dynamicLoad', (bool) $model->dynamicLoad);
     }
 
     /**

@@ -51,4 +51,37 @@ class Marker
 
         return $builder->getOptions();
     }
+
+    /**
+     * Save the coordinates.
+     *
+     * @param string         $value         The raw data.
+     * @param \DataContainer $dataContainer The data container driver.
+     *
+     * @return string
+     */
+    public function saveCoordinates($value, $dataContainer)
+    {
+        $combined = array(
+            'latitude'  => null,
+            'longitude' => null,
+            'altitude'  => null
+        );
+
+        $values = trimsplit(',', $value);
+        $keys   = array_keys($combined);
+
+        if (count($values) >= 2 && count($values) <= 3) {
+            for ($i = 0; $i < count($values); $i++) {
+                $combined[$keys[$i]] = $values[$i];
+            }
+        }
+
+        \Database::getInstance()
+            ->prepare('UPDATE tl_leaflet_marker %s WHERE id=?')
+            ->set($combined)
+            ->execute($dataContainer->id);
+
+        return $value;
+    }
 }

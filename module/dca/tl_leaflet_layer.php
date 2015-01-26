@@ -148,15 +148,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'markers extends default' => array(
             '+expert' => array('pointToLayer'),
-            '+active' => array('deferred', 'affectBounds')
+            '+config' => array('deferred', 'boundsMode')
         ),
         'group extends default' => array(
             '+title' => array('groupType'),
-            '+active' => array('affectBounds')
+            '+active' => array('boundsMode')
         ),
         'vectors extends default' => array(
             '+expert' => array('onEachFeature', 'pointToLayer'),
-            '+active' => array('deferred', 'affectBounds'),
+            '+config' => array('deferred', 'boundsMode'),
         ),
         'reference extends default' => array(
             '+title' => array('reference', 'standalone')
@@ -335,7 +335,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
+            'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true, 'isBoolean' => true),
             'sql'       => "char(1) NOT NULL default '1'"
         ),
         'groupType'                  => array
@@ -530,14 +530,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false, 'isBoolean' => true),
             'sql'       => "char(1) NOT NULL default ''"
         ),
-        'affectBounds' => array
+        'boundsMode'          => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['affectBounds'],
-            'exclude'   => true,
-            'inputType' => 'checkbox',
-            'default'   => false,
-            'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['boundsMode'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getBoundsModes'),
+            'eval'             => array('tl_class' => 'w50', 'includeBlankOption' => true),
+            'sql'              => "varchar(6) NOT NULL default ''"
         ),
         'tileUrl' => array
         (

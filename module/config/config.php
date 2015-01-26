@@ -171,6 +171,10 @@ $GLOBALS['LEAFLET_LAYERS'] = array
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/markers.png',
         'markers'  => true,
+        'boundsMode' => array(
+            'extend' => true,
+            'fit'    => 'deferred'
+        ),
         'label'    => function ($row, $label) {
             $count  = \Netzmacht\Contao\Leaflet\Model\MarkerModel::countBy('pid', $row['id']);
             $label .= sprintf(
@@ -187,6 +191,9 @@ $GLOBALS['LEAFLET_LAYERS'] = array
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/vectors.png',
         'vectors'  => true,
+        'boundsMode' => array(
+            'extend' => true,
+        ),
         'label'    => function ($row, $label) {
             $count  = \Netzmacht\Contao\Leaflet\Model\VectorModel::countBy('pid', $row['id']);
             $label .= sprintf(
@@ -307,3 +314,10 @@ $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_marker'][] = 'alias';
 $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_vector'][] = 'id';
 $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_vector'][] = 'title';
 $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_vector'][] = 'alias';
+
+
+/*
+ * Filters can be passed to a data request to get only specific data from a layer.
+ */
+$GLOBALS['LEAFLET_FILTERS']['bbox']     = 'Netzmacht\Contao\Leaflet\Filter\BboxFilter';
+$GLOBALS['LEAFLET_FILTERS']['distance'] = 'Netzmacht\Contao\Leaflet\Filter\DistanceFilter';

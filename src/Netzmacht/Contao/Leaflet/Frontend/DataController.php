@@ -11,8 +11,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
+use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\MapService;
-use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 /**
  * The data controller handles ajax request for sub data.
@@ -36,7 +36,9 @@ class DataController
     private $input = array(
         'format' => 'geojson',
         'type'   => 'layer',
-        'id'     => null
+        'id'     => null,
+        'filter' => null,
+        'values' => null
     );
 
     /**
@@ -61,7 +63,13 @@ class DataController
     public function execute()
     {
         try {
-            list($data, $error) = $this->loadData($this->input['type'], $this->input['id']);
+            if ($this->input['filter']) {
+                $filter = $this->createFilter();
+            } else {
+                $filter = null;
+            }
+
+            list($data, $error) = $this->loadData($this->input['type'], $this->input['id'], $filter);
             $this->encodeData($this->input['format'], $data);
         } catch (\Exception $e) {
             if (\Config::get('debugMode') || \Config::get('displayErrors')) {
@@ -101,17 +109,18 @@ class DataController
      *
      * @param string $type   The data type.
      * @param mixed  $dataId The data id.
+     * @param Filter $filter Optional request filter.
      *
      * @return array
      */
-    public function loadData($type, $dataId)
+    public function loadData($type, $dataId, Filter $filter = null)
     {
         $error = false;
         $data  = null;
 
         switch ($type) {
             case 'layer':
-                $data = $this->mapService->getFeatureCollection($dataId);
+                $data = $this->mapService->getFeatureCollection($dataId, $filter);
                 break;
 
             default:
@@ -121,5 +130,25 @@ class DataController
         }
 
         return array($data, $error);
+    }
+
+    /**
+     * Create a filter.
+     *
+     * @return Filter
+     * @throws \RuntimeException If the filter is not defined.
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    private function createFilter()
+    {
+        if (!isset($GLOBALS['LEAFLET_FILTERS'][$this->input['filter']])) {
+            throw new \RuntimeException(sprintf('Undefined filter "%s".', $this->input['filter']));
+        }
+
+        /** @var Filter $filter */
+        $filter = $GLOBALS['LEAFLET_FILTERS'][$this->input['filter']];
+
+        return $filter::fromRequest($this->input['values']);
     }
 }

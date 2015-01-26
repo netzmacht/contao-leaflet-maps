@@ -119,12 +119,24 @@ L.Contao = L.Class.extend({
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
     load: function (hash, type, options, customLayer, map) {
-        var url   = this.createRequestUrl(hash),
+        var url   = this.createRequestUrl(hash, map),
             layer = omnivore[type](url, options, customLayer);
 
         if (map) {
             // Required because Control.Loading tries to get _leafet_id which is created here.
             L.stamp(layer);
+
+            // Add listender for map bounds changes.
+            if (map.options.dynamicLoad && layer.options.boundsMode == 'fit') {
+                layer.options.requestHash = hash;
+                map.on('moveend', layer.refreshData, layer);
+
+                map.on('layerremove', function(e) {
+                    if (e.layer === layer) {
+                        map.off('moveend', layer.updateBounds, layer);
+                    }
+                });
+            }
 
             map.fire('dataloading', {layer: layer});
 
@@ -150,7 +162,7 @@ L.Contao = L.Class.extend({
      * @returns {L.Marker}|{*}
      */
     pointToLayer: function (feature, latlng) {
-        var type = 'marker';
+        var type   = 'marker';
         var marker = null;
 
         if (feature.properties) {
@@ -238,18 +250,20 @@ L.Contao = L.Class.extend({
     /**
      * Create request url by appending the hash to the current url.
      *
-     * @param {string} value The hash
+     * @param {string} value The hash.
+     * @param {L.Map}  map   The map.
      *
      * @returns {string}
      */
-    createRequestUrl: function (value) {
+    createRequestUrl: function (value, map) {
+        var bounds,
+            key    = 'leaflet',
+            params = document.location.search.substr(1).split('&');
+
         value = encodeURIComponent(value);
 
-        var key = 'leaflet';
-        var params = document.location.search.substr(1).split('&');
-
         if (params == '') {
-            return document.location.pathname + '?' + [key, value].join('=');
+            value = document.location.pathname + '?' + [key, value].join('=');
         } else {
             var i = params.length;
             var x;
@@ -267,8 +281,19 @@ L.Contao = L.Class.extend({
                 params[params.length] = [key, value].join('=');
             }
 
-            return document.location.pathname + params.join('&');
+            value = document.location.pathname + params.join('&');
         }
+
+        if (map) {
+            if (map.options.dynamicLoad) {
+                bounds = map.getBounds();
+                value += '&f=bbox&v=';
+                value += bounds.getSouth() + ',' + bounds.getWest();
+                value += ',' + bounds.getNorth() + ',' + bounds.getEast();
+            }
+        }
+
+        return value;
     }
 });
 

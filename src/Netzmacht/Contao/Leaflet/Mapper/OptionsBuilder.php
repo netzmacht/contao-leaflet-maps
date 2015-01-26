@@ -205,20 +205,35 @@ class OptionsBuilder
     public static function applyOptions($options, $definition, $model)
     {
         foreach ($options as $option => $mapping) {
-            $setter  = 'set' . ucfirst($option);
             $default = static::getDefaultOption($option, $definition);
 
             if ($model->$mapping === '1' || $model->$mapping === '') {
                 if (((bool) $model->$mapping) !== $default) {
-                    $definition->$setter($model->$mapping);
+                    static::applyOption($option, $model->$mapping, $definition);
                 }
             } elseif (is_numeric($default)) {
                 if ($model->$mapping != $default) {
-                    $definition->$setter($model->$mapping);
+                    static::applyOption($option, $model->$mapping, $definition);
                 }
             } elseif ($model->$mapping !== $default) {
-                $definition->$setter($model->$mapping);
+                static::applyOption($option, $model->$mapping, $definition);
             }
+        }
+    }
+
+    /**
+     * @param $option
+     * @param $value
+     * @param Definition $definition
+     */
+    private static function applyOption($option, $value, $definition)
+    {
+        $setter  = 'set' . ucfirst($option);
+
+        if (method_exists($definition, $setter)) {
+            $definition->$setter($value);
+        } else {
+            $definition->setOption($option, $value);
         }
     }
 

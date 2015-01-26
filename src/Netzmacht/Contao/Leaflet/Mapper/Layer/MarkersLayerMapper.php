@@ -57,21 +57,29 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         $elementId = null
     ) {
         if ($model->deferred) {
-            if ($model->pointToLayer || $model->affectBounds) {
+            if ($model->pointToLayer || $model->boundsMode) {
                 $layer = new GeoJson($this->getElementId($model, $elementId));
 
                 if ($model->pointToLayer) {
                     $layer->setPointToLayer(new Expression($model->pointToLayer));
                 }
 
-                if ($model->affectBounds) {
-                    $layer->setOption('affectBounds', (bool) $model->affectBounds);
+                if ($model->boundsMode) {
+                    $layer->setOption('boundsMode', $model->boundsMode);
                 }
 
-                return array($this->getElementId($model, $elementId), RequestUrl::create($model->id), array(), $layer);
+                return array(
+                    $this->getElementId($model, $elementId),
+                    RequestUrl::create($model->id, null, null, $filter),
+                    array(),
+                    $layer
+                );
             }
 
-            return array($this->getElementId($model, $elementId), RequestUrl::create($model->id));
+            return array(
+                $this->getElementId($model, $elementId),
+                RequestUrl::create($model->id, null, null, $filter)
+            );
         }
 
         return parent::buildConstructArguments($model, $mapper, $filter, $elementId);
@@ -88,8 +96,8 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         Definition $parent = null
     ) {
         if ($definition instanceof GeoJson) {
-            if ($model->affectBounds) {
-                $definition->setOption('affectBounds', true);
+            if ($model->boundsMode) {
+                $definition->setOption('boundsMode', $model->boundsMode);
             }
 
             $collection = $this->loadMarkerModels($model);
@@ -117,7 +125,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     public function handleGeoJson(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
     {
         $feature    = new FeatureCollection();
-        $collection = $this->loadMarkerModels($model);
+        $collection = $this->loadMarkerModels($model, $filter);
 
         if ($collection) {
             foreach ($collection as $item) {
@@ -136,12 +144,17 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * Load all layer markers.
      *
-     * @param \Model $model The layer model.
+     * @param \Model $model       The layer model.
+     * @param Filter $filter null The request filter.
      *
      * @return \Model\Collection|null
      */
-    protected function loadMarkerModels(\Model $model)
+    protected function loadMarkerModels(\Model $model, Filter $filter = null)
     {
-        return MarkerModel::findActiveBy('pid', $model->id, array('order' => 'sorting'));
+        if ($model->boundsMode == 'fit') {
+            return MarkerModel::findByFilter($model->id, $filter);
+        }
+
+        return MarkerModel::findByFilter($model->id);
     }
 }

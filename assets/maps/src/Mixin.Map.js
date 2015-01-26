@@ -1,6 +1,6 @@
 
 /**
- * Extend map so that it can calculate their bounds depending of the features with the property affectBounds.
+ * Extend map so that it can calculate their bounds depending of the features with the property boundsMode.
  */
 L.Map.include({
     _dynamicBounds: null,
@@ -63,7 +63,8 @@ L.Map.include({
                     this._dynamicBounds = L.latLngBounds(source, source);
                 }
             }
-        } else if (L.MarkerClusterGroup && layer instanceof L.MarkerClusterGroup && layer.options.affectBounds) {
+        } else if (L.MarkerClusterGroup && layer instanceof L.MarkerClusterGroup
+            && layer.options.boundsMode && layer.options.boundsMode == 'extend') {
             source = layer.getBounds();
 
             if (source.isValid()) {
@@ -73,7 +74,8 @@ L.Map.include({
                     this._dynamicBounds = L.latLngBounds(source.getSouthWest(), source.getNorthEast());
                 }
             }
-        } else if ((!layer.options || (layer.options && layer.options.affectBounds)) && layer.eachLayer) {
+        } else if ((!layer.options || (layer.options
+            && layer.options.boundsMode && layer.options.boundsMode == 'extend')) && layer.eachLayer) {
             layer.eachLayer(this._scanForBounds, this);
         }
     }
