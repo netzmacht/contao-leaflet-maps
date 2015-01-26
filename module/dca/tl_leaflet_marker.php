@@ -179,6 +179,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate'),
                 array('Netzmacht\Contao\Leaflet\Dca\Marker', 'saveCoordinates')
             ),
+            'load_callback' => array(
+                array('Netzmacht\Contao\Leaflet\Dca\Marker', 'loadCoordinates')
+            ),
             'wizard'        => array(
                 array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getGeocoder')
             ),
@@ -188,7 +191,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'nullIfEmpty'    => true,
                 'doNotSaveEmpty' => true,
             ),
-            'sql'           => "varchar(255) NULL"
         ),
         'latitude'      => array
         (
@@ -196,7 +198,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "float NULL"
+            'sql'       => "DECIMAL(10, 8)"
         ),
         'longitude'      => array
         (
@@ -204,7 +206,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "float NULL"
+            'sql'       => "DECIMAL(11, 8)"
         ),
         'altitude'      => array
         (

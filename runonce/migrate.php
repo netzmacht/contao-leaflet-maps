@@ -33,12 +33,17 @@ class migrate
      */
     protected function createFields(\Database $database)
     {
-        foreach (array('latitude', 'longitude', 'altitude') as $field) {
-            if (!$database->fieldExists('latitude', 'tl_leaflet_marker')) {
-                $database->execute(sprintf('ALTER TABLE tl_leaflet_marker ADD %s float NULL;', $field));
-            }
+        if (!$database->fieldExists('latitude', 'tl_leaflet_marker')) {
+            $database->execute('ALTER TABLE tl_leaflet_marker ADD latitude DECIMAL (10, 8) NULL;');
         }
 
+        if (!$database->fieldExists('longitude', 'tl_leaflet_marker')) {
+            $database->execute('ALTER TABLE tl_leaflet_marker ADD longitude DECIMAL (11, 8)  NULL;');
+        }
+
+        if (!$database->fieldExists('altitude', 'tl_leaflet_marker')) {
+            $database->execute('ALTER TABLE tl_leaflet_marker ADD altitude float NULL;');
+        }
     }
 
     /**

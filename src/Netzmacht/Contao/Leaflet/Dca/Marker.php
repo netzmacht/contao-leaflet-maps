@@ -82,6 +82,39 @@ class Marker
             ->set($combined)
             ->execute($dataContainer->id);
 
-        return $value;
+        return null;
+    }
+
+    /**
+     * Load the coordinates.
+     *
+     * @param string         $value         The raw data.
+     * @param \DataContainer $dataContainer The data container driver.
+     *
+     * @return string
+     */
+    public function loadCoordinates($value, $dataContainer)
+    {
+        $result = \Database::getInstance()
+            ->prepare('SELECT latitude, longitude, altitude FROM tl_leaflet_marker WHERE id=?')
+            ->execute($dataContainer->id);
+
+        if ($result->numRows) {
+            $buffer = $result->latitude;
+
+            if ($buffer && $result->longitude) {
+                $buffer .= ',' . $result->longitude;
+            } else {
+                return $buffer;
+            }
+
+            if ($buffer && $result->altitude) {
+                $buffer .= ',' . $result->longitude;
+            }
+
+            return $buffer;
+        }
+
+        return '';
     }
 }
