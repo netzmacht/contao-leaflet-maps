@@ -58,7 +58,10 @@
                 "prefix": "core-",
                 "languages_cto": "module/languages",
                 "languages_tx": ".tx"
-            }
+            },
+            "runonce": [
+                "runonce/migrate.php"
+            ]
         }
     }
 }
