@@ -198,7 +198,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "DECIMAL(10, 8)"
+            'sql'       => "decimal(10,8) NULL"
         ),
         'longitude'      => array
         (
@@ -206,7 +206,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "DECIMAL(11, 8)"
+            'sql'       => "decimal(11,8) NULL"
         ),
         'altitude'      => array
         (

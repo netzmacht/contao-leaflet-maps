@@ -194,7 +194,7 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         } else {
             $parent = LayerModel::findByPk($model->pid);
 
-            if ($parent && !$parent->affectBounds) {
+            if ($parent && $parent->boundsMode !== 'extend') {
                 $feature->setProperty('ignoreForBounds', true);
             }
         }

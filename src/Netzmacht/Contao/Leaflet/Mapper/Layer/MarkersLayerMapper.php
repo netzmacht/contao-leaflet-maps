@@ -108,7 +108,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                     $point  = $mapper->convertToGeoJsonFeature($marker, $item);
 
                     if ($point) {
-                        $definition->addData($point);
+                        $definition->addData($point, true);
                     }
                 }
             }
