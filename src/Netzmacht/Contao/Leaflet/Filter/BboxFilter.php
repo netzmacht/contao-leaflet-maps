@@ -69,4 +69,14 @@ class BboxFilter implements Filter
     {
         return array('bounds' => $this->bounds);
     }
+
+    /**
+     * Get the bounds.
+     *
+     * @return LatLngBounds
+     */
+    public function getBounds()
+    {
+        return $this->bounds;
+    }
 }

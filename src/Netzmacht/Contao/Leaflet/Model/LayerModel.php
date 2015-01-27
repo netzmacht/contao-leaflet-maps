@@ -20,6 +20,7 @@ use Model\Collection;
  * @property mixed|null alias
  * @property mixed|null pointToLayer
  * @property mixed|null onEachFeature
+ * @property mixed|null boundsMode
  *
  * @package Netzmacht\Contao\Leaflet\Model
  */
