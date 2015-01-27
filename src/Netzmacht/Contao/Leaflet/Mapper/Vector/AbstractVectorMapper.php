@@ -15,10 +15,12 @@ use Netzmacht\Contao\Leaflet\Definition\Style;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 use Netzmacht\Contao\Leaflet\ServiceContainerTrait;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
+use Netzmacht\LeafletPHP\Definition\UI\Popup;
 use Netzmacht\LeafletPHP\Definition\Vector\Path;
 
 /**
@@ -62,12 +64,25 @@ class AbstractVectorMapper extends AbstractTypeMapper
         }
 
         if ($definition instanceof HasPopup && $model->addPopup) {
+            $popup   = null;
             $content = $this
                 ->getServiceContainer()
                 ->getFrontendValueFilter()
                 ->filter($model->popupContent);
 
-            $definition->bindPopup($content);
+            if ($model->popup) {
+                $popupModel = PopupModel::findActiveByPK($model->popup);
+
+                if ($popupModel) {
+                    $popup = $mapper->handle($popupModel, $filter, null, $definition);
+                }
+            }
+
+            if ($popup instanceof Popup) {
+                $definition->bindPopup($content, $popup->getOptions());
+            } else {
+                $definition->bindPopup($content);
+            }
         }
     }
 }
