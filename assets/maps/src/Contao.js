@@ -298,28 +298,6 @@ L.Contao = L.Class.extend({
 });
 
 /**
- * Attribution handling.
- */
-L.Contao.Attribution = {
-    setPrefix: function(prefix) {
-        if (prefix.indexOf(L.Contao.ATTRIBUTION) === -1) {
-            prefix += L.Contao.ATTRIBUTION;
-        }
-
-        this.options.prefix = prefix;
-
-        this._update();
-        return this;
-    }
-};
-
-L.Control.Attribution.addInitHook(function() {
-    this.options.prefix += L.Contao.ATTRIBUTION;
-});
-
-L.Control.Attribution.include(L.Contao.Attribution);
-
-/**
  * Start Contao integration.
  */
 L.contao = new L.Contao();
