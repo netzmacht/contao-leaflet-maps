@@ -14,7 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Subscriber;
 use Netzmacht\Contao\Leaflet\Dca\Vector;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
-use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
+use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
 use Netzmacht\LeafletPHP\Definition\Vector\Circle;

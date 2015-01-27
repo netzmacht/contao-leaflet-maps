@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Event;
 
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonObject;
+use Netzmacht\LeafletPHP\Value\GeoJson\GeoJsonObject;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

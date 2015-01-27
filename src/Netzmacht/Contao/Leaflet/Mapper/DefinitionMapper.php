@@ -16,10 +16,10 @@ use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJsonFeature;
-use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
-use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
-use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
+use Netzmacht\LeafletPHP\Value\GeoJson\ConvertsToGeoJsonFeature;
+use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
+use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
+use Netzmacht\LeafletPHP\Value\GeoJson\GeoJsonFeature;
 use Netzmacht\LeafletPHP\Value\LatLngBounds;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 

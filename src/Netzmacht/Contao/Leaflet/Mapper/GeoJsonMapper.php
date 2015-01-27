@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
-use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
+use Netzmacht\LeafletPHP\Value\GeoJson\GeoJsonFeature;
 
 /**
  * Interface GeoJsonMapper describes mappers which can convert their definition to a GeoJSON representation.
