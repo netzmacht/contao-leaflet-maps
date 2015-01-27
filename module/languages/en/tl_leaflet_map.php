@@ -81,6 +81,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['enableHighAccuracy'][0]  = 'High accuracy
 $GLOBALS['TL_LANG']['tl_leaflet_map']['enableHighAccuracy'][1]  = 'Enables high accuracy, see <a href="http://dev.w3.org/geo/api/spec-source.html#high-accuracy" target="_blank">description in the W3C spec</a>.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge'][0]    = 'Locate maximum age';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge'][1]    = 'Maximum age of detected location in milliseconds. Use cached value if time has not passed.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['dynamicLoad'][0]         = 'Load data dynamically in bounds';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['dynamicLoad'][1]         = 'If enabled the map requests data from the layers for the current bounds only and make a new request if bounds has changed.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load'][0]     = 'At map initialization';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load'][1]     = 'Calculate bounds when the map is initialized. All static and already loaded deferred featured are included.';
