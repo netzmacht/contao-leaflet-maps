@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Filter;
 
-use Netzmacht\LeafletPHP\Definition\Type\LatLng;
+use Netzmacht\LeafletPHP\Value\LatLng;
 
 /**
  * Class DistanceFilter filters by a coordinate the the distance from it.
@@ -23,7 +23,7 @@ class DistanceFilter implements Filter
     /**
      * The center coordinates.
      *
-     * @var LatLng
+     * @var \Netzmacht\LeafletPHP\Value\LatLng
      */
     private $center;
 

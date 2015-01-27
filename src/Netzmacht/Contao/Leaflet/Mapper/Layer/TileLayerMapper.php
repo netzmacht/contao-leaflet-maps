@@ -15,7 +15,7 @@ use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Raster\TileLayer;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Value\LatLngBounds;
 
 /**
  * Class TileLayerMapper maps the database model to the tile layer definition.

@@ -20,7 +20,7 @@ use Netzmacht\LeafletPHP\Definition\GeoJson\ConvertsToGeoJsonFeature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\GeoJson\GeoJsonFeature;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Value\LatLngBounds;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**

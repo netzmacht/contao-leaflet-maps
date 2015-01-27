@@ -14,7 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Type\LatLng;
+use Netzmacht\LeafletPHP\Value\LatLng;
 use Netzmacht\LeafletPHP\Definition\Vector\MultiPolyline;
 
 /**

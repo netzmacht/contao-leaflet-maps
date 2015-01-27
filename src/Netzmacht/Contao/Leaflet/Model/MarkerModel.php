@@ -13,7 +13,7 @@ namespace Netzmacht\Contao\Leaflet\Model;
 
 use Netzmacht\Contao\Leaflet\Filter\BboxFilter;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Value\LatLngBounds;
 
 /**
  * Class MarkerModel for the tl_leaflet_marker table.

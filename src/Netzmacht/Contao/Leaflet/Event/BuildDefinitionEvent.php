@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Event;
 
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Value\LatLngBounds;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

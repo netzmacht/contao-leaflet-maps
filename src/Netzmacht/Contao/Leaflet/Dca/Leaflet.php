@@ -15,7 +15,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\MapMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
-use Netzmacht\LeafletPHP\Definition\Type\LatLng;
+use Netzmacht\LeafletPHP\Value\LatLng;
 
 /**
  * Class Leaflet is the base helper providing different methods.

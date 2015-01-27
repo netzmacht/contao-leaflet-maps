@@ -19,7 +19,7 @@ use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Map;
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Value\LatLngBounds;
 use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
@@ -109,7 +109,7 @@ class MapService
      * Get map javascript.
      *
      * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
-     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
+     * @param \Netzmacht\LeafletPHP\Value\LatLngBounds $bounds    Optional bounds where elements should be in.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      * @param string       $template  The template being used for generating.
      * @param string       $style     Optional style attributes.

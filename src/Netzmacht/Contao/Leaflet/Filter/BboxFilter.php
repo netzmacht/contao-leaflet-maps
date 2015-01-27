@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Filter;
 
-use Netzmacht\LeafletPHP\Definition\Type\LatLngBounds;
+use Netzmacht\LeafletPHP\Value\LatLngBounds;
 
 /**
  * The Bounds box filter.
@@ -30,7 +30,7 @@ class BboxFilter implements Filter
     /**
      * Construct.
      *
-     * @param LatLngBounds $bounds The bounds.
+     * @param \Netzmacht\LeafletPHP\Value\LatLngBounds $bounds The bounds.
      */
     public function __construct(LatLngBounds $bounds)
     {
