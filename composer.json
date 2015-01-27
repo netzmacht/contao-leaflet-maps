@@ -31,7 +31,7 @@
         "doctrine/cache": "~1.0"
     },
     "require-dev":{
-        "netzmacht/contao-build-tools": "1.0.x-dev"
+        "netzmacht/contao-build-tools": "~1.1"
     },
     "autoload": {
         "psr-0": {
