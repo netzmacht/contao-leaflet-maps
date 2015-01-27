@@ -13,6 +13,7 @@ namespace Netzmacht\Contao\Leaflet\Dca;
 
 use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\Model\PopupModel;
 
 /**
  * Class Marker is the dca helper class for the tl_leaflet_marker dca.
@@ -48,6 +49,19 @@ class Marker
                 return sprintf('%s [%s]', $model['title'], $model['type']);
             }
         );
+
+        return $builder->getOptions();
+    }
+
+    /**
+     * Get all popups.
+     *
+     * @return array
+     */
+    public function getPopups()
+    {
+        $collection = PopupModel::findAll(array('order' => 'title'));
+        $builder    = OptionsBuilder::fromCollection($collection, 'id', 'title');
 
         return $builder->getOptions();
     }

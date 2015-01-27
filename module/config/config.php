@@ -37,6 +37,7 @@ array_insert(
                     'tl_leaflet_vector',
                     'tl_leaflet_icon',
                     'tl_leaflet_style',
+                    'tl_leaflet_popup',
                 ),
                 'icon'       => 'system/modules/leaflet/assets/img/layers.png',
                 'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
@@ -51,20 +52,24 @@ array_insert(
     )
 );
 
+
 /*
  * Content elements.
  */
 $GLOBALS['TL_CTE']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\MapElement';
+
 
 /*
  * Frontend modules
  */
 $GLOBALS['FE_MOD']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\MapModule';
 
+
 /*
  * Hooks
  */
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Netzmacht\Contao\Leaflet\Frontend\Hooks', 'replaceInsertTags');
+
 
 /*
  * Models.
@@ -74,6 +79,7 @@ $GLOBALS['TL_MODELS']['tl_leaflet_icon']    = 'Netzmacht\Contao\Leaflet\Model\Ic
 $GLOBALS['TL_MODELS']['tl_leaflet_layer']   = 'Netzmacht\Contao\Leaflet\Model\LayerModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_map']     = 'Netzmacht\Contao\Leaflet\Model\MapModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_marker']  = 'Netzmacht\Contao\Leaflet\Model\MarkerModel';
+$GLOBALS['TL_MODELS']['tl_leaflet_popup']   = 'Netzmacht\Contao\Leaflet\Model\PopupModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_style']   = 'Netzmacht\Contao\Leaflet\Model\StyleModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = 'Netzmacht\Contao\Leaflet\Model\VectorModel';
 
@@ -114,6 +120,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\Rectangl
 
 // Miscellaneous mappers.
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\PopupMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Style\FixedStyleMapper';

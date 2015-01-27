@@ -56,6 +56,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'icon'                => 'system/modules/leaflet/assets/img/icons.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
             ),
+            'popups' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'],
+                'href'                => 'table=tl_leaflet_popup',
+                'icon'                => 'system/modules/leaflet/assets/img/popup.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
+            ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
@@ -124,7 +131,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
         ),
     ),
     'metasubpalettes' => array(
-        'addPopup'   => array('popupContent'),
+        'addPopup'   => array('popup', 'popupContent'),
         'customIcon' => array('icon')
     ),
 
@@ -249,8 +256,22 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'checkbox',
             'filter'    => true,
-            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => true),
+            'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'popup'         => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popup'],
+            'exclude'   => true,
+            'inputType' => 'select',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'getPopups'),
+            'eval'      => array(
+                'mandatory'          => false,
+                'tl_class'           => 'w50',
+                'chosen'             => true,
+                'includeBlankOption' => true,
+            ),
+            'sql'       => "int(10) unsigned NOT NULL default '0'",
         ),
         'popupContent' => array
         (

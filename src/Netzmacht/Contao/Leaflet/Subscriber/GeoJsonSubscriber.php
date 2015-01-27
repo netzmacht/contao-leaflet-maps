@@ -63,6 +63,10 @@ class GeoJsonSubscriber implements EventSubscriberInterface
             if ($definition->getPopupContent()) {
                 $feature->setProperty('popupContent', $definition->getPopupContent());
             }
+
+            if ($definition->getPopupOptions()) {
+                $feature->setProperty('popupOptions', $definition->getPopupOptions());
+            }
         }
     }
 

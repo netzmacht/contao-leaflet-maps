@@ -56,7 +56,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'icon'                => 'system/modules/leaflet/assets/img/style.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();"'
             ),
-
+            'popups' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['popups'],
+                'href'                => 'table=tl_leaflet_popup',
+                'icon'                => 'system/modules/leaflet/assets/img/popup.png',
+                'attributes'          => 'onclick="Backend.getScrollOffset();"'
+            ),
             'all' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],

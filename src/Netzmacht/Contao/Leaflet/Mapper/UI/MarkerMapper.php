@@ -15,10 +15,12 @@ use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\ServiceContainerTrait;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
+use Netzmacht\LeafletPHP\Definition\UI\Popup;
 
 /**
  * Class MarkerMapper maps the marker model to the marker definition.
@@ -53,7 +55,7 @@ class MarkerMapper extends AbstractMapper
         $elementId = null
     ) {
         $arguments   = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
-        $arguments[] = $model->coordinates ?: null;
+        $arguments[] = array($model->latitude, $model->longitude, $model->altitude ?: null) ?: null;
 
         return $arguments;
     }
@@ -82,12 +84,25 @@ class MarkerMapper extends AbstractMapper
     ) {
         if ($definition instanceof Marker) {
             if ($model->addPopup) {
+                $popup   = null;
                 $content = $this
                     ->getServiceContainer()
                     ->getFrontendValueFilter()
                     ->filter($model->popupContent);
 
-                $definition->bindPopup($content);
+                if ($model->popup) {
+                    $popupModel = PopupModel::findActiveByPK($model->popup);
+
+                    if ($popupModel) {
+                        $popup = $mapper->handle($popupModel, $filter, null, $definition);
+                    }
+                }
+
+                if ($popup instanceof Popup) {
+                    $definition->bindPopup($content, $popup->getOptions());
+                } else {
+                    $definition->bindPopup($content);
+                }
             }
 
             if ($model->customIcon) {
