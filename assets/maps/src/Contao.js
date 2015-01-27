@@ -226,9 +226,9 @@ L.Contao = L.Class.extend({
     bindPopupFromFeature: function (obj, feature) {
         if (feature.properties) {
             if (feature.properties.popup) {
-                obj.bindPopup(feature.properties.popup);
+                obj.bindPopup(feature.properties.popup, feature.properties.popupOptions);
             } else if (feature.properties.popupContent) {
-                obj.bindPopup(feature.properties.popupContent);
+                obj.bindPopup(feature.properties.popupContent, feature.properties.popupOptions);
             }
         }
     },
