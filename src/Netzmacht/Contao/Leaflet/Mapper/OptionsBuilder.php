@@ -222,13 +222,17 @@ class OptionsBuilder
     }
 
     /**
-     * @param $option
-     * @param $value
-     * @param Definition $definition
+     * Apply an option.
+     *
+     * @param string     $option     The option name.
+     * @param mixed      $value      The option value.
+     * @param Definition $definition The definition.
+     *
+     * @return void
      */
     private static function applyOption($option, $value, $definition)
     {
-        $setter  = 'set' . ucfirst($option);
+        $setter = 'set' . ucfirst($option);
 
         if (method_exists($definition, $setter)) {
             $definition->$setter($value);

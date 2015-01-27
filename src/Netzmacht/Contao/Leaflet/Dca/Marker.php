@@ -84,9 +84,10 @@ class Marker
 
         $values = trimsplit(',', $value);
         $keys   = array_keys($combined);
+        $count  = count($values);
 
-        if (count($values) >= 2 && count($values) <= 3) {
-            for ($i = 0; $i < count($values); $i++) {
+        if ($count >= 2 && $count <= 3) {
+            for ($i = 0; $i < $count; $i++) {
                 $combined[$keys[$i]] = $values[$i];
             }
         }
@@ -106,6 +107,8 @@ class Marker
      * @param \DataContainer $dataContainer The data container driver.
      *
      * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function loadCoordinates($value, $dataContainer)
     {

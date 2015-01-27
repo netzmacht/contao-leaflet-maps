@@ -144,8 +144,8 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * Load all layer markers.
      *
-     * @param \Model $model       The layer model.
-     * @param Filter $filter null The request filter.
+     * @param \Model $model  The layer model.
+     * @param Filter $filter The request filter.
      *
      * @return \Model\Collection|null
      */

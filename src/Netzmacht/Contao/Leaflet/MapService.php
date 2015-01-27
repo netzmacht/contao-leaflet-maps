@@ -109,7 +109,7 @@ class MapService
      * Get map javascript.
      *
      * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
-     * @param \Netzmacht\LeafletPHP\Value\LatLngBounds $bounds    Optional bounds where elements should be in.
+     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      * @param string       $template  The template being used for generating.
      * @param string       $style     Optional style attributes.

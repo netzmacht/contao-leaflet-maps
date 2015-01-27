@@ -30,7 +30,7 @@ class BboxFilter implements Filter
     /**
      * Construct.
      *
-     * @param \Netzmacht\LeafletPHP\Value\LatLngBounds $bounds The bounds.
+     * @param LatLngBounds $bounds The bounds.
      */
     public function __construct(LatLngBounds $bounds)
     {

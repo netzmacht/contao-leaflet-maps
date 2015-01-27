@@ -30,15 +30,17 @@ class MarkerModel extends AbstractActiveModel
     protected static $strTable = 'tl_leaflet_marker';
 
     /**
-     * @param        $pid
-     * @param Filter $filter
+     * Find by a filter.
+     *
+     * @param int    $pid    The parent id.
+     * @param Filter $filter The filter.
      *
      * @return \Model\Collection|null
      */
     public static function findByFilter($pid, Filter $filter = null)
     {
         if (!$filter) {
-            return MarkerModel::findActiveBy('pid', $pid, array('order' => 'sorting'));
+            return static::findActiveBy('pid', $pid, array('order' => 'sorting'));
         }
 
         switch ($filter->getName()) {
@@ -51,8 +53,10 @@ class MarkerModel extends AbstractActiveModel
     }
 
     /**
-     * @param            $pid
-     * @param BboxFilter $filter
+     * Find by the bbox filter.
+     *
+     * @param int        $pid    The layer id.
+     * @param BboxFilter $filter The bbox filter.
      *
      * @return \Model\Collection|null
      */
