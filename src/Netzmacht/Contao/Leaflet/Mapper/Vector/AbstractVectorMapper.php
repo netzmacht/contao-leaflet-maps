@@ -63,6 +63,21 @@ class AbstractVectorMapper extends AbstractTypeMapper
             }
         }
 
+        $this->buildPopup($definition, $model, $mapper, $filter);
+    }
+
+    /**
+     * Build the popup.
+     *
+     * @param Definition       $definition The definition.
+     * @param \Model           $model      The model.
+     * @param DefinitionMapper $mapper     The definition mapper.
+     * @param Filter           $filter     The filter.
+     *
+     * @return void
+     */
+    protected function buildPopup(Definition $definition, \Model $model, DefinitionMapper $mapper, Filter $filter)
+    {
         if ($definition instanceof HasPopup && $model->addPopup) {
             $popup   = null;
             $content = $this
