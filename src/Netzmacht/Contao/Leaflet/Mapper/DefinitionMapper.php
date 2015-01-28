@@ -15,12 +15,12 @@ use Netzmacht\Contao\Leaflet\Event\BuildDefinitionEvent;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Value\GeoJson\ConvertsToGeoJsonFeature;
 use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Value\GeoJson\GeoJsonFeature;
-use Netzmacht\LeafletPHP\Value\LatLngBounds;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**
@@ -74,6 +74,18 @@ class DefinitionMapper
         $this->mappers[$priority][] = $mapper;
 
         krsort($this->mappers);
+
+        return $this;
+    }
+
+    /**
+     * Reset the internal cache.
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->mapped = array();
 
         return $this;
     }

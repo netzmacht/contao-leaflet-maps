@@ -13,6 +13,8 @@ namespace Netzmacht\Contao\Leaflet;
 
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Netzmacht\Contao\Leaflet\Frontend\DataController;
+use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
@@ -52,25 +54,38 @@ class MapService
     private $eventDispatcher;
 
     /**
+     * The request input.
+     *
+     * @var \Input
+     */
+    private $input;
+
+    /**
      * Construct.
      *
      * @param DefinitionMapper $mapper          The definition mapper.
      * @param Leaflet          $leaflet         The Leaflet instance.
      * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
+     * @param \Input           $input           Thw request input.
      */
-    public function __construct(DefinitionMapper $mapper, Leaflet $leaflet, EventDispatcher $eventDispatcher)
-    {
+    public function __construct(
+        DefinitionMapper $mapper,
+        Leaflet $leaflet,
+        EventDispatcher $eventDispatcher,
+        \Input $input
+    ) {
         $this->mapper          = $mapper;
         $this->leaflet         = $leaflet;
         $this->eventDispatcher = $eventDispatcher;
+        $this->input           = $input;
     }
 
     /**
      * Get map definition.
      *
-     * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
-     * @param Filter       $filter    Optional request filter.
-     * @param string       $elementId Optional element id. If none given the mapId or alias is used.
+     * @param MapModel|int $mapId      The map database id. MapModel accepted as well.
+     * @param Filter       $filter     Optional request filter.
+     * @param string       $elementId  Optional element id. If none given the mapId or alias is used.
      *
      * @return Map
      */
@@ -78,11 +93,16 @@ class MapService
     {
         if ($mapId instanceof MapModel) {
             $model = $mapId;
+            $mapId = $model->id;
         } else {
             $model = $this->getModel($mapId);
         }
 
-        return $this->mapper->handle($model, $filter, $elementId);
+        RequestUrl::setFor($elementId ?: $mapId);
+        $definition = $this->mapper->reset()->handle($model, $filter, $elementId);
+        RequestUrl::setFor(null);
+
+        return $definition;
     }
 
     /**
@@ -109,25 +129,22 @@ class MapService
      * Get map javascript.
      *
      * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
-     * @param LatLngBounds $bounds    Optional bounds where elements should be in.
+     * @param Filter       $filter    Optional request filter.
      * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      * @param string       $template  The template being used for generating.
      * @param string       $style     Optional style attributes.
      *
      * @return string
      * @throws \Exception If generating went wrong.
-     *
-     * @SuppressWarnings(PHPMD.UnusedLocalVariables)
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function generate(
         $mapId,
-        LatLngBounds $bounds = null,
+        Filter $filter = null,
         $elementId = null,
         $template = 'leaflet_map_js',
         $style = ''
     ) {
-        $definition = $this->getDefinition($mapId, $bounds, $elementId);
+        $definition = $this->getDefinition($mapId, $filter, $elementId);
         $assets     = new ContaoAssets();
         $template   = \Controller::getTemplate($template);
 
@@ -170,5 +187,43 @@ class MapService
         }
 
         return $this->mapper->handleGeoJson($model, $filter);
+    }
+
+    /**
+     * Handle ajax request.
+     *
+     * @param string $identifier The request identifier.
+     * @param bool   $exit       Exit if ajax request is detected.
+     *
+     * @throws \Exception
+     */
+    public function handleAjaxRequest($identifier, $exit = true)
+    {
+        $input = $this->input->get('leaflet', true);
+
+        // Handle ajax request.
+        if ($input) {
+            $data   = explode(',', base64_decode($input));
+            $data[] = $this->input->get('f');
+            $data[] = $this->input->get('v');
+
+            if (count($data) != 6) {
+                throw new \RuntimeException('Bad request. Could not resolve query params');
+            }
+
+            $data = array_combine(array('for', 'type', 'id', 'format', 'filter', 'values'), $data);
+            $data = array_filter($data);
+
+            if (empty($data['for']) || $data['for'] != $identifier) {
+                return;
+            }
+
+            $controller = new DataController($this, $data);
+            $controller->execute();
+
+            if ($exit) {
+                exit;
+            }
+        }
     }
 }

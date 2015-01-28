@@ -66,7 +66,7 @@ trait HybridTrait
      */
     public function generate()
     {
-        $this->handleAjaxRequest();
+        $this->mapService->handleAjaxRequest('map_' . $this->getIdentifier());
 
         if (TL_MODE === 'BE') {
             $model = MapModel::findByPK($this->leaflet_map);
@@ -101,10 +101,8 @@ trait HybridTrait
     protected function compile()
     {
         try {
-            RequestUrl::setFor($this->getIdentifier());
-            $mapId = 'map_' . ($this->cssID[0] ?: ($this->getIdentifier()));
+            $mapId = 'map_' . $this->getIdentifier();
             $map   = $this->mapService->generate($this->leaflet_map, null, $mapId);
-            RequestUrl::setFor(null);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
 
@@ -125,42 +123,6 @@ trait HybridTrait
             $this->Template->mapStyle = $style;
         } catch (\Exception $e) {
             throw $e;
-        }
-    }
-
-    /**
-     * Handle ajax request if leaflet parameter is given.
-     *
-     * @return void
-     *
-     * @throws \RuntimeException If a bad leaflet param hash is given.
-     * @SuppressWarnings(ExitExpression)
-     */
-    private function handleAjaxRequest()
-    {
-        $input = $this->input->get('leaflet', true);
-
-        // Handle ajax request.
-        if ($input) {
-            $data   = explode(',', base64_decode($input));
-            $data[] = $this->input->get('f');
-            $data[] = $this->input->get('v');
-
-            if (count($data) != 6) {
-                throw new \RuntimeException('Bad request. Could not resolve query params');
-            }
-
-            $data = array_combine(array('for', 'type', 'id', 'format', 'filter', 'values'), $data);
-            $data = array_filter($data);
-
-            if (empty($data['for']) || $data['for'] != $this->getIdentifier()) {
-                return;
-            }
-
-            $controller = new DataController($this->mapService, $data);
-            $controller->execute();
-
-            exit;
         }
     }
 }

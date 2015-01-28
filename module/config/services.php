@@ -37,7 +37,8 @@ $container['leaflet.map.service'] = $container->share(function ($container) {
     return new MapService(
         $container['leaflet.definition.mapper'],
         $container['leaflet.definition.builder'],
-        $container['event-dispatcher']
+        $container['event-dispatcher'],
+        $container['input']
     );
 });
 
