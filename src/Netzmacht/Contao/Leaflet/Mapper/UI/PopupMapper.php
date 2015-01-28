@@ -80,7 +80,9 @@ class PopupMapper extends AbstractMapper
             );
 
             if ($padding[0] === $padding[1]) {
-                $definition->setAutoPanPadding($padding[0]);
+                if (!empty($padding[0])) {
+                    $definition->setAutoPanPadding($padding[0]);
+                }
             } else {
                 if ($padding[0]) {
                     $definition->setAutoPanPaddingTopLeft($padding[0]);
