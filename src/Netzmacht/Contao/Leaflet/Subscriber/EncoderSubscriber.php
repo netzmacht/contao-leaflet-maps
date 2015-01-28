@@ -13,6 +13,7 @@ namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\JavascriptBuilder\Encoder;
+use Netzmacht\JavascriptBuilder\Flags;
 use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeValueEvent;
 use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeReferenceEvent;
 use Netzmacht\JavascriptBuilder\Exception\EncodeValueFailed;
@@ -118,7 +119,7 @@ class EncoderSubscriber implements EventSubscriberInterface
             );
 
             foreach ($value->getMethodCalls() as $call) {
-                $event->addLine($call->encode($encoder, Encoder::CLOSE_STATEMENT));
+                $event->addLine($call->encode($encoder, Flags::CLOSE_STATEMENT));
             }
         }
     }

@@ -21,6 +21,7 @@ use Netzmacht\JavascriptBuilder\Encoder\Chain\MultipleChain;
 use Netzmacht\JavascriptBuilder\Encoder\ChainEncoder;
 use Netzmacht\JavascriptBuilder\Encoder\JavascriptEncoder;
 use Netzmacht\JavascriptBuilder\Encoder\MultipleObjectsEncoder;
+use Netzmacht\JavascriptBuilder\Flags;
 use Netzmacht\JavascriptBuilder\Output;
 use Netzmacht\JavascriptBuilder\Symfony\EventDispatchingEncoder;
 use Netzmacht\LeafletPHP\Leaflet;
@@ -99,7 +100,7 @@ $container['leaflet.definition.builder'] = $container->share(function($container
     $factory    = $container['leaflet.definition.builder.encoder-factory'];
 
     $builder = new Builder($factory);
-    $leaflet = new Leaflet($builder, $dispatcher, array(), JSON_UNESCAPED_SLASHES ^ Encoder::BUILD_STACK);
+    $leaflet = new Leaflet($builder, $dispatcher, array(), JSON_UNESCAPED_SLASHES ^ Flags::BUILD_STACK);
 
     return $boot->initializeLeafletBuilder($leaflet);
 });
