@@ -116,10 +116,7 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function loadAssets()
     {
-        $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/maps/contao-leaflet.js' . (\Config::get('debugMode')
-            ? ''
-            : '|static'
-        );
+        $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/maps/contao-leaflet.js' . $this->staticFlag();
     }
 
     /**
@@ -160,10 +157,16 @@ class BootSubscriber implements EventSubscriberInterface
             // @codingStandardsIgnoreStart
             // TODO: Cache it.
             // codingStandardsIgnoreEnd
-            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js' . (\Config::get('debugMode')
-                ? ''
-                : '|static'
-            );
+            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js' . $this->staticFlag();
         }
+    }
+
+    private function staticFlag()
+    {
+        if (\Config::get('debugMode') || TL_MODE !== 'FE') {
+            return '';
+        }
+
+        return '|static';
     }
 }

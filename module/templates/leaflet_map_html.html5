@@ -1,8 +1,6 @@
 <div id="<?php echo $mapId; ?>" style="<?php echo $style; ?>"></div>
-<?php $GLOBALS['TL_BODY'][] = <<<HTML
 <script>
 L.contao.addMap('{$mapId}', function() {
-{$javascript}
+<?php echo $javascript; ?>
 return { map: map, layers: layers, controls: controls, icons: icons };
 }());</script>
-HTML;

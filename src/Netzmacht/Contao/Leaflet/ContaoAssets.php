@@ -40,7 +40,7 @@ class ContaoAssets implements Assets
                 break;
 
             case static::TYPE_FILE:
-                if (!\Config::get('debugMode')) {
+                if (!\Config::get('debugMode') && TL_MODE === 'FE') {
                     $script .= '|static';
                 }
 
