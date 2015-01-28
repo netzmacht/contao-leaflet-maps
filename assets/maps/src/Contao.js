@@ -281,7 +281,7 @@ L.Contao = L.Class.extend({
                 params[params.length] = [key, value].join('=');
             }
 
-            value = document.location.pathname + params.join('&');
+            value = document.location.pathname + '?' + params.join('&');
         }
 
         if (map) {
