@@ -15,7 +15,6 @@ use Netzmacht\Contao\Leaflet\Event\BuildDefinitionEvent;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
-use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Value\GeoJson\ConvertsToGeoJsonFeature;
 use Netzmacht\LeafletPHP\Value\GeoJson\Feature;

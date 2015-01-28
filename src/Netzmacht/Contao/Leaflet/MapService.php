@@ -21,7 +21,6 @@ use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Map;
-use Netzmacht\LeafletPHP\Value\LatLngBounds;
 use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
