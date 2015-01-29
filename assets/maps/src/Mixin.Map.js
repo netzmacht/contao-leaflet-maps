@@ -29,8 +29,6 @@ L.Map.include({
             this.eachLayer(this._scanForBounds, this);
         }
 
-        console.log(this._dynamicBounds);
-
         if (this._dynamicBounds) {
             this.fitBounds(this._dynamicBounds);
         }
