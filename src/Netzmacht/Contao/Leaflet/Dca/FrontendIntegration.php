@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
+use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 
 /**

@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use ContentElement;
-use Netzmacht\Contao\DevTools\ServiceContainerTrait;
+use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\MapService;
 
 /**

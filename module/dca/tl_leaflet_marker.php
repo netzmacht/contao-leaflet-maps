@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\DevTools\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
                     'tl_leaflet_marker',
                     'active'
                 )
@@ -172,7 +172,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'inputType'     => 'text',
             'search'        => true,
             'save_callback' => array(
-                \Netzmacht\Contao\DevTools\Dca::createGenerateAliasCallback('tl_leaflet_marker', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca::createGenerateAliasCallback('tl_leaflet_marker', 'title'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"

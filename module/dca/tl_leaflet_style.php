@@ -95,7 +95,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_style']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\DevTools\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
                     'tl_leaflet_style',
                     'active'
                 )
@@ -153,7 +153,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                \Netzmacht\Contao\DevTools\Dca::createGenerateAliasCallback('tl_leaflet_style', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca::createGenerateAliasCallback('tl_leaflet_style', 'title'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"
@@ -189,7 +189,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => array(
-                \Netzmacht\Contao\DevTools\Dca::createColorPickerCallback(),
+                \Netzmacht\Contao\Toolkit\Dca::createColorPickerCallback(),
             ),
             'eval'      => array(
                 'tl_class'       => 'w50 wizard clr',
@@ -230,7 +230,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => array(
-                \Netzmacht\Contao\DevTools\Dca::createColorPickerCallback(),
+                \Netzmacht\Contao\Toolkit\Dca::createColorPickerCallback(),
             ),
             'eval'      => array(
                 'tl_class'       => 'clr w50 wizard',

@@ -162,7 +162,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'inputType' => 'text',
             'search'    => true,
             'save_callback' => array(
-                \Netzmacht\Contao\DevTools\Dca::createGenerateAliasCallback('tl_leaflet_map', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca::createGenerateAliasCallback('tl_leaflet_map', 'title'),
             ),
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'       => "varchar(255) NOT NULL default ''"

@@ -11,8 +11,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use Netzmacht\Contao\DevTools\Dca\Options\OptionsBuilder;
-use Netzmacht\Contao\DevTools\ServiceContainerTrait;
+use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
+use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 /**

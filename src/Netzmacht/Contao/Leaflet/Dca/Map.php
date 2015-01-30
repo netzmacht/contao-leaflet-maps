@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use Netzmacht\Contao\DevTools\ServiceContainerTrait;
+use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
 
 /**
  * Class Map is the helper class for the tl_leaflet_map dca.
