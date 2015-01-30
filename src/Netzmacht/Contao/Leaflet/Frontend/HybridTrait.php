@@ -66,7 +66,7 @@ trait HybridTrait
      */
     public function generate()
     {
-        $this->mapService->handleAjaxRequest('map_' . $this->getIdentifier());
+        $this->mapService->handleAjaxRequest($this->getIdentifier());
 
         if (TL_MODE === 'BE') {
             $model = MapModel::findByPK($this->leaflet_map);
@@ -101,8 +101,9 @@ trait HybridTrait
     protected function compile()
     {
         try {
-            $mapId = 'map_' . $this->getIdentifier();
-            $map   = $this->mapService->generate($this->leaflet_map, null, $mapId);
+            $template = $this->leaflet_template ?: 'leaflet_map_js';
+            $mapId    = $this->getIdentifier();
+            $map      = $this->mapService->generate($this->leaflet_map, null, $mapId, $template);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
 

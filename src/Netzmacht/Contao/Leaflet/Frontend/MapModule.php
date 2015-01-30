@@ -46,6 +46,14 @@ class MapModule extends \Module
      */
     protected function getIdentifier()
     {
-        return 'mod_' . $this->id;
+        if ($this->leaflet_mapId) {
+            return $this->leaflet_mapId;
+        }
+
+        if ($this->cssID[0]) {
+            return 'map_' . $this->cssID[0];
+        }
+
+        return 'map_mod_' . $this->id;
     }
 }

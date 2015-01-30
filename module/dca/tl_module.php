@@ -11,7 +11,7 @@
 
 $GLOBALS['TL_DCA']['tl_module']['metapalettes']['leaflet'] = array(
     'type'      => array('name', 'type', 'headline'),
-    'leaflet'   => array('leaflet_map', 'leaflet_width', 'leaflet_height'),
+    'leaflet'   => array('leaflet_map', 'leaflet_mapId', 'leaflet_width', 'leaflet_height', 'leaflet_template'),
     'templates' => array(':hide', 'customTpl'),
     'protected' => array(':hide', 'protected'),
     'expert'    => array(':hide', 'guests', 'cssID', 'space'),
@@ -33,6 +33,18 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_map'] = array(
     'sql'              => "int(10) unsigned NOT NULL default '0'"
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_mapId'] = array(
+    'label'            => &$GLOBALS['TL_LANG']['tl_module']['leaflet_mapId'],
+    'inputType'        => 'text',
+    'exclude'          => true,
+    'eval'             => array(
+        'tl_class'  => 'w50',
+        'chosen'    => true,
+        'maxlength' => 16,
+    ),
+    'sql'              => "varchar(16) NOT NULL default ''"
+);
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_width'] = array(
     'label'     => &$GLOBALS['TL_LANG']['tl_module']['leaflet_width'],
     'inputType' => 'inputUnit',
@@ -52,4 +64,16 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_height'] = array(
     'exclude'   => true,
     'eval'      => array('rgxp' => 'digit', 'tl_class' => 'w50'),
     'sql'       => "varchar(64) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_template'] = array(
+    'label'            => &$GLOBALS['TL_LANG']['tl_module']['leaflet_template'],
+    'inputType'        => 'select',
+    'exclude'          => true,
+    'options_callback' => \Netzmacht\Contao\Toolkit\Dca::createGetTemplatesCallback('leaflet_map_js'),
+    'eval'             => array(
+        'tl_class' => 'w50',
+        'chosen'   => true,
+    ),
+    'sql'              => "varchar(64) NOT NULL default ''"
 );
