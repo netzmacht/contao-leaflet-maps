@@ -82,9 +82,9 @@ class MapService
     /**
      * Get map definition.
      *
-     * @param MapModel|int $mapId      The map database id. MapModel accepted as well.
-     * @param Filter       $filter     Optional request filter.
-     * @param string       $elementId  Optional element id. If none given the mapId or alias is used.
+     * @param MapModel|int $mapId     The map database id. MapModel accepted as well.
+     * @param Filter       $filter    Optional request filter.
+     * @param string       $elementId Optional element id. If none given the mapId or alias is used.
      *
      * @return Map
      */
@@ -135,6 +135,9 @@ class MapService
      *
      * @return string
      * @throws \Exception If generating went wrong.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function generate(
         $mapId,
@@ -194,7 +197,10 @@ class MapService
      * @param string $identifier The request identifier.
      * @param bool   $exit       Exit if ajax request is detected.
      *
-     * @throws \Exception
+     * @return void
+     * @throws \RuntimeException IF the input data does not match.
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function handleAjaxRequest($identifier, $exit = true)
     {
