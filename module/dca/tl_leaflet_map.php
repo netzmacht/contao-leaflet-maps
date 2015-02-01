@@ -241,7 +241,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'default'   => true,
+            'default'   => false,
             'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true),
             'sql'       => "char(1) NOT NULL default ''"
         ),
@@ -424,7 +424,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['dynamicLoad'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'default'   => true,
+            'default'   => false,
             'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false),
             'sql'       => "char(1) NOT NULL default ''"
         ),
