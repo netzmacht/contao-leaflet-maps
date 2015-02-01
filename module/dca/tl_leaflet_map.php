@@ -127,6 +127,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'maxZoom'
         ),
         'locate'          => array(
+            ':hide',
             'locateWatch',
             'locateSetView',
             'locateMaxZoom',
