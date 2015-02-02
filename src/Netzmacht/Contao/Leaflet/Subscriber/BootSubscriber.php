@@ -53,13 +53,14 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function initializeDefinitionMapper(InitializeDefinitionMapperEvent $event)
     {
-        $mapper = $event->getDefinitionMapper();
+        $mapper    = $event->getDefinitionMapper();
+        $container = $GLOBALS['container']['leaflet.service-container'];
 
         foreach ($GLOBALS['LEAFLET_MAPPERS'] as $className) {
             if (is_array($className)) {
                 $mapper->register(new $className[0], $className[1]);
             } else {
-                $mapper->register(new $className());
+                $mapper->register(new $className($container));
             }
         }
     }
