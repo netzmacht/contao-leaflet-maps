@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Event\InitializeDefinitionMapperEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeEventDispatcherEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeLeafletBuilderEvent;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Mapper\Mapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
@@ -53,14 +54,13 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function initializeDefinitionMapper(InitializeDefinitionMapperEvent $event)
     {
-        $mapper    = $event->getDefinitionMapper();
-        $container = $GLOBALS['container']['leaflet.service-container'];
+        $mapper = $event->getDefinitionMapper();
 
         foreach ($GLOBALS['LEAFLET_MAPPERS'] as $className) {
             if (is_array($className)) {
-                $mapper->register(new $className[0], $className[1]);
+                $mapper->register($this->createMapper($className[0]), $className[1]);
             } else {
-                $mapper->register(new $className($container));
+                $mapper->register($this->createMapper($className));
             }
         }
     }
@@ -162,6 +162,11 @@ class BootSubscriber implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Set the static flag.
+     *
+     * @return string
+     */
     private function staticFlag()
     {
         if (\Config::get('debugMode') || TL_MODE !== 'FE') {
@@ -169,5 +174,25 @@ class BootSubscriber implements EventSubscriberInterface
         }
 
         return '|static';
+    }
+
+    /**
+     * Create a new mapper.
+     *
+     * @param mixed $mapper The mapper class or callable factory.
+     *
+     * @return Mapper
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    private function createMapper($mapper)
+    {
+        if (is_callable($mapper)) {
+            $container = $GLOBALS['container']['leaflet.service-container'];
+
+            return $mapper($container);
+        }
+
+        return new $mapper;
     }
 }

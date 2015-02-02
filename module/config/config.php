@@ -110,20 +110,36 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\Loading
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Control\FullscreenControlMapper';
 
 // Vector mappers.
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\PolylineMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolylineMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\PolygonMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolygonMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMarkerMapper';
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Vector\RectangleMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new Netzmacht\Contao\Leaflet\Mapper\Vector\PolylineMapper($container->getFrontendValueFilter());
+};
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolylineMapper($container->getFrontendValueFilter());
+};
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new Netzmacht\Contao\Leaflet\Mapper\Vector\PolygonMapper($container->getFrontendValueFilter());
+};
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolygonMapper($container->getFrontendValueFilter());
+};
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMapper($container->getFrontendValueFilter());
+};
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMarkerMapper($container->getFrontendValueFilter());
+};
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new Netzmacht\Contao\Leaflet\Mapper\Vector\RectangleMapper($container->getFrontendValueFilter());
+};
 
 // Miscellaneous mappers.
-$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\PopupMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Style\FixedStyleMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = function (\Netzmacht\Contao\Leaflet\ServiceContainer $container) {
+    return new \Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper($container->getFrontendValueFilter());
+};
 
 /*
  * Leaflet encoders.

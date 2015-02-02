@@ -12,11 +12,11 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\UI;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
-use Netzmacht\Contao\Leaflet\ServiceContainerTrait;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
@@ -29,8 +29,6 @@ use Netzmacht\LeafletPHP\Definition\UI\Popup;
  */
 class MarkerMapper extends AbstractMapper
 {
-    use ServiceContainerTrait;
-
     /**
      * Class of the model being build.
      *
@@ -44,6 +42,25 @@ class MarkerMapper extends AbstractMapper
      * @var string
      */
     protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\UI\Marker';
+
+    /**
+     * Frontend filter.
+     *
+     * @var ValueFilter
+     */
+    protected $valueFilter;
+
+    /**
+     * Construct.
+     *
+     * @param ValueFilter $valueFilter Frontend filter.
+     */
+    public function __construct(ValueFilter $valueFilter)
+    {
+        parent::__construct();
+
+        $this->valueFilter = $valueFilter;
+    }
 
     /**
      * {@inheritdoc}
@@ -85,10 +102,7 @@ class MarkerMapper extends AbstractMapper
         if ($definition instanceof Marker) {
             if ($model->addPopup) {
                 $popup   = null;
-                $content = $this
-                    ->getServiceContainer()
-                    ->getFrontendValueFilter()
-                    ->filter($model->popupContent);
+                $content = $this->valueFilter->filter($model->popupContent);
 
                 if ($model->popup) {
                     $popupModel = PopupModel::findActiveByPK($model->popup);

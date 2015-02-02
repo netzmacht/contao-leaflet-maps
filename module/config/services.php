@@ -18,7 +18,6 @@ use Netzmacht\Contao\Leaflet\MapService;
 use Netzmacht\Contao\Leaflet\ServiceContainer;
 use Netzmacht\JavascriptBuilder\Builder;
 use Netzmacht\JavascriptBuilder\Encoder;
-use Netzmacht\JavascriptBuilder\Encoder\Chain\MultipleChain;
 use Netzmacht\JavascriptBuilder\Encoder\ChainEncoder;
 use Netzmacht\JavascriptBuilder\Encoder\JavascriptEncoder;
 use Netzmacht\JavascriptBuilder\Encoder\MultipleObjectsEncoder;
