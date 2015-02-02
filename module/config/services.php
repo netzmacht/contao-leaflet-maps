@@ -10,6 +10,7 @@
  */
 
 use Netzmacht\Contao\Leaflet\Boot;
+use Netzmacht\Contao\Leaflet\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Frontend\Helper\FrontendApi;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
@@ -38,10 +39,17 @@ $container['leaflet.map.service'] = $container->share(function ($container) {
         $container['leaflet.definition.mapper'],
         $container['leaflet.definition.builder'],
         $container['event-dispatcher'],
-        $container['input']
+        $container['input'],
+        $container['leaflet.map.assets']
     );
 });
 
+/*
+ * Contao assets handler. Loads Leaflet assets as contao (static) assets.
+ */
+$container['leaflet.map.assets'] = $container->share(function () {
+    return new ContaoAssets();
+});
 
 /*
  * The leaflet boot.

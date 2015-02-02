@@ -60,23 +60,33 @@ class MapService
     private $input;
 
     /**
+     * Map assets collector.
+     *
+     * @var Assets
+     */
+    private $assets;
+
+    /**
      * Construct.
      *
      * @param DefinitionMapper $mapper          The definition mapper.
      * @param Leaflet          $leaflet         The Leaflet instance.
      * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
      * @param \Input           $input           Thw request input.
+     * @param Assets           $assets
      */
     public function __construct(
         DefinitionMapper $mapper,
         Leaflet $leaflet,
         EventDispatcher $eventDispatcher,
-        \Input $input
+        \Input $input,
+        Assets $assets
     ) {
         $this->mapper          = $mapper;
         $this->leaflet         = $leaflet;
         $this->eventDispatcher = $eventDispatcher;
         $this->input           = $input;
+        $this->assets          = $assets;
     }
 
     /**
@@ -147,11 +157,10 @@ class MapService
         $style = ''
     ) {
         $definition = $this->getDefinition($mapId, $filter, $elementId);
-        $assets     = new ContaoAssets();
         $template   = \Controller::getTemplate($template);
 
         // @codingStandardsIgnoreStart - Set for the template.
-        $javascript = $this->leaflet->build($definition, $assets);
+        $javascript = $this->leaflet->build($definition, $this->assets);
         $mapId      = $definition->getId();
         // @codingStandardsIgnoreEnd
 
