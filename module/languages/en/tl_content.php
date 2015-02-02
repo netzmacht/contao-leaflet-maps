@@ -1,5 +1,6 @@
 <?php
 
+$GLOBALS['TL_LANG']['tl_content']['leaflet_legend']      = 'Leaflet map configuration';
 $GLOBALS['TL_LANG']['tl_content']['leaflet_map'][0]      = 'Leaflet Map';
 $GLOBALS['TL_LANG']['tl_content']['leaflet_map'][1]      = 'Choose a Leaflet Map';
 $GLOBALS['TL_LANG']['tl_content']['leaflet_mapId'][0]    = 'Leaflet map id';
