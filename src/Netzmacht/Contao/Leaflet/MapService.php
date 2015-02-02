@@ -73,7 +73,7 @@ class MapService
      * @param Leaflet          $leaflet         The Leaflet instance.
      * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
      * @param \Input           $input           Thw request input.
-     * @param Assets           $assets
+     * @param Assets           $assets          Assets handler.
      */
     public function __construct(
         DefinitionMapper $mapper,
