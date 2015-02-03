@@ -153,7 +153,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                \Netzmacht\Contao\Toolkit\Dca::createGenerateAliasCallback('tl_leaflet_style', 'title'),
+                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_style', 'title'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"

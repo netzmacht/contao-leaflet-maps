@@ -198,7 +198,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'inputType'     => 'text',
             'search'        => true,
             'save_callback' => array(
-                \Netzmacht\Contao\Toolkit\Dca::createGenerateAliasCallback('tl_leaflet_vector', 'title'),
+                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_vector', 'title'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"
