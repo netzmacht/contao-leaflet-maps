@@ -22,7 +22,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['toggle'][1] = 'Toggle marker ID %s act
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'][0]  = 'Manage icons';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'][1]  = 'Manage marker icons.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'][0] = 'Manage popups';
-$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'][1] = 'Manage popups icons';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'][1] = 'Manage popup options.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['title'][0]           = 'Title';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['title'][1]           = 'Title of the map.';
