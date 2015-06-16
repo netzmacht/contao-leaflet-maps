@@ -19,14 +19,14 @@
     },
     "require":{
         "php":">=5.4",
-        "contao/core":">=3.2,<3.5-dev",
+        "contao/core":">=3.2,<3.6-dev",
         "contao-community-alliance/dependency-container":"~1.0",
         "contao-community-alliance/event-dispatcher":"~1.0",
         "netzmacht/contao-leaflet-libraries": "~0.7",
         "netzmacht/php-javascript-builder": "~1.0",
         "netzmacht/php-leaflet": "~0.7",
         "netzmacht/contao-toolkit":"~1.0",
-        "bit3/contao-meta-palettes": "~1.5",
+        "contao-community-alliance/meta-palettes": "~1.5",
         "menatwork/contao-multicolumnwizard": "~3.2",
         "doctrine/cache": "~1.0"
     },
