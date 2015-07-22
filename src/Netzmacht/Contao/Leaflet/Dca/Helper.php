@@ -25,7 +25,7 @@ class Helper
      * Generate an alias callback which creates a valid javascript var name.
      *
      * @param string $table  The table.
-     * @param string $column The value column,
+     * @param string $column The value column.
      *
      * @return GenerateAliasCallback
      */
