@@ -11,7 +11,7 @@
 
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\ContaoAssets;
-use Netzmacht\Contao\Leaflet\Frontend\Helper\FrontendApi;
+use Netzmacht\Contao\Leaflet\Frontend\Helper\InsertTagReplacer;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
@@ -114,7 +114,7 @@ $container['leaflet.definition.builder'] = $container->share(function($container
 });
 
 $container['leaflet.frontend.value-filter'] = $container->share(function() {
-    return new ValueFilter(new FrontendApi());
+    return new ValueFilter(new InsertTagReplacer());
 });
 
 $container['leaflet.service-container'] = $container->share(function($container) {

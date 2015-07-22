@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use Netzmacht\Contao\Leaflet\Frontend\Helper\FrontendApi;
+use Netzmacht\Contao\Leaflet\Frontend\Helper\InsertTagReplacer;
 
 /**
  * Class ValueFilter is a service class which can be used to filter values before passing them to an definition object.
@@ -23,18 +23,18 @@ class ValueFilter
     /**
      * The frontend api of Contao.
      *
-     * @var FrontendApi
+     * @var InsertTagReplacer
      */
-    private $api;
+    private $insertTagReplacer;
 
     /**
      * Construct.
      *
-     * @param FrontendApi $api The frontend api of Contao.
+     * @param InsertTagReplacer $replacer The insert tag replacer.
      */
-    public function __construct($api)
+    public function __construct($replacer)
     {
-        $this->api = $api;
+        $this->insertTagReplacer = $replacer;
     }
 
     /**
@@ -49,6 +49,6 @@ class ValueFilter
      */
     public function filter($value)
     {
-        return $this->api->replaceInsertTags($value);
+        return $this->insertTagReplacer->replace($value);
     }
 }
