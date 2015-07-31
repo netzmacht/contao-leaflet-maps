@@ -19,12 +19,19 @@ namespace Netzmacht\Contao\Leaflet\Frontend\Helper;
 class FrontendApi extends \Frontend
 {
     /**
-     * {@inheritdoc}
+     * Call a Contao method no matter if it's protected.
+     *
+     * Inspired by Haste.
+     *
+     * @param string $method    The method name.
+     * @param array  $arguments The arguments.
+     *
+     * @see https://github.com/codefog/contao-haste/commits/master/library/Haste/Haste.php
+     *
+     * @return mixed
      */
-    // @codingStandardsIgnoreStart
-    public function replaceInsertTags($strBuffer, $blnCache = true)
+    public function call($method, array $arguments = array())
     {
-        return parent::replaceInsertTags($strBuffer, $blnCache);
+        return call_user_func_array(array($this, $method), $arguments);
     }
-    // @codingStandardsIgnoreEnd
 }

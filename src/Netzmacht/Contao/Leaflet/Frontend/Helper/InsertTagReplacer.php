@@ -28,13 +28,8 @@ class InsertTagReplacer
      */
     public function replace($buffer, $cache = true)
     {
-        if (class_exists('InsertTags')) {
-            $replacer = new \InsertTags();
-            return $replacer->replace($buffer, $cache);
-        }
-
         $frontendApi = new FrontendApi();
 
-        return $frontendApi->replaceInsertTags($buffer, $cache);
+        return $frontendApi->call('replaceInsertTags', array($buffer, $cache));
     }
 }
