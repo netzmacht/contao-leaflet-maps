@@ -46,7 +46,7 @@ class Layer
     public function __construct()
     {
         $this->layers   = &$GLOBALS['LEAFLET_LAYERS'];
-        $this->database = static::getService('database.connection');
+        $this->database = static::getServiceContainer()->getDatabaseConnection();
 
         \Controller::loadLanguageFile('leaflet_layer');
 

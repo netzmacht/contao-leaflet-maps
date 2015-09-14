@@ -60,7 +60,7 @@ class Hooks
      */
     protected function getMapService()
     {
-        return static::getService('leaflet.map.service');
+        return static::getServiceContainer()->getService('leaflet.map.service');
     }
 
     /**
@@ -81,7 +81,7 @@ class Hooks
 
             return $mapService->generate($mapId, null, $mapId, $template, $style);
         } catch (\Exception $e) {
-            if (static::getService('config')->get('debugMode')) {
+            if (static::getServiceContainer()->getConfig()->get('debugMode')) {
                 throw $e;
             }
 

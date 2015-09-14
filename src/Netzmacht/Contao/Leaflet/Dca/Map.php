@@ -34,7 +34,7 @@ class Map
      */
     public function __construct()
     {
-        $this->database = static::getService('database.connection');
+        $this->database = static::getServiceContainer()->getDatabaseConnection();
     }
 
     /**
