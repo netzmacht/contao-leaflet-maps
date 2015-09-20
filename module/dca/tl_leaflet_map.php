@@ -294,26 +294,36 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''"
         ),
-        'scrollWheelZoom'  => array
+        'scrollWheelZoom' => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['scrollWheelZoom'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options'   => array('1', '', 'center'),
+            'options'   => array('1', 'center'),
             'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'],
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50', 'helpwizard' => true,),
+            'eval'      => array(
+                'tl_class'           => 'w50',
+                'helpwizard'         => true,
+                'includeBlankOption' => true,
+                'blankOptionLabel'   => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][0]
+            ),
             'sql'       => "char(6) NOT NULL default ''"
         ),
-        'doubleClickZoom'  => array
+        'doubleClickZoom' => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_map']['doubleClickZoom'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options'   => array('1', '', 'center'),
+            'options'   => array('1', 'center'),
             'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'],
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50', 'helpwizard' => true,),
+            'eval'      => array(
+                'tl_class'           => 'w50',
+                'helpwizard'         => true,
+                'includeBlankOption' => true,
+                'blankOptionLabel'   => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues'][''][0]
+            ),
             'sql'       => "char(6) NOT NULL default ''"
         ),
         'boxZoom'  => array
