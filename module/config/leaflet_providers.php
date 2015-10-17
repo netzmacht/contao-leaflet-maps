@@ -18,9 +18,10 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
 (
     'OpenStreetMap' => array
     (
-        'variants' => array('Mapnik', 'BlackAndWhite', 'DE', 'HOT'),
+        'variants' => array('Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT'),
     ),
     'OpenSeaMap'    => array(),
+    'OpenTopoMap'   => array(),
     'Thunderforest' => array
     (
         'variants' => array('OpenCycleMap', 'Transport', 'Landscape', 'Outdoors')
@@ -33,9 +34,9 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
         'variants' => array('Full', 'Base', 'RoadsAndLabels')
     ),
     'MapQuestOpen' => array(
-        'variants' => array('OSM', 'Aerial')
+        'variants' => array('OSM', 'Aerial', 'HybridOverlay')
     ),
-    'MaxBox' => array(
+    'MapBox' => array(
         'class'   => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\MapBoxProvider',
         'options' => array(
             'key' => 'tile_provider_key'
@@ -51,6 +52,8 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'TonerLite',
             'Terrain',
             'TerrainBackground',
+            'TopOSMRelief',
+            'TopOSMFeatures',
             'Watercolor'
         )
     ),
@@ -96,6 +99,9 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'normalNightMobile',
             'normalNightGrey',
             'normalNightGreyMobile',
+            'basicMap',
+            'mapLabels',
+            'trafficFlow',
             'carnavDayGrey',
             'hybridDay',
             'hybridDayMobile',
@@ -132,5 +138,38 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'DarkMatter',
             'DarkMatterNoLabels'
         )
+    ),
+    'HikeBike' => array(
+        'variants' => array(
+            'HikeBike',
+            'HillShading',
+        )
+    ),
+    'BasemapAT' => array(
+        'basemap',
+        'grau',
+        'highdpi',
+        'orthofoto',
+    ),
+    'NASAGIBS' => array(
+        'ModisTerraTrueColorCR',
+        'ModisTerraBands367CR',
+        'ViirsEarthAtNight2012',
+        'ModisTerraLSTDay',
+        'ModisTerraSnowCover',
+        'ModisTerraAOD',
+        'ModisTerraChlorophyll',
+    ),
+    'NLS' => array(
+        'OS_1900',
+        'OS_1920',
+        'OS_opendata',
+        'OS_6inch_1st',
+        'OS_6inch',
+        'OS_25k',
+        'OS_npe',
+        'OS_7th',
+        'OS_London',
+        'GSGS_Ireland',
     )
 );
