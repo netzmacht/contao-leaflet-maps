@@ -66,12 +66,6 @@ $GLOBALS['FE_MOD']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\M
 
 
 /*
- * Hooks
- */
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('Netzmacht\Contao\Leaflet\Frontend\Hooks', 'replaceInsertTags');
-
-
-/*
  * Models.
  */
 $GLOBALS['TL_MODELS']['tl_leaflet_control'] = 'Netzmacht\Contao\Leaflet\Model\ControlModel';

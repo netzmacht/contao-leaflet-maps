@@ -16,9 +16,11 @@ use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeDefinitionMapperEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeEventDispatcherEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeLeafletBuilderEvent;
+use Netzmacht\Contao\Leaflet\Frontend\InsertTag\LeafletInsertTagParser;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Mapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Toolkit\Event\InitializeSystemEvent;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -36,11 +38,29 @@ class BootSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            InitializeSystemEvent::NAME           => 'initializeInsertTagParser',
             InitializeDefinitionMapperEvent::NAME => 'initializeDefinitionMapper',
             InitializeEventDispatcherEvent::NAME  => 'initializeEventDispatcher',
             InitializeLeafletBuilderEvent::NAME   => 'initializeLeafletBuilder',
             GetJavascriptEvent::NAME              => array(array('loadAssets'), array('loadIcons')),
         );
+    }
+
+    /**
+     * Initialize the leaflet insert tag parser.
+     *
+     * @param InitializeSystemEvent $event The event.
+     *
+     * @return void
+     */
+    public function initializeInsertTagParser(InitializeSystemEvent $event)
+    {
+        $container  = $event->getServiceContainer();
+        $debugMode  = $container->getConfig()->get('debugMode');
+        $mapService = $container->getService('leaflet.map.service');
+        $parser     = new LeafletInsertTagParser($mapService, $debugMode);
+
+        $container->getInsertTagReplacer()->registerParser($parser);
     }
 
     /**
