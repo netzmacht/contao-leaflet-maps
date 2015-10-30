@@ -71,7 +71,7 @@ class LeafletInsertTagParser implements Parser
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function parse($raw, $tag, $params = null, $cache = true)
     {
