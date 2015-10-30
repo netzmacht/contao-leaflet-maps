@@ -113,8 +113,8 @@ $container['leaflet.definition.builder'] = $container->share(function($container
     return $boot->initializeLeafletBuilder($leaflet);
 });
 
-$container['leaflet.frontend.value-filter'] = $container->share(function() {
-    return new ValueFilter(new InsertTagReplacer());
+$container['leaflet.frontend.value-filter'] = $container->share(function($container) {
+    return new ValueFilter($container['toolkit.insert-tag-replacer']);
 });
 
 $container['leaflet.service-container'] = $container->share(function($container) {
