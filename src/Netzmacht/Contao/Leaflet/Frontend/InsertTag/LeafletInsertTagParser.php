@@ -84,7 +84,7 @@ class LeafletInsertTagParser implements Parser
         $style    = empty($parts[1]) ? 'width:400px;height:300px' : $parts[1];
         $template = empty($parts[2]) ? 'leaflet_map_html' : $parts[2];
 
-        return $this->generateMap($parts[1], $template, $style);
+        return $this->generateMap($parts[0], $template, $style);
     }
 
     /**
