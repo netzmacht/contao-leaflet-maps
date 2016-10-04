@@ -24,7 +24,15 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
     'OpenTopoMap'   => array(),
     'Thunderforest' => array
     (
-        'variants' => array('OpenCycleMap', 'Transport', 'Landscape', 'Outdoors')
+        'variants' => array(
+            'OpenCycleMap',
+            'Transport',
+            'TransportDark',
+            'SpinalMap',
+            'Landscape',
+            'Outdoors',
+            'Pioneer'
+        )
     ),
     'OpenMapSurfer' => array
     (
@@ -32,9 +40,6 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
     ),
     'Hydda' => array(
         'variants' => array('Full', 'Base', 'RoadsAndLabels')
-    ),
-    'MapQuestOpen' => array(
-        'variants' => array('OSM', 'Aerial', 'HybridOverlay')
     ),
     'MapBox' => array(
         'class'   => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\MapBoxProvider',
@@ -118,25 +123,16 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
         'fields' => array('tile_provider_key', 'tile_provider_code'),
         'class'  => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\HereProvider',
     ),
-    'Acetate' => array(
-        'variants' => array(
-            'basemap',
-            'terrain',
-            'all',
-            'foreground',
-            'roads',
-            'labels',
-            'hillshading',
-        )
-    ),
     'FreeMapSK' => array(),
     'MtbMap'    => array(),
     'CartoDB'   => array(
         'variants' => array(
             'Positron',
             'PositronNoLabels',
+            'PositronOnlyLabels',
             'DarkMatter',
-            'DarkMatterNoLabels'
+            'DarkMatterNoLabels',
+            'DarkMatterOnlyLabels',
         )
     ),
     'HikeBike' => array(
@@ -148,28 +144,20 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
     'BasemapAT' => array(
         'basemap',
         'grau',
+        'overlay',
         'highdpi',
         'orthofoto',
     ),
     'NASAGIBS' => array(
-        'ModisTerraTrueColorCR',
-        'ModisTerraBands367CR',
-        'ViirsEarthAtNight2012',
-        'ModisTerraLSTDay',
-        'ModisTerraSnowCover',
-        'ModisTerraAOD',
-        'ModisTerraChlorophyll',
+        'variants' => array(
+            'ModisTerraTrueColorCR',
+            'ModisTerraBands367CR',
+            'ViirsEarthAtNight2012',
+            'ModisTerraLSTDay',
+            'ModisTerraSnowCover',
+            'ModisTerraAOD',
+            'ModisTerraChlorophyll',
+        )
     ),
-    'NLS' => array(
-        'OS_1900',
-        'OS_1920',
-        'OS_opendata',
-        'OS_6inch_1st',
-        'OS_6inch',
-        'OS_25k',
-        'OS_npe',
-        'OS_7th',
-        'OS_London',
-        'GSGS_Ireland',
-    )
+    'NLS' => array()
 );
