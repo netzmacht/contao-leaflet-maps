@@ -142,11 +142,13 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
         )
     ),
     'BasemapAT' => array(
-        'basemap',
-        'grau',
-        'overlay',
-        'highdpi',
-        'orthofoto',
+        'variants' => array(
+            'basemap',
+            'grau',
+            'overlay',
+            'highdpi',
+            'orthofoto',
+        )
     ),
     'NASAGIBS' => array(
         'variants' => array(
