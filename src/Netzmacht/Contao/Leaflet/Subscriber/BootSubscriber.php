@@ -20,7 +20,8 @@ use Netzmacht\Contao\Leaflet\Frontend\InsertTag\LeafletInsertTagParser;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Mapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
-use Netzmacht\Contao\Toolkit\Event\InitializeSystemEvent;
+use Netzmacht\Contao\Toolkit\Boot\Event\InitializeSystemEvent;
+use Netzmacht\Contao\Toolkit\DependencyInjection\Services;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -55,12 +56,12 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function initializeInsertTagParser(InitializeSystemEvent $event)
     {
-        $container  = $event->getServiceContainer();
-        $debugMode  = $container->getConfig()->get('debugMode');
-        $mapService = $container->getService('leaflet.map.service');
+        $container  = $event->getContainer();
+        $debugMode  = $container->get(Services::CONFIG)->get('debugMode');
+        $mapService = $container->get('leaflet.map.service');
         $parser     = new LeafletInsertTagParser($mapService, $debugMode);
 
-        $container->getInsertTagReplacer()->registerParser($parser);
+        $container->get(Services::INSERT_TAG_REPLACER)->registerParser($parser);
     }
 
     /**

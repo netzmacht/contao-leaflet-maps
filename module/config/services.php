@@ -11,13 +11,12 @@
 
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\ContaoAssets;
-use Netzmacht\Contao\Leaflet\Frontend\Helper\InsertTagReplacer;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
 use Netzmacht\Contao\Leaflet\ServiceContainer;
+use Netzmacht\Contao\Toolkit\DependencyInjection\Services;
 use Netzmacht\JavascriptBuilder\Builder;
-use Netzmacht\JavascriptBuilder\Encoder;
 use Netzmacht\JavascriptBuilder\Encoder\ChainEncoder;
 use Netzmacht\JavascriptBuilder\Encoder\JavascriptEncoder;
 use Netzmacht\JavascriptBuilder\Encoder\MultipleObjectsEncoder;
@@ -114,7 +113,7 @@ $container['leaflet.definition.builder'] = $container->share(function($container
 });
 
 $container['leaflet.frontend.value-filter'] = $container->share(function($container) {
-    return new ValueFilter($container['toolkit.insert-tag-replacer']);
+    return new ValueFilter($container[Services::INSERT_TAG_REPLACER]);
 });
 
 $container['leaflet.service-container'] = $container->share(function($container) {
