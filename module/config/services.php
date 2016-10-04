@@ -9,12 +9,18 @@
  *
  */
 
+use Netzmacht\Contao\Leaflet\Alias\UnderscoreFilter;
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
 use Netzmacht\Contao\Leaflet\ServiceContainer;
+use Netzmacht\Contao\Toolkit\Data\Alias\Filter\ExistingAliasFilter;
+use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SlugifyFilter;
+use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SuffixFilter;
+use Netzmacht\Contao\Toolkit\Data\Alias\FilterBasedAliasGenerator;
+use Netzmacht\Contao\Toolkit\Data\Alias\Validator\UniqueDatabaseValueValidator;
 use Netzmacht\Contao\Toolkit\DependencyInjection\Services;
 use Netzmacht\JavascriptBuilder\Builder;
 use Netzmacht\JavascriptBuilder\Encoder\ChainEncoder;
@@ -119,3 +125,58 @@ $container['leaflet.frontend.value-filter'] = $container->share(function($contai
 $container['leaflet.service-container'] = $container->share(function($container) {
     return new ServiceContainer($container);
 });
+
+
+/**
+ * Leaflet alias generator.
+ *
+ * @return \Netzmacht\Contao\Toolkit\Data\Alias\AliasGenerator
+ */
+$container['leaflet.alias-generator'] = $container->share(
+    function ($container) {
+        return function ($dataContainerName, $aliasField, $fields) use ($container) {
+            $filters = [
+                new ExistingAliasFilter(),
+                new SlugifyFilter($fields),
+                new SuffixFilter(),
+                new UnderscoreFilter(false)
+            ];
+
+            $validator = new UniqueDatabaseValueValidator(
+                $container[Services::DATABASE_CONNECTION],
+                $dataContainerName,
+                $aliasField
+            );
+
+            return new FilterBasedAliasGenerator($filters, $validator, $dataContainerName, $aliasField);
+        };
+    }
+);
+
+$container['leaflet.dca.map-callbacks'] = $container->share(
+    function ($container) {
+        return new \Netzmacht\Contao\Leaflet\Dca\MapCallbacks(
+            $container[Services::DCA_MANAGER],
+            $container[Services::DATABASE_CONNECTION]
+        );
+    }
+);
+
+$container['leaflet.dca.layer-callbacks'] = $container->share(
+    function ($container) {
+        return new \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks(
+            $container[Services::DCA_MANAGER],
+            $container[Services::DATABASE_CONNECTION],
+            $GLOBALS['LEAFLET_LAYERS']
+        );
+    }
+);
+
+$container['leaflet.dca.control-callbacks'] = $container->share(
+    function ($container) {
+        return new \Netzmacht\Contao\Leaflet\Dca\ControlCallbacks(
+            $container[Services::DCA_MANAGER],
+            $container[Services::DATABASE_CONNECTION]
+        );
+    }
+);

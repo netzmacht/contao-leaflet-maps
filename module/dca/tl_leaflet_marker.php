@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'flag'                    => 1,
             'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'generateRow'),
+            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'generateRow'),
         ),
         'label' => array
         (
@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
                     'tl_leaflet_marker',
                     'active'
                 )
@@ -172,7 +172,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'inputType'     => 'text',
             'search'        => true,
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_marker', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::aliasGenerator(
+                    'tl_leaflet_marker',
+                    'alias',
+                    ['title'],
+                    'leaflet.alias-generator'
+                ),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"
@@ -183,14 +188,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate'),
-                array('Netzmacht\Contao\Leaflet\Dca\Marker', 'saveCoordinates')
+                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate'),
+                array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'saveCoordinates')
             ),
             'load_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Marker', 'loadCoordinates')
+                array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'loadCoordinates')
             ),
             'wizard'        => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getGeocoder')
+                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'getGeocoder')
             ),
             'eval'          => array(
                 'maxlength'      => 255,
@@ -264,7 +269,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popup'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'getPopups'),
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getPopups'),
             'eval'      => array(
                 'mandatory'          => false,
                 'tl_class'           => 'w50',
@@ -295,7 +300,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'getIcons'),
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getIcons'),
             'eval'      => array(
                  'mandatory'  => true,
                  'tl_class'   => 'w50',

@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'flag'                    => 1,
             'sorting'                 => 2,
             'panelLayout'             => 'filter,sort;search,limit',
-            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Control', 'generateRow'),
+            'child_record_callback'   => \Netzmacht\Contao\Leaflet\Dca\ControlCallbacks::callback('generateRow'),
         ),
         'label' => array
         (
@@ -81,10 +81,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_control']['toggle'],
                 'icon'       => 'visible.gif',
                 'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
-                    'tl_leaflet_control',
-                    'active'
-                )
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton('tl_leaflet_control', 'active')
             ),
             'show' => array
             (
@@ -166,7 +163,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'inputType'     => 'text',
             'search'        => true,
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_control', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::aliasGenerator(
+                    'tl_leaflet_control',
+                    'alias',
+                    ['title'],
+                    'leaflet.alias-generator'
+                ),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"
@@ -267,10 +269,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'exclude'   => true,
             'inputType' => 'multiColumnWizard',
             'load_callback'    => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Control', 'loadLayerRelations'),
+                \Netzmacht\Contao\Leaflet\Dca\ControlCallbacks::callback('loadLayerRelations'),
             ),
             'save_callback'    => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Control', 'saveLayerRelations'),
+                \Netzmacht\Contao\Leaflet\Dca\ControlCallbacks::callback('saveLayerRelations'),
             ),
             'eval'      => array
             (
@@ -282,7 +284,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                         'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['layer'],
                         'exclude'          => true,
                         'inputType'        => 'select',
-                        'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getLayers'),
+                        'options_callback' => \Netzmacht\Contao\Leaflet\Dca\ControlCallbacks::callback('getLayers'),
                         'eval'             => array(
                             'style'  => 'width: 300px',
                             'chosen' => true,
@@ -369,7 +371,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomControl'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Control', 'getZoomControls'),
+            'options_callback' => \Netzmacht\Contao\Leaflet\Dca\ControlCallbacks::callback('getZoomControls'),
             'reference'        => &$GLOBALS['TL_LANG']['tl_leaflet_control'],
             'eval' => array(
                 'mandatory'          => false,

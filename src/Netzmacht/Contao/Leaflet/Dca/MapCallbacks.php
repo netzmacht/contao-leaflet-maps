@@ -11,16 +11,31 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
+use Netzmacht\Contao\Toolkit\Dca\Manager;
+use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 
 /**
  * Class Map is the helper class for the tl_leaflet_map dca.
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Map
+class MapCallbacks extends Callbacks
 {
-    use ServiceContainerTrait;
+    /**
+     * Name of the data container.
+     *
+     * @var string
+     */
+    protected static $name = 'tl_leaflet_map';
+
+    /**
+     * Helper service name.
+     *
+     * @var string
+     */
+    protected static $serviceName = 'leaflet.dca.map-callbacks';
 
     /**
      * The database connection.
@@ -31,10 +46,15 @@ class Map
 
     /**
      * Construct.
+     *
+     * @param Manager   $manager  Data container manager.
+     * @param \Database $database Database connection.
      */
-    public function __construct()
+    public function __construct(Manager $manager, \Database $database)
     {
-        $this->database = static::getServiceContainer()->getDatabaseConnection();
+        parent::__construct($manager);
+
+        $this->database = $database;
     }
 
     /**
@@ -119,5 +139,21 @@ class Map
         }
 
         return null;
+    }
+
+    /**
+     * Get all layers except of the current layer.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return array
+     */
+    public function getLayers($dataContainer)
+    {
+        $collection = LayerModel::findBy('id !', $dataContainer->id);
+
+        return OptionsBuilder::fromCollection($collection, 'title')
+            ->asTree()
+            ->getOptions();
     }
 }

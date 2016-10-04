@@ -22,7 +22,7 @@ use Netzmacht\LeafletPHP\Value\LatLng;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Leaflet
+class LeafletCallbacks
 {
     /**
      * Validate a coordinate.

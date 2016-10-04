@@ -30,7 +30,7 @@ class FrontendIntegration
     {
         $collection = MapModel::findAll();
 
-        return OptionsBuilder::fromCollection($collection, 'id', 'title')->getOptions();
+        return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }
 
     /**

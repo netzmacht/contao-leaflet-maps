@@ -11,8 +11,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
+use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
+use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 /**
@@ -20,9 +21,21 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Layer
+class LayerCallbacks extends Callbacks
 {
-    use ServiceContainerTrait;
+    /**
+     * Name of the data container.
+     *
+     * @var string
+     */
+    protected static $name = 'tl_leaflet_layer';
+
+    /**
+     * Helper service name.
+     *
+     * @var string
+     */
+    protected static $serviceName = 'leaflet.dca.layer-callbacks';
 
     /**
      * Layers definition.
@@ -41,12 +54,18 @@ class Layer
     /**
      * Construct.
      *
+     * @param Manager   $manager  Data container manager.
+     * @param \Database $database Database connection.
+     * @param array     $layers   Leaflet layer configuration.
+     *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    public function __construct()
+    public function __construct(Manager $manager, \Database $database, array $layers)
     {
-        $this->layers   = &$GLOBALS['LEAFLET_LAYERS'];
-        $this->database = static::getServiceContainer()->getDatabaseConnection();
+        parent::__construct($manager);
+
+        $this->layers   = $layers;
+        $this->database = $database;
 
         \Controller::loadLanguageFile('leaflet_layer');
 
@@ -235,22 +254,6 @@ class Layer
         }
 
         return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
-    }
-
-    /**
-     * Get all layers except of the current layer.
-     *
-     * @param \DataContainer $dataContainer The dataContainer driver.
-     *
-     * @return array
-     */
-    public function getLayers($dataContainer)
-    {
-        $collection = LayerModel::findBy('id !', $dataContainer->id);
-
-        return OptionsBuilder::fromCollection($collection, 'id', 'title')
-            ->asTree()
-            ->getOptions();
     }
 
     /**

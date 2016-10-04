@@ -96,7 +96,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_popup']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
                     'tl_leaflet_popup',
                     'active'
                 )
@@ -160,7 +160,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_popup', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::aliasGenerator(
+                    'tl_leaflet_popup',
+                    'alias',
+                    ['title'],
+                    'leaflet.alias-generator'
+                ),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"
@@ -225,7 +230,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
+                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate')
             ),
             'eval'          => array(
                 'maxlength'   => 255,

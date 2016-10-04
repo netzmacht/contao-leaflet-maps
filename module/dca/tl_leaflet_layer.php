@@ -16,7 +16,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'enableVersioning'  => true,
         'ctable'            => array('tl_leaflet_vector', 'tl_leaflet_marker'),
         'ondelete_callback' => array(
-            array('Netzmacht\Contao\Leaflet\Dca\Layer', 'deleteRelations'),
+            \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('deleteRelations'),
         ),
         'sql'              => array
         (
@@ -42,13 +42,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'flag'                    => 1,
             'icon'                    => 'system/modules/leaflet/assets/img/layers.png',
             'panelLayout'             => 'filter;search,limit',
-            'paste_button_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getPasteButtons'),
+            'paste_button_callback'   => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getPasteButtons'),
         ),
         'label' => array
         (
             'fields'                  => array('title'),
             'format'                  => '%s',
-            'label_callback'          => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'generateRow')
+            'label_callback'          => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('generateRow')
         ),
         'global_operations' => array
         (
@@ -88,14 +88,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['markers'],
                 'href'                => 'table=tl_leaflet_marker',
                 'icon'                => 'edit.gif',
-                'button_callback'     => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'generateMarkersButton'),
+                'button_callback'     => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('generateMarkersButton')
             ),
             'vectors' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['vectors'],
                 'href'                => 'table=tl_leaflet_vector',
                 'icon'                => 'edit.gif',
-                'button_callback'     => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'generateVectorsButton'),
+                'button_callback'     => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('generateVectorsButton'),
             ),
             'edit' => array
             (
@@ -128,10 +128,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
                     'tl_leaflet_layer',
                     'active'
-                )
+                ),
             ),
             'show' => array
             (
@@ -261,7 +261,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'inputType'     => 'text',
             'search'        => true,
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_layer', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::aliasGenerator(
+                    'tl_leaflet_layer',
+                    'alias',
+                    ['title'],
+                    'leaflet.alias-generator'
+                ),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"
@@ -317,7 +322,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'submitOnChange' => true,
                 'chosen'         => false,
             ),
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getVariants'),
+            'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getVariants'),
             'sql'              => "varchar(32) NOT NULL default ''"
         ),
         'tile_provider_key'     => array
@@ -366,7 +371,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['reference'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getLayers'),
+            'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getLayers'),
             'eval'             => array(
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
@@ -462,7 +467,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['disableClusteringAtZoom'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getZoomLevels'),
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'getZoomLevels'),
             'default'          => '',
             'eval'             => array(
                 'maxlength'          => 4,
@@ -542,7 +547,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['boundsMode'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Layer', 'getBoundsModes'),
+            'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getBoundsModes'),
             'eval'             => array('tl_class' => 'w50', 'includeBlankOption' => true),
             'sql'              => "varchar(6) NOT NULL default ''"
         ),

@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
-use Netzmacht\Contao\Leaflet\Dca\Vector;
+use Netzmacht\Contao\Leaflet\Dca\VectorCallbacks;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
@@ -83,7 +83,7 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         $definition = $event->getDefinition();
         $model      = $event->getModel();
 
-        if (($definition instanceof Marker || $definition instanceof Vector)
+        if (($definition instanceof Marker || $definition instanceof VectorCallbacks)
             && $model instanceof \Model && $feature instanceof Feature) {
             $this->setDataProperty($model, $feature);
             $this->setBoundsInformation($model, $feature);

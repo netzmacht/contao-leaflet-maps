@@ -19,7 +19,7 @@ use Netzmacht\Contao\Leaflet\Model\StyleModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Vector
+class VectorCallbacks
 {
     /**
      * Generate the row label.
@@ -42,6 +42,6 @@ class Vector
     {
         $collection = StyleModel::findAll(array('order' => 'title'));
 
-        return OptionsBuilder::fromCollection($collection, 'id', 'title')->getOptions();
+        return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }
 }

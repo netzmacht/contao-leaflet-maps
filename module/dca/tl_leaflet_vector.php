@@ -104,7 +104,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
                     'tl_leaflet_vector',
                     'active'
                 )
@@ -198,7 +198,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'inputType'     => 'text',
             'search'        => true,
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_vector', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::aliasGenerator(
+                    'tl_leaflet_vector',
+                    'alias',
+                    ['title'],
+                    'leaflet.alias-generator'
+                ),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => "varchar(255) NOT NULL default ''"
