@@ -8,9 +8,8 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:59+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
-
 
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['active']['0']          = 'Vektor aktivieren';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['active']['1']          = 'Nur aktivierte Vektoren werden auf der Karte ausgegeben.';
@@ -37,6 +36,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_vector']['delete']['1']          = 'Vektor ID %s
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['edit']['0']            = 'Vektor bearbeiten';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['edit']['1']            = 'Vektor ID %s bearbeiten';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['expert_legend']        = 'Experteneinstellungen';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['featureData']['0']     = 'Feature-Daten';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['featureData']['1']     = 'Der Marker wird als GeoJSON-Eigenschaft übertragen. Daten werden als <em>feature.properties.data</em> übergeben.';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['ignoreForBounds']['1'] = 'Diesen Datensatz nicht ausgeben, wenn er außerhalb des festgelegten Anzeigebereiches liegt.';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['multiData']['0']       = 'Multi-Daten';

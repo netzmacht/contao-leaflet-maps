@@ -8,9 +8,8 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:58+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
-
 
 $GLOBALS['TL_LANG']['tl_leaflet_style']['active_legend']    = 'Aktivierung';
 $GLOBALS['TL_LANG']['tl_leaflet_style']['alias']['0']       = 'Alias';
@@ -35,6 +34,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_style']['layersBtn']['0']   = 'Layer verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_style']['layersBtn']['1']   = 'Leaflet-Layer verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_style']['lineCap']['0']     = 'Linienenden';
 $GLOBALS['TL_LANG']['tl_leaflet_style']['lineCap']['1']     = 'Geben Sie einen Wert ein, der für die <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap" target="_blank">Enden der Linie</a> benutzt werden soll,';
+$GLOBALS['TL_LANG']['tl_leaflet_style']['lineJoin']['0']    = 'Linienverbindung';
 $GLOBALS['TL_LANG']['tl_leaflet_style']['new']['0']         = 'Stil erstellen';
 $GLOBALS['TL_LANG']['tl_leaflet_style']['new']['1']         = 'Neuen Stil erstellen';
 $GLOBALS['TL_LANG']['tl_leaflet_style']['opacity']['0']     = 'Linientransparenz';
