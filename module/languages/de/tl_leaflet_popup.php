@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2016-10-04T13:07:35+02:00
+ * last-updated: 2016-10-05T14:56:05+02:00
  */
 
 $GLOBALS['TL_LANG']['tl_leaflet_popup']['active']['0']         = 'Popup aktivieren';
@@ -43,8 +43,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_popup']['layersBtn']['0']      = 'Layer verwalte
 $GLOBALS['TL_LANG']['tl_leaflet_popup']['layersBtn']['1']      = 'Leaflet-Layer verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_popup']['map']['0']            = 'Karten verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_popup']['map']['1']            = 'Leaflet-Karten verwalten.';
-$GLOBALS['TL_LANG']['tl_leaflet_popup']['maxHeight']['0']      = 'Minimale Breite';
-$GLOBALS['TL_LANG']['tl_leaflet_popup']['maxHeight']['1']      = 'Minimale Breite des Popups';
+$GLOBALS['TL_LANG']['tl_leaflet_popup']['maxHeight']['0']      = 'Maximale Höhe';
+$GLOBALS['TL_LANG']['tl_leaflet_popup']['maxHeight']['1']      = 'Maximale Höhe des Popups';
 $GLOBALS['TL_LANG']['tl_leaflet_popup']['maxWidth']['0']       = 'Maximale Breite';
 $GLOBALS['TL_LANG']['tl_leaflet_popup']['maxWidth']['1']       = 'Maximale Breite des Popups';
 $GLOBALS['TL_LANG']['tl_leaflet_popup']['minWidth']['0']       = 'Minimale Breite';
