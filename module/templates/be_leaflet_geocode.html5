@@ -12,6 +12,7 @@
     }).addTo(map);
     var element  = $('<?php echo $this->field; ?>');
     var geocoder = L.Control.geocoder({
+        defaultMarkGeocode: false,
         collapsed: false,
         placeholder: '<?php echo $GLOBALS['TL_LANG']['leaflet']['searchPosition']; ?>'
     }).addTo(map);
@@ -39,10 +40,9 @@
         map.fitBounds(result.bbox, { padding: [0, 70]});
         map.panTo(result.center);
 
-        this._geocodeMarker = new L.Marker(result.center)
+        this._geocodeMarker = new L.Marker(result.center, {draggable: true})
             .bindPopup(container, {
                 keepInView: true,
-                draggable: true,
                 autoPanPaddingTopLeft: [0, 70]
             })
             .addTo(map)
