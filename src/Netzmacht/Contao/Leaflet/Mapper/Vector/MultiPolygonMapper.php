@@ -14,7 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Definition\Vector\MultiPolygon;
+use Netzmacht\LeafletPHP\Definition\Vector\Polygon;
 
 /**
  * Class MultiPolygonMapper maps the multi polygon database model to its definition.
@@ -28,7 +28,7 @@ class MultiPolygonMapper extends MultiPolylineMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\MultiPolygon';
+    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\Polygon';
 
     /**
      * Layer type.
@@ -49,7 +49,7 @@ class MultiPolygonMapper extends MultiPolylineMapper
     ) {
         parent::build($definition, $model, $mapper, $filter);
 
-        if ($definition instanceof MultiPolygon) {
+        if ($definition instanceof Polygon) {
             $this->createLatLngs($definition, $model);
         }
     }

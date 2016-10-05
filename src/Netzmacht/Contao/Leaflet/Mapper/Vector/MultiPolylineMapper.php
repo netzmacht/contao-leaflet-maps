@@ -14,8 +14,8 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Vector\Polyline;
 use Netzmacht\LeafletPHP\Value\LatLng;
-use Netzmacht\LeafletPHP\Definition\Vector\MultiPolyline;
 
 /**
  * Class MultiPolylineMapper maps the databse model it the multi polyline definition.
@@ -29,7 +29,7 @@ class MultiPolylineMapper extends AbstractVectorMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\MultiPolyline';
+    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\Polyline';
 
     /**
      * Layer type.
@@ -50,7 +50,7 @@ class MultiPolylineMapper extends AbstractVectorMapper
     ) {
         parent::build($definition, $model, $mapper, $filter);
 
-        if ($definition instanceof MultiPolyline) {
+        if ($definition instanceof Polyline) {
             $this->createLatLngs($definition, $model);
         }
     }
@@ -58,24 +58,22 @@ class MultiPolylineMapper extends AbstractVectorMapper
     /**
      * Create lat lngs for the definition.
      *
-     * @param MultiPolyline $definition The multi polyline.
-     * @param \Model        $model      The definition model.
+     * @param Polyline $definition The multi polyline.
+     * @param \Model   $model      The definition model.
      *
      * @return void
      */
-    protected function createLatLngs(MultiPolyline $definition, \Model $model)
+    protected function createLatLngs(Polyline $definition, \Model $model)
     {
-        $latLngs = array();
-
-        foreach (deserialize($model->multiData, true) as $data) {
-            $latLngs[] = array_map(
+        foreach (deserialize($model->multiData, true) as $ring => $data) {
+            $latLngs = array_map(
                 function ($row) {
                     return LatLng::fromString($row);
                 },
                 explode("\n", $data)
             );
-        }
 
-        $definition->setLatLngs($latLngs);
+            $definition->addLatLngs($latLngs, $ring);
+        }
     }
 }
