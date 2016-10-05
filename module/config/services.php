@@ -9,9 +9,12 @@
  *
  */
 
+use Interop\Container\ContainerInterface;
 use Netzmacht\Contao\Leaflet\Alias\UnderscoreFilter;
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\ContaoAssets;
+use Netzmacht\Contao\Leaflet\Frontend\MapElement;
+use Netzmacht\Contao\Leaflet\Frontend\MapModule;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
@@ -180,3 +183,27 @@ $container['leaflet.dca.control-callbacks'] = $container->share(
         );
     }
 );
+
+$container[Services::CONTENT_ELEMENTS_MAP]['leaflet'] = function ($model, $column, ContainerInterface $container) {
+    return new MapElement(
+        $model,
+        $container->get(Services::TEMPLATE_FACTORY),
+        $container->get(Services::TRANSLATOR),
+        $container->get('leaflet.map.service'),
+        $container->get(Services::INPUT),
+        $container->get(Services::CONFIG),
+        $column
+    );
+};
+
+$container[Services::MODULES_MAP]['leaflet'] = function ($model, $column, ContainerInterface $container) {
+    return new MapModule(
+        $model,
+        $container->get(Services::TEMPLATE_FACTORY),
+        $container->get(Services::TRANSLATOR),
+        $container->get('leaflet.map.service'),
+        $container->get(Services::INPUT),
+        $container->get(Services::CONFIG),
+        $column
+    );
+};

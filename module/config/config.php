@@ -56,13 +56,13 @@ array_insert(
 /*
  * Content elements.
  */
-$GLOBALS['TL_CTE']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\MapElement';
+$GLOBALS['TL_CTE']['includes']['leaflet'] = 'Netzmacht\Contao\Toolkit\Component\ContentElement\ContentElementDecorator';
 
 
 /*
  * Frontend modules
  */
-$GLOBALS['FE_MOD']['includes']['leaflet'] = 'Netzmacht\Contao\Leaflet\Frontend\MapModule';
+$GLOBALS['FE_MOD']['includes']['leaflet'] = 'Netzmacht\Contao\Toolkit\Component\Module\ModuleDecorator';
 
 
 /*
