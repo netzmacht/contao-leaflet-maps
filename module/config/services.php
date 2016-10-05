@@ -56,8 +56,8 @@ $container[LeafletServices::MAP_PROVIDER] = $container->share(function ($contain
 /*
  * Contao assets handler. Loads Leaflet assets as contao (static) assets.
  */
-$container[LeafletServices::MAP_ASSETS] = $container->share(function () {
-    return new ContaoAssets();
+$container[LeafletServices::MAP_ASSETS] = $container->share(function ($container) {
+    return new ContaoAssets($container[Services::ASSETS_MANAGER]);
 });
 
 /*

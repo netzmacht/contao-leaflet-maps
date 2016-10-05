@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet;
 
+use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 use Netzmacht\LeafletPHP\Assets;
 
 /**
@@ -28,6 +29,23 @@ class ContaoAssets implements Assets
     private $map;
 
     /**
+     * Assets manager.
+     *
+     * @var AssetsManager
+     */
+    private $assetsManager;
+
+    /**
+     * ContaoAssets constructor.
+     *
+     * @param AssetsManager $assetsManager Contao assets manager.
+     */
+    public function __construct(AssetsManager $assetsManager)
+    {
+        $this->assetsManager = $assetsManager;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @SuppressWarnings(PHPMD.Superglobals)
@@ -40,14 +58,8 @@ class ContaoAssets implements Assets
                 break;
 
             case static::TYPE_FILE:
-                if (!\Config::get('debugMode') && TL_MODE === 'FE') {
-                    $script .= '|static';
-                }
-
-                // no break
-
             default:
-                $GLOBALS['TL_JAVASCRIPT'][] = $script;
+                $this->assetsManager->addJavascript($script);
         }
     }
 
@@ -64,13 +76,8 @@ class ContaoAssets implements Assets
                 break;
 
             case static::TYPE_FILE:
-                if (!\Config::get('debugMode')) {
-                    $stylesheet .= '|all|static';
-                }
-                // no break
-
             default:
-                $GLOBALS['TL_CSS'][] = $stylesheet;
+                $this->assetsManager->addStylesheet($stylesheet);
         }
     }
 
