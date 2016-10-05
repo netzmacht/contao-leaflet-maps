@@ -1,21 +1,14 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
+  - "5.4"
+  - "5.5"
+  - "5.6"
+  - "7.0"
+  - "nightly"
 
 env:
-  - CONTAO_VERSION=~3.2.0
-  - CONTAO_VERSION=~3.3.0
-  - CONTAO_VERSION=~3.4.0
-  - CONTAO_VERSION=~3.5.0
-
-# Exclude impossible Contao Version combinations.
-matrix:
-  exclude:
-    - php: 5.3
-      env: CONTAO_VERSION=~3.5.0
+  - CONTAO_VERSION=~3.5.1
 
 sudo: false
 
@@ -25,6 +18,11 @@ install:
   - travis_retry composer update --prefer-dist --no-interaction
 
 script: ant -keep-going
+
+matrix:
+  allow_failures:
+    - php: "7.0"
+    - php: "nightly"
 
 # Hack to make things work again - we can not use a shallow repository.
 git:
