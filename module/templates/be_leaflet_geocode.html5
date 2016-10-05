@@ -10,6 +10,7 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+    var element  = $('<?php echo $this->field; ?>');
     var geocoder = L.Control.geocoder({
         collapsed: false,
         placeholder: '<?php echo $GLOBALS['TL_LANG']['leaflet']['searchPosition']; ?>'
@@ -18,7 +19,6 @@
     geocoder.on('markgeocode', function(event) {
         var container = document.createElement('div');
         var link      = document.createElement('button');
-        var element   = $('<?php echo $this->field; ?>');
         var result    = event.geocode;
 
         link.set('style', 'margin-left: 10px;');
@@ -42,14 +42,22 @@
         this._geocodeMarker = new L.Marker(result.center)
             .bindPopup(container, {
                 keepInView: true,
+                draggable: true,
                 autoPanPaddingTopLeft: [0, 70]
             })
             .addTo(map)
             .openPopup();
+
+        this._geocodeMarker.on('dragend', function (event) {
+            element.set('value', event.target._latlng.lat + ',' + event.target._latlng.lng);
+        });
     });
 
     <?php if ($this->marker): ?>
-    geocoder._geocodeMarker = L.marker(<?php echo $this->marker; ?>).addTo(map);
+    geocoder._geocodeMarker = L.marker(<?php echo $this->marker; ?>, {draggable: true}).addTo(map);
+    geocoder._geocodeMarker.on('dragend', function (event) {
+        element.set('value', event.target._latlng.lat + ',' + event.target._latlng.lng);
+    });
     map.setZoom(16);
     map.panTo(<?php echo $this->marker; ?>);
     <?php endif; ?>
