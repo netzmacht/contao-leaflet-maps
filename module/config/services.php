@@ -18,7 +18,6 @@ use Netzmacht\Contao\Leaflet\Frontend\MapModule;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapService;
-use Netzmacht\Contao\Leaflet\ServiceContainer;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\ExistingAliasFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SlugifyFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SuffixFilter;
@@ -124,11 +123,6 @@ $container['leaflet.definition.builder'] = $container->share(function($container
 $container['leaflet.frontend.value-filter'] = $container->share(function($container) {
     return new ValueFilter($container[Services::INSERT_TAG_REPLACER]);
 });
-
-$container['leaflet.service-container'] = $container->share(function($container) {
-    return new ServiceContainer($container);
-});
-
 
 /**
  * Leaflet alias generator.

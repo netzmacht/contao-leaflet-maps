@@ -209,7 +209,7 @@ class BootSubscriber implements EventSubscriberInterface
     private function createMapper($mapper)
     {
         if (is_callable($mapper)) {
-            $container = $GLOBALS['container']['leaflet.service-container'];
+            $container = $GLOBALS['container'][Services::CONTAINER];
 
             return $mapper($container);
         }
