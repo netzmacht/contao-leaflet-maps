@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\HasOptions;
 
 /**
  * Class OptionsBuilder handles the option mapping between the database model and the definition.
@@ -236,7 +237,7 @@ class OptionsBuilder
 
         if (method_exists($definition, $setter)) {
             $definition->$setter($value);
-        } else {
+        } elseif ($definition instanceOf HasOptions) {
             $definition->setOption($option, $value);
         }
     }

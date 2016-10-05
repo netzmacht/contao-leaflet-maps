@@ -11,8 +11,6 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-use Netzmacht\LeafletPHP\Definition;
-
 /**
  * Class CircleMarkerMapper maps the database model to the circle marker definition.
  *
