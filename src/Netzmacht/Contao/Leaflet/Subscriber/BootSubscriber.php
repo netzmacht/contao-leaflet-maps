@@ -56,10 +56,10 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function initializeInsertTagParser(InitializeSystemEvent $event)
     {
-        $container  = $event->getContainer();
-        $debugMode  = $container->get(Services::CONFIG)->get('debugMode');
-        $mapService = $container->get('leaflet.map.service');
-        $parser     = new LeafletInsertTagParser($mapService, $debugMode);
+        $container   = $event->getContainer();
+        $debugMode   = $container->get(Services::CONFIG)->get('debugMode');
+        $mapProvider = $container->get('leaflet.map.provider');
+        $parser      = new LeafletInsertTagParser($mapProvider, $debugMode);
 
         $container->get(Services::INSERT_TAG_REPLACER)->registerParser($parser);
     }

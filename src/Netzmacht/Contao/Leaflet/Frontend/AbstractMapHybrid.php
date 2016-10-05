@@ -14,7 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Frontend;
 use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
 use Database\Result;
 use Model\Collection;
-use Netzmacht\Contao\Leaflet\MapService;
+use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Component\Hybrid\AbstractHybrid;
 use Netzmacht\Contao\Toolkit\View\Template\TemplateFactory;
@@ -27,11 +27,11 @@ use Netzmacht\Contao\Toolkit\View\Template\TemplateFactory;
 abstract class AbstractMapHybrid extends AbstractHybrid
 {
     /**
-     * The map service.
+     * The map provider.
      *
-     * @var MapService
+     * @var MapProvider
      */
-    private $mapService;
+    private $mapProvider;
 
     /**
      * The user input.
@@ -53,7 +53,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
      * @param Result|\Model|Collection $model           Component model.
      * @param TemplateFactory          $templateFactory Template factory.
      * @param Translator               $translator      Translator.
-     * @param MapService               $mapService      Map service.
+     * @param MapProvider              $mapProvider     Map provider.
      * @param \Input                   $input           Input
      * @param \Config                  $config          Config.
      * @param string                   $column          Column in which the element appears.
@@ -62,16 +62,16 @@ abstract class AbstractMapHybrid extends AbstractHybrid
         $model,
         TemplateFactory $templateFactory,
         Translator $translator,
-        MapService $mapService,
+        MapProvider $mapProvider,
         \Input $input,
         \Config $config,
         $column = null
     ) {
         parent::__construct($model, $templateFactory, $translator, $column);
 
-        $this->mapService = $mapService;
-        $this->input      = $input;
-        $this->config     = $config;
+        $this->mapProvider = $mapProvider;
+        $this->input       = $input;
+        $this->config      = $config;
     }
 
     /**
@@ -81,7 +81,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
      */
     public function generate()
     {
-        $this->mapService->handleAjaxRequest($this->getIdentifier());
+        $this->mapProvider->handleAjaxRequest($this->getIdentifier());
 
         if (TL_MODE === 'BE') {
             $model = MapModel::findByPk($this->get('leaflet_map'));
@@ -118,7 +118,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
         try {
             $template = $this->get('leaflet_template') ?: 'leaflet_map_js';
             $mapId    = $this->getIdentifier();
-            $map      = $this->mapService->generate($this->get('leaflet_map'), null, $mapId, $template);
+            $map      = $this->mapProvider->generate($this->get('leaflet_map'), null, $mapId, $template);
 
             $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
 

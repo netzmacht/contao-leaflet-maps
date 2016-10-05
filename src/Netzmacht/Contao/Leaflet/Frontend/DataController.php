@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
-use Netzmacht\Contao\Leaflet\MapService;
+use Netzmacht\Contao\Leaflet\MapProvider;
 
 /**
  * The data controller handles ajax request for sub data.
@@ -22,11 +22,11 @@ use Netzmacht\Contao\Leaflet\MapService;
 class DataController
 {
     /**
-     * The map service.
+     * The map provider.
      *
-     * @var MapService
+     * @var MapProvider
      */
-    private $mapService;
+    private $mapProvider;
 
     /**
      * The user input data.
@@ -44,13 +44,13 @@ class DataController
     /**
      * Construct.
      *
-     * @param MapService $mapService The map service.
-     * @param array      $input      The user input as array.
+     * @param MapProvider $mapProvider The map provider.
+     * @param array       $input       The user input as array.
      */
-    public function __construct(MapService $mapService, $input)
+    public function __construct(MapProvider $mapProvider, $input)
     {
-        $this->mapService = $mapService;
-        $this->input      = array_merge($this->input, $input);
+        $this->mapProvider = $mapProvider;
+        $this->input       = array_merge($this->input, $input);
     }
 
     /**
@@ -120,7 +120,7 @@ class DataController
 
         switch ($type) {
             case 'layer':
-                $data = $this->mapService->getFeatureCollection($dataId, $filter);
+                $data = $this->mapProvider->getFeatureCollection($dataId, $filter);
                 break;
 
             default:

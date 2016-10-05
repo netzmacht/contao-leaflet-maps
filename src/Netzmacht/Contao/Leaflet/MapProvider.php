@@ -25,11 +25,11 @@ use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**
- * Class MapService.
+ * Class MapProvider.
  *
  * @package Netzmacht\Contao\Leaflet
  */
-class MapService
+class MapProvider
 {
     /**
      * The definition mapper.

@@ -17,7 +17,7 @@ use Netzmacht\Contao\Leaflet\Frontend\MapElement;
 use Netzmacht\Contao\Leaflet\Frontend\MapModule;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
-use Netzmacht\Contao\Leaflet\MapService;
+use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\ExistingAliasFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SlugifyFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SuffixFilter;
@@ -38,10 +38,10 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 global $container;
 
 /*
- * Leaflet map service is a simply api entry to to get the leaflet map from the database.
+ * Leaflet map provider is a simply api entry to to get the leaflet map from the database.
  */
-$container['leaflet.map.service'] = $container->share(function ($container) {
-    return new MapService(
+$container['leaflet.map.provider'] = $container->share(function ($container) {
+    return new MapProvider(
         $container['leaflet.definition.mapper'],
         $container['leaflet.definition.builder'],
         $container['event-dispatcher'],
@@ -183,7 +183,7 @@ $container[Services::CONTENT_ELEMENTS_MAP]['leaflet'] = function ($model, $colum
         $model,
         $container->get(Services::TEMPLATE_FACTORY),
         $container->get(Services::TRANSLATOR),
-        $container->get('leaflet.map.service'),
+        $container->get('leaflet.map.provider'),
         $container->get(Services::INPUT),
         $container->get(Services::CONFIG),
         $column
@@ -195,7 +195,7 @@ $container[Services::MODULES_MAP]['leaflet'] = function ($model, $column, Contai
         $model,
         $container->get(Services::TEMPLATE_FACTORY),
         $container->get(Services::TRANSLATOR),
-        $container->get('leaflet.map.service'),
+        $container->get('leaflet.map.provider'),
         $container->get(Services::INPUT),
         $container->get(Services::CONFIG),
         $column
