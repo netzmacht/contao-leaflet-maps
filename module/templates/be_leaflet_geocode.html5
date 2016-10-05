@@ -15,10 +15,11 @@
         placeholder: '<?php echo $GLOBALS['TL_LANG']['leaflet']['searchPosition']; ?>'
     }).addTo(map);
 
-    geocoder.markGeocode = function(result) {
+    geocoder.on('markgeocode', function(event) {
         var container = document.createElement('div');
         var link      = document.createElement('button');
         var element   = $('<?php echo $this->field; ?>');
+        var result    = event.geocode;
 
         link.set('style', 'margin-left: 10px;');
         link.appendText('<?php echo $GLOBALS['TL_LANG']['leaflet']['applyPosition']; ?>');
@@ -45,9 +46,7 @@
             })
             .addTo(map)
             .openPopup();
-
-        return this;
-    };
+    });
 
     <?php if ($this->marker): ?>
     geocoder._geocodeMarker = L.marker(<?php echo $this->marker; ?>).addTo(map);
