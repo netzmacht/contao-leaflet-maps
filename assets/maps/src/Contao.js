@@ -12,7 +12,7 @@ L.Contao = L.Class.extend({
          *
          * You are not allowed to remove or change it. Contact me if you want to buy an removal license.
          */
-        ATTRIBUTION: ' | <a href="http://contao-leaflet.netzmacht.de/" title="Leaflet extension for Contao CMS">netzmacht <em>creative</em></a>'
+        ATTRIBUTION: ' | <a href="https://netzmacht.de/contao-leaflet" title="Powered by Leaflet extension for Contao CMS developed by netzmacht David Molineus">netzmacht</a>'
     },
 
     /**
