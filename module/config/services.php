@@ -135,8 +135,7 @@ $container['leaflet.alias-generator'] = $container->share(
             $filters = [
                 new ExistingAliasFilter(),
                 new SlugifyFilter($fields),
-                new SuffixFilter(),
-                new UnderscoreFilter(false)
+                new SuffixFilter(false),
             ];
 
             $validator = new UniqueDatabaseValueValidator(
@@ -145,7 +144,7 @@ $container['leaflet.alias-generator'] = $container->share(
                 $aliasField
             );
 
-            return new FilterBasedAliasGenerator($filters, $validator, $dataContainerName, $aliasField);
+            return new FilterBasedAliasGenerator($filters, $validator, $dataContainerName, $aliasField, '_');
         };
     }
 );
