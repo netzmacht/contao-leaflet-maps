@@ -69,7 +69,7 @@ class AbstractVectorMapper extends AbstractTypeMapper
         parent::build($definition, $model, $mapper, $filter);
 
         if ($definition instanceof Path && $model->style) {
-            $styleModel = StyleModel::findActiveByPk($model->style);
+            $styleModel = StyleModel::findActiveByPK($model->style);
 
             if ($styleModel) {
                 $style = $mapper->handle($styleModel);
