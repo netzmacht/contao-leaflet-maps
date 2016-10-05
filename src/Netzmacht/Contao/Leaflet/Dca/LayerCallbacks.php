@@ -330,6 +330,22 @@ class LayerCallbacks extends Callbacks
     }
 
     /**
+     * Get all layers except of the current layer.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return array
+     */
+    public function getLayers($dataContainer)
+    {
+        $collection = LayerModel::findBy('id !', $dataContainer->id);
+
+        return OptionsBuilder::fromCollection($collection, 'title')
+            ->asTree()
+            ->getOptions();
+    }
+
+    /**
      * Generate a button.
      *
      * @param array  $row        Current row.
