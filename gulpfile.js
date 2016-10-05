@@ -9,8 +9,8 @@ var paths = {
     dest:     'assets/maps'
 };
 
-gulp.task('clear', function(cb) {
-    del([paths.dest + '/' + paths.minified], cb);
+gulp.task('clear', function() {
+    del([paths.dest + '/' + paths.minified]);
 });
 
 gulp.task('scripts', ['clear'], function() {
