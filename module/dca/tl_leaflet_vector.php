@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'flag'                    => 1,
             'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Vector', 'generateRow'),
+            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\VectorCallbacks', 'generateRow'),
         ),
         'label' => array
         (
@@ -255,7 +255,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['popup'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'getPopups'),
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getPopups'),
             'eval'      => array(
                 'mandatory'          => false,
                 'tl_class'           => 'w50',
@@ -278,7 +278,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Vector', 'getStyles'),
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\VectorCallbacks', 'getStyles'),
             'eval'      => array(
                 'mandatory'  => false,
                 'tl_class'   => 'w50',
@@ -310,10 +310,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
+                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate')
             ),
             'wizard'        => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getGeocoder')
+                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'getGeocoder')
             ),
             'eval'          => array(
                 'maxlength'   => 255,
@@ -366,8 +366,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['bounds'],
             'exclude'       => true,
             'inputType'     => 'text',
-            'save_callback' => array(
-            ),
+            'save_callback' => array(),
             'eval'          => array(
                 'maxlength'   => 255,
                 'multiple'=>true,
