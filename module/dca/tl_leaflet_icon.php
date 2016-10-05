@@ -178,7 +178,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                     'tl_leaflet_icon',
                     'alias',
                     ['title'],
-                    'leaflet.alias-generator'
+                    \Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::ALIAS_GENERATOR
                 ),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),

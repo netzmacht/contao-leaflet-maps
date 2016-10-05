@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use ContaoCommunityAlliance\Contao\EventDispatcher\EventDispatcherInitializer;
+use Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeDefinitionMapperEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeEventDispatcherEvent;
@@ -58,7 +59,7 @@ class BootSubscriber implements EventSubscriberInterface
     {
         $container   = $event->getContainer();
         $debugMode   = $container->get(Services::CONFIG)->get('debugMode');
-        $mapProvider = $container->get('leaflet.map.provider');
+        $mapProvider = $container->get(LeafletServices::MAP_PROVIDER);
         $parser      = new LeafletInsertTagParser($mapProvider, $debugMode);
 
         $container->get(Services::INSERT_TAG_REPLACER)->registerParser($parser);
@@ -154,7 +155,7 @@ class BootSubscriber implements EventSubscriberInterface
 
         if ($collection) {
             /** @var DefinitionMapper $mapper */
-            $mapper = $GLOBALS['container']['leaflet.definition.mapper'];
+            $mapper = $GLOBALS['container'][LeafletServices::DEFINITION_MAPPER];
             $buffer = '';
             $icons  = array();
 
