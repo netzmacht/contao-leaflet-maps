@@ -81,16 +81,11 @@ class ControlCallbacks extends Callbacks
      */
     public function getLayers()
     {
-        $options    = array();
-        $collection = LayerModel::findBy('pid', '0', array('order' => 'title'));
+        $collection = LayerModel::findAll();
 
-        if ($collection) {
-            foreach ($collection as $model) {
-                $options[$model->id] = $model->title;
-            }
-        }
-
-        return $options;
+        return OptionsBuilder::fromCollection($collection, 'title')
+            ->asTree()
+            ->getOptions();
     }
 
     /**
