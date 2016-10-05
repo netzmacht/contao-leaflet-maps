@@ -54,7 +54,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
      * @param TemplateFactory          $templateFactory Template factory.
      * @param Translator               $translator      Translator.
      * @param MapProvider              $mapProvider     Map provider.
-     * @param \Input                   $input           Input
+     * @param \Input                   $input           Request Input.
      * @param \Config                  $config          Config.
      * @param string                   $column          Column in which the element appears.
      */
@@ -142,5 +142,10 @@ abstract class AbstractMapHybrid extends AbstractHybrid
         }
     }
 
+    /**
+     * Get the component identifier which is used as unique name.
+     *
+     * @return string
+     */
     abstract protected function getIdentifier();
 }

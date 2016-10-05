@@ -237,7 +237,7 @@ class OptionsBuilder
 
         if (method_exists($definition, $setter)) {
             $definition->$setter($value);
-        } elseif ($definition instanceOf HasOptions) {
+        } elseif ($definition instanceof HasOptions) {
             $definition->setOption($option, $value);
         }
     }
