@@ -29,7 +29,7 @@ L.Contao = L.Class.extend({
      * Initialize Contao leaflet integration.
      */
     initialize: function () {
-        L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
+        L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images/';
 
         this.setGeoJsonListeners(L.GeoJSON);
     },
