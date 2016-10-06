@@ -18,6 +18,7 @@ use Netzmacht\Contao\Leaflet\Dca\FrontendIntegration;
 use Netzmacht\Contao\Leaflet\Dca\LayerCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\MapCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\Validator;
+use Netzmacht\Contao\Leaflet\Dca\VectorCallbacks;
 use Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices;
 use Netzmacht\Contao\Leaflet\Frontend\MapElement;
 use Netzmacht\Contao\Leaflet\Frontend\MapModule;
@@ -211,6 +212,17 @@ $container['leaflet.dca.control-callbacks'] = $container->share(
             $container[Services::DCA_MANAGER],
             $container[Services::DATABASE_CONNECTION]
         );
+    }
+);
+
+/**
+ * Callback helper class for tl_leaflet_control.
+ *
+ * @return ControlCallbacks
+ */
+$container['leaflet.dca.vector-callbacks'] = $container->share(
+    function ($container) {
+        return new VectorCallbacks($container[Services::DCA_MANAGER]);
     }
 );
 

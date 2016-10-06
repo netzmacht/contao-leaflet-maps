@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'flag'                    => 1,
             'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\VectorCallbacks', 'generateRow'),
+            'child_record_callback'   => Netzmacht\Contao\Leaflet\Dca\VectorCallbacks::callback('generateRow'),
         ),
         'label' => array
         (
@@ -279,7 +279,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\VectorCallbacks', 'getStyles'),
+            'options_callback' => Netzmacht\Contao\Leaflet\Dca\VectorCallbacks::callback('getStyles'),
             'eval'      => array(
                 'mandatory'  => false,
                 'tl_class'   => 'w50',

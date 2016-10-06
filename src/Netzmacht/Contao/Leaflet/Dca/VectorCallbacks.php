@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
+use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 
@@ -19,8 +20,22 @@ use Netzmacht\Contao\Leaflet\Model\StyleModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class VectorCallbacks
+class VectorCallbacks extends Callbacks
 {
+    /**
+     * Name of the data container.
+     *
+     * @var string
+     */
+    protected static $name = 'tl_leaflet_vector';
+
+    /**
+     * Helper service name.
+     *
+     * @var string
+     */
+    protected static $serviceName = 'leaflet.dca.vector-callbacks';
+
     /**
      * Generate the row label.
      *
@@ -30,7 +45,12 @@ class VectorCallbacks
      */
     public function generateRow($row)
     {
-        return sprintf('%s <span class="tl_gray">[%s]</span>', $row['title'], $row['type']);
+        return sprintf(
+            '%s <span class="tl_gray">%s (%s)</span>',
+            $row['title'],
+            $row['alias'],
+            $this->getFormatter()->formatValue('type', $row['type'])
+        );
     }
 
     /**
