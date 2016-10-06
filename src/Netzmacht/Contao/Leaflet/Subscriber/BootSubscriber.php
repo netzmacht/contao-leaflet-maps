@@ -12,6 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use ContaoCommunityAlliance\Contao\EventDispatcher\EventDispatcherInitializer;
+use Netzmacht\Contao\Leaflet\ContaoAssets;
 use Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Event\InitializeDefinitionMapperEvent;
@@ -59,9 +60,9 @@ class BootSubscriber implements EventSubscriberInterface
     /**
      * Assets manager.
      *
-     * @var AssetsManager
+     * @var ContaoAssets
      */
-    private $assetsManager;
+    private $assets;
 
     /**
      * Definition mapper.
@@ -73,21 +74,21 @@ class BootSubscriber implements EventSubscriberInterface
     /**
      * BootSubscriber constructor.
      *
-     * @param AssetsManager $assetsManager Assets manager.
-     * @param array         $mappers       Leaflet mapper configuration.
-     * @param array         $encoders      Leaflet encoder configuration.
-     * @param array         $libraries     Leaflet libraries configuration.
+     * @param ContaoAssets $assets    Leaflet assets manager.
+     * @param array        $mappers   Leaflet mapper configuration.
+     * @param array        $encoders  Leaflet encoder configuration.
+     * @param array        $libraries Leaflet libraries configuration.
      */
     public function __construct(
-        AssetsManager $assetsManager,
+        ContaoAssets $assets,
         array $mappers,
         array $encoders,
         array $libraries
     ) {
-        $this->assetsManager = $assetsManager;
-        $this->mappers       = $mappers;
-        $this->encoders      = $encoders;
-        $this->libraries     = $libraries;
+        $this->assets    = $assets;
+        $this->mappers   = $mappers;
+        $this->encoders  = $encoders;
+        $this->libraries = $libraries;
     }
 
     /**
@@ -188,7 +189,7 @@ class BootSubscriber implements EventSubscriberInterface
      */
     public function loadAssets()
     {
-        $this->assetsManager->addJavascript('assets/leaflet/maps/contao-leaflet.js');
+        $this->assets->addJavascript('assets/leaflet/maps/contao-leaflet.js', ContaoAssets::TYPE_FILE);
     }
 
     /**
@@ -229,7 +230,7 @@ class BootSubscriber implements EventSubscriberInterface
             // @codingStandardsIgnoreStart
             // TODO: Cache it.
             // codingStandardsIgnoreEnd
-            $this->assetsManager->addJavascript('assets/leaflet/js/icons.js');
+            $this->assets->addJavascript('assets/leaflet/js/icons.js', ContaoAssets::TYPE_FILE);
         }
     }
 

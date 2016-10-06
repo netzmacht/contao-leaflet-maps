@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet;
 
+use Doctrine\Common\Cache\Cache;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Frontend\DataController;
@@ -18,7 +19,6 @@ use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
-use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
@@ -62,7 +62,7 @@ class MapProvider
     /**
      * Map assets collector.
      *
-     * @var Assets
+     * @var ContaoAssets
      */
     private $assets;
 
@@ -81,13 +81,21 @@ class MapProvider
     private $displayErrors;
 
     /**
+     * Cache.
+     *
+     * @var Cache
+     */
+    private $cache;
+
+    /**
      * Construct.
      *
      * @param DefinitionMapper $mapper          The definition mapper.
      * @param Leaflet          $leaflet         The Leaflet instance.
      * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
      * @param \Input           $input           Thw request input.
-     * @param Assets           $assets          Assets handler.
+     * @param ContaoAssets     $assets          Assets handler.
+     * @param Cache            $cache           Cache.
      * @param array            $filters         Request filters configuration.
      * @param bool             $displayErrors   Display errors setting.
      */
@@ -96,7 +104,8 @@ class MapProvider
         Leaflet $leaflet,
         EventDispatcher $eventDispatcher,
         \Input $input,
-        Assets $assets,
+        ContaoAssets $assets,
+        Cache $cache,
         array $filters,
         $displayErrors
     ) {
@@ -107,6 +116,7 @@ class MapProvider
         $this->assets          = $assets;
         $this->filters         = $filters;
         $this->displayErrors   = $displayErrors;
+        $this->cache           = $cache;
     }
 
     /**
@@ -165,9 +175,6 @@ class MapProvider
      *
      * @return string
      * @throws \Exception If generating went wrong.
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function generate(
         $mapId,
@@ -176,23 +183,38 @@ class MapProvider
         $template = 'leaflet_map_js',
         $style = ''
     ) {
-        $definition = $this->getDefinition($mapId, $filter, $elementId);
-        $template   = \Controller::getTemplate($template);
+        if ($mapId instanceof MapModel) {
+            $model = $mapId;
+            $mapId = $mapId->id;
+        } else {
+            $model = $this->getModel($mapId);
+        }
 
-        // @codingStandardsIgnoreStart - Set for the template.
-        $javascript = $this->leaflet->build($definition, $this->assets);
-        $mapId      = $definition->getId();
-        // @codingStandardsIgnoreEnd
+        if ($model->cache) {
+            $cacheKey = $this->getCacheKey($mapId, $filter, $elementId, $template, $style);
 
-        ob_start();
-        include $template;
-        $content = ob_get_contents();
-        ob_end_clean();
+            if ($this->cache->contains($cacheKey)) {
+                $cached = $this->cache->fetch($cacheKey);
+                $this->assets->fromArray($cached['assets']);
 
-        $event = new GetJavascriptEvent($definition, $content);
-        $this->eventDispatcher->dispatch($event::NAME, $event);
+                return $cached['javascript'];
+            }
+        }
 
-        return $event->getJavascript();
+        $buffer = $this->doGenerate($mapId, $filter, $elementId, $template, $model, $style);
+
+        if ($model->cache) {
+            $this->cache->save(
+                $cacheKey,
+                [
+                    'assets' => $this->assets->toArray(),
+                    'javascript' => $buffer
+                ],
+                (int) $model->cacheLifeTime
+            );
+        }
+
+        return $buffer;
     }
 
     /**
@@ -217,7 +239,23 @@ class MapProvider
             throw new \InvalidArgumentException(sprintf('Could not find layer "%s"', $layerId));
         }
 
-        return $this->mapper->handleGeoJson($model, $filter);
+        if (!$model->cache) {
+            return $this->mapper->handleGeoJson($model, $filter);
+        }
+
+        $cacheKey = 'feature_layer_' . $model->id;
+        if ($filter) {
+            $cacheKey .= '.filter_' . md5($filter->toRequest());
+        }
+
+        if ($this->cache->contains($cacheKey)) {
+            return $this->cache->fetch($cacheKey);
+        }
+
+        $collection = $this->mapper->handleGeoJson($model, $filter);
+        $this->cache->save($cacheKey, $collection, $model->cacheLifeTime);
+
+        return $collection;
     }
 
     /**
@@ -230,7 +268,6 @@ class MapProvider
      * @throws \RuntimeException IF the input data does not match.
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function handleAjaxRequest($identifier, $exit = true)
     {
@@ -260,5 +297,76 @@ class MapProvider
                 exit;
             }
         }
+    }
+
+    /**
+     * Get the cache key.
+     *
+     * @param int         $mapId     The map database id.
+     * @param Filter|null $filter    Optional request filter.
+     * @param string      $elementId Optional element id. If none given the mapId or alias is used.
+     * @param string      $template  The template being used for generating.
+     * @param string      $style     Optional style attributes.
+     *
+     * @return string
+     */
+    protected function getCacheKey($mapId, $filter, $elementId, $template, $style)
+    {
+        $cacheKey = 'map_' . $mapId;
+
+        if ($filter) {
+            $cacheKey .= '.filter_' . md5($filter->toRequest());
+        }
+
+        if ($elementId) {
+            $cacheKey .= '.element_' . $elementId;
+        }
+
+        $cacheKey .= '.template_' . $template;
+
+        if ($style) {
+            $cacheKey .= '.style_' . md5($style);
+
+            return $cacheKey;
+        }
+
+        return $cacheKey;
+    }
+
+    /**
+     * Do the generating of the map.
+     *
+     * @param MapModel    $model     Map model.
+     * @param Filter|null $filter    Optional request filter.
+     * @param string      $elementId Optional element id. If none given the mapId or alias is used.
+     * @param string      $template  The template being used for generating.
+     * @param string      $style     Optional style attributes.
+     *
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
+    protected function doGenerate($model, $filter, $elementId, $template, $style)
+    {
+        $definition = $this->getDefinition($model, $filter, $elementId);
+        $template   = \Controller::getTemplate($template);
+
+        // @codingStandardsIgnoreStart - Set for the template.
+        $javascript = $this->leaflet->build($definition, $this->assets);
+        $mapId      = $definition->getId();
+        // @codingStandardsIgnoreEnd
+
+        ob_start();
+        include $template;
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        $event = new GetJavascriptEvent($definition, $content);
+        $this->eventDispatcher->dispatch($event::NAME, $event);
+
+        $buffer = $event->getJavascript();
+
+        return $buffer;
     }
 }

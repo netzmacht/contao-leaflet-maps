@@ -100,7 +100,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLa
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ReferenceLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = function () {
     return new \Netzmacht\Contao\Leaflet\Mapper\Layer\MarkerClusterLayerMapper(
-        $GLOBALS['container'][\Netzmacht\Contao\Toolkit\DependencyInjection\Services::ASSETS_MANAGER]
+        $GLOBALS['container'][\Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::MAP_ASSETS]
     );
 };
 

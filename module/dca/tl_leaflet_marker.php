@@ -28,7 +28,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             function() {
                 \Controller::loadLanguageFile('leaflet');
             }
-        )
+        ),
+        'onsubmit_callback' => [
+            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+        ],
     ),
 
     'list' => array
@@ -196,7 +199,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'loadCoordinates')
             ),
             'wizard'        => array(
-                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'getGeocoder')
+                Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getGeocoder')
             ),
             'eval'          => array(
                 'maxlength'      => 255,
@@ -238,7 +241,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'flag'      => 12,
             'inputType' => 'checkbox',
             'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
+            'sql'       => "char(1) NOT NULL default ''",
+            'save_callback' => [
+                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ],
         ),
         'tooltip'      => array
         (

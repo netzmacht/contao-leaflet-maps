@@ -11,10 +11,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
-use Netzmacht\Contao\Leaflet\Mapper\MapMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
-use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory;
 use Netzmacht\LeafletPHP\Value\LatLng;
 
 /**
@@ -24,6 +22,35 @@ use Netzmacht\LeafletPHP\Value\LatLng;
  */
 class LeafletCallbacks
 {
+    /**
+     * File system.
+     *
+     * @var \Files
+     */
+    private $fileSystem;
+
+    /**
+     * LeafletCallbacks constructor.
+     *
+     * @param \Files $fileSystem File system.
+     */
+    public function __construct(\Files $fileSystem)
+    {
+        $this->fileSystem = $fileSystem;
+    }
+
+    /**
+     * Generate the callback definition.
+     *
+     * @param string $methodName Callback method name.
+     *
+     * @return callable
+     */
+    public static function callback($methodName)
+    {
+        return CallbackFactory::service('leaflet.dca.common', $methodName);
+    }
+
     /**
      * Create the zoom range.
      *
@@ -74,5 +101,19 @@ class LeafletCallbacks
         }
 
         return $options;
+    }
+
+    /**
+     * Clear the leaflet cache.
+     *
+     * @param mixed $value Value when used as save_callback.
+     *
+     * @return mixed
+     */
+    public function clearCache($value = null)
+    {
+        $this->fileSystem->rrdir('system/cache/leaflet', true);
+
+        return $value;
     }
 }

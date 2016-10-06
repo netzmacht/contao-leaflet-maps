@@ -28,7 +28,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             function() {
                 \Controller::loadLanguageFile('leaflet');
             }
-        )
+        ),
+        'onsubmit_callback' => [
+            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+        ],
     ),
 
     'list' => array
@@ -240,7 +243,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'search'    => false,
             'flag'      => 12,
             'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
+            'sql'       => "char(1) NOT NULL default ''",
+            'save_callback' => [
+                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ],
         ),
         'addPopup'     => array
         (
@@ -314,7 +320,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
             ),
             'wizard'        => array(
-                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'getGeocoder')
+                Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getGeocoder')
             ),
             'eval'          => array(
                 'maxlength'   => 255,

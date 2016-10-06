@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Netzmacht\Contao\Leaflet\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
@@ -46,20 +47,20 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
     /**
      * Assets manager.
      *
-     * @var AssetsManager
+     * @var ContaoAssets
      */
-    private $assetsManager;
+    private $assets;
 
     /**
      * MarkerClusterLayerMapper constructor.
      *
-     * @param AssetsManager $assetsManager Assets manager.
+     * @param ContaoAssets $assets Assets manager.
      */
-    public function __construct(AssetsManager $assetsManager)
+    public function __construct(ContaoAssets $assets)
     {
         parent::__construct();
 
-        $this->assetsManager = $assetsManager;
+        $this->assets = $assets;
     }
 
     /**
@@ -102,7 +103,7 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
         }
 
         if (!$model->disableDefaultStyle) {
-            $this->assetsManager->addStylesheet('assets/leaflet/libs/leaflet-markercluster/MarkerCluster.Default.css');
+            $this->assets->addStylesheet('assets/leaflet/libs/leaflet-markercluster/MarkerCluster.Default.css');
         }
 
         $collection = LayerModel::findBy(

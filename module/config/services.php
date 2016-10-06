@@ -9,6 +9,8 @@
  *
  */
 
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\FilesystemCache;
 use Interop\Container\ContainerInterface;
 use Netzmacht\Contao\Leaflet\Alias\DefaultAliasFilter;
 use Netzmacht\Contao\Leaflet\Boot;
@@ -16,6 +18,7 @@ use Netzmacht\Contao\Leaflet\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Dca\ControlCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\FrontendIntegration;
 use Netzmacht\Contao\Leaflet\Dca\LayerCallbacks;
+use Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\MapCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\Validator;
 use Netzmacht\Contao\Leaflet\Dca\VectorCallbacks;
@@ -56,6 +59,7 @@ $container[LeafletServices::MAP_PROVIDER] = $container->share(function ($contain
         $container[Services::EVENT_DISPATCHER],
         $container[Services::INPUT],
         $container[LeafletServices::MAP_ASSETS],
+        $container[LeafletServices::CACHE],
         $GLOBALS['LEAFLET_FILTERS'],
         \Config::get('debugMode') || \Config::get('displayErrors')
     );
@@ -77,7 +81,7 @@ $container[LeafletServices::BOOT] = $container->share(function ($container) {
 
 $container['leaflet.boot.subscriber'] = $container->share(function ($container) {
     return new BootSubscriber(
-        $container[Services::ASSETS_MANAGER],
+        $container[LeafletServices::MAP_ASSETS],
         $GLOBALS['LEAFLET_MAPPERS'],
         $GLOBALS['LEAFLET_ENCODERS'],
         $GLOBALS['LEAFLET_LIBRARIES']
@@ -143,6 +147,21 @@ $container[LeafletServices::DEFINITION_BUILDER] = $container->share(function($co
 $container[LeafletServices::FRONTEND_VALUE_FILTER] = $container->share(function($container) {
     return new ValueFilter($container[Services::INSERT_TAG_REPLACER]);
 });
+
+/**
+ * Internal used leaflet cache.
+ *
+ * @var Cache
+ */
+$container[LeafletServices::CACHE] = $container->share(
+    function ($container) {
+        if ($container[Services::PRODUCTION_MODE]) {
+            return new FilesystemCache(TL_ROOT . '/system/cache/leaflet');
+        } else {
+            return new ArrayCache();
+        }
+    }
+);
 
 /**
  * Leaflet alias generator.
@@ -262,6 +281,19 @@ $container['leaflet.dca.frontend-integration'] = $container->share(
     function ($container) {
         return new FrontendIntegration(
             $container[Services::TRANSLATOR]
+        );
+    }
+);
+
+/**
+ * Common callback helpers.
+ *
+ * @return LeafletCallbacks
+ */
+$container['leaflet.dca.common'] = $container->share(
+    function ($container) {
+        return new LeafletCallbacks(
+            $container[Services::FILE_SYSTEM]
         );
     }
 );

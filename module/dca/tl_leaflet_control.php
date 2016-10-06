@@ -23,7 +23,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 'id'    => 'primary',
                 'pid'   => 'index',
             )
-        )
+        ),
+        'onsubmit_callback' => [
+            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+        ],
     ),
 
     // List
@@ -211,7 +214,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'inputType' => 'checkbox',
             'filter'    => true,
             'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
+            'sql'       => "char(1) NOT NULL default ''",
+            'save_callback' => [
+                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ],
         ),
         'zoomInText'  => array
         (

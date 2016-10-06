@@ -10,6 +10,7 @@
 
 namespace Netzmacht\Contao\Leaflet\DependencyInjection;
 
+use Doctrine\Common\Cache\Cache;
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
@@ -39,6 +40,13 @@ class LeafletServices
      * @return Boot
      */
     const BOOT = 'leaflet.boot';
+
+    /**
+     * Leaflet cache
+     *
+     * @return Cache
+     */
+    const CACHE = 'leaflet.cache';
 
     /**
      * Service name of the definition builder.
