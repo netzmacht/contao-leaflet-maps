@@ -22,9 +22,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['leaflet_map'] = array(
     'label'            => &$GLOBALS['TL_LANG']['tl_content']['leaflet_map'],
     'inputType'        => 'select',
     'exclude'          => true,
-    'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\FrontendIntegration', 'getMaps'),
+    'options_callback' => \Netzmacht\Contao\Leaflet\Dca\FrontendIntegration::callback('getMaps'),
     'wizard'           => array(
-        array('Netzmacht\Contao\Leaflet\Dca\FrontendIntegration', 'getEditMapLink'),
+        \Netzmacht\Contao\Leaflet\Dca\FrontendIntegration::callback('getEditMapLink'),
     ),
     'eval'             => array(
         'tl_class' => 'w50 wizard',

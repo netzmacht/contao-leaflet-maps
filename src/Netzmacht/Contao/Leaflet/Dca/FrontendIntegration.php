@@ -11,6 +11,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
+use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
+use Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 
@@ -21,6 +23,35 @@ use Netzmacht\Contao\Leaflet\Model\MapModel;
  */
 class FrontendIntegration
 {
+    /**
+     * Translator.
+     *
+     * @var Translator
+     */
+    private $translator;
+
+    /**
+     * FrontendIntegration constructor.
+     *
+     * @param Translator $translator Translator.
+     */
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    /**
+     * Generate the callback definition.
+     *
+     * @param string $methodName Callback method name.
+     *
+     * @return callable
+     */
+    public static function callback($methodName)
+    {
+        return CallbackFactory::service('leaflet.dca.frontend-integration', $methodName);
+    }
+
     /**
      * Get all leaflet maps.
      *
@@ -39,8 +70,6 @@ class FrontendIntegration
      * @param \DataContainer $dataContainer The dataContainer driver.
      *
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getEditMapLink($dataContainer)
     {
@@ -53,23 +82,23 @@ class FrontendIntegration
 
         return sprintf(
             '<a href="%s%s&amp;popup=1&amp;rt=%s" %s>%s</a>',
-            'contao/main.php?do=leaflet&amp;table=tl_leaflet_map&amp;act=edit&amp;id=',
+            'contao/main.php?do=leaflet_map&amp;table=tl_leaflet_map&amp;act=edit&amp;id=',
             $dataContainer->value,
             \RequestToken::get(),
             sprintf(
                 $pattern,
-                specialchars(sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dataContainer->value)),
+                specialchars($this->translator->translate('editalias.1', 'tl_content', [$dataContainer->value])),
                 specialchars(
                     str_replace(
                         "'",
                         "\\'",
-                        sprintf($GLOBALS['TL_LANG']['tl_content']['editalias'][1], $dataContainer->value)
+                        sprintf($this->translator->translate('editalias.1', 'tl_content', [$dataContainer->value]))
                     )
                 )
             ),
             \Image::getHtml(
                 'alias.gif',
-                $GLOBALS['TL_LANG']['tl_content']['editalias'][0],
+                $this->translator->translate('editalias.0', 'tl_content', [$dataContainer->value]),
                 'style="vertical-align:top"'
             )
         );
