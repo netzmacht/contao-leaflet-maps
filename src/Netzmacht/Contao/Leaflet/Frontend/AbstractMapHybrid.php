@@ -120,8 +120,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
             $mapId    = $this->getIdentifier();
             $map      = $this->mapProvider->generate($this->get('leaflet_map'), null, $mapId, $template);
 
-            $GLOBALS['TL_BODY'][] = '<script>' . $map .'</script>';
-
+            $this->template->set('javascript', $map);
             $this->template->set('mapId', $mapId);
 
             $style  = '';
