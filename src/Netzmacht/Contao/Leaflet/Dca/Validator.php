@@ -88,7 +88,24 @@ class Validator
         }
 
         foreach ($lines as $coordinate) {
-            LatLng::fromString($coordinate);
+            $this->validateCoordinates($coordinate);
+        }
+
+        return $values;
+    }
+
+    /**
+     * Validate multiple coordinate sets.
+     *
+     * @param mixed $values Given value.
+     *
+     * @return mixed
+     */
+    public function validateMultipleCoordinateSets($values)
+    {
+        $sets = deserialize($values, true);
+        foreach ($sets as $lines) {
+            $this->validateMultipleCoordinates($lines);
         }
 
         return $values;

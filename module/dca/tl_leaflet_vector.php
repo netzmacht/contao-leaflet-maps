@@ -339,6 +339,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'inputType' => 'textarea',
             'search'    => false,
             'eval'      => array('mandatory' => true, 'alwaysSave' => true),
+            'save_callback' => array(
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateMultipleCoordinates')
+            ),
             'sql'       => "longblob NULL"
         ),
         'multiData' => array
@@ -360,6 +363,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                         'eval'      => array('alwaysSave' => true, 'style' => 'width:600px'),
                     )
                 )
+            ),
+            'save_callback' => array(
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateMultipleCoordinateSets')
             ),
             'sql'       => "longblob NULL"
         ),
