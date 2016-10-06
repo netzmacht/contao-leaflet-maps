@@ -121,7 +121,7 @@ class Validator
      */
     public function validateAlias($value)
     {
-        if (preg_match('/[A-Za-z_][A-Za-z0-9_]+/', $value) !== 1) {
+        if (preg_match('/^[A-Za-z_]+[A-Za-z0-9_]+$/', $value) !== 1) {
             throw new \InvalidArgumentException(
                 $this->translator->translate('invalidAlias', 'leaflet')
             );
