@@ -9,7 +9,7 @@
  *
  */
 return array(
-    'Netzmacht\Contao\Leaflet\Subscriber\BootSubscriber',
+    $GLOBALS['container']['leaflet.boot.subscriber'],
     'Netzmacht\Contao\Leaflet\Subscriber\HashSubscriber',
     'Netzmacht\Contao\Leaflet\Subscriber\GeoJsonSubscriber',
 );

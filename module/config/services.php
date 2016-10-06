@@ -23,6 +23,7 @@ use Netzmacht\Contao\Leaflet\Frontend\MapModule;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapProvider;
+use Netzmacht\Contao\Leaflet\Subscriber\BootSubscriber;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\ExistingAliasFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SlugifyFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SuffixFilter;
@@ -67,6 +68,15 @@ $container[LeafletServices::MAP_ASSETS] = $container->share(function ($container
  */
 $container[LeafletServices::BOOT] = $container->share(function ($container) {
     return new Boot($container[Services::EVENT_DISPATCHER]);
+});
+
+$container['leaflet.boot.subscriber'] = $container->share(function ($container) {
+    return new BootSubscriber(
+        $container[Services::ASSETS_MANAGER],
+        $GLOBALS['LEAFLET_MAPPERS'],
+        $GLOBALS['LEAFLET_ENCODERS'],
+        $GLOBALS['LEAFLET_LIBRARIES']
+    );
 });
 
 

@@ -23,6 +23,7 @@ use Netzmacht\Contao\Leaflet\Mapper\Mapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Toolkit\Boot\Event\InitializeSystemEvent;
 use Netzmacht\Contao\Toolkit\DependencyInjection\Services;
+use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,6 +35,61 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class BootSubscriber implements EventSubscriberInterface
 {
+    /**
+     * Leaflet mapper configuration.
+     *
+     * @var array
+     */
+    private $mappers;
+
+    /**
+     * Leaflet encoder configuration.
+     *
+     * @var array
+     */
+    private $encoders;
+
+    /**
+     * Leaflet libraries configuration.
+     *
+     * @var array
+     */
+    private $libraries;
+
+    /**
+     * Assets manager.
+     *
+     * @var AssetsManager
+     */
+    private $assetsManager;
+
+    /**
+     * Definition mapper.
+     *
+     * @var DefinitionMapper
+     */
+    private $definitionMapper;
+
+    /**
+     * BootSubscriber constructor.
+     *
+     * @param AssetsManager $assetsManager Assets manager.
+     * @param array         $mappers       Leaflet mapper configuration.
+     * @param array         $encoders      Leaflet encoder configuration.
+     * @param array         $libraries     Leaflet libraries configuration.
+     */
+    public function __construct(
+        AssetsManager $assetsManager,
+        array $mappers,
+        array $encoders,
+        array $libraries
+    ) {
+        $this->assetsManager = $assetsManager;
+        $this->mappers       = $mappers;
+        $this->encoders      = $encoders;
+        $this->libraries     = $libraries;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -71,14 +127,13 @@ class BootSubscriber implements EventSubscriberInterface
      * @param InitializeDefinitionMapperEvent $event The subscribed event.
      *
      * @return void
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function initializeDefinitionMapper(InitializeDefinitionMapperEvent $event)
     {
-        $mapper = $event->getDefinitionMapper();
+        $mapper                 = $event->getDefinitionMapper();
+        $this->definitionMapper = $mapper;
 
-        foreach ($GLOBALS['LEAFLET_MAPPERS'] as $className) {
+        foreach ($this->mappers as $className) {
             if (is_array($className)) {
                 $mapper->register($this->createMapper($className[0]), $className[1]);
             } else {
@@ -93,15 +148,13 @@ class BootSubscriber implements EventSubscriberInterface
      * @param InitializeEventDispatcherEvent $event The subscribed event.
      *
      * @return void
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function initializeEventDispatcher(InitializeEventDispatcherEvent $event)
     {
         $dispatcher  = $event->getEventDispatcher();
         $initializer = new EventDispatcherInitializer();
 
-        $initializer->addSubscribers($dispatcher, $GLOBALS['LEAFLET_ENCODERS']);
+        $initializer->addSubscribers($dispatcher, $this->encoders);
     }
 
     /**
@@ -110,14 +163,12 @@ class BootSubscriber implements EventSubscriberInterface
      * @param InitializeLeafletBuilderEvent $event The subscribed event.
      *
      * @return void
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function initializeLeafletBuilder(InitializeLeafletBuilderEvent $event)
     {
         $builder = $event->getBuilder();
 
-        foreach ($GLOBALS['LEAFLET_LIBRARIES'] as $name => $assets) {
+        foreach ($this->libraries as $name => $assets) {
             if (!empty($assets['css'])) {
                 list ($source, $type) = (array) $assets['css'];
                 $builder->registerStylesheet($name, $source, $type ?: Assets::TYPE_FILE);
@@ -134,34 +185,32 @@ class BootSubscriber implements EventSubscriberInterface
      * Load Contao leaflet assets.
      *
      * @return void
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function loadAssets()
     {
-        $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/maps/contao-leaflet.js' . $this->staticFlag();
+        $this->assetsManager->addJavascript('assets/leaflet/maps/contao-leaflet.js');
     }
 
     /**
      * Load icons.
      *
      * @return void
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function loadIcons()
     {
+        if (!$this->definitionMapper) {
+            return;
+        }
+
         $collection = IconModel::findBy('active', true);
 
         if ($collection) {
-            /** @var DefinitionMapper $mapper */
-            $mapper = $GLOBALS['container'][LeafletServices::DEFINITION_MAPPER];
             $buffer = '';
             $icons  = array();
 
             foreach ($collection as $model) {
                 /** @var ImageIcon $icon */
-                $icon    = $mapper->handle($model);
+                $icon    = $this->definitionMapper->handle($model);
                 $icons[] = array(
                     'id'      => $icon->getId(),
                     'type'    => lcfirst($icon->getType()),
@@ -180,22 +229,8 @@ class BootSubscriber implements EventSubscriberInterface
             // @codingStandardsIgnoreStart
             // TODO: Cache it.
             // codingStandardsIgnoreEnd
-            $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/js/icons.js' . $this->staticFlag();
+            $this->assetsManager->addJavascript('assets/leaflet/js/icons.js');
         }
-    }
-
-    /**
-     * Set the static flag.
-     *
-     * @return string
-     */
-    private function staticFlag()
-    {
-        if (\Config::get('debugMode') || TL_MODE !== 'FE') {
-            return '';
-        }
-
-        return '|static';
     }
 
     /**
@@ -204,15 +239,11 @@ class BootSubscriber implements EventSubscriberInterface
      * @param mixed $mapper The mapper class or callable factory.
      *
      * @return Mapper
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     private function createMapper($mapper)
     {
         if (is_callable($mapper)) {
-            $container = $GLOBALS['container'][Services::CONTAINER];
-
-            return $mapper($container);
+            return $mapper();
         }
 
         return new $mapper;
