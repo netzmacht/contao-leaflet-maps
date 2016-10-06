@@ -11,6 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
+use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
 use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -50,25 +51,46 @@ class LayerCallbacks extends Callbacks
      * @var \Database
      */
     private $database;
+    
+    /**
+     * Tile providers configuration.
+     * 
+     * @var array
+     */
+    private $tileProviders;
+
+    /**
+     * Translator.
+     *
+     * @var Translator
+     */
+    private $translator;
 
     /**
      * Construct.
      *
-     * @param Manager   $manager  Data container manager.
-     * @param \Database $database Database connection.
-     * @param array     $layers   Leaflet layer configuration.
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @param Manager    $manager       Data container manager.
+     * @param \Database  $database      Database connection.
+     * @param Translator $translator    Translator.
+     * @param array      $layers        Leaflet layer configuration.
+     * @param array      $tileProviders Tile providers.
      */
-    public function __construct(Manager $manager, \Database $database, array $layers)
-    {
+    public function __construct(
+        Manager $manager,
+        \Database $database,
+        Translator $translator,
+        array $layers,
+        array $tileProviders
+    ) {
         parent::__construct($manager);
 
-        $this->layers   = $layers;
-        $this->database = $database;
+        $this->database      = $database;
+        $this->layers        = $layers;
+        $this->tileProviders = $tileProviders;
 
         \Controller::loadLanguageFile('leaflet_layer');
 
+        $this->translator = $translator;
     }
 
     /**
@@ -77,16 +99,14 @@ class LayerCallbacks extends Callbacks
      * @param \DataContainer $dataContainer The dataContainer driver.
      *
      * @return array
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getVariants($dataContainer)
     {
         if ($dataContainer->activeRecord
             && $dataContainer->activeRecord->tile_provider
-            && !empty($GLOBALS['LEAFLET_TILE_PROVIDERS'][$dataContainer->activeRecord->tile_provider]['variants'])
+            && !empty($this->tileProviders[$dataContainer->activeRecord->tile_provider]['variants'])
         ) {
-            return $GLOBALS['LEAFLET_TILE_PROVIDERS'][$dataContainer->activeRecord->tile_provider]['variants'];
+            return $this->tileProviders[$dataContainer->activeRecord->tile_provider]['variants'];
         }
 
         return array();
@@ -99,15 +119,9 @@ class LayerCallbacks extends Callbacks
      * @param string $label Current row label.
      *
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function generateRow($row, $label)
     {
-        $alt = empty($GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0])
-            ? $row['type']
-            : $GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0];
-
         if (!empty($this->layers[$row['type']]['icon'])) {
             $src = $this->layers[$row['type']]['icon'];
 
@@ -119,6 +133,7 @@ class LayerCallbacks extends Callbacks
             $src = preg_replace('/(\.[^\.]+)$/', '_1$1', $src);
         }
 
+        $alt  = $this->getFormatter()->formatValue('type', $row['type']);
         $icon = \Image::getHtml($src, $alt, sprintf('title="%s"', strip_tags($alt)));
 
         if (!empty($this->layers[$row['type']]['label'])) {
@@ -167,7 +182,6 @@ class LayerCallbacks extends Callbacks
      *
      * @return string
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getPasteButtons($dataContainer, $row, $table, $whatever, $children)
@@ -180,10 +194,10 @@ class LayerCallbacks extends Callbacks
         $buffer = sprintf(
             '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
             $pasteAfterUrl,
-            specialchars(sprintf($GLOBALS['TL_LANG'][$table]['pasteafter'][1], $row['id'])),
+            specialchars($this->translator->translate('pasteafter.1', $table, [$row['id']])),
             \Image::getHtml(
                 'pasteafter.gif',
-                sprintf($GLOBALS['TL_LANG'][$table]['pasteafter'][1], $row['id'])
+                $this->translator->translate('pasteafter.1', $table, [$row['id']])
             )
         );
 
@@ -200,10 +214,10 @@ class LayerCallbacks extends Callbacks
             $buffer .= sprintf(
                 '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
                 $pasteIntoUrl,
-                specialchars(sprintf($GLOBALS['TL_LANG'][$table]['pasteinto'][1], $row['id'])),
+                specialchars($this->translator->translate('pasteinto.1', $table, [$row['id']])),
                 \Image::getHtml(
                     'pasteinto.gif',
-                    sprintf($GLOBALS['TL_LANG'][$table]['pasteinto'][1], $row['id'])
+                    $this->translator->translate('pasteinto.1', $table, [$row['id']])
                 )
             );
 

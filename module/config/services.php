@@ -178,7 +178,9 @@ $container['leaflet.dca.layer-callbacks'] = $container->share(
         return new LayerCallbacks(
             $container[Services::DCA_MANAGER],
             $container[Services::DATABASE_CONNECTION],
-            $GLOBALS['LEAFLET_LAYERS']
+            $container[Services::TRANSLATOR],
+            $GLOBALS['LEAFLET_LAYERS'],
+            $GLOBALS['LEAFLET_TILE_PROVIDERS']
         );
     }
 );
