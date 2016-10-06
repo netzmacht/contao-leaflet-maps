@@ -46,9 +46,8 @@ class VectorCallbacks extends Callbacks
     public function generateRow($row)
     {
         return sprintf(
-            '%s <span class="tl_gray">%s (%s)</span>',
+            '%s <span class="tl_gray">(%s)</span>',
             $row['title'],
-            $row['alias'],
             $this->getFormatter()->formatValue('type', $row['type'])
         );
     }
