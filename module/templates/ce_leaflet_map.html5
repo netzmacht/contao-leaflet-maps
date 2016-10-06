@@ -9,4 +9,5 @@
 
 </div>
 <!-- indexer::continue -->
+<?php $GLOBALS['TL_BODY'][] = '<script>' . $this->javascript .'</script>'; ?>
 

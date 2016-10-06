@@ -8,16 +8,19 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:56+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
 
-
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBounds']['0']                = 'Grenzen festlegen';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load']['0'] = 'bei Karteninitialisierung';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load']['1'] = 'Grenzen berechnen, wenn die Karte initialisiert wird. Alle statischen und bereits geladenen Features werden mit einbezogen.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra']['0']             = 'Erweiterte Zoom-Einstellungen';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustZoomExtra']['1']             = 'Aktivieren Sie diese Einstellung, wenn Sie den minimalen und den maximalen Zoomfaktor ebenfalls einstellen möchten.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['alias']['0']                       = 'Alias';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['alias']['1']                       = 'Legen Sie den Alias der Karte fest.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['behaviour_legend']                 = 'Verhalten';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['bounceAtZoomLimits']['0']          = 'Zurückfedern bei Erreichen des Zoom-Limits';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['bounceAtZoomLimits']['1']          = 'Deaktivieren Sie diese Einstellung, falls Sie verhindern möchten, dass außerhalb liegende Elemente der Karte beim Zoomen über die festgelegten minimalen / maximalen Zoomstufen hinaus angezeigt werden wenn mit zwei Fingern gezoomt wird.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['boxZoom']['0']                     = 'Zoomen durch Markierung';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['boxZoom']['1']                     = 'legen Sie fest ob der Kartenausschnitt vergrößert werden kann indem Benutzer die Maus mit gedrückter Umschalttaste über die Karte ziehen.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['center']['0']                      = 'Zentrieren';
@@ -34,12 +37,19 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['doubleClickZoom']['0']             = 'Zoo
 $GLOBALS['TL_LANG']['tl_leaflet_map']['doubleClickZoom']['1']             = 'Legen Sie fest ob in der Karte mit einem Doppelklick hineingezoomt und mit Umstelltaste-Doppelklick gerausgezoomt werden kann.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['dragging']['0']                    = 'Verschieben';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['dragging']['1']                    = 'Legen Sie fest ob die Karte mit Maus oder Touchgesten verschiebbar ist.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['dynamicLoad']['0']                 = 'Daten innerhalb der Grenzen dynamisch laden';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['dynamicLoad']['1']                 = 'Falls ausgewählt werden Layerdaten nur innerhalb des dargestellten Ausschnitts geladen und bei Veränderung des Ausschnitts nachgeladen.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['edit']['0']                        = 'Karte bearbeiten';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['edit']['1']                        = 'Karte ID %s bearbeiten';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['enableHighAccuracy']['0']          = 'Hohe Genauigkeit';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['enableHighAccuracy']['1']          = 'Aktiviert hohe Genauigkeit. Lesen die die Details in der <a href="http://dev.w3.org/geo/api/spec-source.html#high-accuracy" target="_blank">Beschreibung innerhalb der Spezifikation des W3C</a> nach.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['expert_legend']                    = 'Experteneinstellungen';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['interaction_legend']               = 'Bedienelemente';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['keyboard']['0']                    = 'Tatstaturnavigation';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['keyboard']['1']                    = 'Diese Einstellung macht die Karte fokussierbar und erlaubt Nutzern, mit Hilfe der +/- und Pfeiltasten-Tasten in der Karte zu navigieren.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['keyboardPanOffset']['0']           = 'Keyboard-Verschiebeoffset';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['keyboardPanOffset']['1']           = 'Diese Einstellung bestimmt die Anzahl der Pixel, um die eine Kartenansicht mit jedem Druck einer Pfeiltaste verschoben wird.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['keyboardZoomOffset']['0']          = 'Keyboard-Zoomoffset';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['keyboardZoomOffset']['1']          = 'Legen Sie die Anzahl der Zoom-Levels fest die mit den + / - -Tasten angesteuert werden können.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['layers']['0']                      = 'Standardlayer';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['layers']['1']                      = 'beim Laden sichtbare layer der Karte. Für optionale Layer nutzen Sie das Layer-Kontrollelement.';
@@ -47,6 +57,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['layers_legend']                    = 'Sta
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locate']['0']                      = 'Nutzerposition ermitteln';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locate']['1']                      = 'Initialer Kartenzoom. Diese Funktion versucht, den Benutzer mittels Geolocation-API zu orten.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge']['0']            = 'Maximale Gültigkeit der Benutzerposition';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge']['1']            = 'Maximales Alter der Daten zum Aufenthaltsort in Millisekunden. Ansonsten wird der zwischengespeicherte Wert benutzt.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateSetView']['0']               = 'Kartenmitte aktualisieren';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateSetView']['1']               = 'Falls angewählt wird die Kartenansicht an der Position des Benutzers ausgerichtet. Andernfalls wird nur der <em>locationfound</em>-Event getriggert.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateTimeout']['0']               = 'Timeout Standorterkennung';
@@ -66,6 +77,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['scrollWheelZoom']['0']             = 'Zoo
 $GLOBALS['TL_LANG']['tl_leaflet_map']['scrollWheelZoom']['1']             = 'Legen Sie fest ob die Karte mit dem Mausrad gezoomt werden kann.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['show']['0']                        = 'Details anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['show']['1']                        = 'Details der Karte %s anzeigen';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['tap']['0']                         = 'Einmaliges Tippen';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['tap']['1']                         = 'Diese Einstellung aktiviert Hacks, mit der einmaliges Tippen unterstützt wird.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['title']['0']                       = 'Titel';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['title']['1']                       = 'Legen Sie den Titel der Karte fest.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['title_legend']                     = 'Titel';
@@ -82,5 +95,6 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['']['1']              = 'Zoo
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['1']['0']             = 'Aktivieren';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['1']['1']             = 'Zoom aktivieren';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['center']['0']        = 'Zentrieren';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomValues']['center']['1']        = 'Falls der Wert \'center\' übergeben wird, zoomt die Kartenansicht zur Mitte des Auschnitts, unabhängig davon an welchem Punkt sich die Maus befindet.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoom_legend']                      = 'Zentrieren und zoomen';
 

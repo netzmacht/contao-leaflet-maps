@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Vector\CircleMarker;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 
@@ -60,7 +61,7 @@ class CircleMapper extends AbstractVectorMapper
     ) {
         parent::build($definition, $model, $mapper, $filter);
 
-        if ($definition instanceof Circle) {
+        if ($definition instanceof CircleMarker) {
             $definition->setLatLng(LatLng::fromString($model->coordinates));
         }
     }

@@ -8,9 +8,8 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:52+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
-
 
 $GLOBALS['TL_LANG']['leaflet']['applyPosition']             = 'Position anwenden';
 $GLOBALS['TL_LANG']['leaflet_control']['attribution']['0']  = 'Copyright-Leiste';
@@ -21,15 +20,21 @@ $GLOBALS['TL_LANG']['leaflet_control']['layers']['1']       = 'Das Layer-Kontrol
 $GLOBALS['TL_LANG']['leaflet_control']['loading']['0']      = 'Lade-Indikator';
 $GLOBALS['TL_LANG']['leaflet_control']['loading']['1']      = 'Leaflet.loading ist ein einfacher Ladeindikator als Kontrollelement. Für weitere Details lesen Sie den Artikel in der <a href="https://github.com/ebrelsford/Leaflet.loading" target="_blank">Plugin-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_control']['scale']['0']        = 'Maßstabs-Kontrollelement';
+$GLOBALS['TL_LANG']['leaflet_control']['scale']['1']        = 'Einfaches Maßstabs-Kontrollelement, das den aktuellen Maßstab der Kartenmitte anzeigt. Lesen Sie für mehr Details die <a href="http://leafletjs.com/reference.html#control-scale" target="_blank">Leaflet-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_control']['zoom']['0']         = 'Zoom-Kontrollelement';
 $GLOBALS['TL_LANG']['leaflet_control']['zoom']['1']         = 'Diese Komponente ermöglicht eine Kontrolle des Zoomverhaltens. Für weitere Details lesen Sie die  <a href="http://leafletjs.com/reference.html#control-zoom" target="_blank">Leaflet-Documentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_layer']['group']['0']          = 'Layer-Gruppe';
+$GLOBALS['TL_LANG']['leaflet_layer']['group']['1']          = 'Layergruppen, die aus mehreren unterschiedlichen Layern zusammengesetzt sind. Lesen Sie für die Details die <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">Leaflet-Dokumentation</a>. ';
 $GLOBALS['TL_LANG']['leaflet_layer']['markercluster']['0']  = 'Marker-Cluster';
 $GLOBALS['TL_LANG']['leaflet_layer']['markercluster']['1']  = 'Markercluster-Layer, der auf einem based on <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a.';
 $GLOBALS['TL_LANG']['leaflet_layer']['markers']['0']        = 'Marker';
+$GLOBALS['TL_LANG']['leaflet_layer']['markers']['1']        = 'Geben Sie den Layer an der die Marker enthält.';
+$GLOBALS['TL_LANG']['leaflet_layer']['provider']['0']       = 'Vorkonfigurierte Karte';
+$GLOBALS['TL_LANG']['leaflet_layer']['provider']['1']       = 'Leaflet-Kachelanbieter. Lesen Sie für weitere Details die  <a href="https://github.com/leaflet-extras/leaflet-providers" target="_blank">Plugin-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_layer']['reference']['0']      = 'Referenz';
 $GLOBALS['TL_LANG']['leaflet_layer']['reference']['1']      = 'Ein Referenzlayer ist ein Link zu einem anderen Layer.';
 $GLOBALS['TL_LANG']['leaflet_layer']['tile']['0']           = 'Kachel-Layer';
+$GLOBALS['TL_LANG']['leaflet_layer']['tile']['1']           = 'Kachel-Layer mit vollständigen Konfigurationsoptionen.';
 $GLOBALS['TL_LANG']['leaflet_layer']['vectors']['0']        = 'Vektoren';
 $GLOBALS['TL_LANG']['leaflet_layer']['vectors']['1']        = 'Vektorlayer beinhalten Vektoren wie Polygone, Polylines, etc.';
 $GLOBALS['TL_LANG']['leaflet_vector']['circle']['0']        = 'Kreis';

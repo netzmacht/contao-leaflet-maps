@@ -20,7 +20,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
                 'id'    => 'primary',
                 'alias' => 'unique',
             )
-        )
+        ),
+        'onsubmit_callback' => [
+            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+        ],
     ),
 
     'list' => array
@@ -95,7 +98,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_style']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
                     'tl_leaflet_style',
                     'active'
                 )
@@ -153,10 +156,16 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_style', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::aliasGenerator(
+                    'tl_leaflet_style',
+                    'alias',
+                    ['title'],
+                    \Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::ALIAS_GENERATOR
+                ),
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NOT NULL default ''"
+            'sql'           => "varchar(255) NULL"
         ),
         'type'                  => array
         (
@@ -189,7 +198,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => array(
-                \Netzmacht\Contao\Toolkit\Dca::createColorPickerCallback(),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::colorPicker()
             ),
             'eval'      => array(
                 'tl_class'       => 'w50 wizard clr',
@@ -230,7 +239,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => array(
-                \Netzmacht\Contao\Toolkit\Dca::createColorPickerCallback(),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::colorPicker()
             ),
             'eval'      => array(
                 'tl_class'       => 'clr w50 wizard',
@@ -286,7 +295,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'search'    => false,
             'flag'      => 12,
             'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
+            'sql'       => "char(1) NOT NULL default ''",
+            'save_callback' => [
+                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ],
         ),
     ),
 );

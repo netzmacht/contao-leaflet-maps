@@ -4,7 +4,7 @@
 <?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/leaflet/leaflet.js'; ?>
 <?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.js'; ?>
 
-<div id="map_<?php echo $this->field; ?>" style="margin-top: 5px; width: 670px; height: 300px"></div>
+<div id="map_<?php echo $this->field; ?>" style="margin-top: 5px; width: calc(100% - 28px); height: 300px"></div>
 <script>
     var map = L.map('map_<?php echo $this->field; ?>').setView([0, 0], 2);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {

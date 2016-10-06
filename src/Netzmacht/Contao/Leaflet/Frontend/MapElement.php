@@ -11,34 +11,19 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use ContentElement;
-use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
-use Netzmacht\Contao\Leaflet\MapService;
-
 /**
  * The content element for the leaflet map.
  *
  * @property int leaflet_map
  */
-class MapElement extends \ContentElement
+class MapElement extends AbstractMapHybrid
 {
-    use ServiceContainerTrait;
-    use HybridTrait;
-
     /**
      * Template name.
      *
      * @var string
      */
-    protected $strTemplate = 'ce_leaflet_map';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($objElement, $strColumn = 'main')
-    {
-        $this->construct($objElement, $strColumn);
-    }
+    protected $templateName = 'ce_leaflet_map';
 
     /**
      * Get the identifier.
@@ -47,14 +32,14 @@ class MapElement extends \ContentElement
      */
     protected function getIdentifier()
     {
-        if ($this->leaflet_mapId) {
-            return $this->leaflet_mapId;
+        if ($this->get('leaflet_mapId')) {
+            return $this->get('leaflet_mapId');
         }
 
-        if ($this->cssID[0]) {
-            return 'map_' . $this->cssID[0];
+        if ($this->get('cssID')[0]) {
+            return 'map_' . $this->get('cssID')[0];
         }
 
-        return 'map_ce_' . $this->id;
+        return 'map_ce_' . $this->get('id');
     }
 }

@@ -22,9 +22,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['leaflet_map'] = array(
     'label'            => &$GLOBALS['TL_LANG']['tl_content']['leaflet_map'],
     'inputType'        => 'select',
     'exclude'          => true,
-    'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\FrontendIntegration', 'getMaps'),
+    'options_callback' => \Netzmacht\Contao\Leaflet\Dca\FrontendIntegration::callback('getMaps'),
     'wizard'           => array(
-        array('Netzmacht\Contao\Leaflet\Dca\FrontendIntegration', 'getEditMapLink'),
+        \Netzmacht\Contao\Leaflet\Dca\FrontendIntegration::callback('getEditMapLink'),
     ),
     'eval'             => array(
         'tl_class' => 'w50 wizard',
@@ -70,7 +70,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['leaflet_template'] = array(
     'label'            => &$GLOBALS['TL_LANG']['tl_content']['leaflet_template'],
     'inputType'        => 'select',
     'exclude'          => true,
-    'options_callback' => \Netzmacht\Contao\Toolkit\Dca::createGetTemplatesCallback('leaflet_map_js'),
+    'options_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::getTemplates('leaflet_map_js'),
     'eval'             => array(
         'tl_class' => 'w50',
         'chosen'   => true,

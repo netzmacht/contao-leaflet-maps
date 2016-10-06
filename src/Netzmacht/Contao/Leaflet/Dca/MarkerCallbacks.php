@@ -20,7 +20,7 @@ use Netzmacht\Contao\Leaflet\Model\PopupModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Marker
+class MarkerCallbacks
 {
     /**
      * Generate the row label.
@@ -44,7 +44,6 @@ class Marker
         $collection = IconModel::findAll(array('order' => 'title'));
         $builder    = OptionsBuilder::fromCollection(
             $collection,
-            'id',
             function ($model) {
                 return sprintf('%s [%s]', $model['title'], $model['type']);
             }
@@ -61,7 +60,7 @@ class Marker
     public function getPopups()
     {
         $collection = PopupModel::findAll(array('order' => 'title'));
-        $builder    = OptionsBuilder::fromCollection($collection, 'id', 'title');
+        $builder    = OptionsBuilder::fromCollection($collection, 'title');
 
         return $builder->getOptions();
     }

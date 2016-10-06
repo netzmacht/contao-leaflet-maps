@@ -12,7 +12,7 @@
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
-use Netzmacht\Contao\Leaflet\MapService;
+use Netzmacht\Contao\Leaflet\MapProvider;
 
 /**
  * The data controller handles ajax request for sub data.
@@ -22,11 +22,11 @@ use Netzmacht\Contao\Leaflet\MapService;
 class DataController
 {
     /**
-     * The map service.
+     * The map provider.
      *
-     * @var MapService
+     * @var MapProvider
      */
-    private $mapService;
+    private $mapProvider;
 
     /**
      * The user input data.
@@ -40,39 +40,59 @@ class DataController
         'filter' => null,
         'values' => null
     );
+    
+    /**
+     * Filters configuration.
+     * 
+     * @var array
+     */
+    private $filters;
+
+    /**
+     * Display errors.
+     *
+     * @var bool
+     */
+    private $displayErrors;
 
     /**
      * Construct.
      *
-     * @param MapService $mapService The map service.
-     * @param array      $input      The user input as array.
+     * @param MapProvider $mapProvider   The map provider.
+     * @param array       $filters       Filters configuration.
+     * @param bool        $displayErrors Display errors.
      */
-    public function __construct(MapService $mapService, $input)
+    public function __construct(MapProvider $mapProvider, array $filters, $displayErrors)
     {
-        $this->mapService = $mapService;
-        $this->input      = array_merge($this->input, $input);
+        $this->mapProvider   = $mapProvider;
+        $this->filters       = $filters;
+        $this->displayErrors = $displayErrors;
     }
 
     /**
      * Execute the controller and create the data response.
      *
+     * @param array $input The user input as array.
+     *
      * @return void
      *
      * @throws \Exception If anything went wrong.
      */
-    public function execute()
+    public function execute(array $input)
     {
+        $input = array_merge($this->input, $input);
+
         try {
-            if ($this->input['filter']) {
-                $filter = $this->createFilter();
+            if ($input['filter']) {
+                $filter = $this->createFilter($input);
             } else {
                 $filter = null;
             }
 
-            list($data, $error) = $this->loadData($this->input['type'], $this->input['id'], $filter);
-            $this->encodeData($this->input['format'], $data);
+            list($data, $error) = $this->loadData($input['type'], $input['id'], $filter);
+            $this->encodeData($input['format'], $data);
         } catch (\Exception $e) {
-            if (\Config::get('debugMode') || \Config::get('displayErrors')) {
+            if ($this->displayErrors) {
                 throw $e;
             }
             $error = true;
@@ -120,7 +140,7 @@ class DataController
 
         switch ($type) {
             case 'layer':
-                $data = $this->mapService->getFeatureCollection($dataId, $filter);
+                $data = $this->mapProvider->getFeatureCollection($dataId, $filter);
                 break;
 
             default:
@@ -135,20 +155,22 @@ class DataController
     /**
      * Create a filter.
      *
+     * @param array $input The user input as array.
+     *
      * @return Filter
      * @throws \RuntimeException If the filter is not defined.
      *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    private function createFilter()
+    private function createFilter($input)
     {
-        if (!isset($GLOBALS['LEAFLET_FILTERS'][$this->input['filter']])) {
-            throw new \RuntimeException(sprintf('Undefined filter "%s".', $this->input['filter']));
+        if (!isset($this->filters[$input['filter']])) {
+            throw new \RuntimeException(sprintf('Undefined filter "%s".', $input['filter']));
         }
 
         /** @var Filter $filter */
-        $filter = $GLOBALS['LEAFLET_FILTERS'][$this->input['filter']];
+        $filter = $this->filters[$input['filter']];
 
-        return $filter::fromRequest($this->input['values']);
+        return $filter::fromRequest($input['values']);
     }
 }

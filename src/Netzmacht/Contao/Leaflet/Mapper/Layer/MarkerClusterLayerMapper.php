@@ -11,9 +11,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Netzmacht\Contao\Leaflet\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 use Netzmacht\JavascriptBuilder\Type\AnonymousFunction;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
@@ -43,6 +45,25 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
     protected static $type = 'markercluster';
 
     /**
+     * Assets manager.
+     *
+     * @var ContaoAssets
+     */
+    private $assets;
+
+    /**
+     * MarkerClusterLayerMapper constructor.
+     *
+     * @param ContaoAssets $assets Assets manager.
+     */
+    public function __construct(ContaoAssets $assets)
+    {
+        parent::__construct();
+
+        $this->assets = $assets;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function initialize()
@@ -61,7 +82,6 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
 
     /**
      * {@inheritdoc}
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function build(
         Definition $definition,
@@ -83,7 +103,7 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
         }
 
         if (!$model->disableDefaultStyle) {
-            $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/leaflet-markercluster/MarkerCluster.Default.css||static';
+            $this->assets->addStylesheet('assets/leaflet/libs/leaflet-markercluster/MarkerCluster.Default.css');
         }
 
         $collection = LayerModel::findBy(

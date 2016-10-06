@@ -28,7 +28,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             function() {
                 \Controller::loadLanguageFile('leaflet');
             }
-        )
+        ),
+        'onsubmit_callback' => [
+            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+        ],
     ),
 
     'list' => array
@@ -40,7 +43,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'flag'                    => 1,
             'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => array('Netzmacht\Contao\Leaflet\Dca\Vector', 'generateRow'),
+            'child_record_callback'   => Netzmacht\Contao\Leaflet\Dca\VectorCallbacks::callback('generateRow'),
         ),
         'label' => array
         (
@@ -104,7 +107,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca::createToggleIconCallback(
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
                     'tl_leaflet_vector',
                     'active'
                 )
@@ -198,10 +201,16 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'inputType'     => 'text',
             'search'        => true,
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Helper::createGenerateAliasCallback('tl_leaflet_vector', 'title'),
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::aliasGenerator(
+                    'tl_leaflet_vector',
+                    'alias',
+                    ['title'],
+                    \Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::ALIAS_GENERATOR
+                ),
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NOT NULL default ''"
+            'sql'           => "varchar(255) NULL"
         ),
         'type'                  => array
         (
@@ -234,7 +243,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'search'    => false,
             'flag'      => 12,
             'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
+            'sql'       => "char(1) NOT NULL default ''",
+            'save_callback' => [
+                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ],
         ),
         'addPopup'     => array
         (
@@ -250,7 +262,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['popup'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Marker', 'getPopups'),
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getPopups'),
             'eval'      => array(
                 'mandatory'          => false,
                 'tl_class'           => 'w50',
@@ -273,7 +285,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\Vector', 'getStyles'),
+            'options_callback' => Netzmacht\Contao\Leaflet\Dca\VectorCallbacks::callback('getStyles'),
             'eval'      => array(
                 'mandatory'  => false,
                 'tl_class'   => 'w50',
@@ -305,15 +317,16 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'validateCoordinate')
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
             ),
             'wizard'        => array(
-                array('Netzmacht\Contao\Leaflet\Dca\Leaflet', 'getGeocoder')
+                Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getGeocoder')
             ),
             'eval'          => array(
                 'maxlength'   => 255,
                 'tl_class'    => 'long clr',
                 'nullIfEmpty' => true,
+                'mandatory'   => true,
             ),
             'sql'           => "varchar(255) NULL"
         ),
@@ -332,6 +345,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'inputType' => 'textarea',
             'search'    => false,
             'eval'      => array('mandatory' => true, 'alwaysSave' => true),
+            'save_callback' => array(
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateMultipleCoordinates')
+            ),
             'sql'       => "longblob NULL"
         ),
         'multiData' => array
@@ -354,6 +370,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                     )
                 )
             ),
+            'save_callback' => array(
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateMultipleCoordinateSets')
+            ),
             'sql'       => "longblob NULL"
         ),
         'bounds'  => array
@@ -361,8 +380,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['bounds'],
             'exclude'       => true,
             'inputType'     => 'text',
-            'save_callback' => array(
-            ),
+            'save_callback' => array(),
             'eval'          => array(
                 'maxlength'   => 255,
                 'multiple'=>true,

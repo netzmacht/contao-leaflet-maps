@@ -11,7 +11,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend\InsertTag;
 
-use Netzmacht\Contao\Leaflet\MapService;
+use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Toolkit\InsertTag\Parser;
 
 /**
@@ -31,9 +31,9 @@ class LeafletInsertTagParser implements Parser
     /**
      * The map service.
      *
-     * @var MapService
+     * @var MapProvider
      */
-    private $mapService;
+    private $mapProvider;
 
     /**
      * Debug mode.
@@ -45,13 +45,13 @@ class LeafletInsertTagParser implements Parser
     /**
      * LeafletInsertTagParser constructor.
      *
-     * @param MapService $mapService Map service.
-     * @param bool       $debugMode  Debug mode.
+     * @param MapProvider $mapProvider Map provider.
+     * @param bool        $debugMode   Debug mode.
      */
-    public function __construct(MapService $mapService, $debugMode)
+    public function __construct(MapProvider $mapProvider, $debugMode)
     {
-        $this->mapService = $mapService;
-        $this->debugMode  = $debugMode;
+        $this->mapProvider = $mapProvider;
+        $this->debugMode   = $debugMode;
     }
 
     /**
@@ -101,7 +101,7 @@ class LeafletInsertTagParser implements Parser
     private function generateMap($mapId, $template, $style)
     {
         try {
-            return $this->mapService->generate($mapId, null, $mapId, $template, $style);
+            return $this->mapProvider->generate($mapId, null, $mapId, $template, $style);
         } catch (\Exception $e) {
             if ($this->debugMode) {
                 throw $e;

@@ -11,8 +11,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
+use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
+use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
+use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 /**
@@ -20,9 +22,21 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Layer
+class LayerCallbacks extends Callbacks
 {
-    use ServiceContainerTrait;
+    /**
+     * Name of the data container.
+     *
+     * @var string
+     */
+    protected static $name = 'tl_leaflet_layer';
+
+    /**
+     * Helper service name.
+     *
+     * @var string
+     */
+    protected static $serviceName = 'leaflet.dca.layer-callbacks';
 
     /**
      * Layers definition.
@@ -37,19 +51,46 @@ class Layer
      * @var \Database
      */
     private $database;
+    
+    /**
+     * Tile providers configuration.
+     * 
+     * @var array
+     */
+    private $tileProviders;
+
+    /**
+     * Translator.
+     *
+     * @var Translator
+     */
+    private $translator;
 
     /**
      * Construct.
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @param Manager    $manager       Data container manager.
+     * @param \Database  $database      Database connection.
+     * @param Translator $translator    Translator.
+     * @param array      $layers        Leaflet layer configuration.
+     * @param array      $tileProviders Tile providers.
      */
-    public function __construct()
-    {
-        $this->layers   = &$GLOBALS['LEAFLET_LAYERS'];
-        $this->database = static::getServiceContainer()->getDatabaseConnection();
+    public function __construct(
+        Manager $manager,
+        \Database $database,
+        Translator $translator,
+        array $layers,
+        array $tileProviders
+    ) {
+        parent::__construct($manager);
+
+        $this->database      = $database;
+        $this->layers        = $layers;
+        $this->tileProviders = $tileProviders;
 
         \Controller::loadLanguageFile('leaflet_layer');
 
+        $this->translator = $translator;
     }
 
     /**
@@ -58,16 +99,14 @@ class Layer
      * @param \DataContainer $dataContainer The dataContainer driver.
      *
      * @return array
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function getVariants($dataContainer)
     {
         if ($dataContainer->activeRecord
             && $dataContainer->activeRecord->tile_provider
-            && !empty($GLOBALS['LEAFLET_TILE_PROVIDERS'][$dataContainer->activeRecord->tile_provider]['variants'])
+            && !empty($this->tileProviders[$dataContainer->activeRecord->tile_provider]['variants'])
         ) {
-            return $GLOBALS['LEAFLET_TILE_PROVIDERS'][$dataContainer->activeRecord->tile_provider]['variants'];
+            return $this->tileProviders[$dataContainer->activeRecord->tile_provider]['variants'];
         }
 
         return array();
@@ -80,15 +119,9 @@ class Layer
      * @param string $label Current row label.
      *
      * @return string
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function generateRow($row, $label)
     {
-        $alt = empty($GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0])
-            ? $row['type']
-            : $GLOBALS['TL_LANG']['leaflet_layer'][$row['type']][0];
-
         if (!empty($this->layers[$row['type']]['icon'])) {
             $src = $this->layers[$row['type']]['icon'];
 
@@ -100,6 +133,7 @@ class Layer
             $src = preg_replace('/(\.[^\.]+)$/', '_1$1', $src);
         }
 
+        $alt  = $this->getFormatter()->formatValue('type', $row['type']);
         $icon = \Image::getHtml($src, $alt, sprintf('title="%s"', strip_tags($alt)));
 
         if (!empty($this->layers[$row['type']]['label'])) {
@@ -148,7 +182,6 @@ class Layer
      *
      * @return string
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getPasteButtons($dataContainer, $row, $table, $whatever, $children)
@@ -161,10 +194,10 @@ class Layer
         $buffer = sprintf(
             '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
             $pasteAfterUrl,
-            specialchars(sprintf($GLOBALS['TL_LANG'][$table]['pasteafter'][1], $row['id'])),
+            specialchars($this->translator->translate('pasteafter.1', $table, [$row['id']])),
             \Image::getHtml(
                 'pasteafter.gif',
-                sprintf($GLOBALS['TL_LANG'][$table]['pasteafter'][1], $row['id'])
+                $this->translator->translate('pasteafter.1', $table, [$row['id']])
             )
         );
 
@@ -181,10 +214,10 @@ class Layer
             $buffer .= sprintf(
                 '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
                 $pasteIntoUrl,
-                specialchars(sprintf($GLOBALS['TL_LANG'][$table]['pasteinto'][1], $row['id'])),
+                specialchars($this->translator->translate('pasteinto.1', $table, [$row['id']])),
                 \Image::getHtml(
                     'pasteinto.gif',
-                    sprintf($GLOBALS['TL_LANG'][$table]['pasteinto'][1], $row['id'])
+                    $this->translator->translate('pasteinto.1', $table, [$row['id']])
                 )
             );
 
@@ -235,22 +268,6 @@ class Layer
         }
 
         return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
-    }
-
-    /**
-     * Get all layers except of the current layer.
-     *
-     * @param \DataContainer $dataContainer The dataContainer driver.
-     *
-     * @return array
-     */
-    public function getLayers($dataContainer)
-    {
-        $collection = LayerModel::findBy('id !', $dataContainer->id);
-
-        return OptionsBuilder::fromCollection($collection, 'id', 'title')
-            ->asTree()
-            ->getOptions();
     }
 
     /**
@@ -324,6 +341,22 @@ class Layer
         }
 
         return $options;
+    }
+
+    /**
+     * Get all layers except of the current layer.
+     *
+     * @param \DataContainer $dataContainer The dataContainer driver.
+     *
+     * @return array
+     */
+    public function getLayers($dataContainer)
+    {
+        $collection = LayerModel::findBy('id !', $dataContainer->id);
+
+        return OptionsBuilder::fromCollection($collection, 'title')
+            ->asTree()
+            ->getOptions();
     }
 
     /**

@@ -28,20 +28,23 @@ $GLOBALS['TL_LANG']['leaflet_layer']['markercluster'][1] = 'Marker cluster layer
 $GLOBALS['TL_LANG']['leaflet_layer']['tile'][0]          = 'Tile layer';
 $GLOBALS['TL_LANG']['leaflet_layer']['tile'][1]          = 'Tile layer with full config options.';
 
-$GLOBALS['TL_LANG']['leaflet_vector']['polyline'][0]  = 'Polyline';
-$GLOBALS['TL_LANG']['leaflet_vector']['polyline'][1]  = 'Polyline overlay. For more details read the <a href="http://leafletjs.com/reference.html#polyline" target="_blank">Leaflet documentation</a>.';
-$GLOBALS['TL_LANG']['leaflet_vector']['multiPolyline'][0]  = 'Multi polylines';
-$GLOBALS['TL_LANG']['leaflet_vector']['multiPolyline'][1]  = 'Multi polylines with shared styling. For more details read the <a href="http://leafletjs.com/reference.html#multipolyline" target="_blank">Leaflet documentation</a>.';
-$GLOBALS['TL_LANG']['leaflet_vector']['polygon'][0]  = 'Polygon';
-$GLOBALS['TL_LANG']['leaflet_vector']['polygon'][1]  = 'Polygon overlay. For more details read the <a href="http://leafletjs.com/reference.html#polygon" target="_blank">Leaflet documentation</a>.';
+$GLOBALS['TL_LANG']['leaflet_vector']['polyline'][0]      = 'Polyline';
+$GLOBALS['TL_LANG']['leaflet_vector']['polyline'][1]      = 'Polyline overlay. For more details read the <a href="http://leafletjs.com/reference.html#polyline" target="_blank">Leaflet documentation</a>.';
+$GLOBALS['TL_LANG']['leaflet_vector']['multiPolyline'][0] = 'Multi polylines';
+$GLOBALS['TL_LANG']['leaflet_vector']['multiPolyline'][1] = 'Multi polylines with shared styling. For more details read the <a href="http://leafletjs.com/reference.html#multipolyline" target="_blank">Leaflet documentation</a>.';
+$GLOBALS['TL_LANG']['leaflet_vector']['polygon'][0]       = 'Polygon';
+$GLOBALS['TL_LANG']['leaflet_vector']['polygon'][1]       = 'Polygon overlay. For more details read the <a href="http://leafletjs.com/reference.html#polygon" target="_blank">Leaflet documentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_vector']['multiPolygon'][0]  = 'Multi polygons';
 $GLOBALS['TL_LANG']['leaflet_vector']['multiPolygon'][1]  = 'Multi polygons with shared styling. For more details read the <a href="http://leafletjs.com/reference.html#multipolygon" target="_blank">Leaflet documentation</a>.';
-$GLOBALS['TL_LANG']['leaflet_vector']['circle'][0]  = 'Circle';
-$GLOBALS['TL_LANG']['leaflet_vector']['circle'][1]  = 'Circle overlay. For more details read the <a href="http://leafletjs.com/reference.html#circle" target="_blank">Leaflet documentation</a>.';
+$GLOBALS['TL_LANG']['leaflet_vector']['circle'][0]        = 'Circle';
+$GLOBALS['TL_LANG']['leaflet_vector']['circle'][1]        = 'Circle overlay. For more details read the <a href="http://leafletjs.com/reference.html#circle" target="_blank">Leaflet documentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_vector']['circleMarker'][0]  = 'Circle marker';
 $GLOBALS['TL_LANG']['leaflet_vector']['circleMarker'][1]  = 'Circle marker with fixed pixel width. For more details read the <a href="http://leafletjs.com/reference.html#circlemarker" target="_blank">Leaflet documentation</a>.';
-$GLOBALS['TL_LANG']['leaflet_vector']['rectangle'][0]  = 'Rectangle';
-$GLOBALS['TL_LANG']['leaflet_vector']['rectangle'][1]  = 'Rectangle overlay. For more details read the <a href="http://leafletjs.com/reference.html#rectangle" target="_blank">Leaflet documentation</a>.';
+$GLOBALS['TL_LANG']['leaflet_vector']['rectangle'][0]     = 'Rectangle';
+$GLOBALS['TL_LANG']['leaflet_vector']['rectangle'][1]     = 'Rectangle overlay. For more details read the <a href="http://leafletjs.com/reference.html#rectangle" target="_blank">Leaflet documentation</a>.';
 
 $GLOBALS['TL_LANG']['leaflet']['searchPosition'] = 'Search location';
 $GLOBALS['TL_LANG']['leaflet']['applyPosition']  = 'Apply position';
+
+$GLOBALS['TL_LANG']['leaflet']['invalidAlias']       = 'Invalid alias given. Alias may not be empty, begin with a numeric value nor contain any special chars (underscore allowed).';
+$GLOBALS['TL_LANG']['leaflet']['invalidCoordinates'] = 'Invalid coordinate values given.';

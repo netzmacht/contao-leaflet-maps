@@ -12,7 +12,7 @@ L.Contao = L.Class.extend({
          *
          * You are not allowed to remove or change it. Contact me if you want to buy an removal license.
          */
-        ATTRIBUTION: ' | <a href="http://contao-leaflet.netzmacht.de/" title="Leaflet extension for Contao CMS">netzmacht <em>creative</em></a>'
+        ATTRIBUTION: ' | <a href="https://netzmacht.de/contao-leaflet" title="Powered by Leaflet extension for Contao CMS developed by netzmacht David Molineus">netzmacht</a>'
     },
 
     /**
@@ -29,7 +29,7 @@ L.Contao = L.Class.extend({
      * Initialize Contao leaflet integration.
      */
     initialize: function () {
-        L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images';
+        L.Icon.Default.imagePath = 'assets/leaflet/libs/leaflet/images/';
 
         this.setGeoJsonListeners(L.GeoJSON);
     },

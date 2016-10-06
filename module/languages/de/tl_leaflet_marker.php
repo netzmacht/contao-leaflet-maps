@@ -8,9 +8,8 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:57+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
-
 
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active']['0']       = 'Marker aktivieren';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active']['1']       = 'Nur aktivierte Marker werden auf der Karte dargestellt.';
@@ -50,6 +49,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['popup']['1']        = 'Wählen Sie ein
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['popupContent']['0'] = 'Popup-Inhalt';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['popupContent']['1'] = 'Geben Sie den Inhalt des Popups an. Insert-Tags werden ersetzt.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['popups']['0']       = 'Popups verwalten';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups']['1']       = 'Popup Einstellungen verwalten.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['show']['0']         = 'Details anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['show']['1']         = 'Details des Markers ID %s anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['title']['0']        = 'Titel';

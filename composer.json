@@ -19,23 +19,23 @@
     },
     "require":{
         "php":">=5.4",
-        "contao/core":">=3.2,<3.6-dev",
-        "contao-community-alliance/dependency-container":"~1.0",
-        "contao-community-alliance/event-dispatcher":"~1.0",
-        "netzmacht/contao-leaflet-libraries": "~0.7",
-        "netzmacht/php-javascript-builder": "~1.0",
-        "netzmacht/php-leaflet": "~0.7",
-        "netzmacht/contao-toolkit":"~1.0",
-        "contao-community-alliance/meta-palettes": "~1.5",
-        "menatwork/contao-multicolumnwizard": "~3.2",
-        "doctrine/cache": "~1.0"
+        "contao/core":"^3.5",
+        "contao-community-alliance/dependency-container":"^1.0",
+        "contao-community-alliance/event-dispatcher":"^1.0",
+        "netzmacht/contao-leaflet-libraries": "^1.0",
+        "netzmacht/php-javascript-builder": "^1.0",
+        "netzmacht/php-leaflet": "^1.0",
+        "netzmacht/contao-toolkit":"^2.0",
+        "contao-community-alliance/meta-palettes": "^1.5",
+        "menatwork/contao-multicolumnwizard": "^3.2",
+        "doctrine/cache": "^1.0"
     },
     "require-dev":{
-        "netzmacht/contao-build-tools": "~1.1"
+        "netzmacht/contao-build-tools": "^1.1"
     },
     "autoload": {
         "psr-0": {
-            "Netzmacht\\Contao\\Leaflet": "src/"
+            "Netzmacht\\Contao\\Leaflet\\": "src/"
         }
     },
     "config": {

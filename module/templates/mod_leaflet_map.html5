@@ -6,12 +6,7 @@
 <?php endif; ?>
 
 <div id="<?php echo $this->mapId; ?>" style="<?php echo $this->mapStyle; ?>"></div>
-<?php if ($this->map): ?>
-<script>
-<?php echo $this->map; ?>
-</script>
-<?php endif; ?>
 
 </div>
 <!-- indexer::continue -->
-
+<?php $GLOBALS['TL_BODY'][] = '<script>' . $this->javascript .'</script>'; ?>

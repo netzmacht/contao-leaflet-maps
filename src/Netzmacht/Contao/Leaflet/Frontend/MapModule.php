@@ -11,33 +11,19 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
-use Netzmacht\Contao\Leaflet\MapService;
-
 /**
  * The frontend module for the Leaflet map.
  *
  * @package Netzmacht\Contao\Leaflet\Frontend
  */
-class MapModule extends \Module
+class MapModule extends AbstractMapHybrid
 {
-    use ServiceContainerTrait;
-    use HybridTrait;
-
     /**
      * Template name.
      *
      * @var string
      */
-    protected $strTemplate = 'mod_leaflet_map';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($objElement, $strColumn = 'main')
-    {
-        $this->construct($objElement, $strColumn);
-    }
+    protected $templateName = 'mod_leaflet_map';
 
     /**
      * Get the identifier.
@@ -46,14 +32,14 @@ class MapModule extends \Module
      */
     protected function getIdentifier()
     {
-        if ($this->leaflet_mapId) {
-            return $this->leaflet_mapId;
+        if ($this->get('leaflet_mapId')) {
+            return $this->get('leaflet_mapId');
         }
 
-        if ($this->cssID[0]) {
-            return 'map_' . $this->cssID[0];
+        if ($this->get('cssID')[0]) {
+            return 'map_' . $this->get('cssID')[0];
         }
 
-        return 'map_mod_' . $this->id;
+        return 'map_mod_' . $this->get('id');
     }
 }

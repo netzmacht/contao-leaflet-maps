@@ -8,9 +8,8 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:55+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
-
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active']['0']                     = 'Layer aktivieren';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active']['1']                     = 'Layer auf der Karte aktivieren';
@@ -78,12 +77,16 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['removeOutsideVisibleBounds']['0'] = 'En
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['reuseTiles']['0']                 = 'Kacheln wiederverwenden';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['show']['0']                       = 'Details anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['show']['1']                       = 'Details des Layers ID %s anzeigen';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['showCoverageOnHover']['0']        = 'Abdeckung bei hover zeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['singleMarkerMode']['0']           = 'Cluster anstelle von Markern anzeigen';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['standalone']['0']                 = 'Eigenständiges Layer';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['standalone']['1']                 = 'Kopie anstelle eines Links des Layers erstellen.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['styles']['0']                     = 'Stile verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['styles']['1']                     = 'Vektorstile verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['subdomains']['0']                 = 'Subdomain';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tileSize']['0']                   = 'Kachelgröße';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tileSize']['1']                   = 'Kachelgröße (Breite und Höhe in Pixeln, auf quadratische Kacheln bezogen).';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider']['0']              = 'Kachelanbieter';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider']['1']              = 'Wählen Sie den Typ des Layers aus.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_variant']['0']      = 'Kachelvariante';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_variant']['1']      = 'Kachelvarianten-Stil';

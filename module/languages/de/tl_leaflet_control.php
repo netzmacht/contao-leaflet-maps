@@ -8,15 +8,16 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:54+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
-
 
 $GLOBALS['TL_LANG']['tl_leaflet_control']['active']['0']             = 'Kontrollelement aktivieren';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['active']['1']             = 'Kontrollelement auf der Karte aktivieren.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['active_legend']           = 'Aktivierung';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['alias']['0']              = 'Alias';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['alias']['1']              = 'Alias des Kontrollelementes.';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['attributions']['0']       = 'Namensnennung';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['attributions']['1']       = 'Hier können Sie Texte zur Namensnennung hinzufügen. In diesem Feld ist HTML erlaubt.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['autoZIndex']['0']         = 'Automatischer Z-Index';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['autoZIndex']['1']         = 'Falls aktiviert wird das Kontrollelement zu allen Layern in aufsteigender Reihenfolge einen z-index hinzufügen, damit die Reihenfolge auch beim an- und abschalten von Layern erhalten bleibt.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['base']['0']               = 'Basislayer';
@@ -58,6 +59,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_control']['pastenew']['0']           = 'Kontroll
 $GLOBALS['TL_LANG']['tl_leaflet_control']['pastenew']['1']           = 'Neue Kopie des Kontrollelements ID %s erzeugen';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['position']['0']           = 'Position';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['position']['1']           = 'Position des Kontrollelementes.';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['prefix']['0']             = 'Namensnennungs-Prefix';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['prefix']['1']             = 'Passen Sie den Prefix für die Namensnennung an. In der Voreinstellung wird der Leaflet-Link benutzt. HTML ist erlaubt.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['separate']['0']           = 'Separat';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['separate']['1']           = 'Kontrollelemente getrennt von der Zoomkontrolle anzeigen.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['show']['0']               = 'Details anzeigen';
@@ -81,8 +84,13 @@ $GLOBALS['TL_LANG']['tl_leaflet_control']['type']['1']               = 'Wählen 
 $GLOBALS['TL_LANG']['tl_leaflet_control']['updateWhenIdle']['0']     = 'Bei ';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['updateWhenIdle']['1']     = 'Falls aktiviert wird das Kontrollelement erst nach Abschluss einer Bewegung der Karte neu gezeichnet. Andernfalls wird es bereits während der Bewegung aktualisiert.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['zoomControl']['0']        = 'Zoom-Kontrollelement';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomControl']['1']        = 'Weisen Sie das Lade-Kontrollelement einem bestimmten  Zoom-Kontrollelement zu. Falls dieses nicht benutzt wird oder deaktiviert ist wird das Standard-Kontrollelement verwendet.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['zoomInText']['0']         = 'ZoomIn-Text';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['zoomInText']['1']         = 'Dieser Text wird im ZoomIn-Button ausgegegeben. Der voreingestellte Wert ist "+". Wenn Sie den voreingestellten Wert verwenden möchten lassen Sie das Feld leer.';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomInTitle']['0']        = 'ZoomIn-Titel';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomInTitle']['1']        = 'Geben Sie den Titel des Buttons zum Hineinzoomen an.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['zoomOutText']['0']        = 'ZoomOut-Text';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['zoomOutText']['1']        = 'Dieser Text wird im ZoomOut-Button ausgegegeben. Der voreingestellte Wert ist "-". Wenn Sie den voreingestellten Wert verwenden möchten lassen Sie das Feld leer.';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomOutTitle']['0']       = 'ZoomOut-Titel';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomOutTitle']['1']       = 'Geben Sie den Titel des Buttons zum Herauszoomen an.';
 

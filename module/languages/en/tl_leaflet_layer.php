@@ -124,4 +124,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic lay
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][0] = 'Feature group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][1] = 'Extended layer group with events and popup support. <br>See <a href="http://leafletjs.com/reference.html#featuregroup" target="_blank">http://leafletjs.com/reference.html#featuregroup</a>';
 
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['pasteinto'][1]  = 'Paste into layer %s';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['pasteafter'][1] = 'Paste after layer %s';
+
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['countEntries'] = 'Entries';

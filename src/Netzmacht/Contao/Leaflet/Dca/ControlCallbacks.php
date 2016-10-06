@@ -11,8 +11,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
+use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
+use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use Netzmacht\Contao\Toolkit\ServiceContainerTrait;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
@@ -21,9 +22,21 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class Control
+class ControlCallbacks extends Callbacks
 {
-    use ServiceContainerTrait;
+    /**
+     * Name of the data container.
+     *
+     * @var string
+     */
+    protected static $name = 'tl_leaflet_control';
+
+    /**
+     * Helper service name.
+     *
+     * @var string
+     */
+    protected static $serviceName = 'leaflet.dca.control-callbacks';
 
     /**
      * The database connection.
@@ -34,10 +47,15 @@ class Control
 
     /**
      * Construct.
+     *
+     * @param Manager   $manager  Data container manager.
+     * @param \Database $database Database connection.
      */
-    public function __construct()
+    public function __construct(Manager $manager, \Database $database)
     {
-        $this->database = static::getServiceContainer()->getDatabaseConnection();
+        parent::__construct($manager);
+
+        $this->database = $database;
     }
 
     /**
@@ -63,16 +81,11 @@ class Control
      */
     public function getLayers()
     {
-        $options    = array();
-        $collection = LayerModel::findBy('pid', '0', array('order' => 'title'));
+        $collection = LayerModel::findAll();
 
-        if ($collection) {
-            foreach ($collection as $model) {
-                $options[$model->id] = $model->title;
-            }
-        }
-
-        return $options;
+        return OptionsBuilder::fromCollection($collection, 'title')
+            ->asTree()
+            ->getOptions();
     }
 
     /**
@@ -84,7 +97,7 @@ class Control
     {
         $collection = ControlModel::findBy('type', 'zoom', array('order' => 'title'));
 
-        return OptionsBuilder::fromCollection($collection, 'id', 'title')->getOptions();
+        return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }
 
     /**

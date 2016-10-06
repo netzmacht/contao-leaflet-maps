@@ -40,11 +40,11 @@ class ProviderLayerMapper extends AbstractLayerMapper
     /**
      * Construct.
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @param array $providers Registered providers.
      */
-    public function __construct()
+    public function __construct(array $providers)
     {
-        $this->providers = &$GLOBALS['LEAFLET_TILE_PROVIDERS'];
+        $this->providers = $providers;
 
         parent::__construct();
     }
