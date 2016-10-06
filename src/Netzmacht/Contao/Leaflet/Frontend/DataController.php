@@ -47,7 +47,10 @@ class DataController
      * @var array
      */
     private $filters;
+
     /**
+     * Display errors.
+     *
      * @var bool
      */
     private $displayErrors;

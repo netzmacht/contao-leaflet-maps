@@ -210,6 +210,7 @@ class MapProvider
      * @throws \RuntimeException IF the input data does not match.
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function handleAjaxRequest($identifier, $exit = true)
     {
