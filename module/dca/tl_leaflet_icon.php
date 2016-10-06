@@ -271,7 +271,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate')
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
             ),
             'eval'          => array(
                 'maxlength'   => 255,
@@ -286,7 +286,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate')
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
             ),
             'eval'          => array(
                 'maxlength'   => 255,
@@ -301,7 +301,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate')
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
             ),
             'eval'          => array(
                 'maxlength'   => 255,

@@ -311,7 +311,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate')
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
             ),
             'wizard'        => array(
                 array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'getGeocoder')
@@ -320,6 +320,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'maxlength'   => 255,
                 'tl_class'    => 'long clr',
                 'nullIfEmpty' => true,
+                'mandatory'   => true,
             ),
             'sql'           => "varchar(255) NULL"
         ),

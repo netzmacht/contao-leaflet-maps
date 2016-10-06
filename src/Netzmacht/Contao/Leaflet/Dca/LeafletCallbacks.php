@@ -25,24 +25,6 @@ use Netzmacht\LeafletPHP\Value\LatLng;
 class LeafletCallbacks
 {
     /**
-     * Validate a coordinate.
-     *
-     * @param mixed $value The given value.
-     *
-     * @return mixed
-     */
-    public function validateCoordinate($value)
-    {
-        if (!empty($value)) {
-            // Validate by creating latlng object. Throws an exception.
-
-            LatLng::fromString($value);
-        }
-
-        return $value;
-    }
-
-    /**
      * Create the zoom range.
      *
      * @return array

@@ -231,7 +231,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                array('Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks', 'validateCoordinate')
+                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
             ),
             'eval'          => array(
                 'maxlength'   => 255,
