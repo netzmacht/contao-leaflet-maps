@@ -31,7 +31,7 @@ class LeafletServices
      *
      * @return AliasGenerator
      */
-    const ALIAS_GENERATOR = 'leaflet.alias-generator';
+    const ALIAS_GENERATOR = 'leaflet.alias-generator.default';
 
     /**
      * Service name of the boot handler.
@@ -88,4 +88,11 @@ class LeafletServices
      * @return ValueFilter
      */
     const FRONTEND_VALUE_FILTER = 'leaflet.frontend.value-filter';
+
+    /**
+     * Service name for the alias generator uses for rows being unique in the pid.
+     *
+     * @return AliasGenerator
+     */
+    const PARENT_ALIAS_GENERATOR = 'leaflet.alias-generator.parent';
 }

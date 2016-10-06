@@ -171,6 +171,33 @@ $container[LeafletServices::ALIAS_GENERATOR] = $container->share(
 );
 
 /**
+ * Leaflet alias generator.
+ *
+ * @return \Netzmacht\Contao\Toolkit\Data\Alias\AliasGenerator
+ */
+$container[LeafletServices::PARENT_ALIAS_GENERATOR] = $container->share(
+    function ($container) {
+        return function ($dataContainerName, $aliasField, $fields) use ($container) {
+            $filters = [
+                new ExistingAliasFilter(),
+                new SlugifyFilter($fields),
+                new DefaultAliasFilter($dataContainerName),
+                new SuffixFilter(),
+            ];
+
+            $validator = new UniqueDatabaseValueValidator(
+                $container[Services::DATABASE_CONNECTION],
+                $dataContainerName,
+                $aliasField,
+                ['pid']
+            );
+
+            return new FilterBasedAliasGenerator($filters, $validator, $dataContainerName, $aliasField, '_');
+        };
+    }
+);
+
+/**
  * Callback helper class for tl_leaflet_map.
  *
  * @return MapCallbacks

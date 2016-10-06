@@ -22,7 +22,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             (
                 'id'    => 'primary',
                 'pid'   => 'index',
-                'alias' => 'unique',
             )
         )
     ),
@@ -167,12 +166,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                     'tl_leaflet_control',
                     'alias',
                     ['title'],
-                    \Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::ALIAS_GENERATOR
+                    \Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::PARENT_ALIAS_GENERATOR
                 ),
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
-            'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NOT NULL default ''"
+            'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true),
+            'sql'           => "varchar(255) NULL"
         ),
         'type'   => array
         (
