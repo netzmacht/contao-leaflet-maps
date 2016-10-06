@@ -29,6 +29,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class GeoJsonSubscriber implements EventSubscriberInterface
 {
     /**
+     * Property mapping between models and features.
+     *
+     * @var array
+     */
+    private $featureModelProperties;
+
+    /**
+     * GeoJsonSubscriber constructor.
+     *
+     * @param array $featureModelProperties Property mapping between models and features.
+     */
+    public function __construct(array $featureModelProperties)
+    {
+        $this->featureModelProperties = $featureModelProperties;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function getSubscribedEvents()
@@ -113,7 +130,6 @@ class GeoJsonSubscriber implements EventSubscriberInterface
      * @param ConvertToGeoJsonEvent $event The subscribed events.
      *
      * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function setModelData(ConvertToGeoJsonEvent $event)
     {
@@ -121,11 +137,11 @@ class GeoJsonSubscriber implements EventSubscriberInterface
         $model   = $event->getModel();
 
         if (!$model instanceof \Model || !$feature instanceof Feature
-            || empty($GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES'][$model->getTable()])) {
+            || empty($this->featureModelProperties[$model->getTable()])) {
             return;
         }
 
-        $mapping = $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES'][$model->getTable()];
+        $mapping = $this->featureModelProperties[$model->getTable()];
         $data    = (array) $feature->getProperty('model');
 
         foreach ((array) $mapping as $property) {

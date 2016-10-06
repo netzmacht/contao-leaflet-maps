@@ -11,5 +11,5 @@
 return array(
     $GLOBALS['container']['leaflet.boot.subscriber'],
     'Netzmacht\Contao\Leaflet\Subscriber\HashSubscriber',
-    'Netzmacht\Contao\Leaflet\Subscriber\GeoJsonSubscriber',
+    $GLOBALS['container']['leaflet.subscriber.geo-json'],
 );

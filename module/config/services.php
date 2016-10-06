@@ -24,6 +24,7 @@ use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Leaflet\Subscriber\BootSubscriber;
+use Netzmacht\Contao\Leaflet\Subscriber\GeoJsonSubscriber;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\ExistingAliasFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SlugifyFilter;
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\SuffixFilter;
@@ -264,3 +265,9 @@ $container[Services::MODULES_MAP]['leaflet'] = function ($model, $column, Contai
         $column
     );
 };
+
+$container['leaflet.subscriber.geo-json'] = $container->share(function () {
+    return new GeoJsonSubscriber(
+        $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']
+    );
+});
