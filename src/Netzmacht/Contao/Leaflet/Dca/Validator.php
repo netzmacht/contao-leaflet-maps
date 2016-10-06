@@ -56,6 +56,7 @@ class Validator
      * @param mixed $value Given value.
      *
      * @return mixed
+     * @throws \InvalidArgumentException When invalid coordinates give.
      */
     public function validateCoordinates($value)
     {
@@ -114,7 +115,7 @@ class Validator
     /**
      * Validate an alias.
      *
-     * @param string $value Given value
+     * @param string $value Given value.
      *
      * @return string
      * @throws \InvalidArgumentException When invalid value given.
