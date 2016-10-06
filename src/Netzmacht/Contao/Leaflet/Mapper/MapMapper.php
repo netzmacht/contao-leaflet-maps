@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control;
 use Netzmacht\LeafletPHP\Definition\Layer;
@@ -98,7 +99,11 @@ class MapMapper extends AbstractMapper
     protected function buildCustomOptions(Map $map, MapModel $model)
     {
         if ($model->options) {
-            $map->setOptions(json_decode($model->options, true));
+            $options = json_decode($model->options, true);
+
+            if (is_array($options)) {
+                $map->setOptions($options);
+            }
         }
 
         $map->setOption('dynamicLoad', (bool) $model->dynamicLoad);
