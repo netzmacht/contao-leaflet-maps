@@ -10,6 +10,7 @@
  */
 
 use Interop\Container\ContainerInterface;
+use Netzmacht\Contao\Leaflet\Alias\DefaultAliasFilter;
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Dca\ControlCallbacks;
@@ -138,7 +139,8 @@ $container[LeafletServices::ALIAS_GENERATOR] = $container->share(
             $filters = [
                 new ExistingAliasFilter(),
                 new SlugifyFilter($fields),
-                new SuffixFilter(false),
+                new DefaultAliasFilter($dataContainerName),
+                new SuffixFilter(),
             ];
 
             $validator = new UniqueDatabaseValueValidator(
