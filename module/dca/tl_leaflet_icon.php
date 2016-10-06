@@ -183,7 +183,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NOT NULL default ''"
+            'sql'           => "varchar(255) NULL"
         ),
         'type'                  => array
         (
