@@ -232,8 +232,13 @@ class MapProvider
                 return;
             }
 
-            $controller = new DataController($this, $data);
-            $controller->execute();
+            $controller = new DataController(
+                $this,
+                $GLOBALS['LEAFLET_FILTERS'],
+                \Config::get('debugMode') || \Config::get('displayErrors')
+            );
+
+            $controller->execute($data);
 
             if ($exit) {
                 exit;
