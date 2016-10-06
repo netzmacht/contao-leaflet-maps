@@ -67,6 +67,20 @@ class MapProvider
     private $assets;
 
     /**
+     * Request filters configuration.
+     *
+     * @var array
+     */
+    private $filters;
+
+    /**
+     * Display errors setting.
+     *
+     * @var bool
+     */
+    private $displayErrors;
+
+    /**
      * Construct.
      *
      * @param DefinitionMapper $mapper          The definition mapper.
@@ -74,19 +88,25 @@ class MapProvider
      * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
      * @param \Input           $input           Thw request input.
      * @param Assets           $assets          Assets handler.
+     * @param array            $filters         Request filters configuration.
+     * @param bool             $displayErrors   Display errors setting.
      */
     public function __construct(
         DefinitionMapper $mapper,
         Leaflet $leaflet,
         EventDispatcher $eventDispatcher,
         \Input $input,
-        Assets $assets
+        Assets $assets,
+        array $filters,
+        $displayErrors
     ) {
         $this->mapper          = $mapper;
         $this->leaflet         = $leaflet;
         $this->eventDispatcher = $eventDispatcher;
         $this->input           = $input;
         $this->assets          = $assets;
+        $this->filters         = $filters;
+        $this->displayErrors   = $displayErrors;
     }
 
     /**
@@ -233,12 +253,7 @@ class MapProvider
                 return;
             }
 
-            $controller = new DataController(
-                $this,
-                $GLOBALS['LEAFLET_FILTERS'],
-                \Config::get('debugMode') || \Config::get('displayErrors')
-            );
-
+            $controller = new DataController($this, $this->filters, $this->displayErrors);
             $controller->execute($data);
 
             if ($exit) {

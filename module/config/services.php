@@ -53,7 +53,9 @@ $container[LeafletServices::MAP_PROVIDER] = $container->share(function ($contain
         $container[LeafletServices::DEFINITION_BUILDER],
         $container[Services::EVENT_DISPATCHER],
         $container[Services::INPUT],
-        $container[LeafletServices::MAP_ASSETS]
+        $container[LeafletServices::MAP_ASSETS],
+        $GLOBALS['LEAFLET_FILTERS'],
+        \Config::get('debugMode') || \Config::get('displayErrors')
     );
 });
 
