@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Dca\ControlCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\FrontendIntegration;
 use Netzmacht\Contao\Leaflet\Dca\LayerCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\MapCallbacks;
+use Netzmacht\Contao\Leaflet\Dca\Validator;
 use Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices;
 use Netzmacht\Contao\Leaflet\Frontend\MapElement;
 use Netzmacht\Contao\Leaflet\Frontend\MapModule;
@@ -221,6 +222,19 @@ $container['leaflet.dca.control-callbacks'] = $container->share(
 $container['leaflet.dca.frontend-integration'] = $container->share(
     function ($container) {
         return new FrontendIntegration(
+            $container[Services::TRANSLATOR]
+        );
+    }
+);
+
+/**
+ * Validator helper class.
+ *
+ * @return Validator
+ */
+$container['leaflet.dca.validator'] = $container->share(
+    function ($container) {
+        return new Validator(
             $container[Services::TRANSLATOR]
         );
     }

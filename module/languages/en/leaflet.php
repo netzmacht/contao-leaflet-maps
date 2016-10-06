@@ -45,3 +45,5 @@ $GLOBALS['TL_LANG']['leaflet_vector']['rectangle'][1]  = 'Rectangle overlay. For
 
 $GLOBALS['TL_LANG']['leaflet']['searchPosition'] = 'Search location';
 $GLOBALS['TL_LANG']['leaflet']['applyPosition']  = 'Apply position';
+
+$GLOBALS['TL_LANG']['leaflet']['invalidAlias'] = 'Invalid alias given. Alias may not be empty, begin with a numeric value nor contain any special chars (underscore allowed).';
