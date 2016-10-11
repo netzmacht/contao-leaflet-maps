@@ -87,6 +87,10 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge'][0]    = 'Locate maximu
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge'][1]    = 'Maximum age of detected location in milliseconds. Use cached value if time has not passed.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['dynamicLoad'][0]         = 'Load data dynamically in bounds';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['dynamicLoad'][1]         = 'If enabled the map requests data from the layers for the current bounds only and make a new request if bounds has changed.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['cache'][0]               = 'Enable cache';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['cache'][1]               = 'If enabled the generated map javascript is cached.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['cacheLifeTime'][0]       = 'Cache lifetime';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['cacheLifeTime'][1]       = 'Indicates how long a cache entry is valid in seconds.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load'][0]     = 'At map initialization';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load'][1]     = 'Calculate bounds when the map is initialized. All static and already loaded deferred featured are included.';

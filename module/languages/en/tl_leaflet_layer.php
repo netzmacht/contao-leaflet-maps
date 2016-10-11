@@ -118,6 +118,11 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['reuseTiles'][0]                 = 'Reus
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['reuseTiles'][1]                 = 'If true, all the tiles that are not visible after panning are placed in a reuse queue from which they will be fetched when new tiles become visible (as opposed to dynamically creating new ones).';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['bounds'][0]                     = 'Bounds';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['bounds'][1]                     = 'When this option is set, the TileLayer only loads tiles that are in the given geographical bounds. Each field defines a corner of the bounds as comma separated value (Latitude,longitude[,altitude]).';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cache'][0]                      = 'Enable cache';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cache'][1]                      = 'If enabled the dynamic loaded data is cached.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime'][0]              = 'Cache lifetime';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime'][1]              = 'Indicates how long a cache entry is valid in seconds.';
+
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';

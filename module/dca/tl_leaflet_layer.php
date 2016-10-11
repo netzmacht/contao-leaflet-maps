@@ -153,12 +153,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'default' => array(
             'title'    => array('title', 'alias', 'type'),
             'config'   => array(),
-            'expert'   => array(':hide', 'cache'),
+            'expert'   => array(':hide'),
             'active'   => array('active'),
         ),
         'markers extends default' => array(
             '+expert' => array('pointToLayer'),
-            '+config' => array('deferred', 'boundsMode')
+            '+config' => array('boundsMode', 'deferred')
         ),
         'group extends default' => array(
             '+title' => array('groupType'),
@@ -166,7 +166,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'vectors extends default' => array(
             '+expert' => array('onEachFeature', 'pointToLayer'),
-            '+config' => array('deferred', 'boundsMode'),
+            '+config' => array('boundsMode', 'deferred'),
         ),
         'reference extends default' => array(
             '+title' => array('reference', 'standalone')
@@ -228,7 +228,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
 
     'metasubpalettes' => array(
         'spiderfyOnMaxZoom' => array('spiderfyDistanceMultiplier'),
-        'cache' => array('cacheLifeTime')
+        'deferred'          => array('cache'),
+        'cache'             => array('cacheLifeTime')
     ),
 
     'fields' => array
