@@ -30,7 +30,20 @@ L.Map.include({
         }
 
         if (this._dynamicBounds) {
-            this.fitBounds(this._dynamicBounds);
+            options = {};
+
+            if (this.options.boundsPadding) {
+                options.padding = this.options.boundsPadding;
+            } else {
+                if (this.options.boundsPaddingTopLeft) {
+                    options.paddingTopLeft = this.options.boundsPaddingTopLeft;
+                }
+                if (this.options.boundsPaddingBottomRight) {
+                    options.paddingBottomRight = this.options.boundsPaddingBottomRight;
+                }
+            }
+
+            this.fitBounds(this._dynamicBounds, options);
         }
     },
 

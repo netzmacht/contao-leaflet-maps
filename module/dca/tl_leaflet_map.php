@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
     'metapalettes' => array(
         'default' => array(
             'title'       => array('title', 'alias'),
-            'zoom'        => array('center', 'zoom', 'adjustZoomExtra', 'adjustBounds', 'dynamicLoad'),
+            'zoom'        => array('center', 'zoom', 'adjustZoomExtra', 'adjustBounds', 'dynamicLoad', 'boundsPadding'),
             'locate'      => array('locate'),
             'layers'      => array('layers'),
             'interaction' => array(
@@ -479,8 +479,21 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
-            'eval'      => array('tl_class' => 'w50', 'submitOnChange' => false),
+            'eval'      => array('tl_class' => 'clr w50', 'submitOnChange' => false),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'boundsPadding'  => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['boundsPadding'],
+            'exclude'          => true,
+            'inputType'        => 'text',
+            'eval'             => array(
+                'maxlength'          => 32,
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "varchar(32) NULL"
         ),
         'locate'  => array
         (

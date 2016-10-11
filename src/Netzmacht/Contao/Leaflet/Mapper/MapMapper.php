@@ -180,6 +180,17 @@ class MapMapper extends AbstractMapper
             $map->setOption('adjustBounds', true);
         }
 
+        if ($model->boundsPadding) {
+            $value = array_map('intval', explode(',', $model->boundsPadding, 4));
+
+            if (count($value) === 4) {
+                $map->setOption('boundsPaddingTopLeft', [$value[0], $value[1]]);
+                $map->setOption('boundsPaddingBottomRight', [$value[2], $value[3]]);
+            } elseif (count($value) === 2) {
+                $map->setOption('boundsPadding', $value);
+            }
+        }
+
         if (in_array('load', $adjustBounds)) {
             $map->calculateFeatureBounds();
         }
