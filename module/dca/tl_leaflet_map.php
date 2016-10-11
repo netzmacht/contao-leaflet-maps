@@ -128,7 +128,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
         ),
         'adjustZoomExtra' => array(
             'minZoom',
-            'maxZoom'
+            'maxZoom',
+            'zoomSnap',
+            'zoomDelta',
         ),
         'locate'          => array(
             ':hide',
@@ -288,6 +290,34 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'nullIfEmpty'        => true
             ),
             'sql'              => "int(4) NULL"
+        ),
+        'zoomSnap'  => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomSnap'],
+            'exclude'          => true,
+            'inputType'        => 'text',
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "varchar(4) NULL"
+        ),
+        'zoomDelta'  => array
+        (
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['zoomDelta'],
+            'exclude'          => true,
+            'inputType'        => 'text',
+            'eval'             => array(
+                'maxlength'          => 4,
+                'rgxp'               => 'digit',
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'nullIfEmpty'        => true
+            ),
+            'sql'              => "varchar(4) NULL"
         ),
         'dragging'  => array
         (

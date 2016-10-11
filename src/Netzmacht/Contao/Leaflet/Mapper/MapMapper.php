@@ -50,7 +50,7 @@ class MapMapper extends AbstractMapper
             ->addOptions('center', 'zoom', 'zoomControl')
             ->addOptions('dragging', 'touchZoom', 'scrollWheelZoom', 'doubleClickZoom', 'boxZoom', 'tap', 'keyboard')
             ->addOptions('trackResize', 'closeOnClick', 'bounceAtZoomLimits')
-            ->addConditionalOptions('adjustZoomExtra', array('minZoom', 'maxZoom'))
+            ->addConditionalOptions('adjustZoomExtra', array('minZoom', 'maxZoom', 'zoomSnap', 'zoomDelta'))
             ->addConditionalOptions('keyboard', array('keyboardPanOffset', 'keyboardZoomOffset'));
     }
 
