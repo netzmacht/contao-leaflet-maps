@@ -17,15 +17,15 @@ Features
 
  - Define Leaflet maps with multiple layers.
  - Manage map controls
-    - [Layers control](http://leafletjs.com/reference.html#control-layers)
-    - [Zoom control](http://leafletjs.com/reference.html#control-zoom)
-    - [Scale control]((http://leafletjs.com/reference.html#control-scale))
-    - [Attribution control](http://leafletjs.com/reference.html#control-attribution)
+    - [Layers control](http://leafletjs.com/reference-1.0.0.html#control-layers)
+    - [Zoom control](http://leafletjs.com/reference-1.0.0.html#control-zoom)
+    - [Scale control]((http://leafletjs.com/reference-1.0.0.html#control-scale))
+    - [Attribution control](http://leafletjs.com/reference-1.0.0.html#control-attribution)
     - [Loading control](https://github.com/ebrelsford/Leaflet.loading)
  - Manage layers 
     - [Tile provider](https://github.com/leaflet-extras/leaflet-providers)
-    - Markers - A set of [markers](http://leafletjs.com/reference.html#marker)
-    - Vectors - A set of [vectors](http://leafletjs.com/reference.html)
+    - Markers - A set of [markers](http://leafletjs.com/reference-1.0.0.html#marker)
+    - Vectors - A set of [vectors](http://leafletjs.com/reference-1.0.0.html)
     - Groups  - A group of layers
     - Reference - A link to another layer
  - Manage marker icons
@@ -40,7 +40,7 @@ Install
 -------
 
 ```
-$ php composer.phar require netzmacht/contao-leaflet-maps:~1.0
+$ php composer.phar require netzmacht/contao-leaflet-maps:~2.0
 ```
 
 Credits
@@ -53,5 +53,5 @@ The about icon is part of the [Web Blog Icons by SEM Labs](http://semlabs.co.uk/
 [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
 
 English translations when possible where copied from the used libraries. Mainly the 
-[leaflet documentation](leafletjs.com/reference.html) is used.
+[leaflet documentation](http://leafletjs.com/reference-1.0.0.html) is used.
 
