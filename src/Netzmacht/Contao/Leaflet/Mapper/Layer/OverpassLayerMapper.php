@@ -48,6 +48,7 @@ class OverpassLayerMapper extends AbstractLayerMapper
         $this->optionsBuilder
             ->addOption('query', 'overpassQuery')
             ->addOption('minzoom', 'minZoom')
+            ->addOption('debug')
             ->addOption('overpassEndpoint', 'endpoint');
     }
 
