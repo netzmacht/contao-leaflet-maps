@@ -32,6 +32,13 @@ class OverpassLayerMapper extends AbstractLayerMapper
     protected static $type = 'overpass';
 
     /**
+     * The definition class.
+     *
+     * @var string
+     */
+    protected static $definitionClass = 'Netzmacht\LeafletPHP\Plugins\OverpassLayer\OverpassLayer';
+
+    /**
      * {@inheritdoc}
      */
     protected function initialize()
@@ -39,9 +46,9 @@ class OverpassLayerMapper extends AbstractLayerMapper
         parent::initialize();
 
         $this->optionsBuilder
-            ->addOption('overpassQuery', 'query')
-            ->addConditionalOption('minZoom')
-            ->addConditionalOption('overpassEndpoint', 'endpoint');
+            ->addOption('query', 'overpassQuery')
+            ->addOption('minzoom', 'minZoom')
+            ->addOption('overpassEndpoint', 'endpoint');
     }
 
     /**
@@ -61,9 +68,9 @@ class OverpassLayerMapper extends AbstractLayerMapper
         $minZoomIndicatorOptions        = $definition->getMinZoomIndicatorOptions();
         $minZoomIndicatorOptionsBuilder = new OptionsBuilder();
         $minZoomIndicatorOptionsBuilder
-            ->addConditionalOption('minZoomIndicatorPosition', 'position')
-            ->addConditionalOption('minZoomIndicatorMessageNoLayer', 'minZoomMessageNoLayer')
-            ->addConditionalOption('minZoomIndicatorMessage', 'minZoomMessage');
+            ->addOption('position', 'minZoomIndicatorPosition')
+            ->addOption('minZoomMessageNoLayer', 'minZoomIndicatorMessageNoLayer')
+            ->addOption('minZoomMessage', 'minZoomIndicatorMessage');
 
         $minZoomIndicatorOptionsBuilder->build($minZoomIndicatorOptions, $model);
 

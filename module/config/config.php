@@ -271,6 +271,10 @@ $GLOBALS['LEAFLET_LAYERS'] = array
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/tile.png',
     ),
+    'overpass' => array(
+        'children' => false,
+        'icon'     => 'system/modules/leaflet/assets/img/overpass.png',
+    ),
 );
 
 /*

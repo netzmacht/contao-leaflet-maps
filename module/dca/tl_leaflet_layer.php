@@ -792,9 +792,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime'],
             'exclude'   => true,
             'inputType' => 'text',
-            'default'   => null,
-            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
-            'sql'       => "int(9) NOT NULL default '0'"
+            'default'   => 0,
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+            'sql'       => "int(10) unsigned NOT NULL default '0'"
         ),
         'overpassQuery'  => array
         (
@@ -815,7 +815,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassEndpoint'],
             'exclude'   => true,
             'inputType' => 'text',
-            'default'   => null,
+            'default'   => '',
             'eval'      => array('tl_class' => 'long'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -850,7 +850,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorMessage'],
             'exclude'   => true,
             'inputType' => 'text',
-            'default'   => null,
+            'default'   => '',
             'eval'      => array('tl_class' => 'long'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
@@ -859,7 +859,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorMessageNoLayer'],
             'exclude'   => true,
             'inputType' => 'text',
-            'default'   => null,
+            'default'   => '',
             'eval'      => array('tl_class' => 'long'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
