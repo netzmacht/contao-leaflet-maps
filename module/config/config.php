@@ -274,6 +274,13 @@ $GLOBALS['LEAFLET_LAYERS'] = array
     'overpass' => array(
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/overpass.png',
+        'label'    => function ($row, $label) {
+            if ($row['overpassQuery']) {
+                $label .= '<span class="tl_gray"> ' . \StringUtil::substr($row['overpassQuery'], 50) . '</span>';
+            }
+
+            return $label;
+        }
     ),
 );
 
