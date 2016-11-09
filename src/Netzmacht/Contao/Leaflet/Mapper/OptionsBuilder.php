@@ -162,7 +162,7 @@ class OptionsBuilder
      *
      * @return void
      */
-    private function buildConditionals(Definition $definition, \Model $model)
+    private function buildConditionals($definition, \Model $model)
     {
         foreach ($this->conditional as $column => $conditions) {
             foreach ($conditions as $value => $options) {

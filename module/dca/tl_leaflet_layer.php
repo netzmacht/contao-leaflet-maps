@@ -213,7 +213,20 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'reuseTiles',
                 'bounds'
             )
-        )
+        ),
+        'overpass extends default' => array(
+            'config' => array(
+                'overpassQuery',
+                'overpassEndpoint',
+                'overpassCallback',
+                'minZoom',
+            ),
+            '+expert' => array(
+                'minZoomIndicatorPosition',
+                'minZoomIndicatorMessageNoLayer',
+                'minZoomIndicatorMessage',
+            ),
+        ),
     ),
 
     'metasubselectpalettes' => array(
@@ -782,6 +795,73 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'default'   => null,
             'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
             'sql'       => "int(9) NOT NULL default '0'"
+        ),
+        'overpassQuery'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassQuery'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
+        ),
+        'overpassEndpoint' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassEndpoint'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('tl_class' => 'long'),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'overpassCallback'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassCallback'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|javascript',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
+        ),
+        'minZoomIndicatorPosition' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorPosition'],
+            'exclude'   => true,
+            'inputType' => 'select',
+            'filter'    => true,
+            'sorting'   => true,
+            'options'   => array('topleft', 'topright', 'bottomleft', 'bottomright'),
+            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_layer'],
+            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50', 'helpwizard' => true),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'minZoomIndicatorMessage' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorMessage'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('tl_class' => 'long'),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'minZoomIndicatorMessageNoLayer' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorMessageNoLayer'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => null,
+            'eval'      => array('tl_class' => 'long'),
+            'sql'       => "varchar(255) NOT NULL default ''"
         ),
     )
 );
