@@ -218,13 +218,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'config' => array(
                 'overpassQuery',
                 'overpassEndpoint',
-                'overpassCallback',
                 'minZoom',
+                'overpassCallback',
             ),
             '+expert' => array(
                 'minZoomIndicatorPosition',
-                'minZoomIndicatorMessageNoLayer',
+                'debug',
                 'minZoomIndicatorMessage',
+                'minZoomIndicatorMessageNoLayer',
             ),
         ),
     ),
@@ -816,7 +817,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
-            'eval'      => array('tl_class' => 'long'),
+            'eval'      => array('tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
         'overpassCallback'  => array
@@ -851,7 +852,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
-            'eval'      => array('tl_class' => 'long'),
+            'eval'      => array('tl_class' => 'clr w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
         ),
         'minZoomIndicatorMessageNoLayer' => array
@@ -860,8 +861,17 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
-            'eval'      => array('tl_class' => 'long'),
+            'eval'      => array('tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'debug' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['debug'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50 m12'),
+            'sql'       => "char(1) NOT NULL default ''"
         ),
     )
 );
