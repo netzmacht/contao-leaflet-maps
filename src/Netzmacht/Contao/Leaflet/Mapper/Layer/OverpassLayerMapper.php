@@ -14,6 +14,7 @@ use Model;
 use Netzmacht\Contao\Leaflet\Definition\Layer\OverpassLayer;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 
@@ -66,6 +67,9 @@ class OverpassLayerMapper extends AbstractLayerMapper
             return;
         }
 
+        $amenityIconsMap = $this->buildAmenityIconsMap($model);
+        $definition->setOption('amenityIcons', $amenityIconsMap);
+
         if ($model->pointToLayer) {
             $definition->setPointToLayer(new Expression($model->pointToLayer));
         }
@@ -73,5 +77,44 @@ class OverpassLayerMapper extends AbstractLayerMapper
         if ($model->onEachFeature) {
             $definition->setOnEachFeature(new Expression($model->onEachFeature));
         }
+    }
+
+    /**
+     * Build the amenity icons map.
+     *
+     * @param Model $model Definition model.
+     *
+     * @return array
+     */
+    protected function buildAmenityIconsMap(Model $model)
+    {
+        $amenityIconsConfig = deserialize($model->amenityIcons, true);
+        $amenityIconsMap    = [];
+        foreach ($amenityIconsConfig as $config) {
+            if (!$config['amenity'] || !$config['icon']) {
+                continue;
+            }
+
+            $amenityIconsMap[$config['amenity']] = $config['icon'];
+        }
+
+        if ($amenityIconsMap) {
+            $collection    = IconModel::findMultipleByIds(array_unique($amenityIconsMap));
+            $icons         = [];
+
+            if ($collection) {
+                foreach ($collection as $iconModel) {
+                    $icons[$iconModel->id] = $iconModel->alias ?: $iconModel->id;
+                }
+
+                foreach ($amenityIconsMap as $amenity => $iconId) {
+                    if (isset($icons[$iconId])) {
+                        $amenityIconsMap[$amenity] = $icons[$iconId];
+                    }
+                }
+            }
+        }
+
+        return $amenityIconsMap;
     }
 }

@@ -67,6 +67,17 @@ class LayerCallbacks extends Callbacks
     private $translator;
 
     /**
+     * OSM amenities.
+     *
+     * @var array
+     */
+    private $amenities;
+    /**
+     * @var Manager
+     */
+    private $manager;
+
+    /**
      * Construct.
      *
      * @param Manager    $manager       Data container manager.
@@ -74,23 +85,26 @@ class LayerCallbacks extends Callbacks
      * @param Translator $translator    Translator.
      * @param array      $layers        Leaflet layer configuration.
      * @param array      $tileProviders Tile providers.
+     * @param array      $amenities     OSM amenities
      */
     public function __construct(
         Manager $manager,
         \Database $database,
         Translator $translator,
         array $layers,
-        array $tileProviders
+        array $tileProviders,
+        array $amenities
     ) {
         parent::__construct($manager);
+
+        \Controller::loadLanguageFile('leaflet_layer');
 
         $this->database      = $database;
         $this->layers        = $layers;
         $this->tileProviders = $tileProviders;
-
-        \Controller::loadLanguageFile('leaflet_layer');
-
-        $this->translator = $translator;
+        $this->manager       = $manager;
+        $this->translator    = $translator;
+        $this->amenities     = $amenities;
     }
 
     /**
@@ -357,6 +371,16 @@ class LayerCallbacks extends Callbacks
         return OptionsBuilder::fromCollection($collection, 'title')
             ->asTree()
             ->getOptions();
+    }
+
+    /**
+     * Get all know osm amenities as options.
+     *
+     * @return array
+     */
+    public function getAmenities()
+    {
+        return $this->amenities;
     }
 
     /**

@@ -153,6 +153,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'default' => array(
             'title'    => array('title', 'alias', 'type'),
             'config'   => array(),
+            'style'    => array(),
             'expert'   => array(':hide'),
             'active'   => array('active'),
         ),
@@ -217,9 +218,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'overpass extends default' => array(
             'config' => array(
                 'overpassQuery',
-                'overpassEndpoint',
+                'boundsMode',
                 'minZoom',
-                'boundsMode'
+                'overpassEndpoint',
+            ),
+            'style' => array(
+                'amenityIcons'
             ),
             '+expert' => array(
                 'onEachFeature',
@@ -870,6 +874,42 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'default'   => false,
             'eval'      => array('tl_class' => 'w50 m12'),
             'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'amenityIcons' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
+            'exclude'   => true,
+            'inputType' => 'multiColumnWizard',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getIcons'),
+            'eval'      => array(
+                'columnFields' => array(
+                    'amenity' => array(
+                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
+                        'exclude'   => true,
+                        'inputType' => 'select',
+                        'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getAmenities'),
+                        'eval'      => array(
+                            'mandatory'  => true,
+                            'tl_class'   => 'w50',
+                            'style'      => 'width: 200px',
+                            'chosen'     => true,
+                        ),
+                    ),
+                    'icon' => array(
+                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
+                        'exclude'   => true,
+                        'inputType' => 'select',
+                        'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getIcons'),
+                        'eval'      => array(
+                            'mandatory'  => true,
+                            'tl_class'   => 'w50',
+                            'style'      => 'width: 200px',
+                            'chosen'     => true,
+                        ),
+                    ),
+                ),
+            ),
+            'sql'       => "blob NULL",
         ),
     )
 );

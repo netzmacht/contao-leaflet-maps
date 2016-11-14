@@ -242,7 +242,8 @@ $container['leaflet.dca.layer-callbacks'] = $container->share(
             $container[Services::DATABASE_CONNECTION],
             $container[Services::TRANSLATOR],
             $GLOBALS['LEAFLET_LAYERS'],
-            $GLOBALS['LEAFLET_TILE_PROVIDERS']
+            $GLOBALS['LEAFLET_TILE_PROVIDERS'],
+            require TL_ROOT . '/system/modules/leaflet/config/leaflet_amenities.php'
         );
     }
 );

@@ -18,7 +18,8 @@ L.OverPassLayer = L.FeatureGroup.extend({
     options: {
         minZoom: 0,
         endpoint: '//overpass-api.de/api/',
-        query: '(node(BBOX)[organic];node(BBOX)[second_hand];);out qt;'
+        query: '(node(BBOX)[organic];node(BBOX)[second_hand];);out qt;',
+        amenityIcons: {}
     },
     /**
      * Initialize the layer.
@@ -87,6 +88,7 @@ L.OverPassLayer = L.FeatureGroup.extend({
     },
     pointToLayer: function (feature, latlng) {
         var type   = 'marker';
+        var icon   = null;
         var marker = L.marker(latlng, feature.properties.options);
 
         if (feature.properties) {
@@ -95,11 +97,18 @@ L.OverPassLayer = L.FeatureGroup.extend({
             }
 
             if (feature.properties.icon) {
-                var icon = this._map.getIcon(feature.properties.icon);
+                icon = this._map.getIcon(feature.properties.icon);
 
-                if (icon) {
-                    marker.setIcon(icon);
-                }
+            } else if (feature.properties.tags
+                && feature.properties.tags.amenity
+                && this.options.amenityIcons[feature.properties.tags.amenity]
+            ) {
+                console.log(this.options.amenityIcons[feature.properties.tags.amenity]);
+                icon = L.contao.getIcon(this.options.amenityIcons[feature.properties.tags.amenity]);
+            }
+
+            if (icon) {
+                marker.setIcon(icon);
             }
 
             L.contao.bindPopupFromFeature(marker, feature);
