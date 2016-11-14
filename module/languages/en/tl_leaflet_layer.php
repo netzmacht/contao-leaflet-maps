@@ -4,6 +4,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['title_legend']  = 'Layer';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active_legend'] = 'Activation';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['expert_legend'] = 'Expert settings';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['config_legend'] = 'Configuration';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['style_legend']  = 'Style';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['map'][0]    = 'Manage maps';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['map'][1]    = 'Manage leaflet maps';
@@ -122,7 +123,18 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['cache'][0]                      = 'Enab
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['cache'][1]                      = 'If enabled the dynamic loaded data is cached.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime'][0]              = 'Cache lifetime';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime'][1]              = 'Indicates how long a cache entry is valid in seconds.';
-
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassQuery'][0]              = 'Overpass API query';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassQuery'][1]              = 'Overpass API query. See <a href="https://overpass-turbo.eu/" target="_blank">https://overpass-turbo.eu/</a> for examples.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassEndpoint'][0]           = 'Overpass API endpoint';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassEndpoint'][1]           = 'Endpoint for overpass API request. If empty //overpass-api.de/api/ is used.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassPopup'][0]              = 'Popup expression';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassPopup'][1]              = 'Define a custom function or reference to create the popup. <em>feature</em> and <em>markerOrLayer</em> are passed as arguments.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcons'][0]               = 'Amenity icons';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcons'][1]               = 'Define the mapping between amenities and icon styles.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'][0]                    = 'Amenity';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'][1]                    = 'OSM amenity.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'][1]                = 'Icon';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'][0]                = 'Icon style';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';

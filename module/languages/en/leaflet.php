@@ -27,6 +27,8 @@ $GLOBALS['TL_LANG']['leaflet_layer']['markercluster'][0] = 'Marker cluster';
 $GLOBALS['TL_LANG']['leaflet_layer']['markercluster'][1] = 'Marker cluster layer based on <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a.';
 $GLOBALS['TL_LANG']['leaflet_layer']['tile'][0]          = 'Tile layer';
 $GLOBALS['TL_LANG']['leaflet_layer']['tile'][1]          = 'Tile layer with full config options.';
+$GLOBALS['TL_LANG']['leaflet_layer']['overpass'][0]      = 'Overpass API';
+$GLOBALS['TL_LANG']['leaflet_layer']['overpass'][1]      = 'Overpass API data layer.';
 
 $GLOBALS['TL_LANG']['leaflet_vector']['polyline'][0]      = 'Polyline';
 $GLOBALS['TL_LANG']['leaflet_vector']['polyline'][1]      = 'Polyline overlay. For more details read the <a href="http://leafletjs.com/reference.html#polyline" target="_blank">Leaflet documentation</a>.';

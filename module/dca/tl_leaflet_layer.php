@@ -878,14 +878,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         ),
         'amenityIcons' => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcons'],
             'exclude'   => true,
             'inputType' => 'multiColumnWizard',
             'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getIcons'),
             'eval'      => array(
                 'columnFields' => array(
                     'amenity' => array(
-                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
+                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'],
                         'exclude'   => true,
                         'inputType' => 'select',
                         'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getAmenities'),
@@ -897,7 +897,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                         ),
                     ),
                     'icon' => array(
-                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
+                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'],
                         'exclude'   => true,
                         'inputType' => 'select',
                         'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getIcons'),
