@@ -27,10 +27,14 @@ L.OverPassLayer = L.FeatureGroup.extend({
      * @param options
      */
     initialize: function (options) {
-        L.Util.setOptions(this, options);
+        if (!options.pointToLayer) {
+            options.pointToLayer = this.pointToLayer;
+        }
+        if (!options.onEachFeature) {
+            options.onEachFeature = this.onEachFeature;
+        }
 
-        this.options.pointToLayer = this.pointToLayer;
-        this.options.onEachFeature = this.onEachFeature;
+        L.Util.setOptions(this, options);
         this.options.dynamicLoad = this.options.query.match(/BBOX/g) ? true : false;
 
         this._layer  = L.geoJson();
