@@ -24,7 +24,6 @@ use Netzmacht\Contao\Leaflet\Mapper\Mapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Toolkit\Boot\Event\InitializeSystemEvent;
 use Netzmacht\Contao\Toolkit\DependencyInjection\Services;
-use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -101,7 +100,7 @@ class BootSubscriber implements EventSubscriberInterface
             InitializeDefinitionMapperEvent::NAME => 'initializeDefinitionMapper',
             InitializeEventDispatcherEvent::NAME  => 'initializeEventDispatcher',
             InitializeLeafletBuilderEvent::NAME   => 'initializeLeafletBuilder',
-            GetJavascriptEvent::NAME              => array(array('loadAssets'), array('loadIcons')),
+            GetJavascriptEvent::NAME              => array(array('loadIcons'), array('loadAssets')),
         );
     }
 
@@ -190,6 +189,7 @@ class BootSubscriber implements EventSubscriberInterface
     public function loadAssets()
     {
         $this->assets->addJavascript('assets/leaflet/maps/contao-leaflet.js', ContaoAssets::TYPE_FILE);
+        $this->assets->addJavascript('assets/leaflet/js/icons.js', ContaoAssets::TYPE_FILE);
     }
 
     /**
@@ -217,20 +217,37 @@ class BootSubscriber implements EventSubscriberInterface
                     'type'    => lcfirst($icon->getType()),
                     'options' => $icon->getOptions(),
                 );
+
+                foreach ($icon::getRequiredLibraries() as $library) {
+                    if (!isset($this->libraries[$library])) {
+                        continue;
+                    }
+
+                    $assets = $this->libraries[$library];
+
+                    if (!empty($assets['css'])) {
+                        list ($source, $type) = (array) $assets['css'];
+                        $this->assets->addStylesheet($source, $type ?: Assets::TYPE_FILE);
+                    }
+
+                    if (!empty($assets['javascript'])) {
+                        list ($source, $type) = (array) $assets['javascript'];
+                        $this->assets->addJavascript($source, $type ?: Assets::TYPE_FILE);
+                    }
+                }
             }
 
             if ($icons) {
                 $buffer = sprintf('L.contao.loadIcons(%s);', json_encode($icons));
             }
 
-            $file = new \File('assets/leaflet/js/icons.js');
-            $file->write($buffer);
-            $file->close();
-
             // @codingStandardsIgnoreStart
             // TODO: Cache it.
             // codingStandardsIgnoreEnd
-            $this->assets->addJavascript('assets/leaflet/js/icons.js', ContaoAssets::TYPE_FILE);
+
+            $file = new \File('assets/leaflet/js/icons.js');
+            $file->write($buffer);
+            $file->close();
         }
     }
 

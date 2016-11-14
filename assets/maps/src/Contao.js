@@ -89,7 +89,14 @@ L.Contao = L.Class.extend({
      */
     loadIcons: function (icons) {
         for (var i = 0; i < icons.length; i++) {
-            var icon = L[icons[i].type](icons[i].options);
+            var icon;
+
+            if (icons[i].type === 'extraMarkers.icon') {
+                icon = L.ExtraMarkers.icon(icons[i].options);
+            } else {
+                icon = L[icons[i].type](icons[i].options);
+            }
+
             this.addIcon(icons[i].id, icon);
         }
     },
@@ -110,7 +117,7 @@ L.Contao = L.Class.extend({
     },
 
     /**
-     * Layer a url into a layer using omnivore.
+     * Load data from an url into a layer using omnivore.
      *
      * @param hash        The leaflet url hash.
      * @param type        The response content format.
@@ -126,7 +133,7 @@ L.Contao = L.Class.extend({
             // Required because Control.Loading tries to get _leafet_id which is created here.
             L.stamp(layer);
 
-            // Add listender for map bounds changes.
+            // Add listener for map bounds changes.
             if (map.options.dynamicLoad && layer.options.boundsMode == 'fit') {
                 layer.options.requestHash = hash;
                 map.on('moveend', layer.refreshData, layer);

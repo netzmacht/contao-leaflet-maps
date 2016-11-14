@@ -98,6 +98,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLa
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\ReferenceLayerMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Layer\OverpassLayerMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = function () {
     return new \Netzmacht\Contao\Leaflet\Mapper\Layer\MarkerClusterLayerMapper(
         $GLOBALS['container'][\Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::MAP_ASSETS]
@@ -153,6 +154,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = function () {
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\PopupMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ExtraMarkersIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Style\FixedStyleMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = function () {
     return new \Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper(
@@ -270,6 +272,21 @@ $GLOBALS['LEAFLET_LAYERS'] = array
         'children' => false,
         'icon'     => 'system/modules/leaflet/assets/img/tile.png',
     ),
+    'overpass' => array(
+        'children' => false,
+        'icon'     => 'system/modules/leaflet/assets/img/overpass.png',
+        'label'    => function ($row, $label) {
+            if ($row['overpassQuery']) {
+                $label .= '<span class="tl_gray"> ' . \StringUtil::substr($row['overpassQuery'], 50) . '</span>';
+            }
+
+            return $label;
+        },
+        'boundsMode' => array(
+            'extend' => true,
+            'fit'    => true,
+        ),
+    ),
 );
 
 /*
@@ -285,7 +302,7 @@ $GLOBALS['LEAFLET_CONTROLS']   = array('zoom', 'layers', 'scale', 'attribution',
  *
  * Supported leaflet icon types. Register you type for the database driven definition here.
  */
-$GLOBALS['LEAFLET_ICONS'] = array('image', 'div');
+$GLOBALS['LEAFLET_ICONS'] = array('image', 'div', 'extra');
 
 
 /*

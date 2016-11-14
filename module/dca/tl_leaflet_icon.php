@@ -150,7 +150,21 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'active' => array(
                 'active'
             )
-        )
+        ),
+
+        'extra extends default' => array(
+            'config' => array(
+                'icon',
+                'prefix',
+                'shape',
+                'markerColor',
+                'number',
+                'iconColor',
+            ),
+            'active' => array(
+                'active'
+            )
+        ),
     ),
 
     'fields' => array
@@ -350,6 +364,86 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'       => 'clr'
             ),
             'sql'       => "mediumtext NULL"
+        ),
+        'icon'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['icon'],
+            'exclude'       => true,
+            'inputType'     => 'text',
+            'eval'          => array(
+                'maxlength'   => 64,
+                'tl_class'    => 'w50',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => "varchar(64) NULL"
+        ),
+        'prefix'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['prefix'],
+            'exclude'       => true,
+            'inputType'     => 'text',
+            'eval'          => array(
+                'maxlength'   => 64,
+                'tl_class'    => 'w50',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => "varchar(64) NULL"
+        ),
+        'shape'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['shape'],
+            'exclude'       => true,
+            'inputType'     => 'select',
+            'default'       => 'circle',
+            'options'       => ['circle', 'square', 'star', 'penta'],
+            'eval'          => array(
+                'tl_class'    => 'w50',
+            ),
+            'sql'           => "varchar(64) NULL"
+        ),
+        'iconColor'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['iconColor'],
+            'exclude'       => true,
+            'inputType'     => 'text',
+            'wizard'    => array(
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::colorPicker()
+            ),
+            'eval'          => array(
+                'maxlength'   => 64,
+                'tl_class'    => 'w50 wizard',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => "varchar(16) NULL"
+        ),
+        'markerColor'  => array
+        (
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['markerColor'],
+            'exclude'       => true,
+            'inputType'     => 'select',
+            'default'       => 'circle',
+            'options'       => [
+                'blue',
+                'red',
+                'orange-dark',
+                'orange',
+                'yellow',
+                'blue-dark',
+                'cyan',
+                'purple',
+                'violet',
+                'pink',
+                'green-dark',
+                'green',
+                'green-light',
+                'black',
+                'white'
+            ],
+            'eval'          => array(
+                'tl_class'    => 'w50',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => "varchar(16) NULL"
         ),
     ),
 );

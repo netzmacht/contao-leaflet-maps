@@ -153,6 +153,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
         'default' => array(
             'title'    => array('title', 'alias', 'type'),
             'config'   => array(),
+            'style'    => array(),
             'expert'   => array(':hide'),
             'active'   => array('active'),
         ),
@@ -213,7 +214,23 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'reuseTiles',
                 'bounds'
             )
-        )
+        ),
+        'overpass extends default' => array(
+            'config' => array(
+                'overpassQuery',
+                'boundsMode',
+                'minZoom',
+                'overpassEndpoint',
+                'overpassPopup'
+            ),
+            'style' => array(
+                'amenityIcons'
+            ),
+            '+expert' => array(
+                'onEachFeature',
+                'pointToLayer',
+            ),
+        ),
     ),
 
     'metasubselectpalettes' => array(
@@ -779,9 +796,135 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime'],
             'exclude'   => true,
             'inputType' => 'text',
-            'default'   => null,
-            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
-            'sql'       => "int(9) NOT NULL default '0'"
+            'default'   => 0,
+            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+            'sql'       => "int(10) unsigned NOT NULL default '0'"
+        ),
+        'overpassQuery'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassQuery'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
+        ),
+        'overpassEndpoint' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassEndpoint'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '',
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'overpassCallback'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassCallback'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|javascript',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
+        ),
+        'minZoomIndicatorPosition' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorPosition'],
+            'exclude'   => true,
+            'inputType' => 'select',
+            'filter'    => true,
+            'sorting'   => true,
+            'options'   => array('topleft', 'topright', 'bottomleft', 'bottomright'),
+            'reference' => &$GLOBALS['TL_LANG']['tl_leaflet_layer'],
+            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50', 'helpwizard' => true),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'minZoomIndicatorMessage' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorMessage'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '',
+            'eval'      => array('tl_class' => 'clr w50'),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'minZoomIndicatorMessageNoLayer' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoomIndicatorMessageNoLayer'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'default'   => '',
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''"
+        ),
+        'debug' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['debug'],
+            'exclude'   => true,
+            'inputType' => 'checkbox',
+            'default'   => false,
+            'eval'      => array('tl_class' => 'w50 m12'),
+            'sql'       => "char(1) NOT NULL default ''"
+        ),
+        'amenityIcons' => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcons'],
+            'exclude'   => true,
+            'inputType' => 'multiColumnWizard',
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getIcons'),
+            'eval'      => array(
+                'columnFields' => array(
+                    'amenity' => array(
+                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'],
+                        'exclude'   => true,
+                        'inputType' => 'select',
+                        'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getAmenities'),
+                        'eval'      => array(
+                            'mandatory'  => true,
+                            'tl_class'   => 'w50',
+                            'style'      => 'width: 200px',
+                            'chosen'     => true,
+                        ),
+                    ),
+                    'icon' => array(
+                        'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'],
+                        'exclude'   => true,
+                        'inputType' => 'select',
+                        'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getIcons'),
+                        'eval'      => array(
+                            'mandatory'  => true,
+                            'tl_class'   => 'w50',
+                            'style'      => 'width: 200px',
+                            'chosen'     => true,
+                        ),
+                    ),
+                ),
+            ),
+            'sql'       => "blob NULL",
+        ),
+        'overpassPopup'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassPopup'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|javascript',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
         ),
     )
 );
