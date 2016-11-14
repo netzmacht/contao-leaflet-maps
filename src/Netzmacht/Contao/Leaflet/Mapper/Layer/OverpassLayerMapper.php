@@ -77,6 +77,10 @@ class OverpassLayerMapper extends AbstractLayerMapper
         if ($model->onEachFeature) {
             $definition->setOnEachFeature(new Expression($model->onEachFeature));
         }
+
+        if ($model->overpassPopup) {
+            $definition->setOption('overpassPopup', new Expression($model->overpassPopup));
+        }
     }
 
     /**

@@ -110,8 +110,10 @@ L.OverPassLayer = L.FeatureGroup.extend({
             if (icon) {
                 marker.setIcon(icon);
             }
+        }
 
-            L.contao.bindPopupFromFeature(marker, feature);
+        if (this.options.overpassPopup) {
+            marker.bindPopup(this.options.overpassPopup(feature, marker));
         }
 
         this._map.fire('point:added', {marker: marker, feature: feature, latlng: latlng, type: type});
@@ -122,7 +124,9 @@ L.OverPassLayer = L.FeatureGroup.extend({
         if (feature.properties) {
             L.Util.setOptions(layer, feature.properties.options);
 
-            L.contao.bindPopupFromFeature(layer, feature);
+            if (this.options.overpassPopup) {
+                layer.bindPopup(this.options.overpassPopup(feature, layer));
+            }
 
             this._map.fire('feature:added', {feature: feature, layer: layer});
         }

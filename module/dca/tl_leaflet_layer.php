@@ -221,6 +221,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'boundsMode',
                 'minZoom',
                 'overpassEndpoint',
+                'overpassPopup'
             ),
             'style' => array(
                 'amenityIcons'
@@ -910,6 +911,20 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 ),
             ),
             'sql'       => "blob NULL",
+        ),
+        'overpassPopup'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassPopup'],
+            'exclude'   => true,
+            'inputType' => 'textarea',
+            'eval'      => array(
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
+                'rte'            => 'ace|javascript',
+                'tl_class'       => 'clr'
+            ),
+            'sql'       => "mediumtext NULL"
         ),
     )
 );
