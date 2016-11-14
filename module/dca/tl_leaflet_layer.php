@@ -219,13 +219,11 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
                 'overpassQuery',
                 'overpassEndpoint',
                 'minZoom',
-                'overpassCallback',
+                'boundsMode'
             ),
             '+expert' => array(
-                'minZoomIndicatorPosition',
-                'debug',
-                'minZoomIndicatorMessage',
-                'minZoomIndicatorMessageNoLayer',
+                'onEachFeature',
+                'pointToLayer',
             ),
         ),
     ),

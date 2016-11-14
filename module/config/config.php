@@ -280,7 +280,11 @@ $GLOBALS['LEAFLET_LAYERS'] = array
             }
 
             return $label;
-        }
+        },
+        'boundsMode' => array(
+            'extend' => true,
+            'fit'    => true,
+        ),
     ),
 );
 

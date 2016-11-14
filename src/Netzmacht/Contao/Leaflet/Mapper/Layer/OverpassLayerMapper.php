@@ -10,12 +10,12 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Model;
+use Netzmacht\Contao\Leaflet\Definition\Layer\OverpassLayer;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
-use Netzmacht\Contao\Leaflet\Mapper\OptionsBuilder;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Plugins\OverpassLayer\OverpassLayer;
 
 /**
  * Class OverpassLayerMapper
@@ -36,7 +36,7 @@ class OverpassLayerMapper extends AbstractLayerMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Plugins\OverpassLayer\OverpassLayer';
+    protected static $definitionClass = 'Netzmacht\Contao\Leaflet\Definition\Layer\OverpassLayer';
 
     /**
      * {@inheritdoc}
@@ -47,8 +47,8 @@ class OverpassLayerMapper extends AbstractLayerMapper
 
         $this->optionsBuilder
             ->addOption('query', 'overpassQuery')
-            ->addOption('minzoom', 'minZoom')
-            ->addOption('debug')
+            ->addOption('minZoom')
+            ->addOption('boundsMode')
             ->addOption('overpassEndpoint', 'endpoint');
     }
 
@@ -57,7 +57,7 @@ class OverpassLayerMapper extends AbstractLayerMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
         Filter $filter = null,
         Definition $parent = null
@@ -66,17 +66,12 @@ class OverpassLayerMapper extends AbstractLayerMapper
             return;
         }
 
-        $minZoomIndicatorOptions        = $definition->getMinZoomIndicatorOptions();
-        $minZoomIndicatorOptionsBuilder = new OptionsBuilder();
-        $minZoomIndicatorOptionsBuilder
-            ->addOption('position', 'minZoomIndicatorPosition')
-            ->addOption('minZoomMessageNoLayer', 'minZoomIndicatorMessageNoLayer')
-            ->addOption('minZoomMessage', 'minZoomIndicatorMessage');
+        if ($model->pointToLayer) {
+            $definition->setPointToLayer(new Expression($model->pointToLayer));
+        }
 
-        $minZoomIndicatorOptionsBuilder->build($minZoomIndicatorOptions, $model);
-
-        if ($model->overpassCallback) {
-            $definition->setCallback(new Expression($model->overpassCallback));
+        if ($model->onEachFeature) {
+            $definition->setOnEachFeature(new Expression($model->onEachFeature));
         }
     }
 }

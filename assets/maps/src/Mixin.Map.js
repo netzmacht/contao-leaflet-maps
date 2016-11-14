@@ -30,21 +30,29 @@ L.Map.include({
         }
 
         if (this._dynamicBounds) {
-            options = {};
-
-            if (this.options.boundsPadding) {
-                options.padding = this.options.boundsPadding;
-            } else {
-                if (this.options.boundsPaddingTopLeft) {
-                    options.paddingTopLeft = this.options.boundsPaddingTopLeft;
-                }
-                if (this.options.boundsPaddingBottomRight) {
-                    options.paddingBottomRight = this.options.boundsPaddingBottomRight;
-                }
-            }
-
-            this.fitBounds(this._dynamicBounds, options);
+            this.fitBounds(this._dynamicBounds, this.getBoundsOptions());
         }
+    },
+
+    /**
+     * Get the bounds optons
+     * @returns {{}}
+     */
+    getBoundsOptions: function () {
+        options = {};
+
+        if (this.options.boundsPadding) {
+            options.padding = this.options.boundsPadding;
+        } else {
+            if (this.options.boundsPaddingTopLeft) {
+                options.paddingTopLeft = this.options.boundsPaddingTopLeft;
+            }
+            if (this.options.boundsPaddingBottomRight) {
+                options.paddingBottomRight = this.options.boundsPaddingBottomRight;
+            }
+        }
+
+        return options;
     },
 
     /**
