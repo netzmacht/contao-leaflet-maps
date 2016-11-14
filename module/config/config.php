@@ -154,6 +154,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = function () {
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\UI\PopupMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper';
+$GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Type\ExtraMarkersIconMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\Style\FixedStyleMapper';
 $GLOBALS['LEAFLET_MAPPERS'][] = function () {
     return new \Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper(
@@ -301,7 +302,7 @@ $GLOBALS['LEAFLET_CONTROLS']   = array('zoom', 'layers', 'scale', 'attribution',
  *
  * Supported leaflet icon types. Register you type for the database driven definition here.
  */
-$GLOBALS['LEAFLET_ICONS'] = array('image', 'div');
+$GLOBALS['LEAFLET_ICONS'] = array('image', 'div', 'extra');
 
 
 /*

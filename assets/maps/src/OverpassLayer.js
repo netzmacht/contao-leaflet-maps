@@ -103,7 +103,6 @@ L.OverPassLayer = L.FeatureGroup.extend({
                 && feature.properties.tags.amenity
                 && this.options.amenityIcons[feature.properties.tags.amenity]
             ) {
-                console.log(this.options.amenityIcons[feature.properties.tags.amenity]);
                 icon = L.contao.getIcon(this.options.amenityIcons[feature.properties.tags.amenity]);
             }
 

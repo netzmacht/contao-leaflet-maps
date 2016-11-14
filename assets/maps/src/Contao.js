@@ -89,7 +89,14 @@ L.Contao = L.Class.extend({
      */
     loadIcons: function (icons) {
         for (var i = 0; i < icons.length; i++) {
-            var icon = L[icons[i].type](icons[i].options);
+            var icon;
+
+            if (icons[i].type === 'extraMarkers.icon') {
+                icon = L.ExtraMarkers.icon(icons[i].options);
+            } else {
+                icon = L[icons[i].type](icons[i].options);
+            }
+
             this.addIcon(icons[i].id, icon);
         }
     },
