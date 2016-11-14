@@ -406,9 +406,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['iconColor'],
             'exclude'       => true,
             'inputType'     => 'text',
+            'wizard'    => array(
+                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::colorPicker()
+            ),
             'eval'          => array(
                 'maxlength'   => 64,
-                'tl_class'    => 'w50',
+                'tl_class'    => 'w50 wizard',
                 'nullIfEmpty' => true,
             ),
             'sql'           => "varchar(16) NULL"
