@@ -25,6 +25,7 @@ use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Toolkit\Boot\Event\InitializeSystemEvent;
 use Netzmacht\Contao\Toolkit\DependencyInjection\Services;
 use Netzmacht\LeafletPHP\Assets;
+use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -218,23 +219,7 @@ class BootSubscriber implements EventSubscriberInterface
                     'options' => $icon->getOptions(),
                 );
 
-                foreach ($icon::getRequiredLibraries() as $library) {
-                    if (!isset($this->libraries[$library])) {
-                        continue;
-                    }
-
-                    $assets = $this->libraries[$library];
-
-                    if (!empty($assets['css'])) {
-                        list ($source, $type) = (array) $assets['css'];
-                        $this->assets->addStylesheet($source, $type ?: Assets::TYPE_FILE);
-                    }
-
-                    if (!empty($assets['javascript'])) {
-                        list ($source, $type) = (array) $assets['javascript'];
-                        $this->assets->addJavascript($source, $type ?: Assets::TYPE_FILE);
-                    }
-                }
+                $this->loadIconsLibraries($icon);
             }
 
             if ($icons) {
@@ -265,5 +250,33 @@ class BootSubscriber implements EventSubscriberInterface
         }
 
         return new $mapper;
+    }
+
+    /**
+     * Load all libraries for an icon.
+     *
+     * @param Icon $icon Icon definition
+     *
+     * @return void.
+     */
+    protected function loadIconsLibraries($icon)
+    {
+        foreach ($icon::getRequiredLibraries() as $library) {
+            if (!isset($this->libraries[$library])) {
+                continue;
+            }
+
+            $assets = $this->libraries[$library];
+
+            if (!empty($assets['css'])) {
+                list ($source, $type) = (array)$assets['css'];
+                $this->assets->addStylesheet($source, $type ?: Assets::TYPE_FILE);
+            }
+
+            if (!empty($assets['javascript'])) {
+                list ($source, $type) = (array)$assets['javascript'];
+                $this->assets->addJavascript($source, $type ?: Assets::TYPE_FILE);
+            }
+        }
     }
 }

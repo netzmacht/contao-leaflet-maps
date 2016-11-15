@@ -19,7 +19,7 @@ use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 
 /**
- * Class OverpassLayerMapper
+ * Class OverpassLayerMapper.
  *
  * @package Netzmacht\Contao\Leaflet\Mapper\Layer
  */
@@ -92,19 +92,11 @@ class OverpassLayerMapper extends AbstractLayerMapper
      */
     protected function buildAmenityIconsMap(Model $model)
     {
-        $amenityIconsConfig = deserialize($model->amenityIcons, true);
-        $amenityIconsMap    = [];
-        foreach ($amenityIconsConfig as $config) {
-            if (!$config['amenity'] || !$config['icon']) {
-                continue;
-            }
-
-            $amenityIconsMap[$config['amenity']] = $config['icon'];
-        }
+        $amenityIconsMap = $this->filterAmenityIconsConfig($model->amenityIcons);
 
         if ($amenityIconsMap) {
-            $collection    = IconModel::findMultipleByIds(array_unique($amenityIconsMap));
-            $icons         = [];
+            $collection = IconModel::findMultipleByIds(array_unique($amenityIconsMap));
+            $icons      = [];
 
             if ($collection) {
                 foreach ($collection as $iconModel) {
@@ -117,6 +109,29 @@ class OverpassLayerMapper extends AbstractLayerMapper
                     }
                 }
             }
+        }
+
+        return $amenityIconsMap;
+    }
+
+    /**
+     * Filter the amenity icons config.
+     *
+     * @param mixed $amenityIconsConfig Raw config from the db.
+     *
+     * @return array
+     */
+    private function filterAmenityIconsConfig($amenityIconsConfig)
+    {
+        $amenityIconsConfig = deserialize($amenityIconsConfig, true);
+        $amenityIconsMap    = [];
+
+        foreach ($amenityIconsConfig as $config) {
+            if (!$config['amenity'] || !$config['icon']) {
+                continue;
+            }
+
+            $amenityIconsMap[$config['amenity']] = $config['icon'];
         }
 
         return $amenityIconsMap;

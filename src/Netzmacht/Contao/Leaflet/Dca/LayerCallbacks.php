@@ -72,10 +72,6 @@ class LayerCallbacks extends Callbacks
      * @var array
      */
     private $amenities;
-    /**
-     * @var Manager
-     */
-    private $manager;
 
     /**
      * Construct.
@@ -85,7 +81,7 @@ class LayerCallbacks extends Callbacks
      * @param Translator $translator    Translator.
      * @param array      $layers        Leaflet layer configuration.
      * @param array      $tileProviders Tile providers.
-     * @param array      $amenities     OSM amenities
+     * @param array      $amenities     OSM amenities.
      */
     public function __construct(
         Manager $manager,
@@ -102,7 +98,6 @@ class LayerCallbacks extends Callbacks
         $this->database      = $database;
         $this->layers        = $layers;
         $this->tileProviders = $tileProviders;
-        $this->manager       = $manager;
         $this->translator    = $translator;
         $this->amenities     = $amenities;
     }

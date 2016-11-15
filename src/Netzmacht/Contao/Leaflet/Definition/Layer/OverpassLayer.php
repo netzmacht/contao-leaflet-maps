@@ -60,28 +60,6 @@ class OverpassLayer extends AbstractLayer implements HasOptions, ConvertsToJavas
     }
 
     /**
-     * Set the debug mode.
-     *
-     * @param bool $debug Debug mode.
-     *
-     * @return $this
-     */
-    public function setDebug($debug)
-    {
-        return $this->setOption('debug', (bool) $debug);
-    }
-
-    /**
-     * Get debug mode.
-     *
-     * @return bool
-     */
-    public function getDebug()
-    {
-        return $this->getOption('debug', false);
-    }
-
-    /**
      * Set the query.
      *
      * @param string $query Query.
@@ -96,7 +74,7 @@ class OverpassLayer extends AbstractLayer implements HasOptions, ConvertsToJavas
     /**
      * Get query.
      *
-     * @return bool
+     * @return string
      */
     public function getQuery()
     {
@@ -118,7 +96,7 @@ class OverpassLayer extends AbstractLayer implements HasOptions, ConvertsToJavas
     /**
      * Get endpoint.
      *
-     * @return bool
+     * @return string
      */
     public function getEndpoint()
     {
@@ -164,7 +142,7 @@ class OverpassLayer extends AbstractLayer implements HasOptions, ConvertsToJavas
     /**
      * Get minZoom.
      *
-     * @return bool
+     * @return int
      */
     public function getMinZoom()
     {
@@ -176,7 +154,7 @@ class OverpassLayer extends AbstractLayer implements HasOptions, ConvertsToJavas
      */
     public function encode(Encoder $encoder, $flags = null)
     {
-        $buffer = sprintf (
+        $buffer = sprintf(
             '%s = new L.OverPassLayer(%s)%s',
             $encoder->encodeReference($this),
             $encoder->encodeArray($this->getOptions(), JSON_FORCE_OBJECT),
