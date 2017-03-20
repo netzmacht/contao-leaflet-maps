@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2016-10-04T13:07:35+02:00
+ * last-updated: 2016-10-06T15:54:30+02:00
  */
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active']['0']                     = 'Layer aktivieren';
@@ -16,11 +16,18 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['active']['1']                     = 'La
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['active_legend']                   = 'Aktivierung';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['alias']['0']                      = 'Alias';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['alias']['1']                      = 'Alias des Layers.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon']['0']                = 'Iconstil';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon']['1']                = 'Icon';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['animateAddingMarkers']['0']       = 'Hinzufügen von Markern animieren';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['animateAddingMarkers']['1']       = 'Falls angewählt werden Marker, die einer Clustergruppe hinzugefügt werden animiert.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['attribution']['0']                = 'Namensnennung';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['attribution']['1']                = 'Geben Sie das Copyright des Kachellayer-Anbieters ein. Beachten Sie die jeweiligen Nutzungsbedingungen.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['bounds']['0']                     = 'Begrenzungen';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['boundsMode']['1']                 = 'Wählen Sie aus, auf welche Weise die Layerdaten die Darstellungsgrenzen beeinflussen.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cache']['0']                      = 'Cache aktivieren';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cache']['1']                      = 'Falls ausgewählt werden dynamisch geladene Daten gecached.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime']['0']              = 'Cache-Lebenszeit';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['cacheLifeTime']['1']              = 'Der Wert in Sekunden bestimmt, wie lange Daten im Cache gültig sind';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['config_legend']                   = 'Konfiguration';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['continuousWorld']['0']            = 'Fortlaufende Welt';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['copy']['0']                       = 'Layer kopieren';
@@ -68,22 +75,32 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['new']['1']                        = 'Er
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['noWrap']['0']                     = 'Kein Umbruch';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['opacity']['0']                    = 'Transparenz';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['opacity']['1']                    = 'Transparenz des Kachel-Layers.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassEndpoint']['0']           = 'Overpass API-Endpoint';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassEndpoint']['1']           = 'Endpoint für Overpass API-Abfragen. Falls leer wird //overpass-api.de/api/ benutzt.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassQuery']['0']              = 'Overpass API-Anfrage';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['overpassQuery']['1']              = 'Overpass API -Anfrage. Beispiele finden Sie unter <a href="https://overpass-turbo.eu/" target="_blank">https://overpass-turbo.eu/</a>.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['pasteafter']['1']                 = 'Nach Layer %s einfügen';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['pasteinto']['1']                  = 'In Layer %s einfügen';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['polygonOptions']['0']             = 'Polygon-Optionen';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['popups']['0']                     = 'Popups verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['popups']['1']                     = 'Popup-Icons verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['reference']['0']                  = 'Referenz';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['reference']['1']                  = 'Wählen Sie den Referenzlayer aus. Ansonsten wird dasselbe JavaScript-Objekt benutzt.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['removeOutsideVisibleBounds']['0'] = 'Entfernen, wenn außerhalb der sichtbaren Begrenzung';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['removeOutsideVisibleBounds']['1'] = 'Cluster und Marker, die zu weit vom sichtbaren Bereich entfernt sind, werden aus Leistungsgründen aus der Karte entfernt.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['reuseTiles']['0']                 = 'Kacheln wiederverwenden';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['show']['0']                       = 'Details anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['show']['1']                       = 'Details des Layers ID %s anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['showCoverageOnHover']['0']        = 'Abdeckung bei hover zeigen';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['showCoverageOnHover']['1']        = 'Wenn Sie die Maus über einen Cluster bewegen werden die Grenzen der Marker angezeigt.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['singleMarkerMode']['0']           = 'Cluster anstelle von Markern anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['standalone']['0']                 = 'Eigenständiges Layer';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['standalone']['1']                 = 'Kopie anstelle eines Links des Layers erstellen.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['style_legend']                    = 'Stil';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['styles']['0']                     = 'Stile verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['styles']['1']                     = 'Vektorstile verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['subdomains']['0']                 = 'Subdomain';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['subdomains']['1']                 = 'Subdomains des Kachelservices. Jeder Buchstabe wird wie eine Subdomain behandelt.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tileSize']['0']                   = 'Kachelgröße';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tileSize']['1']                   = 'Kachelgröße (Breite und Höhe in Pixeln, auf quadratische Kacheln bezogen).';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider']['0']              = 'Kachelanbieter';
@@ -105,4 +122,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['zIndex']['1']                     = 'Le
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['zoomOffset']['0']                 = 'Zoom-Offset';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['zoomReverse']['0']                = 'Umgekehrter Zoom';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['zoomToBoundsOnClick']['0']        = 'Per Klick auf die Begrenzungen zoomen';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['zoomToBoundsOnClick']['1']        = 'Wenn Benutzer auf einen Cluster klicken wird auf seine Grenzen gezoomt.';
 

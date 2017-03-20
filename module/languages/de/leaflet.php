@@ -8,11 +8,14 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2016-10-04T13:07:35+02:00
+ * last-updated: 2016-10-06T15:54:30+02:00
  */
 
 $GLOBALS['TL_LANG']['leaflet']['applyPosition']             = 'Position anwenden';
+$GLOBALS['TL_LANG']['leaflet']['invalidAlias']              = 'Ein ungültiger Alias wurde angegeben. Ein Alias darf nicht leer sein, mit einer Zahl beginnen oder Sonderzeichen enthalten (Unterstriche sind erlaubt).';
+$GLOBALS['TL_LANG']['leaflet']['invalidCoordinates']        = 'Ungültige Koordinatenwerte vorhanden.';
 $GLOBALS['TL_LANG']['leaflet_control']['attribution']['0']  = 'Copyright-Leiste';
+$GLOBALS['TL_LANG']['leaflet_control']['attribution']['1']  = 'Das Kontrollelement zur Namensnennung erlaubt es, Urheber in einer kleinen Textbox auf der Karte anzuzeigen. Lesen Sie für weitere Details die <a href="http://leafletjs.com/reference.html#control-attribution" target="_blank">Leaflet-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_control']['fullscreen']['0']   = 'Fullscreen-Kontrollelement';
 $GLOBALS['TL_LANG']['leaflet_control']['fullscreen']['1']   = 'Diese Einstellung fügt einen Button hinzu, der den Fullscreen-Modus umschaltet. Für weitere Details lesen Sie den Artikel in der <a href="https://github.com/brunob/leaflet.fullscreen" target="_blank">Plugin-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_control']['layers']['0']       = 'Layer-Kontrollelement';
@@ -29,6 +32,8 @@ $GLOBALS['TL_LANG']['leaflet_layer']['markercluster']['0']  = 'Marker-Cluster';
 $GLOBALS['TL_LANG']['leaflet_layer']['markercluster']['1']  = 'Markercluster-Layer, der auf einem based on <a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a.';
 $GLOBALS['TL_LANG']['leaflet_layer']['markers']['0']        = 'Marker';
 $GLOBALS['TL_LANG']['leaflet_layer']['markers']['1']        = 'Geben Sie den Layer an der die Marker enthält.';
+$GLOBALS['TL_LANG']['leaflet_layer']['overpass']['0']       = 'Overpass API';
+$GLOBALS['TL_LANG']['leaflet_layer']['overpass']['1']       = 'Overpass API Datenlayer.';
 $GLOBALS['TL_LANG']['leaflet_layer']['provider']['0']       = 'Vorkonfigurierte Karte';
 $GLOBALS['TL_LANG']['leaflet_layer']['provider']['1']       = 'Leaflet-Kachelanbieter. Lesen Sie für weitere Details die  <a href="https://github.com/leaflet-extras/leaflet-providers" target="_blank">Plugin-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_layer']['reference']['0']      = 'Referenz';
@@ -42,7 +47,9 @@ $GLOBALS['TL_LANG']['leaflet_vector']['circle']['1']        = 'Kreisförmiges Ov
 $GLOBALS['TL_LANG']['leaflet_vector']['circleMarker']['0']  = 'Kreis-Marker';
 $GLOBALS['TL_LANG']['leaflet_vector']['circleMarker']['1']  = 'Kreisförmiger Marker mit fester Pixelbreite. Für weitere Details lesen Sie den Artikel in der  <a href="http://leafletjs.com/reference.html#circlemarker" target="_blank">Leaflet-DoKumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_vector']['multiPolygon']['0']  = 'Mehrere Polygone';
+$GLOBALS['TL_LANG']['leaflet_vector']['multiPolygon']['1']  = 'Mehrere Polygone mit gemeinsamen Stilen. Lesen Sie für weitere Details die <a href="http://leafletjs.com/reference.html#multipolygon" target="_blank">Leaflet-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_vector']['multiPolyline']['0'] = 'Mehrere Polylines';
+$GLOBALS['TL_LANG']['leaflet_vector']['multiPolyline']['1'] = 'Mehrere Polylines mit gemeinsamen Stilen. Lesen Sie für weitere Details die <a href="http://leafletjs.com/reference.html#multipolyline" target="_blank">Leaflet-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_vector']['polygon']['0']       = 'Polygon';
 $GLOBALS['TL_LANG']['leaflet_vector']['polygon']['1']       = 'Polygon-Overlay. Für weitere Details lesen Sie den Artikel in der  <a href="http://leafletjs.com/reference.html#polygon" target="_blank">Leaflet-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_vector']['polyline']['0']      = 'Polyline';

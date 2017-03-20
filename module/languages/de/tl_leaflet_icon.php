@@ -8,9 +8,8 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2015-02-11T08:57:55+01:00
+ * last-updated: 2016-10-04T13:07:35+02:00
  */
-
 
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['active']['0']            = 'Aktivieren Sie das Icon.';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['active']['1']            = 'Aktivieren Sie das Icon.';
@@ -28,7 +27,11 @@ $GLOBALS['TL_LANG']['tl_leaflet_icon']['delete']['0']            = 'Icon lösche
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['delete']['1']            = 'Icon ID %s öschen';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['edit']['0']              = 'Icon bearbeiten';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['edit']['1']              = 'Icon ID %s bearbeiten';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['icon']['0']              = 'Icon-CSS-Klasse';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['icon']['1']              = 'Icon-CSS-Klasse, beispielsweise <em>fa-envelope</em>';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['iconAnchor']['0']        = 'Icon-Anker';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['iconColor']['0']         = 'Iconfarbe';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['iconColor']['1']         = 'Definieren Sie hier eine Farbe für den Icon-Marker';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['iconImage']['0']         = 'Icon-Bild';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['iconImage']['1']         = 'Wählen Sie ein Bild für das Icon aus.';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['iconRetinaImage']['0']   = 'Retina-Iconbild';
@@ -37,6 +40,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_icon']['layersBtn']['0']         = 'Layer verwal
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['layersBtn']['1']         = 'Leaflet-Layer verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['map']['0']               = 'Karten verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['map']['1']               = 'Leaflet-Karten verwalten.';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['markerColor']['0']       = 'Markerfarbe';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['markerColor']['1']       = 'Wählen Sie eine vordefinierte Farbe für den Marker';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['new']['0']               = 'Icon erstellen';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['new']['1']               = 'Erstellen Sie ein neues Icon';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['popupAnchor']['0']       = 'Popup-Anker';
@@ -49,6 +54,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_icon']['shadowImage']['1']       = 'Wählen Sie 
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['shadowRetinaImage']['0'] = 'Retina-Schattenbild';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['shadowRetinaImage']['1'] = 'Wählen Sie ein Retina-Bild für den Schatten aus.';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['shadow_legend']          = 'Schatten';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['shape']['0']             = 'Markerform';
+$GLOBALS['TL_LANG']['tl_leaflet_icon']['shape']['1']             = 'Definieren Sie hier die Form des Markers';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['show']['0']              = 'Details anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['show']['1']              = 'Details des Icons %s anzeigen';
 $GLOBALS['TL_LANG']['tl_leaflet_icon']['styles']['0']            = 'Stile verwalten';
