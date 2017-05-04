@@ -72,6 +72,13 @@ class BootSubscriber implements EventSubscriberInterface
     private $definitionMapper;
 
     /**
+     * Flag for loading icon file.
+     *
+     * @var bool
+     */
+    private $loadIconFile = false;
+
+    /**
      * BootSubscriber constructor.
      *
      * @param ContaoAssets $assets    Leaflet assets manager.
@@ -190,7 +197,10 @@ class BootSubscriber implements EventSubscriberInterface
     public function loadAssets()
     {
         $this->assets->addJavascript('assets/leaflet/maps/contao-leaflet.js', ContaoAssets::TYPE_FILE);
-        $this->assets->addJavascript('assets/leaflet/js/icons.js', ContaoAssets::TYPE_FILE);
+
+        if ($this->loadIconFile) {
+            $this->assets->addJavascript('assets/leaflet/js/icons.js', ContaoAssets::TYPE_FILE);
+        }
     }
 
     /**
@@ -233,6 +243,8 @@ class BootSubscriber implements EventSubscriberInterface
             $file = new \File('assets/leaflet/js/icons.js');
             $file->write($buffer);
             $file->close();
+
+            $this->loadIconFile = true;
         }
     }
 
