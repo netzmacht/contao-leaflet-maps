@@ -18,7 +18,7 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
 (
     'OpenStreetMap' => array
     (
-        'variants' => array('Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT'),
+        'variants' => array('Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT', 'BZH'),
     ),
     'OpenSeaMap'    => array(),
     'OpenTopoMap'   => array(),
@@ -123,6 +123,19 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
         'fields' => array('tile_provider_key', 'tile_provider_code'),
         'class'  => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\HereProvider',
     ),
+    'JusticeMap' => array(
+        'variants' => array(
+            'income',
+            'americanIndian',
+            'asian',
+            'black',
+            'hispanic',
+            'multi',
+            'nonWhite',
+            'white',
+            'plurality'
+        )
+    ),
     'FreeMapSK' => array(),
     'MtbMap'    => array(),
     'CartoDB'   => array(
@@ -149,6 +162,9 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'highdpi',
             'orthofoto',
         )
+    ),
+    'nlmaps' => array(
+        'variants' => array('standaard', 'pastel', 'grijs', 'luchtfoto')
     ),
     'NASAGIBS' => array(
         'variants' => array(
