@@ -1,10 +1,24 @@
-/vendor/
-/bin/
-/demo/
-/assets/js/*.js
-/node_modules/
-/.tx/
+# OS
+.DS_Store
+Thumbs.db
+.directory
 
-coverage.xml
+# IDEs 
+.buildpath
+.project
+.settings/
+.build/
+.external*/
+.idea/
+nbproject/
+
+# composer related
+vendor/
 composer.lock
-npm-debug.log
+
+# build
+build/
+build.properties
+
+# Translations
+.tx
