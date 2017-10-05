@@ -18,14 +18,12 @@
         "source":"https://github.com/netzmacht/contao-leaflet-maps"
     },
     "require":{
-        "php":">=5.4",
-        "contao/core":"^3.5",
-        "contao-community-alliance/dependency-container":"^1.0",
-        "contao-community-alliance/event-dispatcher":"^1.0",
+        "php":">=7.1",
+        "contao/core-bundle":"^4.4",
         "netzmacht/contao-leaflet-libraries": "^1.0",
         "netzmacht/php-javascript-builder": "^1.0",
         "netzmacht/php-leaflet": "^1.0",
-        "netzmacht/contao-toolkit":"^2.0",
+        "netzmacht/contao-toolkit":"^3.0@dev",
         "contao-community-alliance/meta-palettes": "^1.5",
         "menatwork/contao-multicolumnwizard": "^3.2",
         "doctrine/cache": "^1.0"
@@ -34,7 +32,7 @@
         "netzmacht/contao-build-tools": "^1.1"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Netzmacht\\Contao\\Leaflet\\": "src/"
         }
     },
