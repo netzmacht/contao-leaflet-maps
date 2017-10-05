@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Leaflet maps for Contao CMS.
+ *
+ * @package    contao-leaflet-maps
+ * @author     David Molineus <david.molineus@netzmacht.de>
+ * @copyright  2016-2017 netzmacht David Molineus. All rights reserved.
+ * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
+ * @filesource
+ */
+
 $GLOBALS['TL_LANG']['leaflet_control']['zoom'][0]        = 'Zoom control';
 $GLOBALS['TL_LANG']['leaflet_control']['zoom'][1]        = 'A basic zoom control. For more details read the <a href="http://leafletjs.com/reference.html#control-zoom" target="_blank">Leaflet documentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_control']['attribution'][0] = 'Attribution control';

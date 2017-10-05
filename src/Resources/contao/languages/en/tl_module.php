@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Leaflet maps for Contao CMS.
+ *
+ * @package    contao-leaflet-maps
+ * @author     David Molineus <david.molineus@netzmacht.de>
+ * @copyright  2016-2017 netzmacht David Molineus. All rights reserved.
+ * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
+ * @filesource
+ */
+
 $GLOBALS['TL_LANG']['tl_module']['leaflet_legend']      = 'Leaflet map configuration';
 $GLOBALS['TL_LANG']['tl_module']['leaflet_map'][0]      = 'Leaflet Map';
 $GLOBALS['TL_LANG']['tl_module']['leaflet_map'][1]      = 'Choose a Leaflet Map';

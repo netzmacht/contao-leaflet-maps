@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Leaflet maps for Contao CMS.
+ *
+ * @package    contao-leaflet-maps
+ * @author     David Molineus <david.molineus@netzmacht.de>
+ * @copyright  2016-2017 netzmacht David Molineus. All rights reserved.
+ * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
+ * @filesource
+ */
+
 $GLOBALS['TL_LANG']['tl_leaflet_map']['title_legend']       = 'Title';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['interaction_legend'] = 'Interaction controls';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['zoom_legend']        = 'Center and zoom';
