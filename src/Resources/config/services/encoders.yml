@@ -1,0 +1,40 @@
+services:
+  netzmacht.contao_leaflet_maps.encoder.map:
+    class: Netzmacht\LeafletPHP\Encoder\MapEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }
+
+  netzmacht.contao_leaflet_maps.encoder.control:
+    class: Netzmacht\LeafletPHP\Encoder\ControlEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }
+
+  netzmacht.contao_leaflet_maps.encoder.group:
+    class: Netzmacht\LeafletPHP\Encoder\GroupEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }
+      
+  netzmacht.contao_leaflet_maps.encoder.raster:
+    class: Netzmacht\LeafletPHP\Encoder\RasterEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }
+      
+  netzmacht.contao_leaflet_maps.encoder.vector:
+    class: Netzmacht\LeafletPHP\Encoder\VectorEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }
+      
+  netzmacht.contao_leaflet_maps.encoder.ui:
+    class: Netzmacht\LeafletPHP\Encoder\UIEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }
+      
+  netzmacht.contao_leaflet_maps.encoder.type:
+    class: Netzmacht\LeafletPHP\Encoder\TypeEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }
+
+  netzmacht.contao_leaflet_maps.encoder.subscriber:
+    class: Netzmacht\Contao\Leaflet\Subscriber\EncoderSubscriber
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.encoder }

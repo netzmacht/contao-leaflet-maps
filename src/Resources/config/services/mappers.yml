@@ -1,0 +1,33 @@
+services:
+  netzmacht.contao_leaflet_maps.mapper.popup:
+    class: Netzmacht\Contao\Leaflet\Mapper\UI\PopupMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.image_icon:
+    class: Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.div_icon:
+    class: Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.extra_markers:
+    class: Netzmacht\Contao\Leaflet\Mapper\Type\ExtraMarkersIconMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.fixed_style:
+    class: Netzmacht\Contao\Leaflet\Mapper\Style\FixedStyleMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.marker:
+    class: Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+

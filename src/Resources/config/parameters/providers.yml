@@ -1,156 +1,157 @@
-netzmacht.contao_leaflet_maps.providers:
-  OpenStreetMap:
-    variants: ['Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT', 'BZH']
-    
-  OpenSeaMap: []
-  
-  OpenTopoMap: []
-  
-  Thunderforest:
-    variants:
-      - 'OpenCycleMap'
-      - 'Transport'
-      - 'TransportDark'
-      - 'SpinalMap'
-      - 'Landscape'
-      - 'Outdoors'
-      - 'Pioneer'
-        
-  OpenMapSurfer:
-    variants: ['Roads', 'AdminBounds', 'Grayscale']
-    
-  Hydda:
-    variants: ['Full', 'Base', 'RoadsAndLabels']
-    
-  MapBox:
-    class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\MapBoxProvider'
-    options:
-      key: 'tile_provider_key'
-      
-  Stamen:
-    variants:
-      - 'Toner'
-      - 'TonerBackground'
-      - 'TonerHybrid'
-      - 'TonerLines'
-      - 'TonerLabels'
-      - 'TonerLite'
-      - 'Terrain'
-      - 'TerrainBackground'
-      - 'TopOSMRelief'
-      - 'TopOSMFeatures'
-      - 'Watercolor'
-                   
-  Esri:
-    variants:
-      - 'WorldStreetMap'
-      - 'DeLorme'
-      - 'WorldTopoMap'
-      - 'WorldImagery'
-      - 'WorldTerrain'
-      - 'WorldShadedRelief'
-      - 'WorldPhysical'
-      - 'OceanBasemap'
-      - 'NatGeoWorldMap'
-      - 'WorldGrayCanvas'
+parameters:
+  netzmacht.contao_leaflet_maps.providers:
+    OpenStreetMap:
+      variants: ['Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT', 'BZH']
 
-  OpenWeatherMap:
-    variants:
-      - 'Clouds'
-      - 'CloudsClassic'
-      - 'Precipitation'
-      - 'PrecipitationClassic'
-      - 'Rain'
-      - 'RainClassic'
-      - 'Pressure'
-      - 'PressureContour'
-      - 'Wind'
-      - 'Temperature'
-      - 'Snow'
+    OpenSeaMap: []
 
-  HERE:
-    class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\HereProvider'
-    variants:
-      - 'normalDay'
-      - 'normalDayCustom'
-      - 'normalDayGrey'
-      - 'normalDayMobile'
-      - 'normalDayGreyMobile'
-      - 'normalDayTransit'
-      - 'normalDayTransitMobile'
-      - 'normalNight'
-      - 'normalNightMobile'
-      - 'normalNightGrey'
-      - 'normalNightGreyMobile'
-      - 'basicMap'
-      - 'mapLabels'
-      - 'trafficFlow'
-      - 'carnavDayGrey'
-      - 'hybridDay'
-      - 'hybridDayMobile'
-      - 'pedestrianDay'
-      - 'pedestrianNight'
-      - 'satelliteDay'
-      - 'terrainDay'
-      - 'terrainDayMobile'
-    options:
-      appId: 'tile_provider_key'
-      appCode: 'tile_provider_code'
-    fields: ['tile_provider_key', 'tile_provider_code']
-  
-  JusticeMap:
-    variants:
-      - 'income'
-      - 'americanIndian'
-      - 'asian'
-      - 'black'
-      - 'hispanic'
-      - 'multi'
-      - 'nonWhite'
-      - 'white'
-      - 'plurality'
-  
-  FreeMapSK: []
-  
-  MtbMap: []
-  
-  CartoDB:
-    variants:
-      - 'Positron'
-      - 'PositronNoLabels'
-      - 'PositronOnlyLabels'
-      - 'DarkMatter'
-      - 'DarkMatterNoLabels'
-      - 'DarkMatterOnlyLabels'
+    OpenTopoMap: []
 
-  HikeBike:
-    variants:
-      - 'HikeBike'
-      - 'HillShading'
+    Thunderforest:
+      variants:
+        - 'OpenCycleMap'
+        - 'Transport'
+        - 'TransportDark'
+        - 'SpinalMap'
+        - 'Landscape'
+        - 'Outdoors'
+        - 'Pioneer'
 
-  BasemapAT:
-    variants:
-      - 'basemap'
-      - 'grau'
-      - 'overlay'
-      - 'highdpi'
-      - 'orthofoto'
+    OpenMapSurfer:
+      variants: ['Roads', 'AdminBounds', 'Grayscale']
 
-  nlmaps:
-    variants:
-      - 'standaard'
-      - 'pastel'
-      - 'grijs'
-      - 'luchtfoto'
-      
-  NASAGIBS:
-    variants:
-      - 'ModisTerraTrueColorCR'
-      - 'ModisTerraBands367CR'
-      - 'ViirsEarthAtNight2012'
-      - 'ModisTerraLSTDay'
-      - 'ModisTerraSnowCover'
-      - 'ModisTerraAOD'
-      - 'ModisTerraChlorophyll'
+    Hydda:
+      variants: ['Full', 'Base', 'RoadsAndLabels']
 
-  NLS: []
+    MapBox:
+      class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\MapBoxProvider'
+      options:
+        key: 'tile_provider_key'
+
+    Stamen:
+      variants:
+        - 'Toner'
+        - 'TonerBackground'
+        - 'TonerHybrid'
+        - 'TonerLines'
+        - 'TonerLabels'
+        - 'TonerLite'
+        - 'Terrain'
+        - 'TerrainBackground'
+        - 'TopOSMRelief'
+        - 'TopOSMFeatures'
+        - 'Watercolor'
+
+    Esri:
+      variants:
+        - 'WorldStreetMap'
+        - 'DeLorme'
+        - 'WorldTopoMap'
+        - 'WorldImagery'
+        - 'WorldTerrain'
+        - 'WorldShadedRelief'
+        - 'WorldPhysical'
+        - 'OceanBasemap'
+        - 'NatGeoWorldMap'
+        - 'WorldGrayCanvas'
+
+    OpenWeatherMap:
+      variants:
+        - 'Clouds'
+        - 'CloudsClassic'
+        - 'Precipitation'
+        - 'PrecipitationClassic'
+        - 'Rain'
+        - 'RainClassic'
+        - 'Pressure'
+        - 'PressureContour'
+        - 'Wind'
+        - 'Temperature'
+        - 'Snow'
+
+    HERE:
+      class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\HereProvider'
+      variants:
+        - 'normalDay'
+        - 'normalDayCustom'
+        - 'normalDayGrey'
+        - 'normalDayMobile'
+        - 'normalDayGreyMobile'
+        - 'normalDayTransit'
+        - 'normalDayTransitMobile'
+        - 'normalNight'
+        - 'normalNightMobile'
+        - 'normalNightGrey'
+        - 'normalNightGreyMobile'
+        - 'basicMap'
+        - 'mapLabels'
+        - 'trafficFlow'
+        - 'carnavDayGrey'
+        - 'hybridDay'
+        - 'hybridDayMobile'
+        - 'pedestrianDay'
+        - 'pedestrianNight'
+        - 'satelliteDay'
+        - 'terrainDay'
+        - 'terrainDayMobile'
+      options:
+        appId: 'tile_provider_key'
+        appCode: 'tile_provider_code'
+      fields: ['tile_provider_key', 'tile_provider_code']
+
+    JusticeMap:
+      variants:
+        - 'income'
+        - 'americanIndian'
+        - 'asian'
+        - 'black'
+        - 'hispanic'
+        - 'multi'
+        - 'nonWhite'
+        - 'white'
+        - 'plurality'
+
+    FreeMapSK: []
+
+    MtbMap: []
+
+    CartoDB:
+      variants:
+        - 'Positron'
+        - 'PositronNoLabels'
+        - 'PositronOnlyLabels'
+        - 'DarkMatter'
+        - 'DarkMatterNoLabels'
+        - 'DarkMatterOnlyLabels'
+
+    HikeBike:
+      variants:
+        - 'HikeBike'
+        - 'HillShading'
+
+    BasemapAT:
+      variants:
+        - 'basemap'
+        - 'grau'
+        - 'overlay'
+        - 'highdpi'
+        - 'orthofoto'
+
+    nlmaps:
+      variants:
+        - 'standaard'
+        - 'pastel'
+        - 'grijs'
+        - 'luchtfoto'
+
+    NASAGIBS:
+      variants:
+        - 'ModisTerraTrueColorCR'
+        - 'ModisTerraBands367CR'
+        - 'ViirsEarthAtNight2012'
+        - 'ModisTerraLSTDay'
+        - 'ModisTerraSnowCover'
+        - 'ModisTerraAOD'
+        - 'ModisTerraChlorophyll'
+
+    NLS: []

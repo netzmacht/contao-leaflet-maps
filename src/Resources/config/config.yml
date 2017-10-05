@@ -1,0 +1,8 @@
+imports:
+  - { resource: parameters/common.yml }
+  - { resource: parameters/amenities.yml }
+  - { resource: parameters/providers.yml }
+  - { resource: services/encoders.yml }
+  - { resource: services/mappers.yml }
+  - { resource: services/services.yml }
+  - { resource: services/listeners.yml }

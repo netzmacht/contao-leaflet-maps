@@ -1,0 +1,60 @@
+parameters:
+  # leaflet controls.
+  #
+  # Supported leaflet control types. Register your type for the database driven definition here.
+  netzmacht.contao_leaflet_maps.controls: 
+    - 'zoom'
+    - 'layers'
+    - 'scale'
+    - 'attribution'
+    - 'loading'
+    - 'fullscreen'
+
+  # Leaflet icons.
+  #
+  # Supported leaflet icon types. Register you type for the database driven definition here.
+  netzmacht.contao_leaflet_maps.icons:
+    - 'image'
+    - 'div'
+    - 'extra'
+
+  # The style concept is not part of the LeafletJS library. Styles are extracted from the Path options. Instead
+  # of defining the style for every vector again, manage them at one place.
+  #
+  # The goal is to provide different style strategies. For instance a random style chooser, one which uses a color
+  # range and so one.
+  netzmacht.contao_leaflet_maps.styles:
+    - 'fixed'
+
+  # Leaflet vectors.
+  #
+  # Supported leaflet vector types. Register you type for the database driven definition here.
+  netzmacht.contao_leaflet_maps.vectors:
+    - 'polyline'
+    - 'polygon'
+    - 'multiPolyline'
+    - 'multiPolygon'
+    - 'rectangle'
+    - 'circle'
+    - 'circleMarker'
+
+  # When creating a GeoJSON feature of a map object a feature.properties.model object is passed.
+  # Define the properties you always want to set.
+  #
+  # For more control you can subscribe the ConvertToGeoJsonEvent.
+  #
+  # The entry can be a string or an array. If an array is passed, the 2nd value is the type. Following types
+  # are supported.
+  #  - array:  Use deserialize before adding the value
+  #  - file:   Thread value a uuid and find the path.
+  #  - files:  Thread values as a list of file uuids and get an array of paths.
+  netzmacht.contao_leaflet_maps.feature_model_properties:
+    tl_leaflet_marker:
+      - 'id'
+      - 'title'
+      - 'alias'
+
+    tl_leaflet_vector:
+      - 'id'
+      - 'title'
+      - 'alias'

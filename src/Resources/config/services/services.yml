@@ -1,0 +1,3 @@
+services:
+  netzmacht.contao_leaflet_maps.frontend.value_filter:
+    class:
