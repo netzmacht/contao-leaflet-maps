@@ -1,64 +1,63 @@
 {
-    "name":"netzmacht/contao-leaflet-maps",
-    "description":"Contao Leaflet maps integration",
-    "keywords":["contao", "maps", "leaflet"],
-    "type":"contao-module",
-    "license":"LGPL-3.0+",
-    "authors":[
-        {
-            "name":"David Molineus",
-            "email":"mail@netzmacht.de",
-            "homepage":"http://www.netzmacht.de",
-            "role":"Project leader"
-        }
-    ],
-    "support":{
-        "email":"mail@netzmacht.de",
-        "issues":"https://github.com/netzmacht/contao-leaflet-maps/issues",
-        "source":"https://github.com/netzmacht/contao-leaflet-maps"
-    },
-    "require":{
-        "php":">=7.1",
-        "contao/core-bundle":"^4.4",
-        "netzmacht/contao-leaflet-libraries": "^1.0",
-        "netzmacht/php-javascript-builder": "^1.0",
-        "netzmacht/php-leaflet": "^1.0",
-        "netzmacht/contao-toolkit":"^3.0@dev",
-        "contao-community-alliance/meta-palettes": "^1.5",
-        "menatwork/contao-multicolumnwizard": "^3.2",
-        "doctrine/cache": "^1.0"
-    },
-    "require-dev":{
-        "netzmacht/contao-build-tools": "^1.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "Netzmacht\\Contao\\Leaflet\\": "src/"
-        }
-    },
-    "config": {
-        "bin-dir": "bin"
-    },
-    "prefer-stable": true,
-    "minimum-stability": "dev",
-    "extra":{
-        "branch-alias": {
-            "dev-master": "2.0.x-dev",
-            "dev-develop": "2.1.x-dev",
-            "dev-support/0.7.x": "0.7.x-dev"
-        },
-        "contao": {
-            "sources":{
-                "module": "system/modules/leaflet",
-                "assets/maps": "assets/leaflet/maps",
-                "assets/js": "assets/leaflet/js"
-            },
-            "transifex": {
-                "project": "contao-leaflet-maps",
-                "prefix": "core-",
-                "languages_cto": "module/languages",
-                "languages_tx": ".tx"
-            }
-        }
+  "name": "netzmacht/contao-leaflet-maps",
+  "description": "Contao Leaflet maps integration",
+  "keywords": [
+    "contao",
+    "maps",
+    "leaflet"
+  ],
+  "type": "contao-bundle",
+  "license": "LGPL-3.0+",
+  "authors": [
+    {
+      "name": "David Molineus",
+      "email": "mail@netzmacht.de",
+      "homepage": "https://netzmacht.de",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "email": "mail@netzmacht.de",
+    "issues": "https://github.com/netzmacht/contao-leaflet-maps/issues",
+    "source": "https://github.com/netzmacht/contao-leaflet-maps"
+  },
+  "require": {
+    "php": ">=7.1",
+    "contao/core-bundle": "^4.4",
+    "netzmacht/contao-leaflet-libraries": "^1.0",
+    "netzmacht/php-javascript-builder": "^1.0",
+    "netzmacht/php-leaflet": "^1.0.1",
+    "netzmacht/contao-toolkit": "^3.0@dev",
+    "contao-community-alliance/meta-palettes": "^1.5",
+    "menatwork/contao-multicolumnwizard": "^3.2",
+    "doctrine/cache": "^1.0"
+  },
+  "require-dev": {
+    "phpcq/all-tasks": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Netzmacht\\Contao\\Leaflet\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.0.x-dev",
+      "dev-develop": "2.1.x-dev",
+      "dev-release/3.0.0": "3.0.x-dev"
+    },
+    "contao": {
+      "sources": {
+        "module": "system/modules/leaflet",
+        "assets/maps": "assets/leaflet/maps",
+        "assets/js": "assets/leaflet/js"
+      },
+      "transifex": {
+        "project": "contao-leaflet-maps",
+        "prefix": "core-",
+        "languages_cto": "module/languages",
+        "languages_tx": ".tx"
+      }
+    }
+  }
 }
