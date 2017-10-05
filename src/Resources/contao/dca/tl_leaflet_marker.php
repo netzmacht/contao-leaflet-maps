@@ -26,7 +26,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             )
         ),
         'onload_callback' => array(
-            function() {
+            function () {
                 \Controller::loadLanguageFile('leaflet');
             }
         ),
@@ -94,7 +94,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                    . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
             (
@@ -143,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
     (
         'id'           => array
         (
-            'sql' => "int(10) unsigned NOT NULL auto_increment"
+            'sql' => 'int(10) unsigned NOT NULL auto_increment'
         ),
         'tstamp'       => array
         (
@@ -185,7 +186,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'coordinates'  => array
         (
@@ -215,7 +216,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "decimal(10,8) NULL"
+            'sql'       => 'decimal(10,8) NULL'
         ),
         'longitude'      => array
         (
@@ -223,7 +224,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "decimal(11,8) NULL"
+            'sql'       => 'decimal(11,8) NULL'
         ),
         'altitude'      => array
         (
@@ -231,7 +232,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "float NULL"
+            'sql'       => 'float NULL'
         ),
         'active'                => array
         (
@@ -293,7 +294,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'inputType'   => 'text',
             'eval'        => array('mandatory' => true, 'rte' => 'tinyMCE', 'helpwizard' => true, 'tl_class' => 'clr'),
             'explanation' => 'insertTags',
-            'sql'         => "mediumtext NULL"
+            'sql'         => 'mediumtext NULL'
         ),
         'customIcon'   => array
         (
@@ -350,7 +351,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'inputType' => 'text',
             'default'   => 0,
             'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'clr w50', 'nullIfEmpty' => true),
-            'sql'       => "int(5) NULL"
+            'sql'       => 'int(5) NULL'
         ),
         'ignoreForBounds' => array
         (
@@ -371,7 +372,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                             'style'     => 'min-height: 40px;',
                             'rte'       => 'ace|json'
             ),
-            'sql'       => "text NULL"
+            'sql'       => 'text NULL'
         ),
     ),
 );

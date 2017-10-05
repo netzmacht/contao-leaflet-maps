@@ -55,7 +55,7 @@ class LayerCallbacks extends Callbacks
     
     /**
      * Tile providers configuration.
-     * 
+     *
      * @var array
      */
     private $tileProviders;
@@ -134,7 +134,6 @@ class LayerCallbacks extends Callbacks
     {
         if (!empty($this->layers[$row['type']]['icon'])) {
             $src = $this->layers[$row['type']]['icon'];
-
         } else {
             $src = 'iconPLAIN.gif';
         }
@@ -230,7 +229,6 @@ class LayerCallbacks extends Callbacks
                     $this->translator->translate('pasteinto.1', $table, [$row['id']])
                 )
             );
-
         } elseif ($row['id'] > 0) {
             $buffer .= \Image::getHtml('pasteinto_.gif');
         }

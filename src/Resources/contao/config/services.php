@@ -48,11 +48,14 @@ use Netzmacht\LeafletPHP\Leaflet;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /** @var \Pimple $container */
+// @codingStandardsIgnoreStart
 global $container;
+// @codingStandardsIgnoreEnd
 
 /*
  * Leaflet map provider is a simply api entry to to get the leaflet map from the database.
  */
+
 $container[LeafletServices::MAP_PROVIDER] = $container->share(function ($container) {
     return new MapProvider(
         $container[LeafletServices::DEFINITION_MAPPER],
@@ -69,6 +72,7 @@ $container[LeafletServices::MAP_PROVIDER] = $container->share(function ($contain
 /*
  * Contao assets handler. Loads Leaflet assets as contao (static) assets.
  */
+
 $container[LeafletServices::MAP_ASSETS] = $container->share(function ($container) {
     return new ContaoAssets($container[Services::ASSETS_MANAGER]);
 });
@@ -76,6 +80,7 @@ $container[LeafletServices::MAP_ASSETS] = $container->share(function ($container
 /*
  * The leaflet boot.
  */
+
 $container[LeafletServices::BOOT] = $container->share(function ($container) {
     return new Boot($container[Services::EVENT_DISPATCHER]);
 });
@@ -93,6 +98,7 @@ $container['leaflet.boot.subscriber'] = $container->share(function ($container) 
 /*
  * The definition mapper.
  */
+
 $container[LeafletServices::DEFINITION_MAPPER] = $container->share(function ($container) {
     /** @var Boot $boot */
     $boot   = $container[LeafletServices::BOOT];
@@ -105,6 +111,7 @@ $container[LeafletServices::DEFINITION_MAPPER] = $container->share(function ($co
 /*
  * The local event dispatcher is used for the leaflet javascript encoding system.
  */
+
 $container[LeafletServices::DEFINITION_BUILDER_EVENT_DISPATCHER] = $container->share(function ($container) {
     /** @var Boot $boot */
     $boot       = $container[LeafletServices::BOOT];
@@ -116,6 +123,7 @@ $container[LeafletServices::DEFINITION_BUILDER_EVENT_DISPATCHER] = $container->s
 /*
  * The javascript encoder factory being used for building the map javascript.
  */
+
 $container[LeafletServices::DEFINITION_ENCODER_FACTORY] = function ($container) {
     $dispatcher = $container[LeafletServices::DEFINITION_BUILDER_EVENT_DISPATCHER];
 
@@ -133,27 +141,27 @@ $container[LeafletServices::DEFINITION_ENCODER_FACTORY] = function ($container) 
 /*
  * The leaflet builder transforms the definition to javascript.
  */
-$container[LeafletServices::DEFINITION_BUILDER] = $container->share(function($container) {
+
+$container[LeafletServices::DEFINITION_BUILDER] = $container->share(function ($container) {
     /** @var Boot $boot */
     $boot       = $container[LeafletServices::BOOT];
     $dispatcher = $container[LeafletServices::DEFINITION_BUILDER_EVENT_DISPATCHER];
     $factory    = $container[LeafletServices::DEFINITION_ENCODER_FACTORY];
 
     $builder = new Builder($factory);
-    $leaflet = new Leaflet($builder, $dispatcher, array(), JSON_UNESCAPED_SLASHES ^ Flags::BUILD_STACK);
+    $leaflet = new Leaflet($builder, $dispatcher, array(), (JSON_UNESCAPED_SLASHES ^ Flags::BUILD_STACK));
 
     return $boot->initializeLeafletBuilder($leaflet);
 });
 
-$container[LeafletServices::FRONTEND_VALUE_FILTER] = $container->share(function($container) {
+$container[LeafletServices::FRONTEND_VALUE_FILTER] = $container->share(function ($container) {
     return new ValueFilter($container[Services::INSERT_TAG_REPLACER]);
 });
 
-/**
+/*
  * Internal used leaflet cache.
- *
- * @var Cache
  */
+
 $container[LeafletServices::CACHE] = $container->share(
     function ($container) {
         if ($container[Services::PRODUCTION_MODE]) {
@@ -164,11 +172,10 @@ $container[LeafletServices::CACHE] = $container->share(
     }
 );
 
-/**
+/*
  * Leaflet alias generator.
- *
- * @return \Netzmacht\Contao\Toolkit\Data\Alias\AliasGenerator
  */
+
 $container[LeafletServices::ALIAS_GENERATOR] = $container->share(
     function ($container) {
         return function ($dataContainerName, $aliasField, $fields) use ($container) {
@@ -190,11 +197,11 @@ $container[LeafletServices::ALIAS_GENERATOR] = $container->share(
     }
 );
 
-/**
+/*
  * Leaflet alias generator.
- *
  * @return \Netzmacht\Contao\Toolkit\Data\Alias\AliasGenerator
  */
+
 $container[LeafletServices::PARENT_ALIAS_GENERATOR] = $container->share(
     function ($container) {
         return function ($dataContainerName, $aliasField, $fields) use ($container) {
@@ -217,11 +224,10 @@ $container[LeafletServices::PARENT_ALIAS_GENERATOR] = $container->share(
     }
 );
 
-/**
+/*
  * Callback helper class for tl_leaflet_map.
- *
- * @return MapCallbacks
  */
+
 $container['leaflet.dca.map-callbacks'] = $container->share(
     function ($container) {
         return new MapCallbacks(
@@ -231,11 +237,10 @@ $container['leaflet.dca.map-callbacks'] = $container->share(
     }
 );
 
-/**
+/*
  * Callback helper class for tl_leaflet_layer.
- *
- * @return LayerCallbacks
  */
+
 $container['leaflet.dca.layer-callbacks'] = $container->share(
     function ($container) {
         return new LayerCallbacks(
@@ -249,11 +254,10 @@ $container['leaflet.dca.layer-callbacks'] = $container->share(
     }
 );
 
-/**
+/*
  * Callback helper class for tl_leaflet_control.
- *
- * @return ControlCallbacks
  */
+
 $container['leaflet.dca.control-callbacks'] = $container->share(
     function ($container) {
         return new ControlCallbacks(
@@ -263,22 +267,20 @@ $container['leaflet.dca.control-callbacks'] = $container->share(
     }
 );
 
-/**
+/*
  * Callback helper class for tl_leaflet_control.
- *
- * @return ControlCallbacks
  */
+
 $container['leaflet.dca.vector-callbacks'] = $container->share(
     function ($container) {
         return new VectorCallbacks($container[Services::DCA_MANAGER]);
     }
 );
 
-/**
+/*
  * Callback helper class for frontend integration.
- *
- * @return FrontendIntegration
  */
+
 $container['leaflet.dca.frontend-integration'] = $container->share(
     function ($container) {
         return new FrontendIntegration(
@@ -287,11 +289,10 @@ $container['leaflet.dca.frontend-integration'] = $container->share(
     }
 );
 
-/**
+/*
  * Common callback helpers.
- *
- * @return LeafletCallbacks
  */
+
 $container['leaflet.dca.common'] = $container->share(
     function ($container) {
         return new LeafletCallbacks(
@@ -300,11 +301,10 @@ $container['leaflet.dca.common'] = $container->share(
     }
 );
 
-/**
+/*
  * Validator helper class.
- *
- * @return Validator
  */
+
 $container['leaflet.dca.validator'] = $container->share(
     function ($container) {
         return new Validator(
@@ -313,15 +313,10 @@ $container['leaflet.dca.validator'] = $container->share(
     }
 );
 
-/**
+/*
  * Component factory for content element.
- *
- * @param ContentModel       $model     Content model.
- * @param string             $column    Template section.
- * @param ContainerInterface $container Container.
- *
- * @return MapElement
  */
+
 $container[Services::CONTENT_ELEMENTS_MAP]['leaflet'] = function ($model, $column, ContainerInterface $container) {
     return new MapElement(
         $model,
@@ -334,15 +329,10 @@ $container[Services::CONTENT_ELEMENTS_MAP]['leaflet'] = function ($model, $colum
     );
 };
 
-/**
+/*
  * Component factory for frontend module.
- *
- * @param ModuleModel        $model     Module model.
- * @param string             $column    Template section.
- * @param ContainerInterface $container Container.
- *
- * @return MapModule
  */
+
 $container[Services::MODULES_MAP]['leaflet'] = function ($model, $column, ContainerInterface $container) {
     return new MapModule(
         $model,

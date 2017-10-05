@@ -93,7 +93,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_icon']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                    . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
             (
@@ -172,7 +173,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
     (
         'id'           => array
         (
-            'sql' => "int(10) unsigned NOT NULL auto_increment"
+            'sql' => 'int(10) unsigned NOT NULL auto_increment'
         ),
         'tstamp'       => array
         (
@@ -201,7 +202,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'type'                  => array
         (
@@ -242,7 +243,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                  'tl_class'   => 'clr',
                  'extensions' => 'gif,png,svg,jpg'
             ),
-            'sql'       => "binary(16) NULL",
+            'sql'       => 'binary(16) NULL',
         ),
         'iconRetinaImage'   => array
         (
@@ -256,7 +257,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                  'tl_class'   => 'clr',
                  'extensions' => 'gif,png,svg,jpg'
             ),
-            'sql'       => "binary(16) NULL",
+            'sql'       => 'binary(16) NULL',
         ),
         'shadowImage'         => array
         (
@@ -270,7 +271,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'   => 'clr',
                 'extensions' => 'gif,png,svg,jpg'
             ),
-            'sql'       => "binary(16) NULL",
+            'sql'       => 'binary(16) NULL',
         ),
         'shadowRetinaImage'   => array
         (
@@ -284,7 +285,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'   => 'clr',
                 'extensions' => 'gif,png,svg,jpg'
             ),
-            'sql'       => "binary(16) NULL",
+            'sql'       => 'binary(16) NULL',
         ),
         'iconAnchor'  => array
         (
@@ -299,7 +300,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'shadowAnchor'  => array
         (
@@ -314,7 +315,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'popupAnchor'  => array
         (
@@ -329,7 +330,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'className'          => array
         (
@@ -349,7 +350,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(64) NULL"
+            'sql'           => 'varchar(64) NULL'
         ),
         'html'  => array
         (
@@ -364,7 +365,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'rte'            => 'ace|html',
                 'tl_class'       => 'clr'
             ),
-            'sql'       => "mediumtext NULL"
+            'sql'       => 'mediumtext NULL'
         ),
         'icon'  => array
         (
@@ -376,7 +377,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(64) NULL"
+            'sql'           => 'varchar(64) NULL'
         ),
         'prefix'  => array
         (
@@ -388,7 +389,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(64) NULL"
+            'sql'           => 'varchar(64) NULL'
         ),
         'shape'  => array
         (
@@ -400,7 +401,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'eval'          => array(
                 'tl_class'    => 'w50',
             ),
-            'sql'           => "varchar(64) NULL"
+            'sql'           => 'varchar(64) NULL'
         ),
         'iconColor'  => array
         (
@@ -415,7 +416,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50 wizard',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(16) NULL"
+            'sql'           => 'varchar(16) NULL'
         ),
         'markerColor'  => array
         (
@@ -444,7 +445,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(16) NULL"
+            'sql'           => 'varchar(16) NULL'
         ),
     ),
 );

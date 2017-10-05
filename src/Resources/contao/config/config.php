@@ -13,6 +13,7 @@
 /*
  * Backend module.
  */
+
 array_insert(
     $GLOBALS['BE_MOD'],
     1,
@@ -57,18 +58,21 @@ array_insert(
 /*
  * Content elements.
  */
+
 $GLOBALS['TL_CTE']['includes']['leaflet'] = 'Netzmacht\Contao\Toolkit\Component\ContentElement\ContentElementDecorator';
 
 
 /*
  * Frontend modules
  */
+
 $GLOBALS['FE_MOD']['includes']['leaflet'] = 'Netzmacht\Contao\Toolkit\Component\Module\ModuleDecorator';
 
 
 /*
  * Models.
  */
+
 $GLOBALS['TL_MODELS']['tl_leaflet_control'] = 'Netzmacht\Contao\Leaflet\Model\ControlModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_icon']    = 'Netzmacht\Contao\Leaflet\Model\IconModel';
 $GLOBALS['TL_MODELS']['tl_leaflet_layer']   = 'Netzmacht\Contao\Leaflet\Model\LayerModel';
@@ -84,6 +88,7 @@ $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = 'Netzmacht\Contao\Leaflet\Model\Ve
  *
  * Mappers do the translations between the database models and the leaflet definition.
  */
+
 $GLOBALS['LEAFLET_MAPPERS']   = array();
 $GLOBALS['LEAFLET_MAPPERS'][] = 'Netzmacht\Contao\Leaflet\Mapper\MapMapper';
 
@@ -173,6 +178,7 @@ $GLOBALS['LEAFLET_MAPPERS'][] = function () {
  *
  * @see https://github.com/contao-community-alliance/event-dispatcher#event-subscriber-per-configuration
  */
+
 $GLOBALS['LEAFLET_ENCODERS']   = array();
 $GLOBALS['LEAFLET_ENCODERS'][] = 'Netzmacht\LeafletPHP\Encoder\MapEncoder';
 $GLOBALS['LEAFLET_ENCODERS'][] = 'Netzmacht\LeafletPHP\Encoder\ControlEncoder';
@@ -188,6 +194,7 @@ $GLOBALS['LEAFLET_ENCODERS'][] = 'Netzmacht\Contao\Leaflet\Subscriber\EncoderSub
  *
  * The type is used for the database driven definitions.
  */
+
 $GLOBALS['LEAFLET_LAYERS'] = array
 (
     'provider' => array
@@ -295,7 +302,8 @@ $GLOBALS['LEAFLET_LAYERS'] = array
  *
  * Supported leaflet control types. Register your type for the database driven definition here.
  */
-$GLOBALS['LEAFLET_CONTROLS']   = array('zoom', 'layers', 'scale', 'attribution', 'loading', 'fullscreen');
+
+$GLOBALS['LEAFLET_CONTROLS'] = array('zoom', 'layers', 'scale', 'attribution', 'loading', 'fullscreen');
 
 
 /*
@@ -303,6 +311,7 @@ $GLOBALS['LEAFLET_CONTROLS']   = array('zoom', 'layers', 'scale', 'attribution',
  *
  * Supported leaflet icon types. Register you type for the database driven definition here.
  */
+
 $GLOBALS['LEAFLET_ICONS'] = array('image', 'div', 'extra');
 
 
@@ -313,6 +322,7 @@ $GLOBALS['LEAFLET_ICONS'] = array('image', 'div', 'extra');
  * The goal is to provide different style strategies. For instance a random style chooser, one which uses a color
  * range and so one.
  */
+
 $GLOBALS['LEAFLET_STYLES'] = array('fixed');
 
 /*
@@ -320,6 +330,7 @@ $GLOBALS['LEAFLET_STYLES'] = array('fixed');
  *
  * Supported leaflet vector types. Register you type for the database driven definition here.
  */
+
 $GLOBALS['LEAFLET_VECTORS'] = array
 (
     'polyline',
@@ -335,6 +346,7 @@ $GLOBALS['LEAFLET_VECTORS'] = array
 /*
  * Leaflet tile layer providers.
  */
+
 require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
 
 /*
@@ -351,6 +363,7 @@ require_once TL_ROOT . '/system/modules/leaflet/config/leaflet_providers.php';
  * You don't have to define it as array if you simply add a file. Do not add |static and or media type flag to it.
  * It's getting added by default if not being in debug mode.
  */
+
 if (!isset($GLOBALS['LEAFLET_LIBRARIES'])) {
     $GLOBALS['LEAFLET_LIBRARIES'] = array();
 }
@@ -367,6 +380,7 @@ if (!isset($GLOBALS['LEAFLET_LIBRARIES'])) {
  *  - file:   Thread value a uuid and find the path.
  *  - files:  Thread values as a list of file uuids and get an array of paths.
  */
+
 $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_marker'][] = 'id';
 $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_marker'][] = 'title';
 $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_marker'][] = 'alias';
@@ -379,5 +393,6 @@ $GLOBALS['LEAFLET_FEATURE_MODEL_PROPERTIES']['tl_leaflet_vector'][] = 'alias';
 /*
  * Filters can be passed to a data request to get only specific data from a layer.
  */
+
 $GLOBALS['LEAFLET_FILTERS']['bbox']     = 'Netzmacht\Contao\Leaflet\Filter\BboxFilter';
 $GLOBALS['LEAFLET_FILTERS']['distance'] = 'Netzmacht\Contao\Leaflet\Filter\DistanceFilter';

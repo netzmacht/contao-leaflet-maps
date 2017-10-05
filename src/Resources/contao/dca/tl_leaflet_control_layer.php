@@ -28,7 +28,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control_layer'] = array
     (
         'id'           => array
         (
-            'sql' => "int(10) unsigned NOT NULL auto_increment"
+            'sql' => 'int(10) unsigned NOT NULL auto_increment'
         ),
         'tstamp'       => array
         (

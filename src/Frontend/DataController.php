@@ -44,7 +44,7 @@ class DataController
     
     /**
      * Filters configuration.
-     * 
+     *
      * @var array
      */
     private $filters;

@@ -124,7 +124,7 @@ class MapCallbacks extends Callbacks
                 }
 
                 $sorting += 128;
-                unset ($values[$layerId]);
+                unset($values[$layerId]);
             }
         }
 

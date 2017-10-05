@@ -40,6 +40,11 @@
       "Netzmacht\\Contao\\Leaflet\\": "src/"
     }
   },
+  "autoload-dev": {
+    "files": [
+      "vendor/phpcq/autoload-validation/hacks/contao-hack.php"
+    ]
+  },
   "extra": {
     "branch-alias": {
       "dev-master": "2.0.x-dev",

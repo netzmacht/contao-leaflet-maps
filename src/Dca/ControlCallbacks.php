@@ -123,7 +123,7 @@ class ControlCallbacks extends Callbacks
     /**
      * Save layer relations.
      *
-     * @param $layers        $layers        The layer id values.
+     * @param mixed          $layers        The layer id values.
      * @param \DataContainer $dataContainer The dataContainer driver.
      *
      * @return null
@@ -171,7 +171,7 @@ class ControlCallbacks extends Callbacks
                     ->execute($values[$layer['layer']]['id']);
 
                 $sorting += 128;
-                unset ($values[$layer['layer']]);
+                unset($values[$layer['layer']]);
             }
         }
 

@@ -93,7 +93,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_popup']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                    . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
             (
@@ -144,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
     (
         'id'           => array
         (
-            'sql' => "int(10) unsigned NOT NULL auto_increment"
+            'sql' => 'int(10) unsigned NOT NULL auto_increment'
         ),
         'tstamp'       => array
         (
@@ -173,7 +174,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'maxWidth'  => array
         (
@@ -182,7 +183,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             'inputType' => 'text',
             'default'   => null,
             'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
-            'sql'       => "int(4) NULL"
+            'sql'       => 'int(4) NULL'
         ),
         'minWidth'  => array
         (
@@ -191,7 +192,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             'inputType' => 'text',
             'default'   => null,
             'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
-            'sql'       => "int(4) NULL"
+            'sql'       => 'int(4) NULL'
         ),
         'maxHeight'  => array
         (
@@ -200,7 +201,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             'inputType' => 'text',
             'default'   => null,
             'eval'      => array('mandatory' => false, 'maxlength' => 4, 'rgxp' => 'digit', 'tl_class' => 'w50'),
-            'sql'       => "int(4) NULL"
+            'sql'       => 'int(4) NULL'
         ),
         'autoPan'     => array
         (
@@ -242,7 +243,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'autoPanPadding'  => array
         (
@@ -256,7 +257,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
                 'multiple'    => true,
                 'size'        => 2,
             ),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'zoomAnimation'     => array
         (

@@ -31,7 +31,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ],
     ),
 
-    // List
+    // List configuration
     'list' => array
     (
         'sorting' => array
@@ -78,14 +78,18 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_control']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                    . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
             (
                 'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_control']['toggle'],
                 'icon'       => 'visible.gif',
                 'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton('tl_leaflet_control', 'active')
+                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
+                    'tl_leaflet_control',
+                    'active'
+                )
             ),
             'show' => array
             (
@@ -134,7 +138,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
     (
         'id'     => array
         (
-            'sql'       => "int(10) unsigned NOT NULL auto_increment"
+            'sql'       => 'int(10) unsigned NOT NULL auto_increment'
         ),
         'pid' => array
         (
@@ -175,8 +179,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 ),
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
-            'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'nullIfEmpty' => true),
-            'sql'           => "varchar(255) NULL"
+            'eval'          => array(
+                'mandatory'   => false,
+                'maxlength'   => 255,
+                'tl_class'    => 'w50',
+                'nullIfEmpty' => true,
+            ),
+            'sql'           => 'varchar(255) NULL'
         ),
         'type'   => array
         (
@@ -313,7 +322,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                     ),
                 )
             ),
-            'sql'       => "mediumblob NULL"
+            'sql'       => 'mediumblob NULL'
         ),
         'maxWidth'  => array
         (
@@ -364,7 +373,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'exclude'   => true,
             'inputType' => 'listWizard',
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'clr', 'allowHtml' => true),
-            'sql'       => "mediumblob NULL"
+            'sql'       => 'mediumblob NULL'
         ),
         'separate'  => array
         (
@@ -410,7 +419,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                  'rte'            => 'ace|json',
                  'tl_class'       => 'clr'
             ),
-            'sql'       => "mediumtext NULL"
+            'sql'       => 'mediumtext NULL'
         ),
         'simulateFullScreen'  => array
         (

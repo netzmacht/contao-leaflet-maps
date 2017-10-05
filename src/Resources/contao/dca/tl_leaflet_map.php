@@ -25,7 +25,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             )
         ),
         'onload_callback' => array(
-            function() {
+            function () {
                 \Controller::loadLanguageFile('leaflet');
             }
         ),
@@ -84,7 +84,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_map']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                    . '\'))return false;Backend.getScrollOffset()"'
             ),
             'show' => array
             (
@@ -151,7 +152,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
     (
         'id'     => array
         (
-            'sql'       => "int(10) unsigned NOT NULL auto_increment"
+            'sql'       => 'int(10) unsigned NOT NULL auto_increment'
         ),
         'tstamp' => array
         (
@@ -182,7 +183,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias')
             ),
             'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'       => "varchar(255) NULL"
+            'sql'       => 'varchar(255) NULL'
         ),
         'center'  => array
         (
@@ -200,7 +201,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'tl_class' => 'long clr',
                 'nullIfEmpty' => true,
             ),
-            'sql'       => "varchar(255) NULL"
+            'sql'       => 'varchar(255) NULL'
         ),
         'layers' => array
         (
@@ -235,7 +236,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 ),
                 'flatArray' => true
             ),
-            'sql'              => "mediumblob NULL"
+            'sql'              => 'mediumblob NULL'
         ),
         'zoom' => array
         (
@@ -251,7 +252,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true
             ),
-            'sql'              => "int(4) NULL"
+            'sql'              => 'int(4) NULL'
         ),
         'adjustZoomExtra'  => array
         (
@@ -275,7 +276,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true
             ),
-            'sql'              => "int(4) NULL"
+            'sql'              => 'int(4) NULL'
         ),
         'maxZoom' => array
         (
@@ -290,7 +291,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true
             ),
-            'sql'              => "int(4) NULL"
+            'sql'              => 'int(4) NULL'
         ),
         'zoomSnap'  => array
         (
@@ -304,7 +305,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true
             ),
-            'sql'              => "varchar(4) NULL"
+            'sql'              => 'varchar(4) NULL'
         ),
         'zoomDelta'  => array
         (
@@ -318,7 +319,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true
             ),
-            'sql'              => "varchar(4) NULL"
+            'sql'              => 'varchar(4) NULL'
         ),
         'dragging'  => array
         (
@@ -461,7 +462,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                             'style'     => 'min-height: 40px;',
                             'rte'       => 'ace|json'
             ),
-            'sql'       => "text NULL"
+            'sql'       => 'text NULL'
         ),
         'adjustBounds' => array
         (
@@ -494,7 +495,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true
             ),
-            'sql'              => "varchar(32) NULL"
+            'sql'              => 'varchar(32) NULL'
         ),
         'locate'  => array
         (
@@ -529,7 +530,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'inputType' => 'text',
             'default'   => null,
             'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
-            'sql'       => "int(9) NULL"
+            'sql'       => 'int(9) NULL'
         ),
         'locateMaximumAge' => array
         (
@@ -538,7 +539,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'inputType' => 'text',
             'default'   => null,
             'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'w50', 'nullIfEmpty' => true),
-            'sql'       => "int(9) NULL"
+            'sql'       => 'int(9) NULL'
         ),
         'enableHighAccuracy'  => array
         (
@@ -562,7 +563,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                 'includeBlankOption' => true,
                 'nullIfEmpty'        => true
             ),
-            'sql'              => "int(4) NULL"
+            'sql'              => 'int(4) NULL'
         ),
         'cache'  => array
         (

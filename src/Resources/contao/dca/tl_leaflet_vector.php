@@ -26,7 +26,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             )
         ),
         'onload_callback' => array(
-            function() {
+            function () {
                 \Controller::loadLanguageFile('leaflet');
             }
         ),
@@ -101,7 +101,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                    . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
             (
@@ -168,7 +169,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
     (
         'id'           => array
         (
-            'sql' => "int(10) unsigned NOT NULL auto_increment"
+            'sql' => 'int(10) unsigned NOT NULL auto_increment'
         ),
         'tstamp'       => array
         (
@@ -211,7 +212,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'type'                  => array
         (
@@ -279,7 +280,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'inputType'   => 'text',
             'eval'        => array('mandatory' => true, 'rte' => 'tinyMCE', 'helpwizard' => true, 'tl_class' => 'clr'),
             'explanation' => 'insertTags',
-            'sql'         => "mediumtext NULL"
+            'sql'         => 'mediumtext NULL'
         ),
         'style'         => array
         (
@@ -329,7 +330,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'nullIfEmpty' => true,
                 'mandatory'   => true,
             ),
-            'sql'           => "varchar(255) NULL"
+            'sql'           => 'varchar(255) NULL'
         ),
         'radius'  => array
         (
@@ -349,7 +350,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'save_callback' => array(
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateMultipleCoordinates')
             ),
-            'sql'       => "longblob NULL"
+            'sql'       => 'longblob NULL'
         ),
         'multiData' => array
         (
@@ -374,7 +375,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'save_callback' => array(
                 \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateMultipleCoordinateSets')
             ),
-            'sql'       => "longblob NULL"
+            'sql'       => 'longblob NULL'
         ),
         'bounds'  => array
         (
@@ -384,12 +385,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'save_callback' => array(),
             'eval'          => array(
                 'maxlength'   => 255,
-                'multiple'=>true,
-                'size'=>2,
+                'multiple'    => true,
+                'size'        => 2,
                 'tl_class'    => 'long clr',
                 'nullIfEmpty' => true,
             ),
-            'sql'           => "mediumblob NULL"
+            'sql'           => 'mediumblob NULL'
         ),
         'ignoreForBounds' => array
         (
@@ -410,7 +411,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                             'style'     => 'min-height: 40px;',
                             'rte'       => 'ace|json'
             ),
-            'sql'       => "text NULL"
+            'sql'       => 'text NULL'
         ),
     ),
 );
