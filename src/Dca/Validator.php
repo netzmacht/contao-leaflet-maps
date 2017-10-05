@@ -12,9 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
 use Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory;
 use Netzmacht\LeafletPHP\Value\LatLng;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
  * Class Validator.
@@ -66,7 +66,7 @@ class Validator
             LatLng::fromString($value);
         } catch (\Exception $e) {
             throw new \InvalidArgumentException(
-                $this->translator->translate('invalidCoordinates', 'leaflet', [$value]),
+                $this->translator->trans('invalidCoordinates', [$value], 'contao_leaflet'),
                 0,
                 $e
             );
@@ -126,7 +126,7 @@ class Validator
     {
         if (preg_match('/^[A-Za-z_]+[A-Za-z0-9_]+$/', $value) !== 1) {
             throw new \InvalidArgumentException(
-                $this->translator->translate('invalidAlias', 'leaflet')
+                $this->translator->trans('invalidAlias', [], 'contao_leaflet')
             );
         }
 

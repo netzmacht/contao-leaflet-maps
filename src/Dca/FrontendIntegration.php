@@ -12,10 +12,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
 use Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
  * Class Module is the helper for the tl_module dca.
@@ -88,18 +88,18 @@ class FrontendIntegration
             \RequestToken::get(),
             sprintf(
                 $pattern,
-                specialchars($this->translator->translate('editalias.1', 'tl_content', [$dataContainer->value])),
+                specialchars($this->translator->trans('editalias.1', [$dataContainer->value], 'contao_tl_content')),
                 specialchars(
                     str_replace(
                         "'",
                         "\\'",
-                        sprintf($this->translator->translate('editalias.1', 'tl_content', [$dataContainer->value]))
+                        sprintf($this->translator->trans('editalias.1', [$dataContainer->value], 'contao_tl_content'))
                     )
                 )
             ),
             \Image::getHtml(
                 'alias.gif',
-                $this->translator->translate('editalias.0', 'tl_content', [$dataContainer->value]),
+                $this->translator->trans('editalias.0', [$dataContainer->value], 'contao_tl_content'),
                 'style="vertical-align:top"'
             )
         );

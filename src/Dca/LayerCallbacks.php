@@ -12,11 +12,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Dca;
 
-use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
 use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
  * Class Layer is the helper class for the tl_leaflet_layer dca.
@@ -203,10 +203,10 @@ class LayerCallbacks extends Callbacks
         $buffer = sprintf(
             '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
             $pasteAfterUrl,
-            specialchars($this->translator->translate('pasteafter.1', $table, [$row['id']])),
+            specialchars($this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)),
             \Image::getHtml(
                 'pasteafter.gif',
-                $this->translator->translate('pasteafter.1', $table, [$row['id']])
+                $this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)
             )
         );
 
@@ -223,10 +223,10 @@ class LayerCallbacks extends Callbacks
             $buffer .= sprintf(
                 '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
                 $pasteIntoUrl,
-                specialchars($this->translator->translate('pasteinto.1', $table, [$row['id']])),
+                specialchars($this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)),
                 \Image::getHtml(
                     'pasteinto.gif',
-                    $this->translator->translate('pasteinto.1', $table, [$row['id']])
+                    $this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)
                 )
             );
         } elseif ($row['id'] > 0) {
