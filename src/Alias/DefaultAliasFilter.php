@@ -8,6 +8,8 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Netzmacht\Contao\Leaflet\Alias;
 
 use Netzmacht\Contao\Toolkit\Data\Alias\Filter\AbstractFilter;
@@ -42,7 +44,7 @@ class DefaultAliasFilter extends AbstractFilter
     /**
      * {@inheritdoc}
      */
-    public function repeatUntilValid()
+    public function repeatUntilValid(): bool
     {
         return false;
     }
@@ -50,7 +52,7 @@ class DefaultAliasFilter extends AbstractFilter
     /**
      * {@inheritdoc}
      */
-    public function apply($model, $value, $separator)
+    public function apply($model, $value, string $separator): string
     {
         if (!$value) {
             return $this->prefix . $separator . $model->id;
