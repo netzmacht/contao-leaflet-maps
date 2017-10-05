@@ -9,15 +9,17 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use ContaoCommunityAlliance\Translator\TranslatorInterface as Translator;
 use Database\Result;
 use Model\Collection;
 use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Component\Hybrid\AbstractHybrid;
 use Netzmacht\Contao\Toolkit\View\Template\TemplateFactory;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
  * Class HybridTrait provides method required by the frontend module and content element the same time.
@@ -79,7 +81,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
      *
      * @return string
      */
-    public function generate()
+    public function generate(): string
     {
         $this->mapProvider->handleAjaxRequest($this->getIdentifier());
 
@@ -113,7 +115,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
      *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected function compile()
+    protected function compile(): void
     {
         try {
             $template = $this->get('leaflet_template') ?: 'leaflet_map_js';
@@ -146,5 +148,5 @@ abstract class AbstractMapHybrid extends AbstractHybrid
      *
      * @return string
      */
-    abstract protected function getIdentifier();
+    abstract protected function getIdentifier(): string;
 }

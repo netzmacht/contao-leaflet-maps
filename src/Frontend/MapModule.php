@@ -9,6 +9,8 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 /**
@@ -30,7 +32,7 @@ class MapModule extends AbstractMapHybrid
      *
      * @return string
      */
-    protected function getIdentifier()
+    protected function getIdentifier(): string
     {
         if ($this->get('leaflet_mapId')) {
             return $this->get('leaflet_mapId');

@@ -9,6 +9,8 @@
  *
  */
 
+declare(strict_types=1);
+
 namespace Netzmacht\Contao\Leaflet\Frontend\InsertTag;
 
 use Netzmacht\Contao\Leaflet\MapProvider;
@@ -57,28 +59,20 @@ class LeafletInsertTagParser implements Parser
     /**
      * {@inheritDoc}
      */
-    public static function getTags()
+    public function supports(string $tag): bool
     {
-        return ['leaflet'];
+        return $tag === 'leaflet';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function supports($tag)
-    {
-        return in_array($tag, static::getTags());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function parse($raw, $tag, $params = null, $cache = true)
+    public function parse(string $raw, string $tag, string $params = null, bool $cache = true): string
     {
         $parts = explode('::', $params);
 
         if (empty($parts[0])) {
-            return false;
+            return '';
         }
 
         $style    = empty($parts[1]) ? 'width:400px;height:300px' : $parts[1];
@@ -98,7 +92,7 @@ class LeafletInsertTagParser implements Parser
      *
      * @throws \Exception If debug mode is enabled and something went wrong.
      */
-    private function generateMap($mapId, $template, $style)
+    private function generateMap($mapId, string $template, string $style)
     {
         try {
             return $this->mapProvider->generate($mapId, null, $mapId, $template, $style);
