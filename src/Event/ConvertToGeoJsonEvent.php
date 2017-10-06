@@ -23,7 +23,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class ConvertToGeoJsonEvent extends Event
 {
-    const NAME = 'leaflet.mapper.convert-to-geojson';
+    const NAME = 'netzmacht.contao_leaflet.mapper.convert_to_geojson';
 
     /**
      * The definition.

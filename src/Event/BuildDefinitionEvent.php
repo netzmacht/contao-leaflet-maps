@@ -23,7 +23,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class BuildDefinitionEvent extends Event
 {
-    const NAME = 'leaflet.mapper.definition';
+    const NAME = 'netzmacht.contao_leaflet.mapper.build_definition';
 
     /**
      * The leaflet object definition.

@@ -22,7 +22,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class GetJavascriptEvent extends Event
 {
-    const NAME = 'leaflet.service.get-javascript';
+    const NAME = 'netzmacht.contao_leaflet.get_javascript';
 
     /**
      * The generated javascript.

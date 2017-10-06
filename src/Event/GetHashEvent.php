@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class GetHashEvent extends Event
 {
-    const NAME = 'leaflet.get-hash';
+    const NAME = 'netzmacht.contao_leaflet.get_hash';
 
     /**
      * The data.
