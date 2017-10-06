@@ -73,3 +73,17 @@ services:
     class: Netzmacht\Contao\Leaflet\Alias\ParentAliasGeneratorFactory
     arguments:
       - '@database_connection'
+
+  netzmacht.contao_leaflet_maps.frontend.element_factory:
+    class: Netzmacht\Contao\Leaflet\Frontend\ContentElement\MapElementFactory
+    arguments:
+      - '@service_container'
+    tags:
+      - { name: 'netzmacht.contao_toolkit.component.content_element_factory' }
+
+  netzmacht.contao_leaflet_maps.frontend.module_factory:
+      class: Netzmacht\Contao\Leaflet\Frontend\Module\MapModuleFactory
+      arguments:
+        - '@service_container'
+      tags:
+        - { name: 'netzmacht.contao_toolkit.component.frontend_module_factory' }

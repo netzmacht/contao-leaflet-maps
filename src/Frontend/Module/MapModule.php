@@ -12,7 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Netzmacht\Contao\Leaflet\Frontend;
+namespace Netzmacht\Contao\Leaflet\Frontend\Module;
+
+use Netzmacht\Contao\Leaflet\Frontend\AbstractMapHybrid;
 
 /**
  * The frontend module for the Leaflet map.
@@ -36,7 +38,7 @@ class MapModule extends AbstractMapHybrid
     protected function getIdentifier(): string
     {
         if ($this->get('leaflet_mapId')) {
-            return $this->get('leaflet_mapId');
+            return (string) $this->get('leaflet_mapId');
         }
 
         if ($this->get('cssID')[0]) {
