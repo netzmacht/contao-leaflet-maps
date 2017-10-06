@@ -209,10 +209,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
             'exclude'          => true,
             'inputType'        => 'multiColumnWizard',
             'load_callback'    => array(
-                \Netzmacht\Contao\Leaflet\Dca\MapCallbacks::callback('loadLayerRelations'),
+                ['netzmacht.contao_leaflet_maps.listeners.dca.map', 'loadLayerRelations'],
             ),
             'save_callback'    => array(
-                \Netzmacht\Contao\Leaflet\Dca\MapCallbacks::callback('saveLayerRelations'),
+                ['netzmacht.contao_leaflet_maps.listeners.dca.map', 'saveLayerRelations'],
             ),
             'eval'             => array(
                 'multiple'           => true,
@@ -223,7 +223,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = array
                         'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['reference'],
                         'exclude'          => true,
                         'inputType'        => 'select',
-                        'options_callback' => \Netzmacht\Contao\Leaflet\Dca\MapCallbacks::callback('getLayers'),
+                        'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.map', 'getLayers'],
                         'eval'             => array(
                             'mandatory'          => true,
                             'tl_class'           => 'w50',

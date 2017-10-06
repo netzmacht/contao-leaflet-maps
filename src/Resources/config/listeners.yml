@@ -1,0 +1,6 @@
+services:
+  netzmacht.contao_leaflet_maps.listeners.dca.map:
+    class: Netzmacht\Contao\Leaflet\Listeners\Dca\MapDcaListener
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@database_connection'

@@ -20,7 +20,7 @@ use Netzmacht\Contao\Leaflet\Dca\ControlCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\FrontendIntegration;
 use Netzmacht\Contao\Leaflet\Dca\LayerCallbacks;
 use Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks;
-use Netzmacht\Contao\Leaflet\Dca\MapCallbacks;
+use Netzmacht\Contao\Leaflet\Listeners\Dca\MapDcaListener;
 use Netzmacht\Contao\Leaflet\Dca\Validator;
 use Netzmacht\Contao\Leaflet\Dca\VectorCallbacks;
 use Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices;
@@ -230,7 +230,7 @@ $container[LeafletServices::PARENT_ALIAS_GENERATOR] = $container->share(
 
 $container['leaflet.dca.map-callbacks'] = $container->share(
     function ($container) {
-        return new MapCallbacks(
+        return new MapDcaListener(
             $container[Services::DCA_MANAGER],
             $container[Services::DATABASE_CONNECTION]
         );
