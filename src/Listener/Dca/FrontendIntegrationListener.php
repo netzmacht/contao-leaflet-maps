@@ -10,9 +10,10 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Dca;
+declare(strict_types=1);
 
-use Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
+
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
@@ -22,7 +23,7 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class FrontendIntegration
+final class FrontendIntegrationListener
 {
     /**
      * Translator.
@@ -42,23 +43,11 @@ class FrontendIntegration
     }
 
     /**
-     * Generate the callback definition.
-     *
-     * @param string $methodName Callback method name.
-     *
-     * @return callable
-     */
-    public static function callback($methodName)
-    {
-        return CallbackFactory::service('leaflet.dca.frontend-integration', $methodName);
-    }
-
-    /**
      * Get all leaflet maps.
      *
      * @return array
      */
-    public function getMaps()
+    public function getMaps(): array
     {
         $collection = MapModel::findAll();
 
@@ -72,7 +61,7 @@ class FrontendIntegration
      *
      * @return string
      */
-    public function getEditMapLink($dataContainer)
+    public function getEditMapLink($dataContainer): string
     {
         if ($dataContainer->value < 1) {
             return '';
