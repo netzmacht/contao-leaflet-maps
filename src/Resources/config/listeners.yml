@@ -21,3 +21,8 @@ services:
       - '%netzmacht.contao_leaflet_maps.layers%'
       - '%netzmacht.contao_leaflet_maps.providers%'
       - '%netzmacht.contao_leaflet_maps.amenities%'
+
+  netzmacht.contao_leaflet_maps.listeners.dca.marker:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\MarkerDcaListener
+    arguments:
+      - '@database_connection'

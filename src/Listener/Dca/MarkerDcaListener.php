@@ -10,8 +10,10 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Dca;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\Controller;
+use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
@@ -21,8 +23,35 @@ use Netzmacht\Contao\Leaflet\Model\PopupModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class MarkerCallbacks
+class MarkerDcaListener
 {
+    /**
+     * Database connection.
+     *
+     * @var Connection
+     */
+    private $connection;
+
+    /**
+     * MarkerDcaListener constructor.
+     *
+     * @param Connection $connection Database connection.
+     */
+    public function __construct(Connection $connection)
+    {
+        $this->connection = $connection;
+    }
+
+    /**
+     * Initialize the language files.
+     *
+     * @return void
+     */
+    public function initialize(): void
+    {
+        Controller::loadLanguageFile('leaflet');
+    }
+
     /**
      * Generate the row label.
      *
@@ -92,10 +121,7 @@ class MarkerCallbacks
             }
         }
 
-        \Database::getInstance()
-            ->prepare('UPDATE tl_leaflet_marker %s WHERE id=?')
-            ->set($combined)
-            ->execute($dataContainer->id);
+        $this->connection->update('tl_leaflet_marker', $combined, ['id' => $dataContainer->id]);
 
         return null;
     }
@@ -112,21 +138,23 @@ class MarkerCallbacks
      */
     public function loadCoordinates($value, $dataContainer)
     {
-        $result = \Database::getInstance()
-            ->prepare('SELECT latitude, longitude, altitude FROM tl_leaflet_marker WHERE id=?')
-            ->execute($dataContainer->id);
+        $query     = 'SELECT latitude, longitude, altitude FROM tl_leaflet_marker WHERE id=:id';
+        $statement = $this->connection->prepare($query);
+        $statement->bindValue('id', $dataContainer->id);
 
-        if ($result->numRows) {
-            $buffer = $result->latitude;
+        $statement->execute();
 
-            if ($buffer && $result->longitude) {
-                $buffer .= ',' . $result->longitude;
+        if ($row = $statement->fetch()) {
+            $buffer = $row['latitude'];
+
+            if ($buffer && $row['longitude']) {
+                $buffer .= ',' . $row['longitude'];
             } else {
                 return $buffer;
             }
 
-            if ($buffer && $result->altitude) {
-                $buffer .= ',' . $result->longitude;
+            if ($buffer && $row['altitude']) {
+                $buffer .= ',' . $row['altitude'];
             }
 
             return $buffer;
