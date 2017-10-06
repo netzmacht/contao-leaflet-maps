@@ -47,3 +47,10 @@ services:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\VectorDcaListener
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
+
+  netzmacht.contao_leaflet_maps.listeners.geo_json_subscriber:
+    class: Netzmacht\Contao\Leaflet\Subscriber\GeoJsonSubscriber
+    arguments:
+      - '%netzmacht.contao_leaflet_maps.feature_model_properties%'
+    tags:
+      - { name: 'kernel.event_subscriber' }
