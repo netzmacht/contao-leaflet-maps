@@ -60,6 +60,7 @@ class LoadAssetsListener
     {
         $this->assets           = $assets;
         $this->definitionMapper = $definitionMapper;
+        $this->libraries        = $libraries;
     }
 
     /**

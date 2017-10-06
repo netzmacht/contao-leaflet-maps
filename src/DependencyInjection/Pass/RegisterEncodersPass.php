@@ -37,7 +37,7 @@ class RegisterEncodersPass implements CompilerPassInterface
         $definition = $container->getDefinition('netzmacht.contao_leaflet_maps.definition.builder.event_dispatcher');
         $serviceIds = $container->findTaggedServiceIds('netzmacht.contao_leaflet_maps.encoder');
 
-        foreach ($serviceIds as $serviceId => $tags) {
+        foreach (array_keys($serviceIds) as $serviceId) {
             $definition->addMethodCall('addSubscriber', [new Reference($serviceId)]);
         }
     }
