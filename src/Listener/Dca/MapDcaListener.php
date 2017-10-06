@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Netzmacht\Contao\Leaflet\Listeners\Dca;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\DataContainer;
 use Doctrine\DBAL\Connection;

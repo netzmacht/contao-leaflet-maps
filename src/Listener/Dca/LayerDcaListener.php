@@ -10,9 +10,9 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Dca;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
+use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
@@ -23,7 +23,7 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class LayerCallbacks extends Callbacks
+class LayerDcaListener extends AbstractListener
 {
     /**
      * Name of the data container.
@@ -31,13 +31,6 @@ class LayerCallbacks extends Callbacks
      * @var string
      */
     protected static $name = 'tl_leaflet_layer';
-
-    /**
-     * Helper service name.
-     *
-     * @var string
-     */
-    protected static $serviceName = 'leaflet.dca.layer-callbacks';
 
     /**
      * Layers definition.
