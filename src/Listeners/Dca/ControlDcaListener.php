@@ -10,9 +10,10 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Dca;
+namespace Netzmacht\Contao\Leaflet\Listeners\Dca;
 
-use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
+use Doctrine\DBAL\Connection;
+use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
@@ -23,7 +24,7 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class ControlCallbacks extends Callbacks
+class ControlDcaListener extends AbstractListener
 {
     /**
      * Name of the data container.
@@ -33,30 +34,23 @@ class ControlCallbacks extends Callbacks
     protected static $name = 'tl_leaflet_control';
 
     /**
-     * Helper service name.
-     *
-     * @var string
-     */
-    protected static $serviceName = 'leaflet.dca.control-callbacks';
-
-    /**
      * The database connection.
      *
-     * @var \Database
+     * @var Connection
      */
-    private $database;
+    private $connection;
 
     /**
      * Construct.
      *
-     * @param Manager   $manager  Data container manager.
-     * @param \Database $database Database connection.
+     * @param Manager    $manager    Data container manager.
+     * @param Connection $connection Database connection.
      */
-    public function __construct(Manager $manager, \Database $database)
+    public function __construct(Manager $manager, Connection $connection)
     {
         parent::__construct($manager);
 
-        $this->database = $database;
+        $this->connection = $connection;
     }
 
     /**
@@ -113,11 +107,13 @@ class ControlCallbacks extends Callbacks
      */
     public function loadLayerRelations($value, $dataContainer)
     {
-        $result = $this->database
-            ->prepare('SELECT lid As layer, mode FROM tl_leaflet_control_layer WHERE cid=? ORDER BY sorting')
-            ->execute($dataContainer->id);
+        $query     = 'SELECT lid As layer, mode FROM tl_leaflet_control_layer WHERE cid=:cid ORDER BY sorting';
+        $statement = $this->connection->prepare($query);
+        $statement->bindValue('cid', $dataContainer->id);
 
-        return $result->fetchAllAssoc();
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 
     /**
@@ -132,43 +128,40 @@ class ControlCallbacks extends Callbacks
     {
         $new    = deserialize($layers, true);
         $values = array();
-        $result = $this->database
-            ->prepare('SELECT * FROM tl_leaflet_control_layer WHERE cid=? order BY sorting')
-            ->execute($dataContainer->id);
+        $query  = 'SELECT * FROM tl_leaflet_control_layer WHERE cid=:cid order BY sorting';
+        $statement = $this->connection->prepare($query);
+        $statement->bindValue('cid', $dataContainer->id);
 
-        while ($result->next()) {
-            $values[$result->lid] = $result->row();
+        while ($row = $statement->fetch()) {
+            $values[$row['lid']] = $row;
         }
 
         $sorting = 0;
 
         foreach ($new as $layer) {
             if (!isset($values[$layer['layer']])) {
-                $this->database
-                    ->prepare('INSERT INTO tl_leaflet_control_layer %s')
-                    ->set(
-                        array(
-                            'tstamp'  => time(),
-                            'lid'     => $layer['layer'],
-                            'cid'     => $dataContainer->id,
-                            'mode'    => $layer['mode'],
-                            'sorting' => $sorting
-                        )
-                    )
-                    ->execute();
+                $data = [
+                    'tstamp'  => time(),
+                    'lid'     => $layer['layer'],
+                    'cid'     => $dataContainer->id,
+                    'mode'    => $layer['mode'],
+                    'sorting' => $sorting
+                ];
 
+                $this->connection->insert('tl_leaflet_control_layer', $data);
                 $sorting += 128;
             } else {
-                $this->database
-                    ->prepare('UPDATE tl_leaflet_control_layer %s WHERE id=?')
-                    ->set(
-                        array(
-                            'tstamp'  => time(),
-                            'sorting' => $sorting,
-                            'mode'    => $layer['mode']
-                        )
-                    )
-                    ->execute($values[$layer['layer']]['id']);
+                $this->connection->update(
+                    'tl_leaflet_control_layer',
+                    [
+                        'tstamp'  => time(),
+                        'sorting' => $sorting,
+                        'mode'    => $layer['mode']
+                    ],
+                    [
+                        'id' => $values[$layer['layer']]['id']
+                    ]
+                );
 
                 $sorting += 128;
                 unset($values[$layer['layer']]);
@@ -183,7 +176,11 @@ class ControlCallbacks extends Callbacks
         );
 
         if ($ids) {
-            $this->database->query('DELETE FROM tl_leaflet_control_layer WHERE id IN(' . implode(',', $ids) . ')');
+            $this->connection->executeUpdate(
+                'DELETE FROM tl_leaflet_control_layer WHERE id IN(?)',
+                [$ids],
+                [Connection::PARAM_INT_ARRAY]
+            );
         }
 
         return null;

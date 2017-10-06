@@ -4,3 +4,9 @@ services:
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
+
+  netzmacht.contao_leaflet_maps.listeners.dca.control:
+    class: Netzmacht\Contao\Leaflet\Listeners\Dca\ControlDcaListener
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@database_connection'
