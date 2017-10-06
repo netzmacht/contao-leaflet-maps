@@ -171,7 +171,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
                     ['title'],
                     \Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::ALIAS_GENERATOR
                 ),
-                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
+                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateAlias'],
             ),
             'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
             'sql'           => 'varchar(255) NULL'
@@ -236,7 +236,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => array(
-                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateCoordinates')
+                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateCoordinates']
             ),
             'eval'          => array(
                 'maxlength'   => 255,

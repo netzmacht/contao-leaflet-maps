@@ -5,6 +5,11 @@ services:
       - '@filesystem'
       - '%netzmacht.contao_leaflet_maps.cache_dir%'
 
+  netzmacht.contao_leaflet_maps.listeners.dca.validator:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\Validator
+    arguments:
+      - '@translator'
+
   netzmacht.contao_leaflet_maps.listeners.dca.map:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\MapDcaListener
     arguments:

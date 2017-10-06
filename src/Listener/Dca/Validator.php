@@ -10,9 +10,8 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Dca;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
@@ -38,18 +37,6 @@ class Validator
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;
-    }
-
-    /**
-     * Generate the callback definition.
-     *
-     * @param string $methodName Callback method name.
-     *
-     * @return callable
-     */
-    public static function callback($methodName)
-    {
-        return CallbackFactory::service('leaflet.dca.validator', $methodName);
     }
 
     /**

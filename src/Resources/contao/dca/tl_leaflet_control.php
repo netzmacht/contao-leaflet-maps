@@ -177,7 +177,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                     ['title'],
                     \Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices::PARENT_ALIAS_GENERATOR
                 ),
-                \Netzmacht\Contao\Leaflet\Dca\Validator::callback('validateAlias'),
+                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateAlias'],
             ),
             'eval'          => array(
                 'mandatory'   => false,
