@@ -47,5 +47,6 @@ class NetzmachtContaoLeafletExtension extends Extension
         $loader->load('filters.yml');
         $loader->load('mappers.yml');
         $loader->load('encoders.yml');
+        $loader->load('layers.yml');
     }
 }
