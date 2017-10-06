@@ -17,6 +17,7 @@ use Contao\Image;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\LayerLabelRenderer;
+use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -371,6 +372,24 @@ class LayerDcaListener extends AbstractListener
     public function getAmenities()
     {
         return $this->amenities;
+    }
+
+    /**
+     * Get all icons.
+     *
+     * @return array
+     */
+    public function getIcons()
+    {
+        $collection = IconModel::findAll(array('order' => 'title'));
+        $builder    = OptionsBuilder::fromCollection(
+            $collection,
+            function ($model) {
+                return sprintf('%s [%s]', $model['title'], $model['type']);
+            }
+        );
+
+        return $builder->getOptions();
     }
 
     /**
