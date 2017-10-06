@@ -207,7 +207,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => array(
-                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::colorPicker()
+                ['netzmacht.contao_toolkit.dca.listeners.color_picker', 'handleWizardCallback'],
             ),
             'eval'      => array(
                 'tl_class'       => 'w50 wizard clr',
@@ -248,7 +248,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
             'exclude'   => true,
             'inputType' => 'text',
             'wizard'    => array(
-                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::colorPicker()
+                ['netzmacht.contao_toolkit.dca.listeners.color_picker', 'handleWizardCallback'],
             ),
             'eval'      => array(
                 'tl_class'       => 'clr w50 wizard',

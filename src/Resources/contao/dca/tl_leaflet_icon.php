@@ -415,7 +415,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
             'exclude'       => true,
             'inputType'     => 'text',
             'wizard'    => array(
-                \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::colorPicker()
+                ['netzmacht.contao_toolkit.dca.listeners.color_picker', 'handleWizardCallback'],
             ),
             'eval'          => array(
                 'maxlength'   => 64,
