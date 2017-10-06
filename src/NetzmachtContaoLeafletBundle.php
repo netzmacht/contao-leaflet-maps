@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet;
 
+use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterLibrariesPass;
 use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterDefinitionMapperPass;
 use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterEncodersPass;
 use Netzmacht\Contao\Toolkit\DependencyInjection\CompilerPass\AddTaggedServicesAsArgumentCompilerPass;
@@ -34,7 +35,7 @@ class NetzmachtContaoLeafletBundle extends Bundle
     {
         $container->addCompilerPass(new RegisterDefinitionMapperPass());
         $container->addCompilerPass(new RegisterEncodersPass());
-
+        $container->addCompilerPass(new RegisterLibrariesPass());
         $container->addCompilerPass(
             new AddTaggedServicesAsArgumentCompilerPass(
                 'netzmacht.contao_leaflet_maps.layer_label_renderer',
