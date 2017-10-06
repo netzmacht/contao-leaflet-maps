@@ -114,10 +114,15 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => \Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory::stateButton(
-                    'tl_leaflet_layer',
-                    'active'
-                ),
+                'button_callback' => [
+                    'netzmacht.contao_toolkit.dca.listeners.state_button_callback',
+                    'handleButtonCallback'
+                ],
+                'toolkit' => [
+                    'state_button' => [
+                        'stateColumn' => ['active']
+                    ]
+                ],
             ],
             'show'    => [
                 'label' => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['show'],
