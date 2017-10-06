@@ -1,0 +1,177 @@
+# Leaflet mappers.
+#
+# Mappers translate between the database models and the leaflet definition.
+services:
+  _defaults:
+    public: false
+
+
+  # Map mapper
+  netzmacht.contao_leaflet_maps.mapper.map:
+    class: Netzmacht\Contao\Leaflet\Mapper\MapMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+
+  # Layer mappers
+  netzmacht.contao_leaflet_maps.mapper.tile_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\TileLayerMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.provider_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\ProviderLayerMapper
+    arguments:
+      - '%netzmacht.contao_leaflet_maps.providers%'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.markers_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLayerMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.group_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.vectors_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLayerMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.reference_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\ReferenceLayerMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.overpass_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\OverpassLayerMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.marker_cluster_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\MarkerClusterLayerMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.map.assets'
+    tags:
+      - { name: netzmacht.contao_leflet_maps.mapper }
+
+
+  # Control mappers
+  netzmacht.contao_leaflet_maps.mapper.zoom_control:
+    class: Netzmacht\Contao\Leaflet\Mapper\Control\ZoomControlMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.scale_control:
+    class: Netzmacht\Contao\Leaflet\Mapper\Control\ScaleControlMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.layers_control:
+    class: Netzmacht\Contao\Leaflet\Mapper\Control\LayersControlMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.attribution_control:
+    class: Netzmacht\Contao\Leaflet\Mapper\Control\AttributionControlMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.loading_control:
+    class: Netzmacht\Contao\Leaflet\Mapper\Control\LoadingControlMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.fullscreen_control:
+    class: Netzmacht\Contao\Leaflet\Mapper\Control\FullscreenControlMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+
+  # Vector mappers
+  netzmacht.contao_leaflet_maps.mapper.polyline:
+    class: Netzmacht\Contao\Leaflet\Mapper\Vector\PolylineMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.multi_polyline:
+    class: Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolylineMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.polygon:
+    class: Netzmacht\Contao\Leaflet\Mapper\Vector\PolygonMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.multi_polygon:
+    class: Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolygonMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.circle:
+    class: Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.circle_mapper:
+    class: Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMarkerMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.rectangle_mapper:
+    class: Netzmacht\Contao\Leaflet\Mapper\Vector\RectangleMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+
+  # Miscellaneous mappers
+  netzmacht.contao_leaflet_maps.mapper.popup:
+    class: Netzmacht\Contao\Leaflet\Mapper\UI\PopupMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.image_icon:
+    class: Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.div_icon:
+    class: Netzmacht\Contao\Leaflet\Mapper\Type\DivIconMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.extra_markers:
+    class: Netzmacht\Contao\Leaflet\Mapper\Type\ExtraMarkersIconMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.fixed_style:
+    class: Netzmacht\Contao\Leaflet\Mapper\Style\FixedStyleMapper
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+
+  netzmacht.contao_leaflet_maps.mapper.marker:
+    class: Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.frontend.value_filter'
+    tags:
+      - { name: netzmacht.contao_leaflet_maps.mapper }
+

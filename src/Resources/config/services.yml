@@ -1,3 +1,6 @@
 services:
   netzmacht.contao_leaflet_maps.frontend.value_filter:
     class:
+
+  netzmacht.contao_leaflet_maps.map.assets:
+    class:
