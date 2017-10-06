@@ -14,8 +14,11 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use Database\Result;
-use Model\Collection;
+use Contao\Config;
+use Contao\Database\Result;
+use Contao\Input;
+use Contao\Model;
+use Contao\Model\Collection;
 use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Component\Hybrid\AbstractHybrid;
@@ -53,21 +56,21 @@ abstract class AbstractMapHybrid extends AbstractHybrid
     /**
      * HybridTrait constructor.
      *
-     * @param Result|\Model|Collection $model           Component model.
-     * @param TemplateFactory          $templateFactory Template factory.
-     * @param Translator               $translator      Translator.
-     * @param MapProvider              $mapProvider     Map provider.
-     * @param \Input                   $input           Request Input.
-     * @param \Config                  $config          Config.
-     * @param string                   $column          Column in which the element appears.
+     * @param Result|Model|Collection $model           Component model.
+     * @param TemplateFactory         $templateFactory Template factory.
+     * @param Translator              $translator      Translator.
+     * @param MapProvider             $mapProvider     Map provider.
+     * @param Input                   $input           Request Input.
+     * @param Config                  $config          Config.
+     * @param string                  $column          Column in which the element appears.
      */
     public function __construct(
         $model,
         TemplateFactory $templateFactory,
         Translator $translator,
         MapProvider $mapProvider,
-        \Input $input,
-        \Config $config,
+        Input $input,
+        Config $config,
         $column = null
     ) {
         parent::__construct($model, $templateFactory, $translator, $column);
