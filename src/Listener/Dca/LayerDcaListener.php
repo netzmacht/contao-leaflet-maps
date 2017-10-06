@@ -12,6 +12,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\Controller;
+use Contao\Image;
+use Contao\StringUtil;
+use Doctrine\DBAL\Connection;
+use Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\LayerLabelRenderer;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -42,9 +47,9 @@ class LayerDcaListener extends AbstractListener
     /**
      * The database connection.
      *
-     * @var \Database
+     * @var Connection
      */
-    private $database;
+    private $connection;
     
     /**
      * Tile providers configuration.
@@ -68,32 +73,42 @@ class LayerDcaListener extends AbstractListener
     private $amenities;
 
     /**
+     * Layer label renderer.
+     *
+     * @var LayerLabelRenderer
+     */
+    private $labelRenderer;
+
+    /**
      * Construct.
      *
-     * @param Manager    $manager       Data container manager.
-     * @param \Database  $database      Database connection.
-     * @param Translator $translator    Translator.
-     * @param array      $layers        Leaflet layer configuration.
-     * @param array      $tileProviders Tile providers.
-     * @param array      $amenities     OSM amenities.
+     * @param Manager            $manager       Data container manager.
+     * @param Connection         $connection    Database connection.
+     * @param Translator         $translator    Translator.
+     * @param LayerLabelRenderer $labelRenderer Layer label renderer.
+     * @param array              $layers        Leaflet layer configuration.
+     * @param array              $tileProviders Tile providers.
+     * @param array              $amenities     OSM amenities.
      */
     public function __construct(
         Manager $manager,
-        \Database $database,
+        Connection $connection,
         Translator $translator,
+        LayerLabelRenderer $labelRenderer,
         array $layers,
         array $tileProviders,
         array $amenities
     ) {
         parent::__construct($manager);
 
-        \Controller::loadLanguageFile('leaflet_layer');
+        Controller::loadLanguageFile('leaflet_layer');
 
-        $this->database      = $database;
+        $this->connection    = $connection;
         $this->layers        = $layers;
         $this->tileProviders = $tileProviders;
         $this->translator    = $translator;
         $this->amenities     = $amenities;
+        $this->labelRenderer = $labelRenderer;
     }
 
     /**
@@ -135,12 +150,9 @@ class LayerDcaListener extends AbstractListener
             $src = preg_replace('/(\.[^\.]+)$/', '_1$1', $src);
         }
 
-        $alt  = $this->getFormatter()->formatValue('type', $row['type']);
-        $icon = \Image::getHtml($src, $alt, sprintf('title="%s"', strip_tags($alt)));
-
-        if (!empty($this->layers[$row['type']]['label'])) {
-            $label = $this->layers[$row['type']]['label']($row, $label);
-        }
+        $alt   = $this->getFormatter()->formatValue('type', $row['type']);
+        $icon  = Image::getHtml($src, $alt, sprintf('title="%s"', StringUtil::specialchars(strip_tags($alt))));
+        $label = $this->labelRenderer->render($row, $label, $this->translator);
 
         return $icon . ' ' . $label;
     }
@@ -282,13 +294,13 @@ class LayerDcaListener extends AbstractListener
     public function deleteRelations($dataContainer, $undoId)
     {
         if ($undoId) {
-            $undo = $this->database
-                ->prepare('SELECT * FROM tl_undo WHERE id=?')
-                ->limit(1)
-                ->execute($undoId)
-                ->row();
+            $statement = $this->connection->prepare('SELECT * FROM tl_undo WHERE id=:id LIMIT 0,1');
+            $statement->bindValue('id', $undoId);
+            $statement->execute();
 
-            $result = $this->database
+            $undo = $statement->fetch();
+
+            $result = $this->connection
                 ->prepare('SELECT * FROM tl_leaflet_map_layer WHERE lid=?')
                 ->execute($dataContainer->id);
 
@@ -298,26 +310,17 @@ class LayerDcaListener extends AbstractListener
                 $undo['data']['tl_leaflet_map_layer'][] = $result->row();
             }
 
-            $result = $this->database
-                ->prepare('SELECT * FROM tl_leaflet_control_layer WHERE lid=?')
-                ->execute($dataContainer->id);
+            $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_control_layer WHERE lid=:lid');
+            $statement->bindValue('lid', $dataContainer->id);
+            $statement->execute();
 
-            while ($result->next()) {
-                $undo['data']['tl_leaflet_control_layer'][] = $result->row();
-            }
+            $undo['data']['tl_leaflet_control_layer'] = $statement->fetchAll();
 
-            $this->database->prepare('UPDATE tl_undo %s WHERE id=?')
-                ->set(array('data' => $undo['data']))
-                ->execute($undo['id']);
+            $this->connection->update('tl_undo', ['data' => $undo['data']], ['id' => $undo['id']]);
         }
 
-        $this->database
-            ->prepare('DELETE FROM tl_leaflet_map_layer WHERE lid=?')
-            ->execute($dataContainer->id);
-
-        $this->database
-            ->prepare('DELETE FROM tl_leaflet_control_layer WHERE lid=?')
-            ->execute($dataContainer->id);
+        $this->connection->delete('tl_leaflet_map_layer', ['lid' => $dataContainer->id]);
+        $this->connection->delete('tl_leaflet_control_layer', ['lid' => $dataContainer->id]);
     }
 
     /**

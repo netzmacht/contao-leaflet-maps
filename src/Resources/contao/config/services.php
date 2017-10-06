@@ -16,11 +16,11 @@ use Interop\Container\ContainerInterface;
 use Netzmacht\Contao\Leaflet\Alias\DefaultAliasFilter;
 use Netzmacht\Contao\Leaflet\Boot;
 use Netzmacht\Contao\Leaflet\ContaoAssets;
-use Netzmacht\Contao\Leaflet\Listeners\Dca\ControlDcaListener;
+use Netzmacht\Contao\Leaflet\Listener\Dca\ControlDcaListener;
 use Netzmacht\Contao\Leaflet\Dca\FrontendIntegration;
-use Netzmacht\Contao\Leaflet\Dca\LayerCallbacks;
+use Netzmacht\Contao\Leaflet\Listener\Dca\LayerDcaListener;
 use Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks;
-use Netzmacht\Contao\Leaflet\Listeners\Dca\MapDcaListener;
+use Netzmacht\Contao\Leaflet\Listener\Dca\MapDcaListener;
 use Netzmacht\Contao\Leaflet\Dca\Validator;
 use Netzmacht\Contao\Leaflet\Dca\VectorCallbacks;
 use Netzmacht\Contao\Leaflet\DependencyInjection\LeafletServices;
@@ -243,7 +243,7 @@ $container['leaflet.dca.map-callbacks'] = $container->share(
 
 $container['leaflet.dca.layer-callbacks'] = $container->share(
     function ($container) {
-        return new LayerCallbacks(
+        return new LayerDcaListener(
             $container[Services::DCA_MANAGER],
             $container[Services::DATABASE_CONNECTION],
             $container[Services::TRANSLATOR],

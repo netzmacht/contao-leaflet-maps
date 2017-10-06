@@ -16,7 +16,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
         'enableVersioning'  => true,
         'ctable'            => ['tl_leaflet_vector', 'tl_leaflet_marker'],
         'ondelete_callback' => [
-            \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('deleteRelations'),
+            ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'deleteRelations'],
         ],
         'sql'               => [
             'keys' => [
@@ -41,12 +41,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'flag'                  => 1,
             'icon'                  => 'system/modules/leaflet/assets/img/layers.png',
             'panelLayout'           => 'filter;search,limit',
-            'paste_button_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getPasteButtons'),
+            'paste_button_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getPasteButtons'],
         ],
         'label'             => [
             'fields'         => ['title'],
             'format'         => '%s',
-            'label_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('generateRow'),
+            'label_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'generateRow'],
         ],
         'global_operations' => [
             'styles' => [
@@ -79,13 +79,13 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['markers'],
                 'href'            => 'table=tl_leaflet_marker',
                 'icon'            => 'edit.gif',
-                'button_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('generateMarkersButton'),
+                'button_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'generateMarkersButton'],
             ],
             'vectors' => [
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['vectors'],
                 'href'            => 'table=tl_leaflet_vector',
                 'icon'            => 'edit.gif',
-                'button_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('generateVectorsButton'),
+                'button_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'generateVectorsButton'],
             ],
             'edit'    => [
                 'label' => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['edit'],
@@ -321,7 +321,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'submitOnChange' => true,
                 'chosen'         => false,
             ],
-            'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getVariants'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getVariants'],
             'sql'              => "varchar(32) NOT NULL default ''",
         ],
         'tile_provider_key'              => [
@@ -365,7 +365,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['reference'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getLayers'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getLayers'],
             'eval'             => [
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
@@ -525,7 +525,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['boundsMode'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getBoundsModes'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getBoundsModes'],
             'eval'             => ['tl_class' => 'w50', 'includeBlankOption' => true],
             'sql'              => "varchar(6) NOT NULL default ''",
         ],
@@ -810,7 +810,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                         'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'],
                         'exclude'          => true,
                         'inputType'        => 'select',
-                        'options_callback' => \Netzmacht\Contao\Leaflet\Dca\LayerCallbacks::callback('getAmenities'),
+                        'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getAmenities'],
                         'eval'             => [
                             'mandatory' => true,
                             'tl_class'  => 'w50',

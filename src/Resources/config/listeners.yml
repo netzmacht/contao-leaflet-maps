@@ -10,3 +10,14 @@ services:
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
+
+  netzmacht.contao_leaflet_maps.listeners.dca.layer:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\LayerDcaListener
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@database_connection'
+      - '@translator'
+      - '@netzmacht.contao_leaflet_maps.layer_label_renderer'
+      - '%netzmacht.contao_leaflet_maps.layers%'
+      - '%netzmacht.contao_leaflet_maps.providers%'
+      - '%netzmacht.contao_leaflet_maps.amenities%'
