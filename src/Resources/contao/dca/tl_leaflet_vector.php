@@ -44,7 +44,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'flag'                    => 1,
             'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => Netzmacht\Contao\Leaflet\Dca\VectorCallbacks::callback('generateRow'),
+            'child_record_callback'   => ['netzmacht.contao_leaflet_maps.listeners.dca.vector', 'generateRow'],
         ),
         'label' => array
         (
@@ -264,7 +264,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['popup'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => array('Netzmacht\Contao\Leaflet\Dca\MarkerCallbacks', 'getPopups'),
+            'options_callback' => array('Netzmacht\Contao\Leaflet\Listener\Dca\MarkerDcaListener', 'getPopups'),
             'eval'      => array(
                 'mandatory'          => false,
                 'tl_class'           => 'w50',
@@ -287,7 +287,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options_callback' => Netzmacht\Contao\Leaflet\Dca\VectorCallbacks::callback('getStyles'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.vector', 'getStyles'],
             'eval'      => array(
                 'mandatory'  => false,
                 'tl_class'   => 'w50',

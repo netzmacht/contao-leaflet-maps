@@ -10,9 +10,10 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Dca;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Netzmacht\Contao\Toolkit\Dca\Callback\Callbacks;
+use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 
@@ -21,7 +22,7 @@ use Netzmacht\Contao\Leaflet\Model\StyleModel;
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class VectorCallbacks extends Callbacks
+class VectorDcaListener extends AbstractListener
 {
     /**
      * Name of the data container.
@@ -29,13 +30,6 @@ class VectorCallbacks extends Callbacks
      * @var string
      */
     protected static $name = 'tl_leaflet_vector';
-
-    /**
-     * Helper service name.
-     *
-     * @var string
-     */
-    protected static $serviceName = 'leaflet.dca.vector-callbacks';
 
     /**
      * Generate the row label.
@@ -63,5 +57,23 @@ class VectorCallbacks extends Callbacks
         $collection = StyleModel::findAll(array('order' => 'title'));
 
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
+    }
+
+    /**
+     * Get all icons.
+     *
+     * @return array
+     */
+    public function getIcons()
+    {
+        $collection = IconModel::findAll(array('order' => 'title'));
+        $builder    = OptionsBuilder::fromCollection(
+            $collection,
+            function ($model) {
+                return sprintf('%s [%s]', $model['title'], $model['type']);
+            }
+        );
+
+        return $builder->getOptions();
     }
 }
