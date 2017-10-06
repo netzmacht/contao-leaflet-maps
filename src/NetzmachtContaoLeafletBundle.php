@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet;
 
 use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterDefinitionMapperPass;
+use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterEncodersPass;
 use Netzmacht\Contao\Toolkit\DependencyInjection\CompilerPass\AddTaggedServicesAsArgumentCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -32,6 +33,7 @@ class NetzmachtContaoLeafletBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new RegisterDefinitionMapperPass());
+        $container->addCompilerPass(new RegisterEncodersPass());
 
         $container->addCompilerPass(
             new AddTaggedServicesAsArgumentCompilerPass(
