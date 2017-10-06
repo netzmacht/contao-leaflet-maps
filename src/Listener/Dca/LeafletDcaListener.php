@@ -10,46 +10,44 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Dca;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\DataContainer;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
-use Netzmacht\Contao\Toolkit\Dca\Callback\CallbackFactory;
 use Netzmacht\LeafletPHP\Value\LatLng;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class Leaflet is the base helper providing different methods.
  *
  * @package Netzmacht\Contao\Leaflet\Dca
  */
-class LeafletCallbacks
+class LeafletDcaListener
 {
     /**
      * File system.
      *
-     * @var \Files
+     * @var Filesystem
      */
     private $fileSystem;
 
     /**
-     * LeafletCallbacks constructor.
+     * Cache dir.
      *
-     * @param \Files $fileSystem File system.
+     * @var string
      */
-    public function __construct(\Files $fileSystem)
-    {
-        $this->fileSystem = $fileSystem;
-    }
+    private $cacheDir;
 
     /**
-     * Generate the callback definition.
+     * LeafletCallbacks constructor.
      *
-     * @param string $methodName Callback method name.
-     *
-     * @return callable
+     * @param Filesystem $fileSystem File system.
+     * @param string     $cacheDir   Cache dir.
      */
-    public static function callback($methodName)
+    public function __construct(Filesystem $fileSystem, string $cacheDir)
     {
-        return CallbackFactory::service('leaflet.dca.common', $methodName);
+        $this->fileSystem = $fileSystem;
+        $this->cacheDir   = $cacheDir;
     }
 
     /**
@@ -65,7 +63,7 @@ class LeafletCallbacks
     /**
      * Get the geocoder wizard.
      *
-     * @param \DataContainer $dataContainer The dataContainer driver.
+     * @param DataContainer $dataContainer The dataContainer driver.
      *
      * @return string
      */
@@ -78,9 +76,8 @@ class LeafletCallbacks
             $latLng           = LatLng::fromString($dataContainer->value);
             $template->marker = json_encode($latLng);
         } catch (\Exception $e) {
-            // LatLng throws an exeption of value could not be created. Just let the value empty when.
+            // LatLng throws an exception of value could not be created. Just let the value empty when.
         }
-
 
         return $template->parse();
     }
@@ -113,7 +110,7 @@ class LeafletCallbacks
      */
     public function clearCache($value = null)
     {
-        $this->fileSystem->rrdir('system/cache/leaflet', true);
+        $this->fileSystem->remove($this->cacheDir);
 
         return $value;
     }

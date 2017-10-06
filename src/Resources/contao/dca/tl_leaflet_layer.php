@@ -31,7 +31,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             },
         ],
         'onsubmit_callback' => [
-            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
         ],
     ],
     'list'   => [
@@ -294,7 +294,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'eval'          => ['tl_class' => 'w50'],
             'sql'           => "char(1) NOT NULL default ''",
             'save_callback' => [
-                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
             ],
         ],
         'tile_provider'                  => [
@@ -452,7 +452,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['disableClusteringAtZoom'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getZoomLevels'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getZoomLevels'],
             'default'          => '',
             'eval'             => [
                 'maxlength'          => 4,
@@ -541,7 +541,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['minZoom'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getZoomLevels'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getZoomLevels'],
             'eval'             => [
                 'maxlength'          => 4,
                 'rgxp'               => 'digit',
@@ -555,7 +555,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['maxZoom'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getZoomLevels'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getZoomLevels'],
             'eval'             => [
                 'maxlength'          => 4,
                 'rgxp'               => 'digit',
@@ -569,7 +569,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['maxNativeZoom'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getZoomLevels'),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getZoomLevels'],
             'eval'             => [
                 'maxlength'          => 4,
                 'rgxp'               => 'digit',

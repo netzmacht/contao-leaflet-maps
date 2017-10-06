@@ -29,7 +29,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             ['netzmacht.contao_leaflet_maps.listeners.dca.marker', 'initialize'],
         ),
         'onsubmit_callback' => [
-            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
         ],
     ),
 
@@ -199,7 +199,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 array('netzmacht.contao_leaflet_maps.listeners.dca.marker', 'loadCoordinates')
             ),
             'wizard'        => array(
-                Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('getGeocoder')
+                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getGeocoder']
             ),
             'eval'          => array(
                 'maxlength'      => 255,
@@ -243,7 +243,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''",
             'save_callback' => [
-                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
             ],
         ),
         'tooltip'      => array

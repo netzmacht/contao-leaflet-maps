@@ -27,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             )
         ),
         'onsubmit_callback' => [
-            \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
         ],
     ),
 
@@ -227,7 +227,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
             'eval'      => array('tl_class' => 'w50'),
             'sql'       => "char(1) NOT NULL default ''",
             'save_callback' => [
-                \Netzmacht\Contao\Leaflet\Dca\LeafletCallbacks::callback('clearCache'),
+                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
             ],
         ),
         'zoomInText'  => array
