@@ -1,6 +1,75 @@
+parameters:
+  netzmacht.contao_leaflet_maps.cache_dir: '%kernel.cache_dir%/leaflet'
+
+  # JSON_UNESCAPED_SLASHES ^ Netzmacht\JavascriptBuilder\Flags::BUILD_STACK
+  netzmacht.contao_leaflet_maps.encoding_flags: 16448
+
 services:
+  netzmacht.contao_leaflet_maps.map.provider:
+    class: Netzmacht\Contao\Leaflet\MapProvider
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.definition.mapper'
+      - '@netzmacht.contao_leaflet_maps.definition.builder'
+      - '@event_dispatcher'
+      - '@netzmacht.contao_toolkit.contao.input'
+      - '@netzmacht.contao_leaflet_maps.map.assets'
+      - '@netzmacht.contao_leaflet_maps.cache'
+      - '' # TODO: Rework filter handling.
+      - '%kernel.debug%'
+
+  netzmacht.contao_leaflet_maps.cache:
+    alias: 'netzmacht.contao_leaflet_maps.cache.default'
+
+  netzmacht.contao_leaflet_maps.cache.default:
+    class: Doctrine\Common\Cache\FilesystemCache
+    arguments:
+      - '%netzmacht.contao_leaflet_maps.cache_dir%'
+
+  netzmacht.contao_leaflet_maps.cache.debug:
+    class: Doctrine\Common\Cache\ArrayCache
+
   netzmacht.contao_leaflet_maps.frontend.value_filter:
-    class:
+    class: Netzmacht\Contao\Leaflet\Frontend\ValueFilter
+    arguments:
+      - '@netzmacht.contao_toolkit.insert_tag.replacer'
 
   netzmacht.contao_leaflet_maps.map.assets:
-    class:
+    class: Netzmacht\Contao\Leaflet\ContaoAssets
+    arguments:
+      - '@netzmacht.contao_toolkit.assets_manager'
+
+  netzmacht.contao_leaflet_maps.definition.builder:
+    class: Netzmacht\LeafletPHP\Leaflet
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.definition.builder.javascript_builder'
+      - '@netzmacht.contao_leaflet_maps.definition.builder.event_dispatcher'
+      - []
+      - '%netzmacht.contao_leaflet_maps.encoding_flags%'
+
+  netzmacht.contao_leaflet_maps.definition.builder.javascript_builder:
+    class: Netzmacht\JavascriptBuilder\Builder
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.definition.encoder_factory'
+
+  netzmacht.contao_leaflet_maps.definition.builder.event_dispatcher:
+    class: Symfony\Component\EventDispatcher\EventDispatcher
+
+  netzmacht.contao_leaflet_maps.definition.mapper:
+    class: Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper
+    arguments:
+      - '@event_dispatcher'
+
+  netzmacht.contao_leaflet_maps.definition.encoder_factory:
+    class: Netzmacht\Contao\Leaflet\Encoder\EncoderFactory
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.definition.builder.event_dispatcher'
+
+  netzmacht.contao_leaflet_maps.definition.alias_generator.factory_default:
+    class: Netzmacht\Contao\Leaflet\Alias\DefaultAliasGeneratorFactory
+    arguments:
+      - '@database_connection'
+
+  netzmacht.contao_leaflet_maps.definition.alias_generator.factory_parent:
+    class: Netzmacht\Contao\Leaflet\Alias\ParentAliasGeneratorFactory
+    arguments:
+      - '@database_connection'
