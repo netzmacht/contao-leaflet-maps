@@ -25,11 +25,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'alias' => 'unique',
             ],
         ],
-        'onload_callback'   => [
-            function () {
-                \Controller::loadLanguageFile('leaflet');
-            },
-        ],
+        'onload_callback' => array(
+            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'loadLanguageFile'],
+        ),
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
         ],

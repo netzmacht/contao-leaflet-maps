@@ -26,9 +26,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
             )
         ),
         'onload_callback' => array(
-            function () {
-                \Controller::loadLanguageFile('leaflet');
-            }
+            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'loadLanguageFile'],
         ),
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],

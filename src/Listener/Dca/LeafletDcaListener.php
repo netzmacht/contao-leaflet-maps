@@ -12,6 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\Controller;
 use Contao\DataContainer;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\LeafletPHP\Value\LatLng;
@@ -48,6 +49,16 @@ class LeafletDcaListener
     {
         $this->fileSystem = $fileSystem;
         $this->cacheDir   = $cacheDir;
+    }
+
+    /**
+     * Load the language files.
+     *
+     * @return void
+     */
+    public function loadLanguageFile(): void
+    {
+        Controller::loadLanguageFile('leaflet');
     }
 
     /**

@@ -10,8 +10,6 @@
  * @filesource
  */
 
-\Controller::loadLanguageFile('leaflet');
-
 $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
 (
     'config' => array(
@@ -25,6 +23,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 'id'    => 'primary',
                 'pid'   => 'index',
             )
+        ),
+        'onload_callback' => array(
+            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'loadLanguageFile'],
         ),
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
