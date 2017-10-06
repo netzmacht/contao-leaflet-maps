@@ -58,3 +58,6 @@ parameters:
       - 'id'
       - 'title'
       - 'alias'
+
+  # Leaflet libraries files
+  netzmacht.contao_leaflet_maps.libraries: []

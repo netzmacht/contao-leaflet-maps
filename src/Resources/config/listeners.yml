@@ -54,3 +54,12 @@ services:
       - '%netzmacht.contao_leaflet_maps.feature_model_properties%'
     tags:
       - { name: 'kernel.event_subscriber' }
+
+  netzmacht.contao_leaflet_maps.listeners.load_assets:
+    class: Netzmacht\Contao\Leaflet\Listener\LoadAssetsListener
+    arguments:
+      - '@netzmacht.contao_leaflet_maps.map.assets'
+      - '@netzmacht.contao_leaflet_maps.definition.mapper'
+      - '%netzmacht.contao_leaflet_maps.libraries%'
+    tags:
+      - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.get_javascript' }
