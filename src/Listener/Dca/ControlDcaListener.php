@@ -12,6 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
@@ -109,8 +110,8 @@ class ControlDcaListener extends AbstractListener
     {
         $query     = 'SELECT lid As layer, mode FROM tl_leaflet_control_layer WHERE cid=:cid ORDER BY sorting';
         $statement = $this->connection->prepare($query);
-        $statement->bindValue('cid', $dataContainer->id);
 
+        $statement->bindValue('cid', $dataContainer->id);
         $statement->execute();
 
         return $statement->fetchAll();
@@ -126,9 +127,9 @@ class ControlDcaListener extends AbstractListener
      */
     public function saveLayerRelations($layers, $dataContainer)
     {
-        $new    = deserialize($layers, true);
-        $values = array();
-        $query  = 'SELECT * FROM tl_leaflet_control_layer WHERE cid=:cid order BY sorting';
+        $new       = StringUtil::deserialize($layers, true);
+        $values    = [];
+        $query     = 'SELECT * FROM tl_leaflet_control_layer WHERE cid=:cid order BY sorting';
         $statement = $this->connection->prepare($query);
         $statement->bindValue('cid', $dataContainer->id);
 
