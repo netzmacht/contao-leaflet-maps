@@ -1,3 +1,7 @@
+# Leaflet encoders.
+#
+# The encoders transforms the definitions into javascript. The encoders has to be an implementation of the
+# EventSubscriberInterface of the event dispatcher.
 services:
   netzmacht.contao_leaflet_maps.encoder.map:
     class: Netzmacht\LeafletPHP\Encoder\MapEncoder
