@@ -30,8 +30,8 @@ array_insert(
                     'tl_leaflet_map',
                     'tl_leaflet_control',
                 ),
-                'icon'       => 'system/modules/leaflet/assets/img/map.png',
-                'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/map.png',
+                'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/backend.css',
             ),
             'leaflet_layer' => array
             (
@@ -44,14 +44,14 @@ array_insert(
                     'tl_leaflet_style',
                     'tl_leaflet_popup',
                 ),
-                'icon'       => 'system/modules/leaflet/assets/img/layers.png',
-                'stylesheet' => 'system/modules/leaflet/assets/css/backend.css',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/layers.png',
+                'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/backend.css',
             ),
             'leaflet_about' => array
             (
                 'callback'   => 'Netzmacht\Contao\Leaflet\Backend\About',
-                'icon'       => 'system/modules/leaflet/assets/img/about.png',
-                'stylesheet' => 'system/modules/leaflet/assets/css/about.css',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/about.png',
+                'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/about.css',
             )
         )
     )

@@ -55,14 +55,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'],
                 'href'                => 'table=tl_leaflet_icon&id=',
-                'icon'                => 'system/modules/leaflet/assets/img/icons.png',
+                'icon'                => 'bundles/netzmachtcontaoleaflet/img/icons.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
             ),
             'popups' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'],
                 'href'                => 'table=tl_leaflet_popup',
-                'icon'                => 'system/modules/leaflet/assets/img/popup.png',
+                'icon'                => 'bundles/netzmachtcontaoleaflet/img/popup.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();"'
             ),
             'all' => array

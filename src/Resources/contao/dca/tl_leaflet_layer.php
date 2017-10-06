@@ -37,7 +37,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'mode'                  => 5,
             'fields'                => ['title'],
             'flag'                  => 1,
-            'icon'                  => 'system/modules/leaflet/assets/img/layers.png',
+            'icon'                  => 'bundles/netzmachtcontaoleaflet/img/layers.png',
             'panelLayout'           => 'filter;search,limit',
             'paste_button_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getPasteButtons'],
         ],
@@ -50,19 +50,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'styles' => [
                 'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['styles'],
                 'href'       => 'table=tl_leaflet_style',
-                'icon'       => 'system/modules/leaflet/assets/img/style.png',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/style.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
             ],
             'icons'  => [
                 'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['icons'],
                 'href'       => 'table=tl_leaflet_icon',
-                'icon'       => 'system/modules/leaflet/assets/img/icons.png',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/icons.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
             ],
             'popups' => [
                 'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['popups'],
                 'href'       => 'table=tl_leaflet_popup',
-                'icon'       => 'system/modules/leaflet/assets/img/popup.png',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/popup.png',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
             ],
             'all'    => [

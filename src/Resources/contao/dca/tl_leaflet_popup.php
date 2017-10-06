@@ -49,21 +49,21 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_popup']['layersBtn'],
                 'href'                => 'table=tl_leaflet_layer',
-                'icon'                => 'system/modules/leaflet/assets/img/layers.png',
+                'icon'                => 'bundles/netzmachtcontaoleaflet/img/layers.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
             ),
             'styles' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_popup']['styles'],
                 'href'                => 'table=tl_leaflet_style',
-                'icon'                => 'system/modules/leaflet/assets/img/style.png',
+                'icon'                => 'bundles/netzmachtcontaoleaflet/img/style.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();"'
             ),
             'icons' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_popup']['icons'],
                 'href'                => 'table=tl_leaflet_icon',
-                'icon'                => 'system/modules/leaflet/assets/img/icons.png',
+                'icon'                => 'bundles/netzmachtcontaoleaflet/img/icons.png',
                 'attributes'          => 'onclick="Backend.getScrollOffset();"'
             ),
             'all' => array

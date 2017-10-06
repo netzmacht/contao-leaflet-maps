@@ -18,7 +18,7 @@
     </div>
     <div class="right">
         <a href="http://www.netzmacht.de" <?php echo LINK_NEW_WINDOW; ?>>
-        <img src="system/modules/leaflet/assets/img/logo.png"></a>
+        <img src="bundles/netzmachtcontaoleaflet/img/logo.png"></a>
         <p>
             <strong class="company">netzmacht </strong><br>
             David Molineus<br>
