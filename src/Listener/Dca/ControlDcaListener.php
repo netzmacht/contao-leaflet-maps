@@ -10,7 +10,7 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Listeners\Dca;
+namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
