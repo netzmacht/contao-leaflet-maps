@@ -17,6 +17,11 @@ services:
       - [] # TODO: Rework filter handling.
       - '%kernel.debug%'
 
+  netzmacht.contao_leaflet_maps.libraries:
+    class: Netzmacht\Contao\Leaflet\Frontend\Assets\LibrariesConfiguration
+    arguments:
+      - '@contao.framework'
+
   netzmacht.contao_leaflet_maps.cache:
     alias: 'netzmacht.contao_leaflet_maps.cache.default'
 

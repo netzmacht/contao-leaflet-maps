@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Listener;
 
 use Netzmacht\Contao\Leaflet\ContaoAssets;
+use Netzmacht\Contao\Leaflet\Frontend\Assets\LibrariesConfiguration;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\LeafletPHP\Assets;
@@ -45,18 +46,18 @@ class LoadAssetsListener
     /**
      * Libraries.
      *
-     * @var array
+     * @var LibrariesConfiguration
      */
     private $libraries;
 
     /**
      * LoadAssetsListener constructor.
      *
-     * @param Assets           $assets           Assets.
-     * @param DefinitionMapper $definitionMapper Definition mapper.
-     * @param array            $libraries        Libraries.
+     * @param Assets                 $assets           Assets.
+     * @param DefinitionMapper       $definitionMapper Definition mapper.
+     * @param LibrariesConfiguration $libraries        Libraries.
      */
-    public function __construct(Assets $assets, DefinitionMapper $definitionMapper, array $libraries)
+    public function __construct(Assets $assets, DefinitionMapper $definitionMapper, LibrariesConfiguration $libraries)
     {
         $this->assets           = $assets;
         $this->definitionMapper = $definitionMapper;
@@ -70,7 +71,10 @@ class LoadAssetsListener
      */
     public function onGetJavascriptEvent(): void
     {
-        $this->assets->addJavascript('assets/leaflet/maps/contao-leaflet.js', ContaoAssets::TYPE_FILE);
+        $this->assets->addJavascript(
+            'web/bundles/netzmachtcontaoleaflet/js/contao-leaflet.js',
+            ContaoAssets::TYPE_FILE
+        );
 
         $collection = IconModel::findBy('active', true);
 
