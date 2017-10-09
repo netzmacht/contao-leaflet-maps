@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\DataContainer;
+use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
@@ -88,7 +89,7 @@ class MapDcaListener extends AbstractListener
      */
     public function saveLayerRelations($layerId, $dataContainer)
     {
-        $new       = deserialize($layerId, true);
+        $new       = array_filter(StringUtil::deserialize($layerId, true));
         $values    = array();
         $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE mid=:mid order BY sorting');
 
