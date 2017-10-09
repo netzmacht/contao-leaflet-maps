@@ -22,3 +22,6 @@ build.properties
 
 # Translations
 .tx
+
+# NPM
+package-lock.json
