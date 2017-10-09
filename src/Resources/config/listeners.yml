@@ -67,4 +67,4 @@ services:
       - '@netzmacht.contao_leaflet_maps.definition.mapper'
       - '%netzmacht.contao_leaflet_maps.libraries%'
     tags:
-      - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.get_javascript' }
+      - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.get_javascript', method: 'onGetJavascriptEvent' }
