@@ -69,8 +69,8 @@ abstract class AbstractMapHybrid extends AbstractHybrid
         TemplateFactory $templateFactory,
         Translator $translator,
         MapProvider $mapProvider,
-        Input $input,
-        Config $config,
+        $input,
+        $config,
         $column = null
     ) {
         parent::__construct($model, $templateFactory, $translator, $column);

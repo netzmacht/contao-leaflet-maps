@@ -14,7 +14,7 @@ services:
       - '@netzmacht.contao_toolkit.contao.input'
       - '@netzmacht.contao_leaflet_maps.map.assets'
       - '@netzmacht.contao_leaflet_maps.cache'
-      - '' # TODO: Rework filter handling.
+      - [] # TODO: Rework filter handling.
       - '%kernel.debug%'
 
   netzmacht.contao_leaflet_maps.cache:

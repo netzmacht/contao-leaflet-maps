@@ -12,6 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet;
 
+use Contao\Input;
 use Doctrine\Common\Cache\Cache;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
@@ -94,7 +95,7 @@ class MapProvider
      * @param DefinitionMapper $mapper          The definition mapper.
      * @param Leaflet          $leaflet         The Leaflet instance.
      * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
-     * @param \Input           $input           Thw request input.
+     * @param Input           $input           Thw request input.
      * @param ContaoAssets     $assets          Assets handler.
      * @param Cache            $cache           Cache.
      * @param array            $filters         Request filters configuration.
@@ -104,7 +105,7 @@ class MapProvider
         DefinitionMapper $mapper,
         Leaflet $leaflet,
         EventDispatcher $eventDispatcher,
-        \Input $input,
+        $input,
         ContaoAssets $assets,
         Cache $cache,
         array $filters,
