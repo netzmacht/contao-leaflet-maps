@@ -55,6 +55,11 @@ services:
     tags:
       - { name: 'kernel.event_subscriber' }
 
+  netzmacht.contao_leaflet_maps.listeners.hash_subscriber:
+    class: Netzmacht\Contao\Leaflet\Subscriber\HashSubscriber
+    tags:
+      - { name: 'kernel.event_subscriber' }
+
   netzmacht.contao_leaflet_maps.listeners.load_assets:
     class: Netzmacht\Contao\Leaflet\Listener\LoadAssetsListener
     arguments:
