@@ -113,6 +113,26 @@ class LayerDcaListener extends AbstractListener
     }
 
     /**
+     * Get layer options.
+     *
+     * @return array
+     */
+    public function getLayerOptions(): array
+    {
+        return array_keys($this->layers);
+    }
+
+    /**
+     * Get tile provider options.
+     *
+     * @return array
+     */
+    public function getProviderOptions(): array
+    {
+        return array_keys($this->tileProviders);
+    }
+
+    /**
      * Get variants of the tile provider.
      *
      * @param \DataContainer $dataContainer The dataContainer driver.

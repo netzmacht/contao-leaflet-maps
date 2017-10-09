@@ -286,7 +286,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'chosen'             => true,
                 'helpwizard'         => true,
             ],
-            'options'   => array_keys($GLOBALS['LEAFLET_LAYERS']),
+            'options_callback'   => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getLayerOptions'],
             'reference' => &$GLOBALS['TL_LANG']['leaflet_layer'],
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
@@ -312,7 +312,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'submitOnChange'     => true,
                 'chosen'             => true,
             ],
-            'options'   => array_keys($GLOBALS['LEAFLET_TILE_PROVIDERS']),
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getProviderOptions'],
             'sql'       => "varchar(32) NOT NULL default ''",
         ],
         'tile_provider_variant'          => [
