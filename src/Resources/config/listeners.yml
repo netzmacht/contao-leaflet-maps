@@ -48,6 +48,17 @@ services:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\VectorDcaListener
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
+      - '%netzmacht.contao_leaflet_maps.vectors%'
+
+  netzmacht.contao_leaflet_maps.listeners.dca.icon:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\IconDcaListener
+    arguments:
+      - '%netzmacht.contao_leaflet_maps.icons%'
+
+  netzmacht.contao_leaflet_maps.listeners.dca.style:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\IconDcaListener
+    arguments:
+      - '%netzmacht.contao_leaflet_maps.styles%'
 
   netzmacht.contao_leaflet_maps.listeners.geo_json_subscriber:
     class: Netzmacht\Contao\Leaflet\Subscriber\GeoJsonSubscriber

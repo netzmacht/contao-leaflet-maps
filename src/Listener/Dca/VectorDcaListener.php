@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
+use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 
@@ -30,6 +31,36 @@ class VectorDcaListener extends AbstractListener
      * @var string
      */
     protected static $name = 'tl_leaflet_vector';
+
+    /**
+     * Vector options.
+     *
+     * @var array
+     */
+    private $vectors;
+
+    /**
+     * Construct.
+     *
+     * @param Manager $dcaManager Data container manager.
+     * @param array   $vectors    Vectors.
+     */
+    public function __construct(Manager $dcaManager, array $vectors)
+    {
+        parent::__construct($dcaManager);
+
+        $this->vectors = $vectors;
+    }
+
+    /**
+     * Get the vector options.
+     *
+     * @return array
+     */
+    public function getVectorOptions(): array
+    {
+        return $this->vectors;
+    }
 
     /**
      * Generate the row label.

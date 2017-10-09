@@ -222,7 +222,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_icon'] = array
                 'submitOnChange'     => true,
                 'chosen'             => true,
             ),
-            'options'   => &$GLOBALS['LEAFLET_ICONS'],
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.icon', 'getIconOptions'],
             'reference' => &$GLOBALS['TL_LANG']['leaflet_icon'],
             'sql'       => "varchar(32) NOT NULL default ''"
         ),

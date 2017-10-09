@@ -235,7 +235,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = array
                 'chosen'             => true,
                 'helpwizard'         => true,
             ),
-            'options'   => &$GLOBALS['LEAFLET_VECTORS'],
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.vector', 'getVectorOptions'],
             'reference' => &$GLOBALS['TL_LANG']['leaflet_vector'],
             'sql'       => "varchar(32) NOT NULL default ''"
         ),

@@ -188,7 +188,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = array
                 'submitOnChange'     => true,
                 'chosen'             => true,
             ),
-            'options'   => &$GLOBALS['LEAFLET_STYLES'],
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.style', 'getStyleOptions'],
             'reference' => &$GLOBALS['TL_LANG']['leaflet_style'],
             'sql'       => "varchar(32) NOT NULL default ''"
         ),
