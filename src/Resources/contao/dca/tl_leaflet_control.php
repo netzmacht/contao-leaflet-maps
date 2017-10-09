@@ -196,12 +196,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
         ),
         'type'   => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_control']['type'],
-            'exclude'   => true,
-            'inputType' => 'select',
-            'filter'    => true,
-            'sorting'   => true,
-            'eval'      => array(
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['type'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'filter'           => true,
+            'sorting'          => true,
+            'eval'             => array(
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
                 'includeBlankOption' => true,
@@ -209,9 +209,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = array
                 'chosen'             => true,
                 'helpwizard'         => true,
             ),
-            'options'   => $GLOBALS['LEAFLET_CONTROLS'],
-            'reference' => &$GLOBALS['TL_LANG']['leaflet_control'],
-            'sql'       => "varchar(32) NOT NULL default ''"
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.control', 'getControlTypes'],
+            'reference'        => &$GLOBALS['TL_LANG']['leaflet_control'],
+            'sql'              => "varchar(32) NOT NULL default ''",
         ),
         'position'  => array
         (

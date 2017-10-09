@@ -42,16 +42,35 @@ class ControlDcaListener extends AbstractListener
     private $connection;
 
     /**
+     * Control types.
+     *
+     * @var array
+     */
+    private $types;
+
+    /**
      * Construct.
      *
      * @param Manager    $manager    Data container manager.
      * @param Connection $connection Database connection.
+     * @param array      $types      Control types.
      */
-    public function __construct(Manager $manager, Connection $connection)
+    public function __construct(Manager $manager, Connection $connection, array $types)
     {
         parent::__construct($manager);
 
         $this->connection = $connection;
+        $this->types      = $types;
+    }
+
+    /**
+     * Get control types.
+     *
+     * @return array
+     */
+    public function getControlTypes(): array
+    {
+        return $this->types;
     }
 
     /**
