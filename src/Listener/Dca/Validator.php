@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\DataContainer;
+use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
@@ -30,25 +32,40 @@ class Validator
     private $translator;
 
     /**
+     * Data container manager.
+     *
+     * @var Manager
+     */
+    private $dcaManager;
+
+    /**
      * Validator constructor.
      *
+     * @param Manager    $dcaManager Data container manager.
      * @param Translator $translator Translator.
      */
-    public function __construct(Translator $translator)
+    public function __construct(Manager $dcaManager, Translator $translator)
     {
         $this->translator = $translator;
+        $this->dcaManager = $dcaManager;
     }
 
     /**
      * Validate coordinates.
      *
-     * @param mixed $value Given value.
+     * @param mixed         $value         Given value.
+     * @param DataContainer $dataContainer Data container driver.
      *
      * @return mixed
-     * @throws \InvalidArgumentException When invalid coordinates give.
+     *
+     * @throws \InvalidArgumentException When invalid coordinates given.
      */
-    public function validateCoordinates($value)
+    public function validateCoordinates($value, $dataContainer)
     {
+        if (!$value && !$this->isRequired($dataContainer)) {
+            return $value;
+        }
+
         try {
             LatLng::fromString($value);
         } catch (\Exception $e) {
@@ -65,11 +82,14 @@ class Validator
     /**
      * Validate multiple coordinates.
      *
-     * @param mixed $values Given value.
+     * @param mixed         $values        Given value.
+     * @param DataContainer $dataContainer Data container driver.
      *
      * @return mixed
+     *
+     * @throws \InvalidArgumentException When invalid coordinates given.
      */
-    public function validateMultipleCoordinates($values)
+    public function validateMultipleCoordinates($values, $dataContainer)
     {
         if (!is_array($values)) {
             $lines = explode("\n", $values);
@@ -78,7 +98,7 @@ class Validator
         }
 
         foreach ($lines as $coordinate) {
-            $this->validateCoordinates($coordinate);
+            $this->validateCoordinates($coordinate, $dataContainer);
         }
 
         return $values;
@@ -87,15 +107,18 @@ class Validator
     /**
      * Validate multiple coordinate sets.
      *
-     * @param mixed $values Given value.
+     * @param mixed         $values        Given value.
+     * @param DataContainer $dataContainer Data container driver.
      *
      * @return mixed
+     *
+     * @throws \InvalidArgumentException When invalid coordinates given.
      */
-    public function validateMultipleCoordinateSets($values)
+    public function validateMultipleCoordinateSets($values, $dataContainer)
     {
         $sets = deserialize($values, true);
         foreach ($sets as $lines) {
-            $this->validateMultipleCoordinates($lines);
+            $this->validateMultipleCoordinates($lines, $dataContainer);
         }
 
         return $values;
@@ -118,5 +141,23 @@ class Validator
         }
 
         return $value;
+    }
+
+    /**
+     * Check if value is required.
+     *
+     * @param DataContainer $dataContainer Data container driver.
+     *
+     * @return bool
+     */
+    private function isRequired($dataContainer): bool
+    {
+        $definition = $this->dcaManager->getDefinition($dataContainer->table);
+
+        if ($definition->get(['fields', $dataContainer->field, 'eval', 'mandatory'])) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -8,6 +8,7 @@ services:
   netzmacht.contao_leaflet_maps.listeners.dca.validator:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\Validator
     arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
       - '@translator'
 
   netzmacht.contao_leaflet_maps.listeners.dca.frontend_integration:
