@@ -8,3 +8,4 @@ build.xml export-ignore
 phpunit.xml.dist export-ignore
 /tests export-ignore
 /specs export-ignore
+/js export-ignore

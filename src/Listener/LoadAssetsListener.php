@@ -72,7 +72,7 @@ class LoadAssetsListener
     public function onGetJavascriptEvent(): void
     {
         $this->assets->addJavascript(
-            'web/bundles/netzmachtcontaoleaflet/js/contao-leaflet.js',
+            'bundles/netzmachtcontaoleaflet/js/contao-leaflet.js',
             ContaoAssets::TYPE_FILE
         );
 
