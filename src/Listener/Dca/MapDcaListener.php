@@ -72,7 +72,7 @@ class MapDcaListener extends AbstractListener
         $statement->bindValue('mid', $dataContainer->id);
 
         if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_ASSOC, PDO::FETCH_COLUMN, 0);
+            return $statement->fetchAll(PDO::FETCH_COLUMN, 0);
         }
 
         return [];
