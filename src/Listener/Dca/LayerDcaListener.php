@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\Controller;
 use Contao\Image;
+use Contao\RequestToken;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\LayerLabelRenderer;
@@ -224,6 +225,7 @@ class LayerDcaListener extends AbstractListener
         $pasteAfterUrl = \Controller::addToUrl(
             'act='.$children['mode'].'&amp;mode=1&amp;pid='.$row['id']
             .(!is_array($children['id']) ? '&amp;id='.$children['id'] : '')
+            . '&amp;rt=' . RequestToken::get()
         );
 
         $buffer = sprintf(
