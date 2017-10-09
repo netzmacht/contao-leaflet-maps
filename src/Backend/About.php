@@ -82,8 +82,8 @@ class About
      */
     private function extractFromComposer()
     {
-        $extFile  = TL_ROOT . '/composer/vendor/netzmacht/contao-leaflet-maps/composer.json';
-        $lockFile = TL_ROOT . '/composer/composer.lock';
+        $extFile  = TL_ROOT . '/vendor/netzmacht/contao-leaflet-maps/composer.json';
+        $lockFile = TL_ROOT . '/composer.lock';
 
         if (!file_exists($extFile) || !file_exists($lockFile)) {
             return array();
