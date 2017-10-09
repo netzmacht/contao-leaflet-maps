@@ -12,7 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use Netzmacht\Contao\Toolkit\InsertTag\Replacer;
+use Contao\Controller;
 
 /**
  * Class ValueFilter is a service class which can be used to filter values before passing them to an definition object.
@@ -21,23 +21,6 @@ use Netzmacht\Contao\Toolkit\InsertTag\Replacer;
  */
 class ValueFilter
 {
-    /**
-     * The insert tag replacer.
-     *
-     * @var Replacer
-     */
-    private $insertTagReplacer;
-
-    /**
-     * Construct.
-     *
-     * @param Replacer $replacer The insert tag replacer.
-     */
-    public function __construct($replacer)
-    {
-        $this->insertTagReplacer = $replacer;
-    }
-
     /**
      * Filter a value so it can be passed to the frontend.
      *
@@ -50,6 +33,6 @@ class ValueFilter
      */
     public function filter($value)
     {
-        return $this->insertTagReplacer->replace($value);
+        return Controller::replaceInsertTags($value);
     }
 }

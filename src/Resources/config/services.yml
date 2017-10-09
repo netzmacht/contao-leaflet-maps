@@ -30,8 +30,6 @@ services:
 
   netzmacht.contao_leaflet_maps.frontend.value_filter:
     class: Netzmacht\Contao\Leaflet\Frontend\ValueFilter
-    arguments:
-      - '@netzmacht.contao_toolkit.insert_tag.replacer'
 
   netzmacht.contao_leaflet_maps.map.assets:
     class: Netzmacht\Contao\Leaflet\ContaoAssets
