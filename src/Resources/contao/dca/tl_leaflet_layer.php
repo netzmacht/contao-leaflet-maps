@@ -25,9 +25,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'alias' => 'unique',
             ],
         ],
-        'onload_callback' => array(
+        'onload_callback'   => [
             ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'loadLanguageFile'],
-        ),
+        ],
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
         ],
@@ -114,12 +114,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
                 'button_callback' => [
                     'netzmacht.contao_toolkit.dca.listeners.state_button_callback',
-                    'handleButtonCallback'
+                    'handleButtonCallback',
                 ],
-                'toolkit' => [
+                'toolkit'         => [
                     'state_button' => [
-                        'stateColumn' => ['active']
-                    ]
+                        'stateColumn' => ['active'],
+                    ],
                 ],
             ],
             'show'    => [
@@ -265,20 +265,20 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateAlias'],
             ],
             'eval'          => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true],
-            'toolkit' => [
+            'toolkit'       => [
                 'alias_generator' => [
                     'factory' => 'netzmacht.contao_leaflet_maps.definition.alias_generator.factory_default',
-                    'fields'  => ['title']
+                    'fields'  => ['title'],
                 ],
             ],
             'sql'           => 'varchar(255) NULL',
         ],
         'type'                           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['type'],
-            'exclude'   => true,
-            'inputType' => 'select',
-            'filter'    => true,
-            'eval'      => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['type'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'filter'           => true,
+            'eval'             => [
                 'mandatory'          => true,
                 'tl_class'           => 'w50',
                 'includeBlankOption' => true,
@@ -286,9 +286,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'chosen'             => true,
                 'helpwizard'         => true,
             ],
-            'options_callback'   => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getLayerOptions'],
-            'reference' => &$GLOBALS['TL_LANG']['leaflet_layer'],
-            'sql'       => "varchar(32) NOT NULL default ''",
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getLayerOptions'],
+            'reference'        => &$GLOBALS['TL_LANG']['leaflet_layer'],
+            'sql'              => "varchar(32) NOT NULL default ''",
         ],
         'active'                         => [
             'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['active'],
@@ -302,10 +302,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             ],
         ],
         'tile_provider'                  => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider'],
-            'exclude'   => true,
-            'inputType' => 'select',
-            'eval'      => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'eval'             => [
                 'mandatory'          => true,
                 'tl_class'           => 'w50 clr',
                 'includeBlankOption' => true,
@@ -313,7 +313,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'chosen'             => true,
             ],
             'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.layer', 'getProviderOptions'],
-            'sql'       => "varchar(32) NOT NULL default ''",
+            'sql'              => "varchar(32) NOT NULL default ''",
         ],
         'tile_provider_variant'          => [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_variant'],

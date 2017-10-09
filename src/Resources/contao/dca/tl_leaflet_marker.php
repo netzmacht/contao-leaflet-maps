@@ -10,120 +10,104 @@
  * @filesource
  */
 
-$GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
-(
-    'config' => array(
-        'dataContainer'    => 'Table',
-        'enableVersioning' => true,
-        'ptable'           => 'tl_leaflet_layer',
-        'sql'              => array
-        (
-            'keys' => array
-            (
+$GLOBALS['TL_DCA']['tl_leaflet_marker'] = [
+    'config' => [
+        'dataContainer'     => 'Table',
+        'enableVersioning'  => true,
+        'ptable'            => 'tl_leaflet_layer',
+        'sql'               => [
+            'keys' => [
                 'id'    => 'primary',
                 'pid'   => 'index',
                 'alias' => 'unique',
-            )
-        ),
-        'onload_callback' => array(
+            ],
+        ],
+        'onload_callback'   => [
             ['netzmacht.contao_leaflet_maps.listeners.dca.marker', 'initialize'],
-        ),
+        ],
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
         ],
-    ),
+    ],
 
-    'list' => array
-    (
-        'sorting' => array
-        (
-            'mode'                    => 4,
-            'fields'                  => array('sorting'),
-            'flag'                    => 1,
-            'panelLayout'             => 'sort,filter;search,limit',
-            'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => array('netzmacht.contao_leaflet_maps.listeners.dca.marker', 'generateRow'),
-        ),
-        'label' => array
-        (
-            'fields'                  => array('title'),
-            'format'                  => '%s',
-        ),
-        'global_operations' => array
-        (
-            'icons' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'],
-                'href'                => 'table=tl_leaflet_icon&id=',
-                'icon'                => 'bundles/netzmachtcontaoleaflet/img/icons.png',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-            ),
-            'popups' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'],
-                'href'                => 'table=tl_leaflet_popup',
-                'icon'                => 'bundles/netzmachtcontaoleaflet/img/popup.png',
-                'attributes'          => 'onclick="Backend.getScrollOffset();"'
-            ),
-            'all' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
-                'href'                => 'act=select',
-                'class'               => 'header_edit_all',
-                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-            ),
-        ),
-        'operations' => array
-        (
-            'edit' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['edit'],
-                'href'                => 'act=edit',
-                'icon'                => 'edit.gif'
-            ),
-            'copy' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['copy'],
-                'href'                => 'act=copy',
-                'icon'                => 'copy.gif'
-            ),
-            'delete' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['delete'],
-                'href'                => 'act=delete',
-                'icon'                => 'delete.gif',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
-                    . '\'))return false;Backend.getScrollOffset()"'
-            ),
-            'toggle' => array
-            (
+    'list' => [
+        'sorting'           => [
+            'mode'                  => 4,
+            'fields'                => ['sorting'],
+            'flag'                  => 1,
+            'panelLayout'           => 'sort,filter;search,limit',
+            'headerFields'          => ['title', 'type'],
+            'child_record_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.marker', 'generateRow'],
+        ],
+        'label'             => [
+            'fields' => ['title'],
+            'format' => '%s',
+        ],
+        'global_operations' => [
+            'icons'  => [
+                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'],
+                'href'       => 'table=tl_leaflet_icon&id=',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/icons.png',
+                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+            ],
+            'popups' => [
+                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'],
+                'href'       => 'table=tl_leaflet_popup',
+                'icon'       => 'bundles/netzmachtcontaoleaflet/img/popup.png',
+                'attributes' => 'onclick="Backend.getScrollOffset();"',
+            ],
+            'all'    => [
+                'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
+                'href'       => 'act=select',
+                'class'      => 'header_edit_all',
+                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+            ],
+        ],
+        'operations'        => [
+            'edit'   => [
+                'label' => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['edit'],
+                'href'  => 'act=edit',
+                'icon'  => 'edit.gif',
+            ],
+            'copy'   => [
+                'label' => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['copy'],
+                'href'  => 'act=copy',
+                'icon'  => 'copy.gif',
+            ],
+            'delete' => [
+                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['delete'],
+                'href'       => 'act=delete',
+                'icon'       => 'delete.gif',
+                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                    . '\'))return false;Backend.getScrollOffset()"',
+            ],
+            'toggle' => [
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['toggle'],
                 'icon'            => 'visible.gif',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
                 'button_callback' => [
                     'netzmacht.contao_toolkit.dca.listeners.state_button_callback',
-                    'handleButtonCallback'
+                    'handleButtonCallback',
                 ],
-                'toolkit' => [
+                'toolkit'         => [
                     'state_button' => [
-                        'stateColumn' => ['active']
-                    ]
+                        'stateColumn' => ['active'],
+                    ],
                 ],
-            ),
-            'show' => array
-            (
-                'label'               => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['show'],
-                'href'                => 'act=show',
-                'icon'                => 'show.gif'
-            )
-        )
-    ),
+            ],
+            'show'   => [
+                'label' => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['show'],
+                'href'  => 'act=show',
+                'icon'  => 'show.gif',
+            ],
+        ],
+    ],
 
-    'metapalettes'    => array(
-        'default' => array(
-            'title'   => array('title', 'alias', 'coordinates'),
-            'content' => array('tooltip', 'alt', 'addPopup'),
-            'config'  => array(
+    'metapalettes'    => [
+        'default' => [
+            'title'   => ['title', 'alias', 'coordinates'],
+            'content' => ['tooltip', 'alt', 'addPopup'],
+            'config'  => [
                 ':hide',
                 'clickable',
                 'draggable',
@@ -133,250 +117,226 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
                 'riseOnHover',
                 'riseOffset',
                 'customIcon',
-            ),
-            'expert'  => array(':hide', 'featureData'),
-            'active'  => array('active', 'ignoreForBounds')
-        ),
-    ),
-    'metasubpalettes' => array(
-        'addPopup'   => array('popup', 'popupContent'),
-        'customIcon' => array('icon')
-    ),
+            ],
+            'expert'  => [':hide', 'featureData'],
+            'active'  => ['active', 'ignoreForBounds'],
+        ],
+    ],
+    'metasubpalettes' => [
+        'addPopup'   => ['popup', 'popupContent'],
+        'customIcon' => ['icon'],
+    ],
 
-    'fields' => array
-    (
-        'id'           => array
-        (
-            'sql' => 'int(10) unsigned NOT NULL auto_increment'
-        ),
-        'tstamp'       => array
-        (
-            'sql' => "int(10) unsigned NOT NULL default '0'"
-        ),
-        'sorting'               => array
-        (
+    'fields' => [
+        'id'              => [
+            'sql' => 'int(10) unsigned NOT NULL auto_increment',
+        ],
+        'tstamp'          => [
             'sql' => "int(10) unsigned NOT NULL default '0'",
-            'sorting'   => true,
-        ),
-        'pid'          => array
-        (
-            'sql' => "int(10) unsigned NOT NULL default '0'"
-        ),
-        'title'        => array
-        (
+        ],
+        'sorting'         => [
+            'sql'     => "int(10) unsigned NOT NULL default '0'",
+            'sorting' => true,
+        ],
+        'pid'             => [
+            'sql' => "int(10) unsigned NOT NULL default '0'",
+        ],
+        'title'           => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['title'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
             'flag'      => 1,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''"
-        ),
-        'alias'        => array
-        (
+            'eval'      => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ],
+        'alias'           => [
             'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['alias'],
             'exclude'       => true,
             'inputType'     => 'text',
             'search'        => true,
-            'save_callback' => array(
+            'save_callback' => [
                 ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
                 ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateAlias'],
-            ),
-            'eval'          => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true),
-            'toolkit' => [
+            ],
+            'eval'          => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true],
+            'toolkit'       => [
                 'alias_generator' => [
                     'factory' => 'netzmacht.contao_leaflet_maps.definition.alias_generator.factory_default',
-                    'fields'  => ['title']
+                    'fields'  => ['title'],
                 ],
             ],
-            'sql'           => 'varchar(255) NULL'
-        ),
-        'coordinates'  => array
-        (
+            'sql'           => 'varchar(255) NULL',
+        ],
+        'coordinates'     => [
             'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['coordinates'],
             'exclude'       => true,
             'inputType'     => 'text',
-            'save_callback' => array(
+            'save_callback' => [
                 ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateCoordinates'],
-                array('netzmacht.contao_leaflet_maps.listeners.dca.marker', 'saveCoordinates')
-            ),
-            'load_callback' => array(
-                array('netzmacht.contao_leaflet_maps.listeners.dca.marker', 'loadCoordinates')
-            ),
-            'wizard'        => array(
-                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getGeocoder']
-            ),
-            'eval'          => array(
+                ['netzmacht.contao_leaflet_maps.listeners.dca.marker', 'saveCoordinates'],
+            ],
+            'load_callback' => [
+                ['netzmacht.contao_leaflet_maps.listeners.dca.marker', 'loadCoordinates'],
+            ],
+            'wizard'        => [
+                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getGeocoder'],
+            ],
+            'eval'          => [
                 'maxlength'      => 255,
                 'tl_class'       => 'long clr',
                 'nullIfEmpty'    => true,
                 'doNotSaveEmpty' => true,
-            ),
-        ),
-        'latitude'      => array
-        (
+            ],
+        ],
+        'latitude'        => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['latitude'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => 'decimal(10,8) NULL'
-        ),
-        'longitude'      => array
-        (
+            'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'sql'       => 'decimal(10,8) NULL',
+        ],
+        'longitude'       => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['longitude'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => 'decimal(11,8) NULL'
-        ),
-        'altitude'      => array
-        (
+            'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'sql'       => 'decimal(11,8) NULL',
+        ],
+        'altitude'        => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['altitude'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => 'float NULL'
-        ),
-        'active'                => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['active'],
-            'exclude'   => true,
-            'filter'    => true,
-            'sorting'   => true,
-            'flag'      => 12,
-            'inputType' => 'checkbox',
-            'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''",
+            'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'sql'       => 'float NULL',
+        ],
+        'active'          => [
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['active'],
+            'exclude'       => true,
+            'filter'        => true,
+            'sorting'       => true,
+            'flag'          => 12,
+            'inputType'     => 'checkbox',
+            'eval'          => ['tl_class' => 'w50'],
+            'sql'           => "char(1) NOT NULL default ''",
             'save_callback' => [
                 ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
             ],
-        ),
-        'tooltip'      => array
-        (
+        ],
+        'tooltip'         => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['tooltip'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''"
-        ),
-        'alt'          => array
-        (
+            'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ],
+        'alt'             => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['alt'],
             'exclude'   => true,
             'inputType' => 'text',
-            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'),
-            'sql'       => "varchar(255) NOT NULL default ''"
-        ),
-        'addPopup'     => array
-        (
+            'eval'      => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ],
+        'addPopup'        => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['addPopup'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'filter'    => true,
-            'eval'      => array('tl_class' => 'w50 m12', 'submitOnChange' => true),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'popup'         => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popup'],
-            'exclude'   => true,
-            'inputType' => 'select',
+            'eval'      => ['tl_class' => 'w50 m12', 'submitOnChange' => true],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'popup'           => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popup'],
+            'exclude'          => true,
+            'inputType'        => 'select',
             'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.marker', 'getPopups'],
-            'eval'      => array(
+            'eval'             => [
                 'mandatory'          => false,
                 'tl_class'           => 'w50',
                 'chosen'             => true,
                 'includeBlankOption' => true,
-            ),
-            'sql'       => "int(10) unsigned NOT NULL default '0'",
-        ),
-        'popupContent' => array
-        (
+            ],
+            'sql'              => "int(10) unsigned NOT NULL default '0'",
+        ],
+        'popupContent'    => [
             'label'       => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popupContent'],
             'exclude'     => true,
             'inputType'   => 'text',
-            'eval'        => array('mandatory' => true, 'rte' => 'tinyMCE', 'helpwizard' => true, 'tl_class' => 'clr'),
+            'eval'        => ['mandatory' => true, 'rte' => 'tinyMCE', 'helpwizard' => true, 'tl_class' => 'clr'],
             'explanation' => 'insertTags',
-            'sql'         => 'mediumtext NULL'
-        ),
-        'customIcon'   => array
-        (
+            'sql'         => 'mediumtext NULL',
+        ],
+        'customIcon'      => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['customIcon'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'eval'      => array('tl_class' => 'clr w50 m12', 'submitOnChange' => true),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'icon'         => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
-            'exclude'   => true,
-            'inputType' => 'select',
-            'options_callback' => array('netzmacht.contao_leaflet_maps.listeners.dca.marker', 'getIcons'),
-            'eval'      => array(
-                 'mandatory'  => true,
-                 'tl_class'   => 'w50',
-                 'chosen'     => true,
-            ),
-            'sql'       => "int(10) unsigned NOT NULL default '0'",
-        ),
-        'draggable'    => array
-        (
+            'eval'      => ['tl_class' => 'clr w50 m12', 'submitOnChange' => true],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'icon'            => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icon'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.marker', 'getIcons'],
+            'eval'             => [
+                'mandatory' => true,
+                'tl_class'  => 'w50',
+                'chosen'    => true,
+            ],
+            'sql'              => "int(10) unsigned NOT NULL default '0'",
+        ],
+        'draggable'       => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['draggable'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
-            'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'clickable'    => array
-        (
+            'eval'      => ['tl_class' => 'w50'],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'clickable'       => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['clickable'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'keyboard'     => array
-        (
+            'eval'      => ['tl_class' => 'w50'],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'keyboard'        => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['keyboard'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => true,
-            'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'zIndexOffset' => array
-        (
+            'eval'      => ['tl_class' => 'w50'],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'zIndexOffset'    => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['zIndexOffset'],
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => 0,
-            'eval'      => array('maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'clr w50', 'nullIfEmpty' => true),
-            'sql'       => 'int(5) NULL'
-        ),
-        'ignoreForBounds' => array
-        (
+            'eval'      => ['maxlength' => 5, 'rgxp' => 'digit', 'tl_class' => 'clr w50', 'nullIfEmpty' => true],
+            'sql'       => 'int(5) NULL',
+        ],
+        'ignoreForBounds' => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'default'   => false,
-            'eval'      => array('tl_class' => 'w50'),
-            'sql'       => "char(1) NOT NULL default ''"
-        ),
-        'featureData'  => array
-        (
+            'eval'      => ['tl_class' => 'w50'],
+            'sql'       => "char(1) NOT NULL default ''",
+        ],
+        'featureData'     => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['featureData'],
             'exclude'   => true,
             'inputType' => 'textarea',
-            'eval' => array('tl_class'  => 'clr lng',
-                            'allowHtml' => true,
-                            'style'     => 'min-height: 40px;',
-                            'rte'       => 'ace|json'
-            ),
-            'sql'       => 'text NULL'
-        ),
-    ),
-);
+            'eval'      => [
+                'tl_class'  => 'clr lng',
+                'allowHtml' => true,
+                'style'     => 'min-height: 40px;',
+                'rte'       => 'ace|json',
+            ],
+            'sql'       => 'text NULL',
+        ],
+    ],
+];
