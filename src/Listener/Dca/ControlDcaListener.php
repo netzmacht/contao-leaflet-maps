@@ -151,6 +151,7 @@ class ControlDcaListener extends AbstractListener
         $query     = 'SELECT * FROM tl_leaflet_control_layer WHERE cid=:cid order BY sorting';
         $statement = $this->connection->prepare($query);
         $statement->bindValue('cid', $dataContainer->id);
+        $statement->execute();
 
         while ($row = $statement->fetch()) {
             $values[$row['lid']] = $row;
