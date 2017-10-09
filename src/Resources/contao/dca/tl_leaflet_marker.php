@@ -42,7 +42,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = array
             'flag'                    => 1,
             'panelLayout'             => 'sort,filter;search,limit',
             'headerFields'            => array('title', 'type'),
-            'child_record_callback'   => array('netzmacht.contao_leaflet_maps.listeners.dca.marker\'', 'generateRow'),
+            'child_record_callback'   => array('netzmacht.contao_leaflet_maps.listeners.dca.marker', 'generateRow'),
         ),
         'label' => array
         (
