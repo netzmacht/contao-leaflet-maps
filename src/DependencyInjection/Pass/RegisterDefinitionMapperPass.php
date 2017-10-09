@@ -35,7 +35,7 @@ class RegisterDefinitionMapperPass implements CompilerPassInterface
         }
 
         $definition     = $container->getDefinition('netzmacht.contao_leaflet_maps.definition.mapper');
-        $taggedServices = $container->findTaggedServiceIds('netzmacht.contao_leaflet_maps.mapper ');
+        $taggedServices = $container->findTaggedServiceIds('netzmacht.contao_leaflet_maps.mapper');
 
         foreach ($taggedServices as $serviceId => $tags) {
             foreach ($tags as $attributes) {
