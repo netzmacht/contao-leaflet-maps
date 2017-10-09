@@ -15,16 +15,17 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Frontend\Assets;
 
 use Contao\CoreBundle\Framework\ContaoFrameworkInterface as ContaoFramework;
-use Traversable;
 
 /**
- * Class LibrariesConfiguration
+ * Class LibrariesConfiguration.
  *
  * @package Netzmacht\Contao\Leaflet\Frontend\Assets
  */
 class LibrariesConfiguration implements \IteratorAggregate, \ArrayAccess
 {
     /**
+     * Contao framework.
+     *
      * @var ContaoFramework
      */
     private $framework;
@@ -32,7 +33,7 @@ class LibrariesConfiguration implements \IteratorAggregate, \ArrayAccess
     /**
      * LibrariesConfiguration constructor.
      *
-     * @param ContaoFramework $framework
+     * @param ContaoFramework $framework Contao framework.
      */
     public function __construct(ContaoFramework $framework)
     {
@@ -70,6 +71,8 @@ class LibrariesConfiguration implements \IteratorAggregate, \ArrayAccess
      */
     public function offsetGet($offset)
     {
+        $this->framework->initialize();
+
         return $GLOBALS['LEAFLET_LIBRARIES'][$offset];
     }
 
@@ -80,6 +83,8 @@ class LibrariesConfiguration implements \IteratorAggregate, \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
+        $this->framework->initialize();
+
         $GLOBALS['LEAFLET_LIBRARIES'][$offset] = $value;
     }
 
@@ -90,6 +95,8 @@ class LibrariesConfiguration implements \IteratorAggregate, \ArrayAccess
      */
     public function offsetUnset($offset)
     {
+        $this->framework->initialize();
+
         unset($GLOBALS['LEAFLET_LIBRARIES'][$offset]);
     }
 }

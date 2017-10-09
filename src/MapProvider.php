@@ -95,7 +95,7 @@ class MapProvider
      * @param DefinitionMapper $mapper          The definition mapper.
      * @param Leaflet          $leaflet         The Leaflet instance.
      * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
-     * @param Input           $input           Thw request input.
+     * @param Input            $input           Thw request input.
      * @param ContaoAssets     $assets          Assets handler.
      * @param Cache            $cache           Cache.
      * @param array            $filters         Request filters configuration.

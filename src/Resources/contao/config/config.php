@@ -88,6 +88,7 @@ $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = \Netzmacht\Contao\Leaflet\Model\Ve
 /*
  * Hooks.
  */
+
 $GLOBALS['TL_HOOKS']['initializeSystem'][] = [
     'netzmacht.contao_leaflet_maps.listeners.register_libraries',
     'onInitializeSystem'
