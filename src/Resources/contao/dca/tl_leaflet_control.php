@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
                 ],
                 'toolkit'         => [
                     'state_button' => [
-                        'stateColumn' => ['active'],
+                        'stateColumn' => 'active',
                     ],
                 ],
             ],

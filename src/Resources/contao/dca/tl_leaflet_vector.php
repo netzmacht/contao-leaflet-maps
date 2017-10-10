@@ -97,7 +97,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
                 ],
                 'toolkit'         => [
                     'state_button' => [
-                        'stateColumn' => ['active'],
+                        'stateColumn' => 'active',
                     ],
                 ],
             ],
