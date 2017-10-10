@@ -17,7 +17,7 @@ use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Netzmacht\Contao\Leaflet\NetzmachtContaoLeafletBundle;
-use Netzmacht\Contao\Toolkit\NetzmachtContaoToolkitBundle;
+use Netzmacht\Contao\Toolkit\Bundle\NetzmachtContaoToolkitBundle;
 
 /**
  * Contao manager plugin.

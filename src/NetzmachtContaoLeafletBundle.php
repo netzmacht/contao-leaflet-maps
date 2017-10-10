@@ -17,7 +17,7 @@ namespace Netzmacht\Contao\Leaflet;
 use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterLibrariesPass;
 use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterDefinitionMapperPass;
 use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterEncodersPass;
-use Netzmacht\Contao\Toolkit\DependencyInjection\Compiler\AddTaggedServicesAsArgumentPass;
+use Netzmacht\Contao\Toolkit\Bundle\DependencyInjection\Compiler\AddTaggedServicesAsArgumentPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
