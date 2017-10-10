@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Frontend\ContentElement;
 
-use Netzmacht\Contao\Leaflet\Frontend\ContentElement\MapElement;
 use Netzmacht\Contao\Toolkit\Component\Component;
 use Netzmacht\Contao\Toolkit\Component\ComponentFactory;
 use Psr\Container\ContainerInterface as Container;
@@ -58,7 +57,7 @@ class MapElementFactory implements ComponentFactory
     {
         return new MapElement(
             $model,
-            $this->container->get('netzmacht.contao_toolkit.view.template_factory'),
+            $this->container->get('templating'),
             $this->container->get('translator'),
             $this->container->get('netzmacht.contao_leaflet_maps.map.provider'),
             $this->container->get('netzmacht.contao_toolkit.contao.input'),

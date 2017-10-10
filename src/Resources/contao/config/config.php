@@ -10,9 +10,6 @@
  * @filesource
  */
 
-use Netzmacht\Contao\Toolkit\Component\ContentElement\ContentElementDecorator;
-use Netzmacht\Contao\Toolkit\Component\Module\ModuleDecorator;
-
 /*
  * Backend module.
  */
@@ -56,21 +53,6 @@ array_insert(
         )
     )
 );
-
-
-/*
- * Content elements.
- */
-
-$GLOBALS['TL_CTE']['includes']['leaflet'] = ContentElementDecorator::class;
-
-
-/*
- * Frontend modules
- */
-
-$GLOBALS['FE_MOD']['includes']['leaflet'] = ModuleDecorator::class;
-
 
 /*
  * Models.

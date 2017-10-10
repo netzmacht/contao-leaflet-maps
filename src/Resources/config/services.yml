@@ -83,6 +83,7 @@ services:
       - '@service_container'
     tags:
       - { name: 'netzmacht.contao_toolkit.component.content_element_factory' }
+      - { name: 'netzmacht.contao_toolkit.component.content_element', alias: 'leaflet', category: 'include' }
 
   netzmacht.contao_leaflet_maps.frontend.module_factory:
     class: Netzmacht\Contao\Leaflet\Frontend\Module\MapModuleFactory
@@ -90,6 +91,7 @@ services:
       - '@service_container'
     tags:
       - { name: 'netzmacht.contao_toolkit.component.frontend_module_factory' }
+      - { name: 'netzmacht.contao_toolkit.component.frontend_module', alias: 'leaflet', category: include }
 
   netzmacht.contao_leaflet_maps.frontend.insert_tag:
     class: Netzmacht\Contao\Leaflet\Frontend\InsertTag\LeafletInsertTagParser
