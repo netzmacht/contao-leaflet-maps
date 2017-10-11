@@ -12,8 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control\Attribution;
 use Netzmacht\LeafletPHP\Definition\Map;
@@ -54,9 +55,9 @@ class AttributionControlMapper extends AbstractControlMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
         if (!$definition instanceof Attribution) {

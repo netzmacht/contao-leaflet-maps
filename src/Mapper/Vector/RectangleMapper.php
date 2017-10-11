@@ -12,9 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
-use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Netzmacht\LeafletPHP\Value\LatLngBounds;
 
@@ -43,9 +43,9 @@ class RectangleMapper extends AbstractVectorMapper
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
         $latLngs = array_map(
@@ -55,7 +55,7 @@ class RectangleMapper extends AbstractVectorMapper
             deserialize($model->bounds, true)
         );
 
-        $arguments   = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
+        $arguments   = parent::buildConstructArguments($model, $mapper, $request, $elementId);
         $arguments[] = new LatLngBounds($latLngs[0], $latLngs[1]);
 
         return $arguments;

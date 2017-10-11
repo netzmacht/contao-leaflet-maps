@@ -12,11 +12,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
-use Model;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Definition\Layer\OverpassLayer;
-use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 
@@ -62,7 +62,7 @@ class OverpassLayerMapper extends AbstractLayerMapper
         Definition $definition,
         Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
         if (!$definition instanceof OverpassLayer) {

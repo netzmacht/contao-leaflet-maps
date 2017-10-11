@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
+use Contao\Model\Collection;
+
 /**
  * Class AbstractActiveModel is the base model for models with an active field.
  *
@@ -39,7 +41,7 @@ abstract class AbstractActiveModel extends \Model
      * @param mixed        $value   The column value.
      * @param array        $options The options.
      *
-     * @return \Model|null
+     * @return Collection|null
      */
     public static function findActiveBy($column, $value, $options = array())
     {
@@ -57,7 +59,7 @@ abstract class AbstractActiveModel extends \Model
      *
      * @param array $options The query options.
      *
-     * @return \Model\Collection|null
+     * @return Collection|null
      */
     public static function findActives($options = array())
     {

@@ -12,10 +12,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
-use Netzmacht\JavascriptBuilder\Type\Expression;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control;
 use Netzmacht\LeafletPHP\Definition\Layer;
@@ -60,15 +60,15 @@ class MapMapper extends AbstractMapper
      */
     protected function build(
         Definition $map,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
         if ($map instanceof Map && $model instanceof MapModel) {
             $this->buildCustomOptions($map, $model);
-            $this->buildControls($map, $model, $mapper, $filter);
-            $this->buildLayers($map, $model, $mapper, $filter);
+            $this->buildControls($map, $model, $mapper, $request);
+            $this->buildLayers($map, $model, $mapper, $request);
             $this->buildBoundsCalculation($map, $model);
             $this->buildLocate($map, $model);
         }
@@ -78,9 +78,9 @@ class MapMapper extends AbstractMapper
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
         return array(
@@ -113,14 +113,14 @@ class MapMapper extends AbstractMapper
     /**
      * Build map controls.
      *
-     * @param Map              $map    The map being built.
-     * @param MapModel         $model  The map model.
-     * @param DefinitionMapper $mapper The definition mapper.
-     * @param Filter           $filter Optional request filter.
+     * @param Map              $map     The map being built.
+     * @param MapModel         $model   The map model.
+     * @param DefinitionMapper $mapper  The definition mapper.
+     * @param Request          $request Optional building request.
      *
      * @return void
      */
-    private function buildControls(Map $map, MapModel $model, DefinitionMapper $mapper, Filter $filter = null)
+    private function buildControls(Map $map, MapModel $model, DefinitionMapper $mapper, Request $request = null)
     {
         $collection = ControlModel::findActiveBy('pid', $model->id, array('order' => 'sorting'));
 
@@ -129,7 +129,7 @@ class MapMapper extends AbstractMapper
         }
 
         foreach ($collection as $control) {
-            $control = $mapper->handle($control, $filter, null, $map);
+            $control = $mapper->handle($control, $request, null, $map);
 
             if ($control instanceof Control) {
                 $control->addTo($map);
@@ -140,14 +140,14 @@ class MapMapper extends AbstractMapper
     /**
      * Build map layers.
      *
-     * @param Map              $map    The map being built.
-     * @param MapModel         $model  The map model.
-     * @param DefinitionMapper $mapper Definition mapper.
-     * @param Filter           $filter Optional request filter.
+     * @param Map              $map     The map being built.
+     * @param MapModel         $model   The map model.
+     * @param DefinitionMapper $mapper  Definition mapper.
+     * @param Request          $request Optional building request.
      *
      * @return void
      */
-    private function buildLayers(Map $map, MapModel $model, DefinitionMapper $mapper, Filter $filter = null)
+    private function buildLayers(Map $map, MapModel $model, DefinitionMapper $mapper, Request $request = null)
     {
         $collection = $model->findActiveLayers();
 
@@ -157,7 +157,7 @@ class MapMapper extends AbstractMapper
                     continue;
                 }
 
-                $layer = $mapper->handle($layer, $filter, null, $map);
+                $layer = $mapper->handle($layer, $request, null, $map);
                 if ($layer instanceof Layer) {
                     $layer->addTo($map);
                 }
@@ -196,7 +196,6 @@ class MapMapper extends AbstractMapper
             $map->calculateFeatureBounds();
         }
     }
-
 
     /**
      * Build map bounds calculations.

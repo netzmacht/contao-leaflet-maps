@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Netzmacht\Contao\Leaflet\Request\Request;
 
 /**
  * Class RequestUrl creates the request url.
@@ -21,13 +22,6 @@ use Netzmacht\Contao\Leaflet\Filter\Filter;
  */
 class RequestUrl implements \JsonSerializable
 {
-    /**
-     * The for param is the identifier to the responsible frontend module or content element.
-     *
-     * @var string
-     */
-    private static $for;
-
     /**
      * The leaflet hash.
      *
@@ -54,17 +48,17 @@ class RequestUrl implements \JsonSerializable
      *
      * It combines the params and creates an hash for it.
      *
-     * @param int         $dataId The data object id.
-     * @param string|null $type   Object type. If empty it assumes a layer.
-     * @param string|null $format Data format. If empty it assumes geojson.
-     * @param Filter      $filter Optional filter.
+     * @param int         $dataId  The data object id.
+     * @param string|null $type    Object type. If empty it assumes a layer.
+     * @param string|null $format  Data format. If empty it assumes geojson.
+     * @param Request     $request Optional building request.
      *
      * @return RequestUrl
      */
-    public static function create($dataId, $type = null, $format = null, Filter $filter = null)
+    public static function create($dataId, $type = null, $format = null, Request $request = null)
     {
         $params = array(
-            'for'    => static::$for,
+            'for'    => $request ? $request->getMapIdentifier() : null,
             'type'   => $type != 'layer' ? $type : null,
             'id'     => $dataId,
             'format' => $format != 'geojson' ? $format : null
@@ -73,25 +67,14 @@ class RequestUrl implements \JsonSerializable
         $hash  = base64_encode(implode(',', $params));
         $query = 'leaflet=' . $hash;
 
-        if ($filter) {
+        if ($request && $request->getFilter()) {
+            $filter = $request->getFilter();
             $query .= '&amp;f=' . $filter->getName() . '&amp;v=' . $filter->toRequest();
         }
 
         $url = \Config::get('websitePath') . '/' . \Frontend::addToUrl($query, false);
 
-        return new static($url, $hash, $filter);
-    }
-
-    /**
-     * Set the for param.
-     *
-     * @param string $for The identifier which has the responsibility listen to the request.
-     *
-     * @return void
-     */
-    public static function setFor($for)
-    {
-        static::$for = $for;
+        return new static($url, $hash, $request);
     }
 
     /**

@@ -12,12 +12,13 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\UI;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
@@ -67,12 +68,12 @@ class MarkerMapper extends AbstractMapper
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
-        $arguments   = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
+        $arguments   = parent::buildConstructArguments($model, $mapper, $request, $elementId);
         $arguments[] = array($model->latitude, $model->longitude, $model->altitude ?: null) ?: null;
 
         return $arguments;
@@ -95,9 +96,9 @@ class MarkerMapper extends AbstractMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
         if ($definition instanceof Marker) {
@@ -109,7 +110,7 @@ class MarkerMapper extends AbstractMapper
                     $popupModel = PopupModel::findActiveByPK($model->popup);
 
                     if ($popupModel) {
-                        $popup = $mapper->handle($popupModel, $filter, null, $definition);
+                        $popup = $mapper->handle($popupModel, $request, null, $definition);
                     }
                 }
 

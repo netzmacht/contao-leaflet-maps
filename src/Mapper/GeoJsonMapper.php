@@ -12,7 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Value\GeoJson\GeoJsonFeature;
 
 /**
@@ -25,11 +26,11 @@ interface GeoJsonMapper
     /**
      * Hanle the GeoJSON creation.
      *
-     * @param \Model           $model  The model being mapped.
-     * @param DefinitionMapper $mapper The definition mapper.
-     * @param Filter           $filter Optional request filter.
+     * @param Model            $model   The model being mapped.
+     * @param DefinitionMapper $mapper  The definition mapper.
+     * @param Request          $request Optional building request.
      *
      * @return GeoJsonFeature|null
      */
-    public function handleGeoJson(\Model $model, DefinitionMapper $mapper, Filter $filter = null);
+    public function handleGeoJson(Model $model, DefinitionMapper $mapper, Request $request = null);
 }

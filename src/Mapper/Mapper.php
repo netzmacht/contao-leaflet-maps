@@ -12,7 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 
 /**
@@ -25,9 +26,9 @@ interface Mapper
     /**
      * Map model to the definition.
      *
-     * @param \Model|mixed     $model     The model being built. Usually a contao model, but can be anything.
+     * @param Model|mixed      $model     The model being built. Usually a contao model, but can be anything.
      * @param DefinitionMapper $mapper    The definition builder.
-     * @param Filter           $filter    Optional filter bounds.
+     * @param Request          $request   Optional building request.
      * @param string           $elementId Optional element.
      * @param Definition|null  $parent    Optional passed parent.
      *
@@ -36,7 +37,7 @@ interface Mapper
     public function handle(
         $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null,
         Definition $parent = null
     );
@@ -44,10 +45,10 @@ interface Mapper
     /**
      * Check if mapper is responsible for the model.
      *
-     * @param \Model $model  The model being build.
-     * @param Filter $filter Optional filter bounds.
+     * @param Model   $model   The model being build.
+     * @param Request $request Optional building request.
      *
      * @return bool
      */
-    public function match($model, Filter $filter = null);
+    public function match($model, Request $request = null);
 }

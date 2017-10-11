@@ -12,7 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Netzmacht\Contao\Leaflet\Request\Request;
 
 /**
  * Class AbstractTypeMapper is the base mapper for tables containing different types of definitins.
@@ -31,7 +31,7 @@ abstract class AbstractTypeMapper extends AbstractMapper
     /**
      * {@inheritdoc}
      */
-    public function match($model, Filter $filter = null)
+    public function match($model, Request $request = null)
     {
         return parent::match($model) && $model->type === static::$type;
     }

@@ -12,11 +12,11 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\ContaoAssets;
-use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
-use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\JavascriptBuilder\Type\AnonymousFunction;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
@@ -86,12 +86,12 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $filter, $parent);
+        parent::build($definition, $model, $mapper, $request, $parent);
 
         /** @var MarkerClusterGroup $definition */
 

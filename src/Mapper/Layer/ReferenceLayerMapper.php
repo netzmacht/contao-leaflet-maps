@@ -12,9 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 
 /**
@@ -37,7 +37,7 @@ class ReferenceLayerMapper extends AbstractLayerMapper
     public function handle(
         $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null,
         Definition $parent = null
     ) {
@@ -49,6 +49,6 @@ class ReferenceLayerMapper extends AbstractLayerMapper
 
         $elementId = $model->standalone ? $this->getElementId($model, $elementId) : null;
 
-        return $mapper->handle($reference, $filter, $elementId);
+        return $mapper->handle($reference, $request, $elementId);
     }
 }

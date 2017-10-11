@@ -12,13 +12,14 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Definition\Style;
-use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\UI\Popup;
@@ -62,12 +63,12 @@ class AbstractVectorMapper extends AbstractTypeMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $filter);
+        parent::build($definition, $model, $mapper, $request);
 
         if ($definition instanceof Path && $model->style) {
             $styleModel = StyleModel::findActiveByPK($model->style);
@@ -81,24 +82,24 @@ class AbstractVectorMapper extends AbstractTypeMapper
             }
         }
 
-        $this->buildPopup($definition, $model, $mapper, $filter);
+        $this->buildPopup($definition, $model, $mapper, $request);
     }
 
     /**
      * Build the popup.
      *
      * @param Definition       $definition The definition.
-     * @param \Model           $model      The model.
+     * @param Model            $model      The model.
      * @param DefinitionMapper $mapper     The definition mapper.
-     * @param Filter           $filter     The filter.
+     * @param Request          $request    Optional building request.
      *
      * @return void
      */
     protected function buildPopup(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null
+        Request $request = null
     ) {
         if ($definition instanceof HasPopup && $model->addPopup) {
             $popup   = null;
@@ -108,7 +109,7 @@ class AbstractVectorMapper extends AbstractTypeMapper
                 $popupModel = PopupModel::findActiveByPK($model->popup);
 
                 if ($popupModel) {
-                    $popup = $mapper->handle($popupModel, $filter, null, $definition);
+                    $popup = $mapper->handle($popupModel, $request, null, $definition);
                 }
             }
 

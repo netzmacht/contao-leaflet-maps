@@ -12,11 +12,12 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
@@ -39,7 +40,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * {@inheritdoc}
      */
-    protected function getClassName(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
+    protected function getClassName(Model $model, DefinitionMapper $mapper, Request $request = null)
     {
         if ($model->deferred) {
             return 'Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson';
@@ -52,9 +53,9 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
         if ($model->deferred) {
@@ -71,7 +72,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
                 return array(
                     $this->getElementId($model, $elementId),
-                    RequestUrl::create($model->id, null, null, $filter),
+                    RequestUrl::create($model->id, null, null, $request),
                     array(),
                     $layer
                 );
@@ -79,11 +80,11 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
             return array(
                 $this->getElementId($model, $elementId),
-                RequestUrl::create($model->id, null, null, $filter)
+                RequestUrl::create($model->id, null, null, $request)
             );
         }
 
-        return parent::buildConstructArguments($model, $mapper, $filter, $elementId);
+        return parent::buildConstructArguments($model, $mapper, $request, $elementId);
     }
 
     /**
@@ -91,9 +92,9 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
         if ($definition instanceof GeoJson) {
@@ -123,10 +124,10 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * {@inheritdoc}
      */
-    public function handleGeoJson(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
+    public function handleGeoJson(Model $model, DefinitionMapper $mapper, Request $request = null)
     {
         $feature    = new FeatureCollection();
-        $collection = $this->loadMarkerModels($model, $filter);
+        $collection = $this->loadMarkerModels($model, $request);
 
         if ($collection) {
             foreach ($collection as $item) {
@@ -145,15 +146,15 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     /**
      * Load all layer markers.
      *
-     * @param \Model $model  The layer model.
-     * @param Filter $filter The request filter.
+     * @param Model   $model   The layer model.
+     * @param Request $request Optional building request.
      *
      * @return \Model\Collection|null
      */
-    protected function loadMarkerModels(\Model $model, Filter $filter = null)
+    protected function loadMarkerModels(Model $model, Request $request = null)
     {
         if ($model->boundsMode == 'fit') {
-            return MarkerModel::findByFilter($model->id, $filter);
+            return MarkerModel::findByFilter($model->id, $request->getFilter());
         }
 
         return MarkerModel::findByFilter($model->id);

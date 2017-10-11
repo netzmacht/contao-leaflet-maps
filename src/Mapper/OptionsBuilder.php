@@ -11,6 +11,7 @@
  */
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
+use Contao\Model;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\HasOptions;
 
@@ -199,7 +200,7 @@ class OptionsBuilder
      *
      * @param array      $options    The options.
      * @param Definition $definition The definition being built.
-     * @param \Model     $model      The model.
+     * @param Model      $model      The model.
      *
      * @return void
      */

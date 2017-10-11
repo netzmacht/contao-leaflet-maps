@@ -17,10 +17,10 @@ use Doctrine\Common\Cache\Cache;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Frontend\DataController;
-use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
@@ -139,9 +139,8 @@ class MapProvider
             $model = $this->getModel($mapId);
         }
 
-        RequestUrl::setFor($elementId ?: $mapId);
-        $definition = $this->mapper->reset()->handle($model, $filter, $elementId);
-        RequestUrl::setFor(null);
+        $request    = new Request($elementId ?: $mapId, $filter);
+        $definition = $this->mapper->reset()->handle($model, $request, $elementId);
 
         return $definition;
     }
@@ -241,8 +240,10 @@ class MapProvider
             throw new \InvalidArgumentException(sprintf('Could not find layer "%s"', $layerId));
         }
 
+        $request = new Request('', $filter);
+
         if (!$model->cache) {
-            return $this->mapper->handleGeoJson($model, $filter);
+            return $this->mapper->handleGeoJson($model, $request);
         }
 
         $cacheKey = 'feature_layer_' . $model->id;
@@ -254,7 +255,7 @@ class MapProvider
             return $this->cache->fetch($cacheKey);
         }
 
-        $collection = $this->mapper->handleGeoJson($model, $filter);
+        $collection = $this->mapper->handleGeoJson($model, $request);
         $this->cache->save($cacheKey, $collection, $model->cacheLifeTime);
 
         return $collection;

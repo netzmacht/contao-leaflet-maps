@@ -12,9 +12,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
+use Netzmacht\Contao\Leaflet\Request\Request;
 
 /**
  * Class LayersControlMapper maps the control model to the layers control definition.
@@ -41,12 +42,12 @@ class LayersControlMapper extends AbstractControlMapper
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
-        $arguments    = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
+        $arguments    = parent::buildConstructArguments($model, $mapper, $request, $elementId);
         $arguments[1] = array();
         $arguments[2] = array();
 
@@ -57,7 +58,7 @@ class LayersControlMapper extends AbstractControlMapper
             foreach ($collection as $layer) {
                 $argument = ($layer->controlMode === 'overlay') ? 2 : 1;
 
-                $arguments[$argument][] = $mapper->handle($layer, $filter);
+                $arguments[$argument][] = $mapper->handle($layer, $request);
             }
         }
 

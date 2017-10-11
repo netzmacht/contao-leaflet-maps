@@ -12,9 +12,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\OptionsBuilder;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 
 /**
@@ -53,7 +54,7 @@ class ProviderLayerMapper extends AbstractLayerMapper
     /**
      * {@inheritdoc}
      */
-    protected function getClassName(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
+    protected function getClassName(Model $model, DefinitionMapper $mapper, Request $request = null)
     {
         if (isset($this->providers[$model->tile_provider]['class'])) {
             return $this->providers[$model->tile_provider]['class'];
@@ -67,9 +68,9 @@ class ProviderLayerMapper extends AbstractLayerMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
         if (!empty($this->providers[$model->tile_provider]['options'])) {
@@ -85,9 +86,9 @@ class ProviderLayerMapper extends AbstractLayerMapper
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
         return array(

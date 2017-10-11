@@ -12,12 +12,12 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Vector\CircleMarker;
 use Netzmacht\LeafletPHP\Value\LatLng;
-use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 
 /**
  * Class CircleMapper maps the database model to the circle definition.
@@ -55,12 +55,12 @@ class CircleMapper extends AbstractVectorMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $filter);
+        parent::build($definition, $model, $mapper, $request);
 
         if ($definition instanceof CircleMarker) {
             $definition->setLatLng(LatLng::fromString($model->coordinates));

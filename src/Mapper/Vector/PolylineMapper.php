@@ -12,8 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Netzmacht\LeafletPHP\Definition\Vector\Polyline;
@@ -44,12 +45,12 @@ class PolylineMapper extends AbstractVectorMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $filter);
+        parent::build($definition, $model, $mapper, $request);
 
         if ($definition instanceof Polyline) {
             array_map(

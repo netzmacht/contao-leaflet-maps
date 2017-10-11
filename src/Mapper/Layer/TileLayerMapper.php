@@ -12,8 +12,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Raster\TileLayer;
 use Netzmacht\LeafletPHP\Value\LatLngBounds;
@@ -64,12 +66,12 @@ class TileLayerMapper extends AbstractLayerMapper
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
-        $arguments = parent::buildConstructArguments($model, $mapper, $filter, $elementId);
+        $arguments = parent::buildConstructArguments($model, $mapper, $request, $elementId);
 
         $arguments[] = $model->tileUrl;
 
@@ -81,26 +83,26 @@ class TileLayerMapper extends AbstractLayerMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $filter, $parent);
+        parent::build($definition, $model, $mapper, $request, $parent);
 
         /** @var TileLayer $definition */
-        $filter = deserialize($model->bounds);
+        $bounds = StringUtil::deserialize($model->bounds);
 
-        if ($filter[0] && $filter[1]) {
-            $filter = array_map(
+        if ($request[0] && $request[1]) {
+            $bounds = array_map(
                 function ($value) {
                     return explode(',', $value, 3);
                 },
-                $filter
+                $bounds
             );
 
-            $filter = LatLngBounds::fromArray($filter);
-            $definition->setBounds($filter);
+            $bounds = LatLngBounds::fromArray($bounds);
+            $definition->setBounds($bounds);
         }
     }
 }

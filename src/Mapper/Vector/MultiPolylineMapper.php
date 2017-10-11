@@ -12,8 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Vector\Polyline;
 use Netzmacht\LeafletPHP\Value\LatLng;
@@ -44,12 +45,12 @@ class MultiPolylineMapper extends AbstractVectorMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $filter);
+        parent::build($definition, $model, $mapper, $request);
 
         if ($definition instanceof Polyline) {
             $this->createLatLngs($definition, $model);
@@ -60,11 +61,11 @@ class MultiPolylineMapper extends AbstractVectorMapper
      * Create lat lngs for the definition.
      *
      * @param Polyline $definition The multi polyline.
-     * @param \Model   $model      The definition model.
+     * @param Model    $model      The definition model.
      *
      * @return void
      */
-    protected function createLatLngs(Polyline $definition, \Model $model)
+    protected function createLatLngs(Polyline $definition, Model $model)
     {
         foreach (deserialize($model->multiData, true) as $ring => $data) {
             $latLngs = array_map(

@@ -12,7 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 
 /**
@@ -63,14 +64,14 @@ abstract class AbstractMapper implements Mapper
     public function handle(
         $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null,
         Definition $parent = null
     ) {
-        $definition = $this->createInstance($model, $mapper, $filter, $elementId);
+        $definition = $this->createInstance($model, $mapper, $request, $elementId);
 
         $this->optionsBuilder->build($definition, $model);
-        $this->build($definition, $model, $mapper, $filter, $parent);
+        $this->build($definition, $model, $mapper, $request, $parent);
 
         return $definition;
     }
@@ -78,7 +79,7 @@ abstract class AbstractMapper implements Mapper
     /**
      * {@inheritdoc}
      */
-    public function match($model, Filter $filter = null)
+    public function match($model, Request $request = null)
     {
         $modelClass = static::$modelClass;
 
@@ -98,9 +99,9 @@ abstract class AbstractMapper implements Mapper
      * Use for specific build methods.
      *
      * @param Definition       $definition The definition being built.
-     * @param \Model           $model      The model.
+     * @param Model            $model      The model.
      * @param DefinitionMapper $mapper     The definition mapper.
-     * @param Filter|null      $filter     Optional request filter.
+     * @param Request          $request    Optional building request.
      * @param Definition|null  $parent     The parent object.
      *
      * @return void
@@ -109,9 +110,9 @@ abstract class AbstractMapper implements Mapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
     }
@@ -119,21 +120,21 @@ abstract class AbstractMapper implements Mapper
     /**
      * Create a new definition instance.
      *
-     * @param \Model           $model     The model.
+     * @param Model            $model     The model.
      * @param DefinitionMapper $mapper    The definition mapper.
-     * @param Filter           $filter    Optional request filter.
+     * @param Request          $request   Optional building request.
      * @param string|null      $elementId Optional element id.
      *
      * @return Definition
      */
     protected function createInstance(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
-        $reflector = new \ReflectionClass($this->getClassName($model, $mapper, $filter));
-        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $filter, $elementId));
+        $reflector = new \ReflectionClass($this->getClassName($model, $mapper, $request));
+        $instance  = $reflector->newInstanceArgs($this->buildConstructArguments($model, $mapper, $request, $elementId));
 
         return $instance;
     }
@@ -141,9 +142,9 @@ abstract class AbstractMapper implements Mapper
     /**
      * Get construct arguments.
      *
-     * @param \Model           $model     The model.
+     * @param Model            $model     The model.
      * @param DefinitionMapper $mapper    The definition mapper.
-     * @param Filter           $filter    Optional request filter.
+     * @param Request          $request   Optional building request.
      * @param string|null      $elementId Optional element id.
      *
      * @return array
@@ -151,9 +152,9 @@ abstract class AbstractMapper implements Mapper
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function buildConstructArguments(
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         $elementId = null
     ) {
         return array(
@@ -164,15 +165,15 @@ abstract class AbstractMapper implements Mapper
     /**
      * Get definition class name.
      *
-     * @param \Model           $model  The model.
-     * @param DefinitionMapper $mapper The definition mapper.
-     * @param Filter           $filter Optional request filter.
+     * @param Model            $model   The model.
+     * @param DefinitionMapper $mapper  The definition mapper.
+     * @param Request          $request Optional building request.
      *
      * @return string
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    protected function getClassName(\Model $model, DefinitionMapper $mapper, Filter $filter = null)
+    protected function getClassName(Model $model, DefinitionMapper $mapper, Request $request = null)
     {
         return static::$definitionClass;
     }
@@ -180,12 +181,12 @@ abstract class AbstractMapper implements Mapper
     /**
      * Create element id for the model.
      *
-     * @param \Model      $model     The model being passed.
+     * @param Model       $model     The model being passed.
      * @param string|null $elementId Optional forced id.
      *
      * @return string
      */
-    protected function getElementId(\Model $model, $elementId = null)
+    protected function getElementId(Model $model, $elementId = null)
     {
         if ($elementId) {
             return $elementId;

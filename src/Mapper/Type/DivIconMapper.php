@@ -12,8 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
-use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\DivIcon;
 
@@ -53,12 +54,12 @@ class DivIconMapper extends AbstractIconMapper
      */
     protected function build(
         Definition $definition,
-        \Model $model,
+        Model $model,
         DefinitionMapper $mapper,
-        Filter $filter = null,
+        Request $request = null,
         Definition $parent = null
     ) {
-        parent::build($definition, $model, $mapper, $filter);
+        parent::build($definition, $model, $mapper, $request);
 
         if ($definition instanceof DivIcon && $model->iconSize) {
             $definition->setIconSize(explode(',', $model->iconSize, 2));

@@ -9,6 +9,7 @@
  * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
  */
+
 namespace Netzmacht\Contao\Leaflet\Mapper\Style;
 
 /**
