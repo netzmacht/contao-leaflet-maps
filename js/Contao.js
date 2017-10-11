@@ -3,9 +3,7 @@
  *
  * This class provides some helpers for loading layer data manages maps and map objects.
  */
-L.Contao = L.Class.extend({
-    includes: L.Mixin.Events,
-
+L.Contao = L.Evented.extend({
     statics: {
         /**
          * Contao extension attribution.
