@@ -63,4 +63,14 @@ class LayersControlMapper extends AbstractControlMapper
 
         return $arguments;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function initialize()
+    {
+        parent::initialize();
+
+        $this->optionsBuilder->addOption('collapsed');
+    }
 }
