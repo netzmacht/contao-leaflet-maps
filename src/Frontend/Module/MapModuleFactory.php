@@ -60,8 +60,8 @@ class MapModuleFactory implements ComponentFactory
             $this->container->get('templating'),
             $this->container->get('translator'),
             $this->container->get('netzmacht.contao_leaflet.map.provider'),
-            $this->container->get('netzmacht.contao_toolkit.contao.input'),
-            $this->container->get('netzmacht.contao_toolkit.contao.config'),
+            $this->container->get('netzmacht.contao_toolkit.contao.input_adapter'),
+            $this->container->get('netzmacht.contao_toolkit.contao.config_adapter'),
             $column
         );
     }
