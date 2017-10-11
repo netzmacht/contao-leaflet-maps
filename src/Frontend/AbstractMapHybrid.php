@@ -96,7 +96,7 @@ abstract class AbstractMapHybrid extends AbstractHybrid
             ];
 
             if ($model) {
-                $href = 'contao/main.php?do=leaflet&amp;table=tl_leaflet_map&amp;act=edit&amp;id=' . $model->id;;
+                $href = 'contao/main.php?do=leaflet&amp;table=tl_leaflet_map&amp;act=edit&amp;id=' . $model->id;
 
                 $parameters['wildcard'] = '### LEAFLET MAP ' . $model->title . ' ###';
                 $parameters['id']       = $model->id;
@@ -112,6 +112,8 @@ abstract class AbstractMapHybrid extends AbstractHybrid
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception If map could not be created.
      */
     protected function prepareTemplateData(array $data): array
     {
