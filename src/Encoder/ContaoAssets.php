@@ -10,7 +10,7 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet;
+namespace Netzmacht\Contao\Leaflet\Encoder;
 
 use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 use Netzmacht\LeafletPHP\Assets;

@@ -42,7 +42,7 @@ services:
     class: Netzmacht\Contao\Leaflet\Frontend\ValueFilter
 
   netzmacht.contao_leaflet.map.assets:
-    class: Netzmacht\Contao\Leaflet\ContaoAssets
+    class: Netzmacht\Contao\Leaflet\Encoder\ContaoAssets
     arguments:
       - '@netzmacht.contao_toolkit.assets_manager'
 

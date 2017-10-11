@@ -14,6 +14,7 @@ namespace Netzmacht\Contao\Leaflet;
 
 use Contao\Input;
 use Doctrine\Common\Cache\Cache;
+use Netzmacht\Contao\Leaflet\Encoder\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Filter\FilterFactory;

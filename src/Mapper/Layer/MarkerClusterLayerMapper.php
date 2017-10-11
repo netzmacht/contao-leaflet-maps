@@ -13,7 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Contao\Model;
-use Netzmacht\Contao\Leaflet\ContaoAssets;
+use Netzmacht\Contao\Leaflet\Encoder\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Request\Request;
