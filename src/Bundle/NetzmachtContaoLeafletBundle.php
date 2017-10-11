@@ -38,8 +38,8 @@ class NetzmachtContaoLeafletBundle extends Bundle
         $container->addCompilerPass(new RegisterLibrariesPass());
         $container->addCompilerPass(
             new AddTaggedServicesAsArgumentPass(
-                'netzmacht.contao_leaflet_maps.layer_label_renderer',
-                'netzmacht.contao_leaflet_maps.layer_label_renderer'
+                'netzmacht.contao_leaflet.layer_label_renderer',
+                'netzmacht.contao_leaflet.layer_label_renderer'
             )
         );
     }

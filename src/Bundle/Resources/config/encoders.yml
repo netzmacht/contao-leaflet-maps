@@ -6,42 +6,42 @@ services:
   _defaults:
     public: false
 
-  netzmacht.contao_leaflet_maps.encoder.map:
+  netzmacht.contao_leaflet.encoder.map:
     class: Netzmacht\LeafletPHP\Encoder\MapEncoder
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }
 
-  netzmacht.contao_leaflet_maps.encoder.control:
+  netzmacht.contao_leaflet.encoder.control:
     class: Netzmacht\LeafletPHP\Encoder\ControlEncoder
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }
 
-  netzmacht.contao_leaflet_maps.encoder.group:
+  netzmacht.contao_leaflet.encoder.group:
     class: Netzmacht\LeafletPHP\Encoder\GroupEncoder
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }
       
-  netzmacht.contao_leaflet_maps.encoder.raster:
+  netzmacht.contao_leaflet.encoder.raster:
     class: Netzmacht\LeafletPHP\Encoder\RasterEncoder
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }
       
-  netzmacht.contao_leaflet_maps.encoder.vector:
+  netzmacht.contao_leaflet.encoder.vector:
     class: Netzmacht\LeafletPHP\Encoder\VectorEncoder
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }
       
-  netzmacht.contao_leaflet_maps.encoder.ui:
+  netzmacht.contao_leaflet.encoder.ui:
     class: Netzmacht\LeafletPHP\Encoder\UIEncoder
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }
       
-  netzmacht.contao_leaflet_maps.encoder.type:
+  netzmacht.contao_leaflet.encoder.type:
     class: Netzmacht\LeafletPHP\Encoder\TypeEncoder
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }
 
-  netzmacht.contao_leaflet_maps.encoder.subscriber:
+  netzmacht.contao_leaflet.encoder.subscriber:
     class: Netzmacht\Contao\Leaflet\Subscriber\EncoderSubscriber
     tags:
-      - { name: netzmacht.contao_leaflet_maps.encoder }
+      - { name: netzmacht.contao_leaflet.encoder }

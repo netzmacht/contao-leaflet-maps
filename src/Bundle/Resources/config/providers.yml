@@ -1,5 +1,5 @@
 parameters:
-  netzmacht.contao_leaflet_maps.providers:
+  netzmacht.contao_leaflet.providers:
     OpenStreetMap:
       variants: ['Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT', 'BZH']
 

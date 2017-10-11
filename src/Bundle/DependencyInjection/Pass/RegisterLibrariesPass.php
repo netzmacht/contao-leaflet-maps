@@ -30,16 +30,16 @@ class RegisterLibrariesPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('netzmacht.contao_leaflet_maps.definition.builder')) {
+        if (!$container->hasDefinition('netzmacht.contao_leaflet.definition.builder')) {
             return;
         }
 
-        if (!$container->hasParameter('netzmacht.contao_leaflet_maps.libraries')) {
+        if (!$container->hasParameter('netzmacht.contao_leaflet.libraries')) {
             return;
         }
 
-        $definition = $container->getDefinition('netzmacht.contao_leaflet_maps.definition.builder');
-        $libraries  = $container->getParameter('netzmacht.contao_leaflet_maps.libraries');
+        $definition = $container->getDefinition('netzmacht.contao_leaflet.definition.builder');
+        $libraries  = $container->getParameter('netzmacht.contao_leaflet.libraries');
 
         foreach ($libraries as $name => $assets) {
             if (!empty($assets['css'])) {

@@ -23,9 +23,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['leaflet_map'] = [
     'label'            => &$GLOBALS['TL_LANG']['tl_content']['leaflet_map'],
     'inputType'        => 'select',
     'exclude'          => true,
-    'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.frontend_integration', 'getMaps'],
+    'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.frontend_integration', 'getMaps'],
     'wizard'           => [
-        ['netzmacht.contao_leaflet_maps.listeners.dca.frontend_integration', 'getEditMapLink'],
+        ['netzmacht.contao_leaflet.listeners.dca.frontend_integration', 'getEditMapLink'],
     ],
     'eval'             => [
         'tl_class' => 'w50 wizard',

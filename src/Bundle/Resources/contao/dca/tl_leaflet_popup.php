@@ -21,7 +21,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = [
             ],
         ],
         'onsubmit_callback' => [
-            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
+            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
         ],
     ],
 
@@ -149,12 +149,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = [
             'inputType'     => 'text',
             'save_callback' => [
                 ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
-                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateAlias'],
+                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
             ],
             'eval'          => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true],
             'toolkit'       => [
                 'alias_generator' => [
-                    'factory' => 'netzmacht.contao_leaflet_maps.definition.alias_generator.factory_default',
+                    'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_default',
                     'fields'  => ['title'],
                 ],
             ],
@@ -213,7 +213,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = [
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateCoordinates'],
+                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateCoordinates'],
             ],
             'eval'          => [
                 'maxlength'   => 255,
@@ -269,7 +269,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_popup'] = [
             'eval'          => ['tl_class' => 'w50'],
             'sql'           => "char(1) NOT NULL default ''",
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
+                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
             ],
         ],
     ],

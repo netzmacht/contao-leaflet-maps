@@ -1,5 +1,5 @@
 parameters:
-  netzmacht.contao_leaflet_maps.amenities:
+  netzmacht.contao_leaflet.amenities:
     - 'administration'
     - 'advertising'
     - 'alm'

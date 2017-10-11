@@ -30,12 +30,12 @@ class RegisterEncodersPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('netzmacht.contao_leaflet_maps.definition.builder.event_dispatcher')) {
+        if (!$container->hasDefinition('netzmacht.contao_leaflet.definition.builder.event_dispatcher')) {
             return;
         }
 
-        $definition = $container->getDefinition('netzmacht.contao_leaflet_maps.definition.builder.event_dispatcher');
-        $serviceIds = $container->findTaggedServiceIds('netzmacht.contao_leaflet_maps.encoder');
+        $definition = $container->getDefinition('netzmacht.contao_leaflet.definition.builder.event_dispatcher');
+        $serviceIds = $container->findTaggedServiceIds('netzmacht.contao_leaflet.encoder');
 
         foreach (array_keys($serviceIds) as $serviceId) {
             $definition->addMethodCall('addSubscriber', [new Reference($serviceId)]);

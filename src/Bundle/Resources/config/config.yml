@@ -2,7 +2,7 @@ parameters:
   # leaflet controls.
   #
   # Supported leaflet control types. Register your type for the database driven definition here.
-  netzmacht.contao_leaflet_maps.controls:
+  netzmacht.contao_leaflet.controls:
     - 'zoom'
     - 'layers'
     - 'scale'
@@ -13,7 +13,7 @@ parameters:
   # Leaflet icons.
   #
   # Supported leaflet icon types. Register you type for the database driven definition here.
-  netzmacht.contao_leaflet_maps.icons:
+  netzmacht.contao_leaflet.icons:
     - 'image'
     - 'div'
     - 'extra'
@@ -23,13 +23,13 @@ parameters:
   #
   # The goal is to provide different style strategies. For instance a random style chooser, one which uses a color
   # range and so one.
-  netzmacht.contao_leaflet_maps.styles:
+  netzmacht.contao_leaflet.styles:
     - 'fixed'
 
   # Leaflet vectors.
   #
   # Supported leaflet vector types. Register you type for the database driven definition here.
-  netzmacht.contao_leaflet_maps.vectors:
+  netzmacht.contao_leaflet.vectors:
     - 'polyline'
     - 'polygon'
     - 'multiPolyline'
@@ -48,7 +48,7 @@ parameters:
   #  - array:  Use deserialize before adding the value
   #  - file:   Thread value a uuid and find the path.
   #  - files:  Thread values as a list of file uuids and get an array of paths.
-  netzmacht.contao_leaflet_maps.feature_model_properties:
+  netzmacht.contao_leaflet.feature_model_properties:
     tl_leaflet_marker:
       - 'id'
       - 'title'

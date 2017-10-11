@@ -1,11 +1,11 @@
 services:
   # Filters can be passed to a data request to get only specific data from a layer.
-  netzmacht.contao_leaflet_maps.filter.bbox:
+  netzmacht.contao_leaflet.filter.bbox:
     class: Netzmacht\Contao\Leaflet\Filter\BboxFilter
     tags:
-      - { name: 'netzmacht.contao_leaflet_maps.filter', alias: 'bbox' }
+      - { name: 'netzmacht.contao_leaflet.filter', alias: 'bbox' }
 
-  netzmacht.contao_leaflet_maps.filter.distance:
+  netzmacht.contao_leaflet.filter.distance:
     class: Netzmacht\Contao\Leaflet\Filter\DistanceFilter
     tags:
-      - { name: 'netzmacht.contao_leaflet_maps.filter', alias: 'distance' }
+      - { name: 'netzmacht.contao_leaflet.filter', alias: 'distance' }

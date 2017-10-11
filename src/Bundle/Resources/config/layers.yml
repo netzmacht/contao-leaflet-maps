@@ -2,7 +2,7 @@
 #
 # The type is used for the database driven definitions.
 parameters:
-  netzmacht.contao_leaflet_maps.layers:
+  netzmacht.contao_leaflet.layers:
     provider:
       children: false
       icon: 'bundles/netzmachtcontaoleaflet/img/provider.png'
@@ -49,32 +49,32 @@ services:
   _defaults:
     public: false
 
-  netzmacht.contao_leaflet_maps.layer_label_renderer:
+  netzmacht.contao_leaflet.layer_label_renderer:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\ChainRenderer
     arguments:
       - []
 
-  netzmacht.contao_leaflet_maps.layer_label_renderer.markers:
+  netzmacht.contao_leaflet.layer_label_renderer.markers:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\MarkersLabelRenderer
     tags:
-      - { name: 'netzmacht.contao_leaflet_maps.layer_label_renderer' }
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
 
-  netzmacht.contao_leaflet_maps.layer_label_renderer.overpass:
+  netzmacht.contao_leaflet.layer_label_renderer.overpass:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\OverpassLabelRenderer
     tags:
-      - { name: 'netzmacht.contao_leaflet_maps.layer_label_renderer' }
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
 
-  netzmacht.contao_leaflet_maps.layer_label_renderer.provider:
+  netzmacht.contao_leaflet.layer_label_renderer.provider:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\ProviderLabelRenderer
     tags:
-      - { name: 'netzmacht.contao_leaflet_maps.layer_label_renderer' }
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
 
-  netzmacht.contao_leaflet_maps.layer_label_renderer.reference:
+  netzmacht.contao_leaflet.layer_label_renderer.reference:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\ReferenceLabelRenderer
     tags:
-      - { name: 'netzmacht.contao_leaflet_maps.layer_label_renderer' }
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
 
-  netzmacht.contao_leaflet_maps.layer_label_renderer.vectors:
+  netzmacht.contao_leaflet.layer_label_renderer.vectors:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\VectorsLabelRenderer
     tags:
-      - { name: 'netzmacht.contao_leaflet_maps.layer_label_renderer' }
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }

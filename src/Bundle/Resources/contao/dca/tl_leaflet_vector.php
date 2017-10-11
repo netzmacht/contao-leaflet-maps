@@ -23,10 +23,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             ],
         ],
         'onload_callback'   => [
-            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'loadLanguageFile'],
+            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'loadLanguageFile'],
         ],
         'onsubmit_callback' => [
-            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
+            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
         ],
     ],
 
@@ -37,7 +37,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'flag'                  => 1,
             'panelLayout'           => 'sort,filter;search,limit',
             'headerFields'          => ['title', 'type'],
-            'child_record_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.vector', 'generateRow'],
+            'child_record_callback' => ['netzmacht.contao_leaflet.listeners.dca.vector', 'generateRow'],
         ],
         'label'             => [
             'fields' => ['title'],
@@ -183,12 +183,12 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'search'        => true,
             'save_callback' => [
                 ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
-                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateAlias'],
+                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
             ],
             'eval'          => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true],
             'toolkit'       => [
                 'alias_generator' => [
-                    'factory' => 'netzmacht.contao_leaflet_maps.definition.alias_generator.factory_default',
+                    'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_default',
                     'fields'  => ['title'],
                 ],
             ],
@@ -210,7 +210,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
                 'chosen'             => true,
                 'helpwizard'         => true,
             ],
-            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.vector', 'getVectorOptions'],
+            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.vector', 'getVectorOptions'],
             'reference'        => &$GLOBALS['TL_LANG']['leaflet_vector'],
             'sql'              => "varchar(32) NOT NULL default ''",
         ],
@@ -225,7 +225,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'eval'          => ['tl_class' => 'w50'],
             'sql'           => "char(1) NOT NULL default ''",
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
+                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
             ],
         ],
         'addPopup'        => [
@@ -261,7 +261,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_vector']['style'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.vector', 'getStyles'],
+            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.vector', 'getStyles'],
             'eval'             => [
                 'mandatory'          => false,
                 'tl_class'           => 'w50',
@@ -290,10 +290,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'exclude'       => true,
             'inputType'     => 'text',
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateCoordinates'],
+                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateCoordinates'],
             ],
             'wizard'        => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'getGeocoder'],
+                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'getGeocoder'],
             ],
             'eval'          => [
                 'maxlength'   => 255,
@@ -317,7 +317,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'search'        => false,
             'eval'          => ['mandatory' => true, 'alwaysSave' => true],
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateMultipleCoordinates'],
+                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateMultipleCoordinates'],
             ],
             'sql'           => 'longblob NULL',
         ],
@@ -339,7 +339,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
                 ],
             ],
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateMultipleCoordinateSets'],
+                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateMultipleCoordinateSets'],
             ],
             'sql'           => 'longblob NULL',
         ],

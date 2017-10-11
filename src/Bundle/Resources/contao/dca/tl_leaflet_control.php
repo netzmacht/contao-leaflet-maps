@@ -22,10 +22,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
             ],
         ],
         'onload_callback'   => [
-            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'loadLanguageFile'],
+            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'loadLanguageFile'],
         ],
         'onsubmit_callback' => [
-            ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
+            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
         ],
     ],
 
@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
             'flag'                  => 1,
             'sorting'               => 2,
             'panelLayout'           => 'filter,sort;search,limit',
-            'child_record_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.control', 'generateRow'],
+            'child_record_callback' => ['netzmacht.contao_leaflet.listeners.dca.control', 'generateRow'],
         ],
         'label'             => [
             'fields' => ['title'],
@@ -157,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
             'search'        => true,
             'save_callback' => [
                 ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
-                ['netzmacht.contao_leaflet_maps.listeners.dca.validator', 'validateAlias'],
+                ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
             ],
             'eval'          => [
                 'mandatory'   => false,
@@ -167,7 +167,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
             ],
             'toolkit'       => [
                 'alias_generator' => [
-                    'factory' => 'netzmacht.contao_leaflet_maps.definition.alias_generator.factory_parent',
+                    'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_parent',
                     'fields'  => ['title'],
                 ],
             ],
@@ -187,7 +187,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
                 'chosen'             => true,
                 'helpwizard'         => true,
             ],
-            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.control', 'getControlTypes'],
+            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.control', 'getControlTypes'],
             'reference'        => &$GLOBALS['TL_LANG']['leaflet_control'],
             'sql'              => "varchar(32) NOT NULL default ''",
         ],
@@ -210,7 +210,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
             'eval'          => ['tl_class' => 'w50'],
             'sql'           => "char(1) NOT NULL default ''",
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.leaflet', 'clearCache'],
+                ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
             ],
         ],
         'zoomInText'         => [
@@ -262,10 +262,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
             'exclude'       => true,
             'inputType'     => 'multiColumnWizard',
             'load_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.control', 'loadLayerRelations'],
+                ['netzmacht.contao_leaflet.listeners.dca.control', 'loadLayerRelations'],
             ],
             'save_callback' => [
-                ['netzmacht.contao_leaflet_maps.listeners.dca.control', 'saveLayerRelations'],
+                ['netzmacht.contao_leaflet.listeners.dca.control', 'saveLayerRelations'],
             ],
             'eval'          => [
                 'tl_class'     => 'clr',
@@ -274,7 +274,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
                         'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['layer'],
                         'exclude'          => true,
                         'inputType'        => 'select',
-                        'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.control', 'getLayers'],
+                        'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.control', 'getLayers'],
                         'eval'             => [
                             'style'              => 'width: 300px',
                             'chosen'             => true,
@@ -352,7 +352,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['zoomControl'],
             'exclude'          => true,
             'inputType'        => 'select',
-            'options_callback' => ['netzmacht.contao_leaflet_maps.listeners.dca.control', 'getZoomControls'],
+            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.control', 'getZoomControls'],
             'reference'        => &$GLOBALS['TL_LANG']['tl_leaflet_control'],
             'eval'             => [
                 'mandatory'          => false,
