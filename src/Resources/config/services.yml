@@ -99,4 +99,4 @@ services:
       - '@netzmacht.contao_leaflet_maps.map.provider'
       - '%kernel.debug%'
     tags:
-      - { name: 'netzmacht.contao_toolkit.insert_tag_parser' }
+      - { name: 'contao.hook', hook: 'replaceInsertTags', method: 'replace' }

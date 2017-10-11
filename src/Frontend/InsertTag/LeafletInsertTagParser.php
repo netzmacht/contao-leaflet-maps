@@ -15,7 +15,9 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Frontend\InsertTag;
 
 use Netzmacht\Contao\Leaflet\MapProvider;
-use Netzmacht\Contao\Toolkit\InsertTag\Parser;
+use Netzmacht\Contao\Toolkit\InsertTag\AbstractSingleInsertTagParser;
+use Netzmacht\Contao\Toolkit\InsertTag\ArgumentParser;
+use Netzmacht\Contao\Toolkit\InsertTag\ArgumentParserPlugin;
 
 /**
  * LeafletInsertTagParser parses the leaflet insert tag.
@@ -29,8 +31,17 @@ use Netzmacht\Contao\Toolkit\InsertTag\Parser;
  *
  * @package Netzmacht\Contao\Leaflet\Frontend\InsertTag
  */
-class LeafletInsertTagParser implements Parser
+final class LeafletInsertTagParser extends AbstractSingleInsertTagParser
 {
+    use ArgumentParserPlugin;
+
+    /**
+     * Insert tag name.
+     *
+     * @var string
+     */
+    protected $tagName = 'leaflet';
+
     /**
      * The map service.
      *
@@ -60,26 +71,24 @@ class LeafletInsertTagParser implements Parser
     /**
      * {@inheritDoc}
      */
-    public function supports(string $tag): bool
+    protected function parseTag(array $arguments, string $tag, string $raw)
     {
-        return $tag === 'leaflet';
+        if (empty($arguments['mapId'])) {
+            return '';
+        }
+
+        $style    = empty($arguments['style']) ? 'width:400px;height:300px' : $arguments['style'];
+        $template = empty($arguments['template']) ? 'leaflet_map_html' : $arguments['template'];
+
+        return $this->generateMap($arguments['mapId'], $template, $style);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function parse(string $raw, string $tag, string $params = null, bool $cache = true): string
+    protected function createArgumentParser(): ArgumentParser
     {
-        $parts = explode('::', $params);
-
-        if (empty($parts[0])) {
-            return '';
-        }
-
-        $style    = empty($parts[1]) ? 'width:400px;height:300px' : $parts[1];
-        $template = empty($parts[2]) ? 'leaflet_map_html' : $parts[2];
-
-        return $this->generateMap($parts[0], $template, $style);
+        return ArgumentParser::create()->splitBy('::', ['mapId', 'style', 'template']);
     }
 
     /**
