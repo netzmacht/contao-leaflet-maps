@@ -245,7 +245,7 @@ class LayerDcaListener extends AbstractListener
                     $children['mode'],
                     $row['id'],
                     !is_array($children['id']) ? '&amp;id='.$children['id'] : ''
-                )
+                ) . '&amp;rt=' . RequestToken::get()
             );
 
             $buffer .= sprintf(
