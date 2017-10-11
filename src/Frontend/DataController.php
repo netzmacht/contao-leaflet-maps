@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Netzmacht\Contao\Leaflet\Filter\FilterFactory;
 use Netzmacht\Contao\Leaflet\MapProvider;
 
 /**
@@ -41,13 +42,6 @@ class DataController
         'filter' => null,
         'values' => null
     );
-    
-    /**
-     * Filters configuration.
-     *
-     * @var array
-     */
-    private $filters;
 
     /**
      * Display errors.
@@ -57,17 +51,24 @@ class DataController
     private $displayErrors;
 
     /**
+     * Filter factory.
+     *
+     * @var FilterFactory
+     */
+    private $filterFactory;
+
+    /**
      * Construct.
      *
-     * @param MapProvider $mapProvider   The map provider.
-     * @param array       $filters       Filters configuration.
-     * @param bool        $displayErrors Display errors.
+     * @param MapProvider   $mapProvider   The map provider.
+     * @param FilterFactory $filterFactory Filter factory.
+     * @param bool          $displayErrors Display errors.
      */
-    public function __construct(MapProvider $mapProvider, array $filters, $displayErrors)
+    public function __construct(MapProvider $mapProvider, FilterFactory $filterFactory, $displayErrors)
     {
         $this->mapProvider   = $mapProvider;
-        $this->filters       = $filters;
         $this->displayErrors = $displayErrors;
+        $this->filterFactory = $filterFactory;
     }
 
     /**
@@ -85,7 +86,7 @@ class DataController
 
         try {
             if ($input['filter']) {
-                $filter = $this->createFilter($input);
+                $filter = $this->filterFactory->create($input['filter'], $input['values']);
             } else {
                 $filter = null;
             }
@@ -151,27 +152,5 @@ class DataController
         }
 
         return array($data, $error);
-    }
-
-    /**
-     * Create a filter.
-     *
-     * @param array $input The user input as array.
-     *
-     * @return Filter
-     * @throws \RuntimeException If the filter is not defined.
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    private function createFilter($input)
-    {
-        if (!isset($this->filters[$input['filter']])) {
-            throw new \RuntimeException(sprintf('Undefined filter "%s".', $input['filter']));
-        }
-
-        /** @var Filter $filter */
-        $filter = $this->filters[$input['filter']];
-
-        return $filter::fromRequest($input['values']);
     }
 }

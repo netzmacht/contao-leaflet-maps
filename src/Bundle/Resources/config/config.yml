@@ -58,3 +58,8 @@ parameters:
       - 'id'
       - 'title'
       - 'alias'
+
+  # Filters can be passed to a data request to get only specific data from a layer.
+  netzmacht.contao_leaflet.filters:
+    bbox: Netzmacht\Contao\Leaflet\Filter\BboxFilter
+    distance: Netzmacht\Contao\Leaflet\Filter\DistanceFilter

@@ -16,6 +16,7 @@ use Contao\Input;
 use Doctrine\Common\Cache\Cache;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
+use Netzmacht\Contao\Leaflet\Filter\FilterFactory;
 use Netzmacht\Contao\Leaflet\Frontend\DataController;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
@@ -69,11 +70,11 @@ class MapProvider
     private $assets;
 
     /**
-     * Request filters configuration.
+     * Filter factory.
      *
-     * @var array
+     * @var FilterFactory
      */
-    private $filters;
+    private $filterFactory;
 
     /**
      * Display errors setting.
@@ -98,7 +99,7 @@ class MapProvider
      * @param Input            $input           Thw request input.
      * @param ContaoAssets     $assets          Assets handler.
      * @param Cache            $cache           Cache.
-     * @param array            $filters         Request filters configuration.
+     * @param FilterFactory    $filterFactory   Filter factory.
      * @param bool             $displayErrors   Display errors setting.
      */
     public function __construct(
@@ -108,7 +109,7 @@ class MapProvider
         $input,
         ContaoAssets $assets,
         Cache $cache,
-        array $filters,
+        FilterFactory $filterFactory,
         $displayErrors
     ) {
         $this->mapper          = $mapper;
@@ -116,7 +117,7 @@ class MapProvider
         $this->eventDispatcher = $eventDispatcher;
         $this->input           = $input;
         $this->assets          = $assets;
-        $this->filters         = $filters;
+        $this->filterFactory   = $filterFactory;
         $this->displayErrors   = $displayErrors;
         $this->cache           = $cache;
     }
@@ -293,7 +294,7 @@ class MapProvider
                 return;
             }
 
-            $controller = new DataController($this, $this->filters, $this->displayErrors);
+            $controller = new DataController($this, $this->filterFactory, $this->displayErrors);
             $controller->execute($data);
 
             if ($exit) {
