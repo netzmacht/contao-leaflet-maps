@@ -203,7 +203,7 @@ class MapProvider
             }
         }
 
-        $buffer = $this->doGenerate($mapId, $filter, $elementId, $template, $model, $style);
+        $buffer = $this->doGenerate($model, $filter, $elementId, $template, $style);
 
         if ($model->cache) {
             $this->cache->save(
