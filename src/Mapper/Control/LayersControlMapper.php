@@ -71,6 +71,6 @@ class LayersControlMapper extends AbstractControlMapper
     {
         parent::initialize();
 
-        $this->optionsBuilder->addOption('collapsed');
+        $this->optionsBuilder->addOptions(['collapsed', 'autoZIndex']);
     }
 }
