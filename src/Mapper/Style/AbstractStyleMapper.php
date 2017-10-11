@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Style;
 
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
+use Netzmacht\Contao\Leaflet\Model\StyleModel;
 
 /**
  * Class AbstractStyleMapper is the base mapper for the style model.
@@ -26,5 +27,5 @@ abstract class AbstractStyleMapper extends AbstractTypeMapper
      *
      * @var string
      */
-    protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\StyleModel';
+    protected static $modelClass = StyleModel::class;
 }

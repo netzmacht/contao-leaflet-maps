@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
 use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
+use Netzmacht\Contao\Leaflet\Model\IconModel;
 
 /**
  * Class AbstractIconMapper is the base mapper for the icon model.
@@ -26,7 +27,7 @@ class AbstractIconMapper extends AbstractTypeMapper
      *
      * @var string
      */
-    protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\IconModel';
+    protected static $modelClass = IconModel::class;
 
     /**
      * {@inheritdoc}

@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Frontend\ValueFilter;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
@@ -36,14 +37,14 @@ class MarkerMapper extends AbstractMapper
      *
      * @var string
      */
-    protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\MarkerModel';
+    protected static $modelClass = MarkerModel::class;
 
     /**
      * Class of the definition being created.
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\UI\Marker';
+    protected static $definitionClass = Marker::class;
 
     /**
      * Frontend filter.

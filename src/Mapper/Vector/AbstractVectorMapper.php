@@ -19,6 +19,7 @@ use Netzmacht\Contao\Leaflet\Mapper\AbstractTypeMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
+use Netzmacht\Contao\Leaflet\Model\VectorModel;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
@@ -37,7 +38,7 @@ class AbstractVectorMapper extends AbstractTypeMapper
      *
      * @var string
      */
-    protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\VectorModel';
+    protected static $modelClass = VectorModel::class;
 
     /**
      * Frontend filter.

@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Style;
 
+use Netzmacht\Contao\Leaflet\Definition\Style\FixedStyle;
+
 /**
  * Class FixedStyleMapper maps the fixed style to the corresponding definition.
  *
@@ -24,7 +26,7 @@ class FixedStyleMapper extends AbstractStyleMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\Contao\Leaflet\Definition\Style\FixedStyle';
+    protected static $definitionClass = FixedStyle::class;
 
     /**
      * Style type.

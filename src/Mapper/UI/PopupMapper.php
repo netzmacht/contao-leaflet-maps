@@ -32,14 +32,14 @@ class PopupMapper extends AbstractMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\UI\Popup';
+    protected static $definitionClass = Popup::class;
 
     /**
      * The model class.
      *
      * @var string
      */
-    protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\PopupModel';
+    protected static $modelClass = PopupModel::class;
 
     /**
      * {@inheritdoc}

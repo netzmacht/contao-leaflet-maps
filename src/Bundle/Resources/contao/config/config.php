@@ -46,7 +46,7 @@ array_insert(
             ),
             'leaflet_about' => array
             (
-                'callback'   => 'Netzmacht\Contao\Leaflet\Backend\About',
+                'callback'   => Netzmacht\Contao\Leaflet\Backend\About::class,
                 'icon'       => 'bundles/netzmachtcontaoleaflet/img/about.png',
                 'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/about.css',
             )

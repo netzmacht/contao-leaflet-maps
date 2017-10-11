@@ -39,7 +39,7 @@ class OverpassLayerMapper extends AbstractLayerMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\Contao\Leaflet\Definition\Layer\OverpassLayer';
+    protected static $definitionClass = OverpassLayer::class;
 
     /**
      * {@inheritdoc}

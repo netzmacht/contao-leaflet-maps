@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -104,6 +105,19 @@ class VectorDcaListener extends AbstractListener
                 return sprintf('%s [%s]', $model['title'], $model['type']);
             }
         );
+
+        return $builder->getOptions();
+    }
+
+    /**
+     * Get all popups.
+     *
+     * @return array
+     */
+    public function getPopups()
+    {
+        $collection = PopupModel::findAll(array('order' => 'title'));
+        $builder    = OptionsBuilder::fromCollection($collection, 'title');
 
         return $builder->getOptions();
     }

@@ -33,7 +33,7 @@ class MapMapper extends AbstractMapper
      *
      * @var string
      */
-    protected static $modelClass = 'Netzmacht\Contao\Leaflet\Model\MapModel';
+    protected static $modelClass = MapModel::class;
 
     /**
      * Class of the definition being created.
