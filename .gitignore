@@ -24,4 +24,5 @@ build.properties
 .tx
 
 # NPM
+node_modules
 package-lock.json
