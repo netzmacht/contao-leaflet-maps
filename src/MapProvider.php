@@ -17,7 +17,6 @@ use Doctrine\Common\Cache\Cache;
 use Netzmacht\Contao\Leaflet\Encoder\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
-use Netzmacht\Contao\Leaflet\Filter\FilterFactory;
 use Netzmacht\Contao\Leaflet\Frontend\DataController;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
@@ -71,25 +70,18 @@ class MapProvider
     private $assets;
 
     /**
-     * Filter factory.
-     *
-     * @var FilterFactory
-     */
-    private $filterFactory;
-
-    /**
-     * Display errors setting.
-     *
-     * @var bool
-     */
-    private $displayErrors;
-
-    /**
      * Cache.
      *
      * @var Cache
      */
     private $cache;
+
+    /**
+     * Data controller.
+     *
+     * @var DataController
+     */
+    private $dataController;
 
     /**
      * Construct.
@@ -100,8 +92,9 @@ class MapProvider
      * @param Input            $input           Thw request input.
      * @param ContaoAssets     $assets          Assets handler.
      * @param Cache            $cache           Cache.
-     * @param FilterFactory    $filterFactory   Filter factory.
-     * @param bool             $displayErrors   Display errors setting.
+     * @param DataController   $dataController  Data controller.
+     *
+     * @internal param FilterFactory $filterFactory Filter factory.
      */
     public function __construct(
         DefinitionMapper $mapper,
@@ -110,17 +103,15 @@ class MapProvider
         $input,
         ContaoAssets $assets,
         Cache $cache,
-        FilterFactory $filterFactory,
-        $displayErrors
+        DataController $dataController
     ) {
         $this->mapper          = $mapper;
         $this->leaflet         = $leaflet;
         $this->eventDispatcher = $eventDispatcher;
         $this->input           = $input;
         $this->assets          = $assets;
-        $this->filterFactory   = $filterFactory;
-        $this->displayErrors   = $displayErrors;
         $this->cache           = $cache;
+        $this->dataController  = $dataController;
     }
 
     /**
@@ -295,8 +286,7 @@ class MapProvider
                 return;
             }
 
-            $controller = new DataController($this, $this->filterFactory, $this->displayErrors);
-            $controller->execute($data);
+            $this->dataController->execute($data, $this);
 
             if ($exit) {
                 exit;

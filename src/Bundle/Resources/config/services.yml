@@ -14,8 +14,7 @@ services:
       - '@netzmacht.contao_toolkit.contao.input_adapter'
       - '@netzmacht.contao_leaflet.map.assets'
       - '@netzmacht.contao_leaflet.cache'
-      - '@netzmacht.contao_leaflet.filter_factory'
-      - '%kernel.debug%'
+      - '@netzmacht.contao_leaflet.frontend.data_controller'
 
   netzmacht.contao_leaflet.libraries:
     class: Netzmacht\Contao\Leaflet\Frontend\Assets\LibrariesConfiguration
@@ -105,3 +104,9 @@ services:
       - '%kernel.debug%'
     tags:
       - { name: 'contao.hook', hook: 'replaceInsertTags', method: 'replace' }
+
+  netzmacht.contao_leaflet.frontend.data_controller:
+    class: Netzmacht\Contao\Leaflet\Frontend\DataController
+    arguments:
+      - '@netzmacht.contao_leaflet.filter_factory'
+      - '%kernel.debug%'

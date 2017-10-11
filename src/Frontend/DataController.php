@@ -24,13 +24,6 @@ use Netzmacht\Contao\Leaflet\MapProvider;
 class DataController
 {
     /**
-     * The map provider.
-     *
-     * @var MapProvider
-     */
-    private $mapProvider;
-
-    /**
      * The user input data.
      *
      * @var array
@@ -44,11 +37,11 @@ class DataController
     );
 
     /**
-     * Display errors.
+     * Debug mode.
      *
      * @var bool
      */
-    private $displayErrors;
+    private $debugMode;
 
     /**
      * Filter factory.
@@ -60,27 +53,25 @@ class DataController
     /**
      * Construct.
      *
-     * @param MapProvider   $mapProvider   The map provider.
      * @param FilterFactory $filterFactory Filter factory.
-     * @param bool          $displayErrors Display errors.
+     * @param bool          $debugMode     Debug mode.
      */
-    public function __construct(MapProvider $mapProvider, FilterFactory $filterFactory, $displayErrors)
+    public function __construct(FilterFactory $filterFactory, $debugMode)
     {
-        $this->mapProvider   = $mapProvider;
-        $this->displayErrors = $displayErrors;
+        $this->debugMode     = $debugMode;
         $this->filterFactory = $filterFactory;
     }
 
     /**
      * Execute the controller and create the data response.
      *
-     * @param array $input The user input as array.
+     * @param array       $input       The user input as array.
+     * @param MapProvider $mapProvider Map provider.
      *
      * @return void
-     *
      * @throws \Exception If anything went wrong.
      */
-    public function execute(array $input)
+    public function execute(array $input, MapProvider $mapProvider)
     {
         $input = array_merge($this->input, $input);
 
@@ -91,10 +82,10 @@ class DataController
                 $filter = null;
             }
 
-            list($data, $error) = $this->loadData($input['type'], $input['id'], $filter);
+            list($data, $error) = $this->loadData($mapProvider, $input['type'], $input['id'], $filter);
             $this->encodeData($input['format'], $data);
         } catch (\Exception $e) {
-            if ($this->displayErrors) {
+            if ($this->debugMode) {
                 throw $e;
             }
             $error = true;
@@ -129,20 +120,21 @@ class DataController
     /**
      * Load the data.
      *
-     * @param string $type   The data type.
-     * @param mixed  $dataId The data id.
-     * @param Filter $filter Optional request filter.
+     * @param MapProvider $mapProvider Map provider.
+     * @param string      $type        The data type.
+     * @param mixed       $dataId      The data id.
+     * @param Filter      $filter      Optional request filter.
      *
      * @return array
      */
-    public function loadData($type, $dataId, Filter $filter = null)
+    public function loadData(MapProvider $mapProvider, $type, $dataId, Filter $filter = null)
     {
         $error = false;
         $data  = null;
 
         switch ($type) {
             case 'layer':
-                $data = $this->mapProvider->getFeatureCollection($dataId, $filter);
+                $data = $mapProvider->getFeatureCollection($dataId, $filter);
                 break;
 
             default:
