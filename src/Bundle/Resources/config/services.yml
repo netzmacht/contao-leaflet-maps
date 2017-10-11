@@ -11,7 +11,7 @@ services:
       - '@netzmacht.contao_leaflet.definition.mapper'
       - '@netzmacht.contao_leaflet.definition.builder'
       - '@event_dispatcher'
-      - '@netzmacht.contao_toolkit.contao.input'
+      - '@netzmacht.contao_toolkit.contao.input_adapter'
       - '@netzmacht.contao_leaflet.map.assets'
       - '@netzmacht.contao_leaflet.cache'
       - [] # TODO: Rework filter handling.
