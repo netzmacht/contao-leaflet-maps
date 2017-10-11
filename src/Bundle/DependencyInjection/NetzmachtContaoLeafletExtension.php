@@ -10,7 +10,9 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\DependencyInjection;
+declare(strict_types=1);
+
+namespace Netzmacht\Contao\Leaflet\Bundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

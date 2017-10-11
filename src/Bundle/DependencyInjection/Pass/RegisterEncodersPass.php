@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Netzmacht\Contao\Leaflet\DependencyInjection\Pass;
+namespace Netzmacht\Contao\Leaflet\Bundle\DependencyInjection\Pass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

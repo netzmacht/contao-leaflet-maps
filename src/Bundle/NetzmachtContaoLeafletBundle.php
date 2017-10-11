@@ -12,11 +12,11 @@
 
 declare(strict_types=1);
 
-namespace Netzmacht\Contao\Leaflet;
+namespace Netzmacht\Contao\Leaflet\Bundle;
 
-use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterLibrariesPass;
-use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterDefinitionMapperPass;
-use Netzmacht\Contao\Leaflet\DependencyInjection\Pass\RegisterEncodersPass;
+use Netzmacht\Contao\Leaflet\Bundle\DependencyInjection\Pass\RegisterLibrariesPass;
+use Netzmacht\Contao\Leaflet\Bundle\DependencyInjection\Pass\RegisterDefinitionMapperPass;
+use Netzmacht\Contao\Leaflet\Bundle\DependencyInjection\Pass\RegisterEncodersPass;
 use Netzmacht\Contao\Toolkit\Bundle\DependencyInjection\Compiler\AddTaggedServicesAsArgumentPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
