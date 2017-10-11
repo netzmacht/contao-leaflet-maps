@@ -39,6 +39,8 @@ services:
 
   netzmacht.contao_leaflet.frontend.value_filter:
     class: Netzmacht\Contao\Leaflet\Frontend\ValueFilter
+    arguments:
+      - '@contao.framework'
 
   netzmacht.contao_leaflet.map.assets:
     class: Netzmacht\Contao\Leaflet\Encoder\ContaoAssets
