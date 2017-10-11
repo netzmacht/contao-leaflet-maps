@@ -56,7 +56,7 @@ class LeafletDcaListener
      *
      * @return void
      */
-    public function loadLanguageFile(): void
+    public function loadLanguageFile()
     {
         Controller::loadLanguageFile('leaflet');
     }

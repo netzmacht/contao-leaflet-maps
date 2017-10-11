@@ -69,7 +69,7 @@ class LoadAssetsListener
      *
      * @return void
      */
-    public function onGetJavascriptEvent(): void
+    public function onGetJavascriptEvent()
     {
         $this->assets->addJavascript(
             'bundles/netzmachtcontaoleaflet/js/contao-leaflet.js',
@@ -117,7 +117,7 @@ class LoadAssetsListener
      *
      * @return void
      */
-    protected function loadIconsLibraries($icon): void
+    protected function loadIconsLibraries($icon)
     {
         foreach ($icon::getRequiredLibraries() as $library) {
             if (!isset($this->libraries[$library])) {

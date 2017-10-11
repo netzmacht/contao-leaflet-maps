@@ -47,7 +47,7 @@ class MarkerDcaListener
      *
      * @return void
      */
-    public function initialize(): void
+    public function initialize()
     {
         Controller::loadLanguageFile('leaflet');
     }

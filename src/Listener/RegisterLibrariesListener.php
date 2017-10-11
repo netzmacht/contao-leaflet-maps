@@ -56,7 +56,7 @@ final class RegisterLibrariesListener
      *
      * @return void
      */
-    public function onInitializeSystem(): void
+    public function onInitializeSystem()
     {
         foreach ($this->libraries as $name => $assets) {
             if (!empty($assets['css'])) {

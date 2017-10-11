@@ -22,7 +22,7 @@
     "source": "https://github.com/netzmacht/contao-leaflet-maps"
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.0",
     "contao/core-bundle": "^4.4",
     "netzmacht/contao-leaflet-libraries": "^1.0",
     "netzmacht/php-javascript-builder": "^1.0",
