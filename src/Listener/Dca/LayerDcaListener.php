@@ -323,14 +323,14 @@ class LayerDcaListener extends AbstractListener
 
             $undo = $statement->fetch();
 
-            $result = $this->connection
-                ->prepare('SELECT * FROM tl_leaflet_map_layer WHERE lid=?')
-                ->execute($dataContainer->id);
+            $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE lid=:lid');
+            $statement->bindValue('lid', $dataContainer->id);
+            $statement->execute();
 
             $undo['data'] = deserialize($undo['data'], true);
 
-            while ($result->next()) {
-                $undo['data']['tl_leaflet_map_layer'][] = $result->row();
+            while ($row = $statement->fetch()) {
+                $undo['data']['tl_leaflet_map_layer'][] = $row;
             }
 
             $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_control_layer WHERE lid=:lid');
