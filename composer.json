@@ -23,7 +23,7 @@
   },
   "require": {
     "php": ">=7.0",
-    "contao/core-bundle": "^4.4.7",
+    "contao/core-bundle": "~4.4",
     "netzmacht/contao-leaflet-libraries": "^1.0",
     "netzmacht/php-javascript-builder": "^1.0",
     "netzmacht/php-leaflet": "^1.0.1",
