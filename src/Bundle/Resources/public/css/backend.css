@@ -1,6 +1,6 @@
 
 .tl_listing_container.tree_view  ul > li.tl_file {
-    background: url('./../img/fol-placeholder.gif') no-repeat 6px 1px;
+    background: url('./../img/fol-placeholder.gif') no-repeat 6px 4px;
 }
 
 .tl_listing_container.tree_view  ul > li.tl_file > div {
