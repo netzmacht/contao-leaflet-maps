@@ -111,7 +111,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'toggle'  => [
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['toggle'],
                 'icon'            => 'visible.gif',
-                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'attributes'      => 'onclick="Backend.getScrollOffset(); 
+                    return ContaoLeafletAjaxRequest.toggleVisibility(this,%s)"',
                 'button_callback' => [
                     'netzmacht.contao_toolkit.dca.listeners.state_button_callback',
                     'handleButtonCallback',

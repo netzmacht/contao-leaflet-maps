@@ -43,6 +43,7 @@ array_insert(
                 ),
                 'icon'       => 'bundles/netzmachtcontaoleaflet/img/layers.png',
                 'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/backend.css',
+                'javascript' => 'bundles/netzmachtcontaoleaflet/js/backend.js'
             ),
             'leaflet_about' => array
             (

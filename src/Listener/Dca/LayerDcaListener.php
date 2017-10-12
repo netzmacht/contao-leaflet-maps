@@ -168,12 +168,22 @@ class LayerDcaListener extends AbstractListener
             $src = 'iconPLAIN.gif';
         }
 
+        $activeIcon   = $src;
+        $disabledIcon = preg_replace('/(\.[^\.]+)$/', '_1$1', $src);
+
         if (!$row['active']) {
-            $src = preg_replace('/(\.[^\.]+)$/', '_1$1', $src);
+            $src = $disabledIcon;
         }
 
-        $alt   = $this->getFormatter()->formatValue('type', $row['type']);
-        $icon  = Image::getHtml($src, $alt, sprintf('title="%s"', StringUtil::specialchars(strip_tags($alt))));
+        $alt        = $this->getFormatter()->formatValue('type', $row['type']);
+        $attributes = sprintf(
+            'class="list-icon" title="%s" data-icon="%s" data-icon-disabled="%s"',
+            StringUtil::specialchars(strip_tags($alt)),
+            $activeIcon,
+            $disabledIcon
+        );
+
+        $icon  = Image::getHtml($src, $alt, $attributes);
         $label = $this->labelRenderer->render($row, $label, $this->translator);
 
         return $icon . ' ' . $label;
