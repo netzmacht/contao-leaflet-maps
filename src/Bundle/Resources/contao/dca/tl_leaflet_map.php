@@ -195,6 +195,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = [
             'eval'          => [
                 'multiple'       => true,
                 'doNotSaveEmpty' => true,
+                'tl_class'       => 'leaflet-mcw leaflet-mcw-map-layers',
                 'columnFields'   => [
                     'reference' => [
                         'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_map']['reference'],
@@ -206,7 +207,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = [
                             'tl_class'           => 'w50',
                             'chosen'             => true,
                             'includeBlankOption' => true,
-                            'style'              => 'width: 300px',
                         ],
                         'sql'              => "int(10) unsigned NOT NULL default '0'",
                     ],

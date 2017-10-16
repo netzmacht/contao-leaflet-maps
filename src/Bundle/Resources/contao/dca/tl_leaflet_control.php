@@ -268,7 +268,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
                 ['netzmacht.contao_leaflet.listeners.dca.control', 'saveLayerRelations'],
             ],
             'eval'          => [
-                'tl_class'     => 'clr',
+                'tl_class'     => 'leaflet-mcw leaflet-mcw-control-layers',
                 'columnFields' => [
                     'layer' => [
                         'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_control']['layer'],

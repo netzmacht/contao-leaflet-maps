@@ -810,6 +810,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'inputType'        => 'multiColumnWizard',
             'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getIcons'],
             'eval'             => [
+                'tl_class'     => 'leaflet-mcw leaflet-mcw-amenity-icons',
                 'columnFields' => [
                     'amenity' => [
                         'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'],

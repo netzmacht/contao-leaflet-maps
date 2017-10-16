@@ -326,6 +326,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'inputType'     => 'multiColumnWizard',
             'search'        => false,
             'eval'          => [
+                'tl_class'     => 'leaflet-mcw',
                 'mandatory'    => true,
                 'alwaysSave'   => true,
                 'flatArray'    => true,
