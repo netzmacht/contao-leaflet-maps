@@ -10,7 +10,7 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Subscriber;
+namespace Netzmacht\Contao\Leaflet\Encoder\Subscriber;
 
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\JavascriptBuilder\Exception\EncodeValueFailed;

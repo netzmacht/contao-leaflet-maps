@@ -42,6 +42,6 @@ services:
       - { name: netzmacht.contao_leaflet.encoder }
 
   netzmacht.contao_leaflet.encoder.subscriber:
-    class: Netzmacht\Contao\Leaflet\Subscriber\EncoderSubscriber
+    class: Netzmacht\Contao\Leaflet\Encoder\Subscriber\EncoderSubscriber
     tags:
       - { name: netzmacht.contao_leaflet.encoder }
