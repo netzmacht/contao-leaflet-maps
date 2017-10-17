@@ -39,6 +39,8 @@ $GLOBALS['TL_LANG']['leaflet_layer']['tile'][0]          = 'Tile layer';
 $GLOBALS['TL_LANG']['leaflet_layer']['tile'][1]          = 'Tile layer with full config options.';
 $GLOBALS['TL_LANG']['leaflet_layer']['overpass'][0]      = 'Overpass API';
 $GLOBALS['TL_LANG']['leaflet_layer']['overpass'][1]      = 'Overpass API data layer.';
+$GLOBALS['TL_LANG']['leaflet_layer']['file'][0]          = 'File';
+$GLOBALS['TL_LANG']['leaflet_layer']['file'][1]          = 'Geo data from a file (gpx,kml,wkt).';
 
 $GLOBALS['TL_LANG']['leaflet_vector']['polyline'][0]      = 'Polyline';
 $GLOBALS['TL_LANG']['leaflet_vector']['polyline'][1]      = 'Polyline overlay. For more details read the <a href="http://leafletjs.com/reference.html#polyline" target="_blank">Leaflet documentation</a>.';

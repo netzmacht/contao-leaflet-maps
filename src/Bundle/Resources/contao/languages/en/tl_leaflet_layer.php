@@ -145,6 +145,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'][0]                    = 'Amen
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'][1]                    = 'OSM amenity.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'][1]                = 'Icon';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'][0]                = 'Icon style';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'][0]                       = 'File';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'][1]                       = 'Choose a file containing geodata. Supported formats are gpx,kml and wkt.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';

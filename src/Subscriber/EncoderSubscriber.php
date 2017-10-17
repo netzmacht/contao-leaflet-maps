@@ -13,11 +13,10 @@
 namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
-use Netzmacht\JavascriptBuilder\Encoder;
-use Netzmacht\JavascriptBuilder\Flags;
-use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeValueEvent;
-use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeReferenceEvent;
 use Netzmacht\JavascriptBuilder\Exception\EncodeValueFailed;
+use Netzmacht\JavascriptBuilder\Flags;
+use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeReferenceEvent;
+use Netzmacht\JavascriptBuilder\Symfony\Event\EncodeValueEvent;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

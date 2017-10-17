@@ -217,6 +217,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'pointToLayer',
             ],
         ],
+
+        'file extends default' => [
+            '+config' => ['file'],
+            '+expert' => [
+                'onEachFeature',
+                'pointToLayer',
+            ],
+        ],
     ],
 
     'metasubselectpalettes' => [
@@ -852,6 +860,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'tl_class'       => 'clr',
             ],
             'sql'       => 'mediumtext NULL',
+        ],
+        'file' => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'],
+            'exclude'   => true,
+            'inputType' => 'fileTree',
+            'eval'      => [
+                'filesOnly'  => true,
+                'fieldType'  => 'radio',
+                'mandatory'  => true,
+                'extensions' => 'gpx,kml,wkt',
+                'tl_class'   => 'clr',
+            ],
+            'sql'       => 'binary(16) NULL',
         ],
     ],
 ];

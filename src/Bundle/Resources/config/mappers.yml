@@ -58,6 +58,10 @@ services:
     tags:
       - { name: netzmacht.contao_leflet_maps.mapper }
 
+  netzmacht.contao_leaflet.mapper.file_layer:
+    class: Netzmacht\Contao\Leaflet\Mapper\Layer\FileLayerMapper
+    tags:
+      - { name: netzmacht.contao_leaflet.mapper }
 
   # Control mappers
   netzmacht.contao_leaflet.mapper.zoom_control:
