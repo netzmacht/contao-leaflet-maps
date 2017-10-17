@@ -33,13 +33,13 @@ class EncoderSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            EncodeValueEvent::NAME => array(
-                array('encodeIcons', 1000),
-                array('loadLayer', 100),
-            ),
-            EncodeReferenceEvent::NAME => array('referenceIcon', 100),
-        );
+        return [
+            EncodeValueEvent::NAME => [
+                ['encodeIcons', 1000],
+                ['loadLayer', 100],
+            ],
+            EncodeReferenceEvent::NAME => ['referenceIcon', 100],
+        ];
     }
 
     /**
@@ -96,7 +96,7 @@ class EncoderSubscriber implements EventSubscriberInterface
             $url = $value->getUrl();
 
             if ($url instanceof RequestUrl) {
-                $url = $url->getHash();
+                $url    = $url->getHash();
                 $method = 'load';
             }
 
