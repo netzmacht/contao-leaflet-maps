@@ -10,7 +10,7 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Subscriber;
+namespace Netzmacht\Contao\Leaflet\Listener;
 
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
