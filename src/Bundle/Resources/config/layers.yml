@@ -45,6 +45,10 @@ parameters:
         extend: true
         fit:    true
 
+    file:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/file.png'
+
 services:
   _defaults:
     public: false
