@@ -84,3 +84,8 @@ services:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\VectorsLabelRenderer
     tags:
       - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
+
+  netzmacht.contao_leaflet.layer_label_renderer.file:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\FileLabelRenderer
+    tags:
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
