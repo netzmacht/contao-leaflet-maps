@@ -14,10 +14,10 @@ namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
+use Netzmacht\Contao\Leaflet\Model\StyleModel;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use Netzmacht\Contao\Leaflet\Model\StyleModel;
 
 /**
  * Helper class for the tl_leaflet_vector dca.

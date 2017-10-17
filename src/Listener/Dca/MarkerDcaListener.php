@@ -14,9 +14,9 @@ namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\Controller;
 use Doctrine\DBAL\Connection;
-use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
+use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 
 /**
  * Class Marker is the dca helper class for the tl_leaflet_marker dca.

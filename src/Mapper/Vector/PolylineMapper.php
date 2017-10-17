@@ -16,8 +16,8 @@ use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
-use Netzmacht\LeafletPHP\Value\LatLng;
 use Netzmacht\LeafletPHP\Definition\Vector\Polyline;
+use Netzmacht\LeafletPHP\Value\LatLng;
 
 /**
  * Class PolylineMapper maps the database model to the polyline definition.

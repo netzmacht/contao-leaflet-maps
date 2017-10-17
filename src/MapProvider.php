@@ -22,9 +22,9 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Leaflet\Request\Request;
-use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
+use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**

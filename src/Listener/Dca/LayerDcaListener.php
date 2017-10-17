@@ -19,10 +19,10 @@ use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\LayerLabelRenderer;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**

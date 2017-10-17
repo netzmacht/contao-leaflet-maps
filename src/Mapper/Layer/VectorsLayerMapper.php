@@ -14,16 +14,16 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Contao\Model;
 use Contao\Model\Collection;
+use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\VectorModel;
-use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson as OmnivoreGeoJson;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
-use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 
 /**
  * Class VectorsLayerMapper maps the layer model for the Vectors layer definition.

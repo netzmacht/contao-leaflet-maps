@@ -13,16 +13,16 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Contao\Model;
+use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
-use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson as OmnivoreGeoJson;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
-use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 
 /**
  * Class MarkersLayerMapper maps the layer model to the markers definition.

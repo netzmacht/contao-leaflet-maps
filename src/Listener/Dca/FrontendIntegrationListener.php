@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**

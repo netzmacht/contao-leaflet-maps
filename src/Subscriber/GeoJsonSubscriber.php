@@ -14,12 +14,12 @@ namespace Netzmacht\Contao\Leaflet\Subscriber;
 
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
-use Netzmacht\LeafletPHP\Definition\Vector;
-use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
+use Netzmacht\LeafletPHP\Definition\Vector;
 use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 use Netzmacht\LeafletPHP\Definition\Vector\CircleMarker;
+use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

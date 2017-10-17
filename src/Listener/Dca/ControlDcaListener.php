@@ -14,11 +14,11 @@ namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
+use Netzmacht\Contao\Leaflet\Model\ControlModel;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use Netzmacht\Contao\Leaflet\Model\ControlModel;
-use Netzmacht\Contao\Leaflet\Model\LayerModel;
 
 /**
  * Class Control is the helper for the tl_leaflet_control dca.
