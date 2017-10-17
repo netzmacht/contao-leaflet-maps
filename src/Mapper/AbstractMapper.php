@@ -156,9 +156,9 @@ abstract class AbstractMapper implements Mapper
         Request $request = null,
         $elementId = null
     ) {
-        return array(
-            $this->getElementId($model, $elementId)
-        );
+        return [
+            $this->getElementId($model, $elementId),
+        ];
     }
 
     /**

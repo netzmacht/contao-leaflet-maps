@@ -99,5 +99,5 @@ $GLOBALS['TL_LANG']['tl_leaflet_control']['topright'][1]    = 'Top right of the 
 
 $GLOBALS['TL_LANG']['tl_leaflet_control']['base'][0]    = 'Base layer';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['base'][1]    = 'Base layers will be switched with radio buttons. Note that all base layers should be passed in the base layers object, but only one should be added to the map during map instantiation';
-$GLOBALS['TL_LANG']['tl_leaflet_control']['overlay'][0]    = 'Overlay';
-$GLOBALS['TL_LANG']['tl_leaflet_control']['overlay'][1]    = 'Overlays will be switched with checkboxes.';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['overlay'][0] = 'Overlay';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['overlay'][1] = 'Overlays will be switched with checkboxes.';

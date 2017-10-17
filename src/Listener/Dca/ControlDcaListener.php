@@ -110,7 +110,7 @@ class ControlDcaListener extends AbstractListener
      */
     public function getZoomControls()
     {
-        $collection = ControlModel::findBy('type', 'zoom', array('order' => 'title'));
+        $collection = ControlModel::findBy('type', 'zoom', ['order' => 'title']);
 
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }
@@ -166,7 +166,7 @@ class ControlDcaListener extends AbstractListener
                     'lid'     => $layer['layer'],
                     'cid'     => $dataContainer->id,
                     'mode'    => $layer['mode'],
-                    'sorting' => $sorting
+                    'sorting' => $sorting,
                 ];
 
                 $this->connection->insert('tl_leaflet_control_layer', $data);
@@ -177,10 +177,10 @@ class ControlDcaListener extends AbstractListener
                     [
                         'tstamp'  => time(),
                         'sorting' => $sorting,
-                        'mode'    => $layer['mode']
+                        'mode'    => $layer['mode'],
                     ],
                     [
-                        'id' => $values[$layer['layer']]['id']
+                        'id' => $values[$layer['layer']]['id'],
                     ]
                 );
 

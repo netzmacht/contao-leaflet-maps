@@ -95,14 +95,14 @@ class ImageIconMapper extends AbstractIconMapper
                 $definition->setIconUrl($file->path);
 
                 $file = new \File($file->path);
-                $definition->setIconSize(array($file->width, $file->height));
+                $definition->setIconSize([$file->width, $file->height]);
 
                 if (!$model->iconAnchor) {
-                    $definition->setIconAnchor(array($file->width / 2, $file->height));
+                    $definition->setIconAnchor([($file->width / 2), $file->height]);
                 }
 
                 if (!$model->popupAnchor) {
-                    $definition->setPopupAnchor(array(0, 8 - $file->height));
+                    $definition->setPopupAnchor([0, (8 - $file->height)]);
                 }
             }
         }
@@ -137,10 +137,10 @@ class ImageIconMapper extends AbstractIconMapper
                 $definition->setShadowUrl($file->path);
 
                 $file = new \File($file->path);
-                $definition->setShadowSize(array($file->width, $file->height));
+                $definition->setShadowSize([$file->width, $file->height]);
 
                 if (!$model->shadowAnchor) {
-                    $definition->setShadowAnchor(array($file->width / 2, $file->height));
+                    $definition->setShadowAnchor([($file->width / 2), $file->height]);
                 }
             }
         }

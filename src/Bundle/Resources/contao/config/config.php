@@ -17,42 +17,36 @@
 array_insert(
     $GLOBALS['BE_MOD'],
     1,
-    array(
-        'leaflet' => array
-        (
-            'leaflet_map' => array
-            (
-                'tables' => array
-                (
+    [
+        'leaflet' => [
+            'leaflet_map'   => [
+                'tables'     => [
                     'tl_leaflet_map',
                     'tl_leaflet_control',
-                ),
+                ],
                 'icon'       => 'bundles/netzmachtcontaoleaflet/img/map.png',
                 'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/backend.css',
-            ),
-            'leaflet_layer' => array
-            (
-                'tables' => array
-                (
+            ],
+            'leaflet_layer' => [
+                'tables'     => [
                     'tl_leaflet_layer',
                     'tl_leaflet_marker',
                     'tl_leaflet_vector',
                     'tl_leaflet_icon',
                     'tl_leaflet_style',
                     'tl_leaflet_popup',
-                ),
+                ],
                 'icon'       => 'bundles/netzmachtcontaoleaflet/img/layers.png',
                 'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/backend.css',
-                'javascript' => 'bundles/netzmachtcontaoleaflet/js/backend.js'
-            ),
-            'leaflet_about' => array
-            (
+                'javascript' => 'bundles/netzmachtcontaoleaflet/js/backend.js',
+            ],
+            'leaflet_about' => [
                 'callback'   => Netzmacht\Contao\Leaflet\Backend\About::class,
                 'icon'       => 'bundles/netzmachtcontaoleaflet/img/about.png',
                 'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/about.css',
-            )
-        )
-    )
+            ],
+        ],
+    ]
 );
 
 /*
@@ -74,5 +68,5 @@ $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = \Netzmacht\Contao\Leaflet\Model\Ve
 
 $GLOBALS['TL_HOOKS']['initializeSystem'][] = [
     'netzmacht.contao_leaflet.listeners.register_libraries',
-    'onInitializeSystem'
+    'onInitializeSystem',
 ];

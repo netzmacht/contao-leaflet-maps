@@ -75,7 +75,7 @@ class MarkerMapper extends AbstractMapper
         $elementId = null
     ) {
         $arguments   = parent::buildConstructArguments($model, $mapper, $request, $elementId);
-        $arguments[] = array($model->latitude, $model->longitude, $model->altitude ?: null) ?: null;
+        $arguments[] = [$model->latitude, $model->longitude, $model->altitude ?: null] ?: null;
 
         return $arguments;
     }
@@ -124,9 +124,9 @@ class MarkerMapper extends AbstractMapper
 
             if ($model->customIcon) {
                 $iconModel = IconModel::findBy(
-                    array('id=?', 'active=1'),
-                    array($model->icon),
-                    array('return' => 'Model')
+                    ['id=?', 'active=1'],
+                    [$model->icon],
+                    ['return' => 'Model']
                 );
 
                 if ($iconModel) {

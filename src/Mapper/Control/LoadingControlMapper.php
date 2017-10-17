@@ -80,8 +80,8 @@ class LoadingControlMapper extends AbstractControlMapper
         if ($definition instanceof LoadingControl && !$definition->isSeparate() && $model->zoomControl) {
             // Only assign if zoom control is activated and part of the map.
             $control = ControlModel::findOneBy(
-                array('active=1', 'type=?', 'pid=?', 'id=?'),
-                array('zoom', $model->pid, $model->zoomControl)
+                ['active=1', 'type=?', 'pid=?', 'id=?'],
+                ['zoom', $model->pid, $model->zoomControl]
             );
 
             if ($control) {

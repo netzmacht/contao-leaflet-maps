@@ -33,7 +33,7 @@ class NetzmachtContaoLeafletExtension extends Extension
     {
         $loader = new YamlFileLoader(
             $container,
-            new FileLocator(dirname(__DIR__) .'/Resources/config')
+            new FileLocator(dirname(__DIR__) . '/Resources/config')
         );
 
         // Common config, services and listeners

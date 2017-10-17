@@ -68,7 +68,7 @@ class BboxFilter implements Filter
      */
     public function getValues()
     {
-        return array('bounds' => $this->bounds);
+        return ['bounds' => $this->bounds];
     }
 
     /**

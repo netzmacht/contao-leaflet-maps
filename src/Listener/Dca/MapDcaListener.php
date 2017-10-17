@@ -90,7 +90,7 @@ class MapDcaListener extends AbstractListener
     public function saveLayerRelations($layerId, $dataContainer)
     {
         $new       = array_filter(StringUtil::deserialize($layerId, true));
-        $values    = array();
+        $values    = [];
         $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE mid=:mid order BY sorting');
 
         $statement->bindValue('mid', $dataContainer->id);
@@ -108,7 +108,7 @@ class MapDcaListener extends AbstractListener
                     'tstamp'  => time(),
                     'lid'     => $layerId,
                     'mid'     => $dataContainer->id,
-                    'sorting' => $sorting
+                    'sorting' => $sorting,
                 ];
 
                 $this->connection->insert('tl_leaflet_map_layer', $data);

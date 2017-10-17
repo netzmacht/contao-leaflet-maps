@@ -49,8 +49,8 @@ class LayersControlMapper extends AbstractControlMapper
         $elementId = null
     ) {
         $arguments    = parent::buildConstructArguments($model, $mapper, $request, $elementId);
-        $arguments[1] = array();
-        $arguments[2] = array();
+        $arguments[1] = [];
+        $arguments[2] = [];
 
         /** @var ControlModel $model */
         $collection = $model->findActiveLayers();

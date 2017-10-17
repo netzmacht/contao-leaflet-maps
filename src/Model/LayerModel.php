@@ -42,18 +42,18 @@ class LayerModel extends AbstractActiveModel
      *
      * @return Collection|null
      */
-    public static function findMultipleByTypes(array $types, $options = array())
+    public static function findMultipleByTypes(array $types, $options = [])
     {
         if (empty($types)) {
             return null;
         }
 
-        $options['column'] = array(
+        $options['column'] = [
             sprintf(
                 'type IN (%s)',
                 substr(str_repeat('?,', count($types)), 0, -1)
-            )
-        );
+            ),
+        ];
 
         $options['value']  = $types;
         $options['return'] = 'Collection';

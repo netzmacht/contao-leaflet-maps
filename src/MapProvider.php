@@ -201,8 +201,8 @@ class MapProvider
             $this->cache->save(
                 $cacheKey,
                 [
-                    'assets' => $this->assets->toArray(),
-                    'javascript' => $buffer
+                    'assets'     => $this->assets->toArray(),
+                    'javascript' => $buffer,
                 ],
                 (int) $model->cacheLifeTime
             );
@@ -279,7 +279,7 @@ class MapProvider
                 throw new \RuntimeException('Bad request. Could not resolve query params');
             }
 
-            $data = array_combine(array('for', 'type', 'id', 'format', 'filter', 'values'), $data);
+            $data = array_combine(['for', 'type', 'id', 'format', 'filter', 'values'], $data);
             $data = array_filter($data);
 
             if (empty($data['for']) || $data['for'] != $identifier) {

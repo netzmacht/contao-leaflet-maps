@@ -52,7 +52,7 @@ class LayerDcaListener extends AbstractListener
      * @var Connection
      */
     private $connection;
-    
+
     /**
      * Tile providers configuration.
      *
@@ -149,7 +149,7 @@ class LayerDcaListener extends AbstractListener
             return $this->tileProviders[$dataContainer->activeRecord->tile_provider]['variants'];
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -233,8 +233,8 @@ class LayerDcaListener extends AbstractListener
     public function getPasteButtons($dataContainer, $row, $table, $whatever, $children)
     {
         $pasteAfterUrl = \Controller::addToUrl(
-            'act='.$children['mode'].'&amp;mode=1&amp;pid='.$row['id']
-            .(!is_array($children['id']) ? '&amp;id='.$children['id'] : '')
+            'act=' . $children['mode'] . '&amp;mode=1&amp;pid=' . $row['id']
+            . (!is_array($children['id']) ? '&amp;id=' . $children['id'] : '')
             . '&amp;rt=' . RequestToken::get()
         );
 
@@ -254,7 +254,7 @@ class LayerDcaListener extends AbstractListener
                     'act=%s&amp;mode=2&amp;pid=%s%s',
                     $children['mode'],
                     $row['id'],
-                    !is_array($children['id']) ? '&amp;id='.$children['id'] : ''
+                    !is_array($children['id']) ? '&amp;id=' . $children['id'] : ''
                 ) . '&amp;rt=' . RequestToken::get()
             );
 
@@ -365,7 +365,7 @@ class LayerDcaListener extends AbstractListener
      */
     public function getBoundsModes($dataContainer)
     {
-        $options = array();
+        $options = [];
 
         if ($dataContainer->activeRecord && !empty($this->layers[$dataContainer->activeRecord->type]['boundsMode'])) {
             foreach ($this->layers[$dataContainer->activeRecord->type]['boundsMode'] as $mode => $enabled) {
@@ -413,7 +413,7 @@ class LayerDcaListener extends AbstractListener
      */
     public function getIcons()
     {
-        $collection = IconModel::findAll(array('order' => 'title'));
+        $collection = IconModel::findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection(
             $collection,
             function ($model) {

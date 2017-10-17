@@ -861,7 +861,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             ],
             'sql'       => 'mediumtext NULL',
         ],
-        'file' => [
+        'file'                           => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'],
             'exclude'   => true,
             'inputType' => 'fileTree',

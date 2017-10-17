@@ -88,9 +88,9 @@ class DistanceFilter implements Filter
      */
     public function getValues()
     {
-        return array(
+        return [
             'radius' => $this->radius,
-            'center' => $this->center
-        );
+            'center' => $this->center,
+        ];
     }
 }

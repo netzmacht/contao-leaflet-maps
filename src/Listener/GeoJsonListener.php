@@ -123,7 +123,7 @@ final class GeoJsonListener
     public function enrichCircle(GeoJsonObject $feature, LeafletDefinition $definition)
     {
         if ($definition instanceof Circle && !$definition instanceof CircleMarker && $feature instanceof Feature) {
-            $feature->setProperty('arguments', array($definition->getLatLng(), $definition->getRadius()));
+            $feature->setProperty('arguments', [$definition->getLatLng(), $definition->getRadius()]);
         }
     }
 
@@ -186,7 +186,7 @@ final class GeoJsonListener
                     if ($collection) {
                         $value = $collection->fetchEach('path');
                     } else {
-                        $value = array();
+                        $value = [];
                     }
                     break;
 

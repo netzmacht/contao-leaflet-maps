@@ -57,12 +57,12 @@ class RequestUrl implements \JsonSerializable
      */
     public static function create($dataId, $type = null, $format = null, Request $request = null)
     {
-        $params = array(
+        $params = [
             'for'    => $request ? $request->getMapIdentifier() : null,
             'type'   => $type != 'layer' ? $type : null,
             'id'     => $dataId,
-            'format' => $format != 'geojson' ? $format : null
-        );
+            'format' => $format != 'geojson' ? $format : null,
+        ];
 
         $hash  = base64_encode(implode(',', $params));
         $query = 'leaflet=' . $hash;

@@ -86,7 +86,7 @@ class VectorDcaListener extends AbstractListener
      */
     public function getStyles()
     {
-        $collection = StyleModel::findAll(array('order' => 'title'));
+        $collection = StyleModel::findAll(['order' => 'title']);
 
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }
@@ -98,7 +98,7 @@ class VectorDcaListener extends AbstractListener
      */
     public function getIcons()
     {
-        $collection = IconModel::findAll(array('order' => 'title'));
+        $collection = IconModel::findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection(
             $collection,
             function ($model) {
@@ -116,7 +116,7 @@ class VectorDcaListener extends AbstractListener
      */
     public function getPopups()
     {
-        $collection = PopupModel::findAll(array('order' => 'title'));
+        $collection = PopupModel::findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection($collection, 'title');
 
         return $builder->getOptions();

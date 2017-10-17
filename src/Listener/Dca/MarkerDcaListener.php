@@ -71,7 +71,7 @@ class MarkerDcaListener
      */
     public function getIcons()
     {
-        $collection = IconModel::findAll(array('order' => 'title'));
+        $collection = IconModel::findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection(
             $collection,
             function ($model) {
@@ -89,7 +89,7 @@ class MarkerDcaListener
      */
     public function getPopups()
     {
-        $collection = PopupModel::findAll(array('order' => 'title'));
+        $collection = PopupModel::findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection($collection, 'title');
 
         return $builder->getOptions();
@@ -105,11 +105,11 @@ class MarkerDcaListener
      */
     public function saveCoordinates($value, $dataContainer)
     {
-        $combined = array(
+        $combined = [
             'latitude'  => null,
             'longitude' => null,
-            'altitude'  => null
-        );
+            'altitude'  => null,
+        ];
 
         $values = trimsplit(',', $value);
         $keys   = array_keys($combined);

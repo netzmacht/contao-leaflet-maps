@@ -41,7 +41,7 @@ class MarkerModel extends AbstractActiveModel
     public static function findByFilter($pid, Filter $filter = null)
     {
         if (!$filter) {
-            return static::findActiveBy('pid', $pid, array('order' => 'sorting'));
+            return static::findActiveBy('pid', $pid, ['order' => 'sorting']);
         }
 
         switch ($filter->getName()) {
@@ -63,23 +63,23 @@ class MarkerModel extends AbstractActiveModel
      */
     public static function findByBBoxFilter($pid, BboxFilter $filter)
     {
-        $columns = array(
+        $columns = [
             'active=1',
             'pid=?',
             'latitude > ? AND latitude < ?',
-            'longitude > ? AND longitude < ?'
-        );
+            'longitude > ? AND longitude < ?',
+        ];
 
         /** @var LatLngBounds $bounds */
         $bounds = $filter->getValues()['bounds'];
-        $values = array(
+        $values = [
             $pid,
             $bounds->getSouthWest()->getLatitude(),
             $bounds->getNorthEast()->getLatitude(),
             $bounds->getSouthWest()->getLongitude(),
-            $bounds->getNorthEast()->getLongitude()
-        );
+            $bounds->getNorthEast()->getLongitude(),
+        ];
 
-        return static::findBy($columns, $values, array('order' => 'sorting'));
+        return static::findBy($columns, $values, ['order' => 'sorting']);
     }
 }

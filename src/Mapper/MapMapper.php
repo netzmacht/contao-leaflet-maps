@@ -50,8 +50,8 @@ class MapMapper extends AbstractMapper
             ->addOptions('center', 'zoom', 'zoomControl')
             ->addOptions('dragging', 'touchZoom', 'scrollWheelZoom', 'doubleClickZoom', 'boxZoom', 'tap', 'keyboard')
             ->addOptions('trackResize', 'closeOnClick', 'bounceAtZoomLimits')
-            ->addConditionalOptions('adjustZoomExtra', array('minZoom', 'maxZoom', 'zoomSnap', 'zoomDelta'))
-            ->addConditionalOptions('keyboard', array('keyboardPanOffset', 'keyboardZoomOffset'));
+            ->addConditionalOptions('adjustZoomExtra', ['minZoom', 'maxZoom', 'zoomSnap', 'zoomDelta'])
+            ->addConditionalOptions('keyboard', ['keyboardPanOffset', 'keyboardZoomOffset']);
     }
 
     /**
@@ -82,10 +82,10 @@ class MapMapper extends AbstractMapper
         Request $request = null,
         $elementId = null
     ) {
-        return array(
+        return [
             $this->getElementId($model, $elementId),
-            $this->getElementId($model, $elementId)
-        );
+            $this->getElementId($model, $elementId),
+        ];
     }
 
     /**
@@ -121,7 +121,7 @@ class MapMapper extends AbstractMapper
      */
     private function buildControls(Map $map, MapModel $model, DefinitionMapper $mapper, Request $request = null)
     {
-        $collection = ControlModel::findActiveBy('pid', $model->id, array('order' => 'sorting'));
+        $collection = ControlModel::findActiveBy('pid', $model->id, ['order' => 'sorting']);
 
         if (!$collection) {
             return;
@@ -207,13 +207,13 @@ class MapMapper extends AbstractMapper
     private function buildLocate(Map $map, MapModel $model)
     {
         if ($model->locate) {
-            $options = array();
+            $options = [];
 
-            $mapping = array(
+            $mapping = [
                 'setView'            => 'locateSetView',
                 'watch'              => 'locateWatch',
                 'enableHighAccuracy' => 'enableHighAccuracy',
-            );
+            ];
 
             foreach ($mapping as $option => $property) {
                 if ($model->$property) {
@@ -221,11 +221,11 @@ class MapMapper extends AbstractMapper
                 }
             }
 
-            $mapping = array(
+            $mapping = [
                 'maxZoom'    => 'locateMaxZoom',
                 'timeout'    => 'locateTimeout',
                 'maximumAge' => 'locateMaximumAge',
-            );
+            ];
 
             foreach ($mapping as $option => $property) {
                 if ($model->$property) {

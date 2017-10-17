@@ -61,7 +61,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         $elementId = null
     ) {
         if ($model->deferred) {
-            $options = array();
+            $options = [];
 
             if ($model->pointToLayer) {
                 $options['pointToLayer'] = new Expression($model->pointToLayer);
@@ -79,18 +79,18 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                 $layer = new GeoJson($this->getElementId($model, $elementId));
                 $layer->setOptions($options);
 
-                return array(
+                return [
                     $this->getElementId($model, $elementId),
                     RequestUrl::create($model->id, null, null, $request),
-                    array(),
-                    $layer
-                );
+                    [],
+                    $layer,
+                ];
             }
 
-            return array(
+            return [
                 $this->getElementId($model, $elementId),
-                RequestUrl::create($model->id, null, null, $request)
-            );
+                RequestUrl::create($model->id, null, null, $request),
+            ];
         }
 
         return parent::buildConstructArguments($model, $mapper, $request, $elementId);

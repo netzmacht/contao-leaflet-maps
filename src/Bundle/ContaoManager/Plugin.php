@@ -36,7 +36,7 @@ class Plugin implements BundlePluginInterface
         return [
             BundleConfig::create(NetzmachtContaoLeafletBundle::class)
                 ->setLoadAfter([ContaoCoreBundle::class, NetzmachtContaoToolkitBundle::class])
-                ->setReplace(['leaflet'])
+                ->setReplace(['leaflet']),
         ];
     }
 }

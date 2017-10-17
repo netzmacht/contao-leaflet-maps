@@ -27,12 +27,12 @@ class HashSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            GetHashEvent::NAME => array(
-                array('getModelHash'),
-                array('getFallback', -100)
-            )
-        );
+        return [
+            GetHashEvent::NAME => [
+                ['getModelHash'],
+                ['getFallback', -100],
+            ],
+        ];
     }
 
     /**

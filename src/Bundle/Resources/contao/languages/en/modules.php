@@ -25,8 +25,8 @@ $GLOBALS['TL_LANG']['MOD']['tl_leaflet_icon']    = 'Icons';
 $GLOBALS['TL_LANG']['MOD']['tl_leaflet_marker']  = 'Markers';
 $GLOBALS['TL_LANG']['MOD']['tl_leaflet_control'] = 'Controls';
 
-$GLOBALS['TL_LANG']['FMD']['leaflet'][0]       = 'Leaflet Map';
-$GLOBALS['TL_LANG']['FMD']['leaflet'][1]       = 'Integrate leaflet map as frontend module.';
+$GLOBALS['TL_LANG']['FMD']['leaflet'][0] = 'Leaflet Map';
+$GLOBALS['TL_LANG']['FMD']['leaflet'][1] = 'Integrate leaflet map as frontend module.';
 
-$GLOBALS['TL_LANG']['CTE']['leaflet'][0]       = 'Leaflet Map';
-$GLOBALS['TL_LANG']['CTE']['leaflet'][1]       = 'Integrate leaflet map as content element.';
+$GLOBALS['TL_LANG']['CTE']['leaflet'][0] = 'Leaflet Map';
+$GLOBALS['TL_LANG']['CTE']['leaflet'][1] = 'Integrate leaflet map as content element.';

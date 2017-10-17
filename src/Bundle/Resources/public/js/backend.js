@@ -30,7 +30,7 @@ var ContaoLeafletAjaxRequest = {
             published = (image.get('data-state') == 1),
             div = el.getParent('div'),
             index, next, icon, icond, pa;
-            img = div.getParent('li').getFirst('.tl_left img.list-icon');
+        img = div.getParent('li').getFirst('.tl_left img.list-icon');
 
         // Change the icon
         if (img !== null && img.nodeName.toLowerCase() == 'img') {

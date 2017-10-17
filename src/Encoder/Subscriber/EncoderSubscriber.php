@@ -34,7 +34,7 @@ class EncoderSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            EncodeValueEvent::NAME => [
+            EncodeValueEvent::NAME     => [
                 ['encodeIcons', 1000],
                 ['loadLayer', 100],
             ],

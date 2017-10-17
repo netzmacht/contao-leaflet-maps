@@ -10,21 +10,21 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-    var element  = $('<?php echo $this->field; ?>');
+    var element = $('<?php echo $this->field; ?>');
     var geocoder = L.Control.geocoder({
         defaultMarkGeocode: false,
         collapsed: false,
         placeholder: '<?php echo $GLOBALS['TL_LANG']['leaflet']['searchPosition']; ?>'
     }).addTo(map);
 
-    geocoder.on('markgeocode', function(event) {
+    geocoder.on('markgeocode', function (event) {
         var container = document.createElement('div');
-        var link      = document.createElement('button');
-        var result    = event.geocode;
+        var link = document.createElement('button');
+        var result = event.geocode;
 
         link.set('style', 'margin-left: 10px;');
         link.appendText('<?php echo $GLOBALS['TL_LANG']['leaflet']['applyPosition']; ?>');
-        link.addEvent('click', function(e) {
+        link.addEvent('click', function (e) {
             e.stop();
 
             element.set('value', result.center.lat + ',' + result.center.lng);
@@ -37,7 +37,7 @@
             map.removeLayer(this._geocodeMarker);
         }
 
-        map.fitBounds(result.bbox, { padding: [0, 70]});
+        map.fitBounds(result.bbox, {padding: [0, 70]});
         map.panTo(result.center);
 
         this._geocodeMarker = new L.Marker(result.center, {draggable: true})

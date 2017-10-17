@@ -100,8 +100,8 @@ class LeafletDcaListener
      */
     public function getLayers()
     {
-        $options    = array();
-        $collection = LayerModel::findBy('pid', '0', array('order' => 'title'));
+        $options    = [];
+        $collection = LayerModel::findBy('pid', '0', ['order' => 'title']);
 
         if ($collection) {
             foreach ($collection as $model) {

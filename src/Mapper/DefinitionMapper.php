@@ -34,7 +34,7 @@ class DefinitionMapper
      *
      * @var Mapper[][]
      */
-    private $mappers = array();
+    private $mappers = [];
 
     /**
      * The event dispatcher.
@@ -48,7 +48,7 @@ class DefinitionMapper
      *
      * @var array
      */
-    private $mapped = array();
+    private $mapped = [];
 
     /**
      * Construct.
@@ -84,7 +84,7 @@ class DefinitionMapper
      */
     public function reset()
     {
-        $this->mapped = array();
+        $this->mapped = [];
 
         return $this;
     }

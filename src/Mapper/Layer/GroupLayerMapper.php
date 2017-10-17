@@ -62,9 +62,9 @@ class GroupLayerMapper extends AbstractLayerMapper
         }
 
         $collection = LayerModel::findBy(
-            array('pid=?', 'active=1'),
-            array($model->id),
-            array('order' => 'sorting')
+            ['pid=?', 'active=1'],
+            [$model->id],
+            ['order' => 'sorting']
         );
 
         if ($collection) {

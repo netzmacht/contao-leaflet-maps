@@ -9,6 +9,7 @@
  * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
  */
+
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Contao\Model;
@@ -30,14 +31,14 @@ class OptionsBuilder
      *
      * @var array
      */
-    private $options = array();
+    private $options = [];
 
     /**
      * Conditional option mapping.
      *
      * @var array
      */
-    private $conditional = array();
+    private $conditional = [];
 
     /**
      * Add a option mapping.
@@ -253,7 +254,7 @@ class OptionsBuilder
      */
     private static function getDefaultOption($option, $definition)
     {
-        $keys   = array('has', 'is', 'get');
+        $keys   = ['has', 'is', 'get'];
         $suffix = ucfirst($option);
 
         foreach ($keys as $key) {

@@ -15,7 +15,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_vector']['active_legend'] = 'Activation';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['config_legend'] = 'Configuration';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['data_legend']   = 'Vector data';
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['popup_legend']  = 'Popup';
-$GLOBALS['TL_LANG']['tl_leaflet_vector']['expert_legend']      = 'Expert settings';
+$GLOBALS['TL_LANG']['tl_leaflet_vector']['expert_legend'] = 'Expert settings';
 
 
 $GLOBALS['TL_LANG']['tl_leaflet_vector']['new'][0]    = 'Create vector';

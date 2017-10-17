@@ -71,18 +71,18 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
                     $layer->setOption('boundsMode', $model->boundsMode);
                 }
 
-                return array(
+                return [
                     $this->getElementId($model, $elementId),
                     RequestUrl::create($model->id, null, null, $request),
-                    array(),
-                    $layer
-                );
+                    [],
+                    $layer,
+                ];
             }
 
-            return array(
+            return [
                 $this->getElementId($model, $elementId),
-                RequestUrl::create($model->id, null, null, $request)
-            );
+                RequestUrl::create($model->id, null, null, $request),
+            ];
         }
 
         return parent::buildConstructArguments($model, $mapper, $request, $elementId);

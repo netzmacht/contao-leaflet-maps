@@ -44,7 +44,7 @@ class ContaoAssets implements Assets
     private $cache = [
         'stylesheets' => [],
         'javascripts' => [],
-        'map' => []
+        'map'         => [],
     ];
 
     /**

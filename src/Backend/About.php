@@ -48,10 +48,10 @@ class About
         return array_map(
             function ($library) {
                 $library = array_merge(
-                    array(
+                    [
                         'homepage' => null,
                         'version'  => null,
-                    ),
+                    ],
                     $library
                 );
 
@@ -86,30 +86,30 @@ class About
         $lockFile = TL_ROOT . '/composer.lock';
 
         if (!file_exists($extFile) || !file_exists($lockFile)) {
-            return array();
+            return [];
         }
 
         $extension = json_decode(file_get_contents($extFile), true);
         $installed = json_decode(file_get_contents($lockFile), true);
-        $deps      = array();
+        $deps      = [];
         $version   = null;
 
         foreach ($installed['packages'] as $package) {
             if ($package['name'] === 'netzmacht/contao-leaflet-maps') {
                 $version = $package['version'];
             } elseif (isset($extension['require'][$package['name']])) {
-                $deps[] = array(
+                $deps[] = [
                     'name'     => $package['name'],
                     'version'  => $package['version'],
                     'license'  => !empty($package['license']) ? implode(', ', $package['license']) : '',
                     'homepage' => sprintf(
                         '<a href="https://packagist.org/packages/%s" target="_blank">Visit packagist</a>',
                         $package['name']
-                    )
-                );
+                    ),
+                ];
             }
         }
 
-        return array($version, $deps);
+        return [$version, $deps];
     }
 }

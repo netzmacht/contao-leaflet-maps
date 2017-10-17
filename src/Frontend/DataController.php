@@ -28,13 +28,13 @@ class DataController
      *
      * @var array
      */
-    private $input = array(
+    private $input = [
         'format' => 'geojson',
         'type'   => 'layer',
         'id'     => null,
         'filter' => null,
-        'values' => null
-    );
+        'values' => null,
+    ];
 
     /**
      * Debug mode.
@@ -140,9 +140,9 @@ class DataController
             default:
                 $error = true;
 
-                return array($data, $error);
+                return [$data, $error];
         }
 
-        return array($data, $error);
+        return [$data, $error];
     }
 }

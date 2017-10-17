@@ -29,7 +29,7 @@ abstract class AbstractActiveModel extends \Model
      *
      * @return \Model|null
      */
-    public static function findActiveByPK($modelId, $options = array())
+    public static function findActiveByPK($modelId, $options = [])
     {
         return static::findOneBy('active=1 AND id', $modelId, $options);
     }
@@ -43,7 +43,7 @@ abstract class AbstractActiveModel extends \Model
      *
      * @return Collection|null
      */
-    public static function findActiveBy($column, $value, $options = array())
+    public static function findActiveBy($column, $value, $options = [])
     {
         if (is_array($column)) {
             $column[] = 'active=1';
@@ -61,7 +61,7 @@ abstract class AbstractActiveModel extends \Model
      *
      * @return Collection|null
      */
-    public static function findActives($options = array())
+    public static function findActives($options = [])
     {
         return static::findBy('active', '1', $options);
     }

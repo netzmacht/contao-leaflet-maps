@@ -48,7 +48,7 @@ class FixedStyleMapper extends AbstractStyleMapper
             ->addConditionalOption('lineCap')
             ->addConditionalOption('lineJoin')
             ->addConditionalOption('dashArray')
-            ->addConditionalOptions('fill', array('fillColor', 'fillOpacity'))
+            ->addConditionalOptions('fill', ['fillColor', 'fillOpacity'])
             ->addOption('fill');
     }
 }

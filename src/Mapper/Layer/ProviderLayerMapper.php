@@ -92,10 +92,10 @@ class ProviderLayerMapper extends AbstractLayerMapper
         Request $request = null,
         $elementId = null
     ) {
-        return array(
+        return [
             $model->alias ?: ('layer_' . $model->id),
             $model->tile_provider,
-            $model->tile_provider_variant ?: null
-        );
+            $model->tile_provider_variant ?: null,
+        ];
     }
 }
