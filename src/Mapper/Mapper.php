@@ -13,7 +13,6 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Contao\Model;
-use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 
 /**

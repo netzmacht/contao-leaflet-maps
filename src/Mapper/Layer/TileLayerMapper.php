@@ -15,7 +15,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 use Contao\Model;
 use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
-use Netzmacht\Contao\Leaflet\Request\Request;
+use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Raster\TileLayer;
 use Netzmacht\LeafletPHP\Value\LatLngBounds;

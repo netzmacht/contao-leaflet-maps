@@ -13,8 +13,8 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
-use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 
 /**

@@ -15,8 +15,8 @@ namespace Netzmacht\Contao\Leaflet\Mapper\UI;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
+use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
-use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\UI\Popup;
 

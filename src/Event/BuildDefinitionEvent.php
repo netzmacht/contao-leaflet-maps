@@ -12,7 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Event;
 
-use Netzmacht\Contao\Leaflet\Request\Request;
+use Contao\Model;
+use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -50,10 +51,10 @@ class BuildDefinitionEvent extends Event
      * Construct.
      *
      * @param Definition   $definition The leaflet definition.
-     * @param \Model       $model      The definition model.
+     * @param Model        $model      The definition model.
      * @param Request|null $request    Building request.
      */
-    public function __construct(Definition $definition, \Model $model, Request $request = null)
+    public function __construct(Definition $definition, Model $model, Request $request = null)
     {
         $this->definition = $definition;
         $this->model      = $model;

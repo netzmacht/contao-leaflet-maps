@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Netzmacht\Contao\Leaflet\Request;
+namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 

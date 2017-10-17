@@ -15,7 +15,6 @@ namespace Netzmacht\Contao\Leaflet\Mapper;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
-use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control;
 use Netzmacht\LeafletPHP\Definition\Layer;

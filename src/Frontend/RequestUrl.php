@@ -13,7 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
 use Netzmacht\Contao\Leaflet\Filter\Filter;
-use Netzmacht\Contao\Leaflet\Request\Request;
+use Netzmacht\Contao\Leaflet\Mapper\Request;
 
 /**
  * Class RequestUrl creates the request url.
