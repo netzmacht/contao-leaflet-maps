@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
+use Netzmacht\LeafletPHP\Definition\Vector\Polygon;
+
 /**
  * Class PolygonMapper maps the database model to the polygon definition.
  *
@@ -24,7 +26,7 @@ class PolygonMapper extends PolylineMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\Polygon';
+    protected static $definitionClass = Polygon::class;
 
     /**
      * Layer type.

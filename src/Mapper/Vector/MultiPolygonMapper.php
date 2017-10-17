@@ -30,7 +30,7 @@ class MultiPolygonMapper extends MultiPolylineMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\Polygon';
+    protected static $definitionClass = Polygon::class;
 
     /**
      * Layer type.

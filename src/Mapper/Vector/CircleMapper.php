@@ -16,6 +16,7 @@ use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 use Netzmacht\LeafletPHP\Definition\Vector\CircleMarker;
 use Netzmacht\LeafletPHP\Value\LatLng;
 
@@ -31,7 +32,7 @@ class CircleMapper extends AbstractVectorMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\Circle';
+    protected static $definitionClass = Circle::class;
 
     /**
      * Layer type.

@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\OptionsBuilder;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Plugins\LeafletProviders\Provider;
 
 /**
  * Class ProviderLayerMapper maps the layer model to the tile provider definition.
@@ -60,7 +61,7 @@ class ProviderLayerMapper extends AbstractLayerMapper
             return $this->providers[$model->tile_provider]['class'];
         }
 
-        return 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\Provider';
+        return Provider::class;
     }
 
     /**

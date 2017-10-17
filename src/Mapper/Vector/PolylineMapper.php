@@ -31,7 +31,7 @@ class PolylineMapper extends AbstractVectorMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\Polyline';
+    protected static $definitionClass = Polyline::class;
 
     /**
      * Layer type.

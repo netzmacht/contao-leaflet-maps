@@ -30,7 +30,7 @@ class DivIconMapper extends AbstractIconMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Type\DivIcon';
+    protected static $definitionClass = DivIcon::class;
 
     /**
      * Layer type.

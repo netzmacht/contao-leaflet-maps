@@ -32,7 +32,7 @@ class TileLayerMapper extends AbstractLayerMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Raster\TileLayer';
+    protected static $definitionClass = TileLayer::class;
 
     /**
      * The layer type.

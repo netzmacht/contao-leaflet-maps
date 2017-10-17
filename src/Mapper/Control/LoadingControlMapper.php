@@ -41,10 +41,10 @@ class LoadingControlMapper extends AbstractControlMapper
     protected function getClassName(Model $model, DefinitionMapper $mapper, Request $request = null)
     {
         if ($model->spinjs) {
-            return 'Netzmacht\LeafletPHP\Plugins\Loading\SpinJsLoadingControl';
+            return SpinJsLoadingControl::class;
         }
 
-        return 'Netzmacht\LeafletPHP\Plugins\Loading\LoadingControl';
+        return LoadingControl::class;
     }
 
     /**

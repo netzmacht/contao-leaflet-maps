@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
+use Netzmacht\LeafletPHP\Definition\Control\Scale;
+
 /**
  * Class ScaleControlMapper maps the database item of the type "scale" to the scale control.
  *
@@ -24,7 +26,7 @@ class ScaleControlMapper extends AbstractControlMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Control\Scale';
+    protected static $definitionClass = Scale::class;
 
     /**
      * Layer type.

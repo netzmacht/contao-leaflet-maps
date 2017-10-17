@@ -16,6 +16,7 @@ use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Request\Request;
+use Netzmacht\LeafletPHP\Definition\Control\Layers;
 
 /**
  * Class LayersControlMapper maps the control model to the layers control definition.
@@ -29,7 +30,7 @@ class LayersControlMapper extends AbstractControlMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Control\Layers';
+    protected static $definitionClass = Layers::class;
 
     /**
      * Layer type.

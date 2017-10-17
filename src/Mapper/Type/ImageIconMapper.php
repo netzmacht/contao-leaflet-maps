@@ -31,7 +31,7 @@ class ImageIconMapper extends AbstractIconMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Type\ImageIcon';
+    protected static $definitionClass = ImageIcon::class;
 
     /**
      * Layer type.

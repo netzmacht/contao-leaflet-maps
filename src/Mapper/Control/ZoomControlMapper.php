@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
+use Netzmacht\LeafletPHP\Definition\Control\Zoom;
+
 /**
  * Class ZoomControlMapper maps the zoom database definition to the zoom control.
  *
@@ -24,7 +26,7 @@ class ZoomControlMapper extends AbstractControlMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Control\Zoom';
+    protected static $definitionClass = Zoom::class;
 
     /**
      * Layer type.

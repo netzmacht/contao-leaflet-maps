@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
+use Netzmacht\LeafletPHP\Definition\Vector\CircleMarker;
+
 /**
  * Class CircleMarkerMapper maps the database model to the circle marker definition.
  *
@@ -24,7 +26,7 @@ class CircleMarkerMapper extends CircleMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\CircleMarker';
+    protected static $definitionClass = CircleMarker::class;
 
     /**
      * Layer type.

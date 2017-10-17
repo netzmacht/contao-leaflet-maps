@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\DivIcon;
+use Netzmacht\LeafletPHP\Plugins\ExtraMarkers\ExtraMarkersIcon;
 
 /**
  * Class DivIconMapper maps the icon model to the div icon definition.
@@ -30,7 +31,7 @@ class ExtraMarkersIconMapper extends AbstractIconMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Plugins\ExtraMarkers\ExtraMarkersIcon';
+    protected static $definitionClass = ExtraMarkersIcon::class;
 
     /**
      * Layer type.

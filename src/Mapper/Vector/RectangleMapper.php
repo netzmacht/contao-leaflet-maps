@@ -15,6 +15,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Request\Request;
+use Netzmacht\LeafletPHP\Definition\Vector\Rectangle;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Netzmacht\LeafletPHP\Value\LatLngBounds;
 
@@ -30,7 +31,7 @@ class RectangleMapper extends AbstractVectorMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Vector\Rectangle';
+    protected static $definitionClass = Rectangle::class;
 
     /**
      * Layer type.

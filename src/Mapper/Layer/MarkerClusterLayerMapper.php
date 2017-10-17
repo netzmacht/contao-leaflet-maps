@@ -36,7 +36,7 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Plugins\MarkerCluster\MarkerClusterGroup';
+    protected static $definitionClass = MarkerClusterGroup::class;
 
     /**
      * Layer type.

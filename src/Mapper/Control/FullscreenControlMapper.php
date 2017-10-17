@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
+use Netzmacht\LeafletPHP\Plugins\FullScreen\FullScreenControl;
+
 /**
  * Class FullscreenControlMapper.
  *
@@ -24,7 +26,7 @@ class FullscreenControlMapper extends AbstractControlMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Plugins\FullScreen\FullScreenControl';
+    protected static $definitionClass = FullScreenControl::class;
 
     /**
      * Layer type.

@@ -31,7 +31,7 @@ class AttributionControlMapper extends AbstractControlMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Control\Attribution';
+    protected static $definitionClass = Attribution::class;
 
     /**
      * Layer type.

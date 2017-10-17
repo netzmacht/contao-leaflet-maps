@@ -21,6 +21,7 @@ use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Request\Request;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
+use Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson as OmnivoreGeoJson;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 
@@ -44,10 +45,10 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     protected function getClassName(Model $model, DefinitionMapper $mapper, Request $request = null)
     {
         if ($model->deferred) {
-            return 'Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson';
+            return OmnivoreGeoJson::class;
         }
 
-        return 'Netzmacht\LeafletPHP\Definition\Group\GeoJson';
+        return GeoJson::class;
     }
 
     /**

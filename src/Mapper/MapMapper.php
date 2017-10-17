@@ -40,7 +40,7 @@ class MapMapper extends AbstractMapper
      *
      * @var string
      */
-    protected static $definitionClass = 'Netzmacht\LeafletPHP\Definition\Map';
+    protected static $definitionClass = Map::class;
 
     /**
      * {@inheritdoc}
