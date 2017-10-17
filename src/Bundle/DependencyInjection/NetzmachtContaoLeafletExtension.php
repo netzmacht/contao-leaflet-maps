@@ -49,5 +49,13 @@ class NetzmachtContaoLeafletExtension extends Extension
         $loader->load('mappers.yml');
         $loader->load('encoders.yml');
         $loader->load('layers.yml');
+
+        if (!$container->hasDefinition('netzmacht.contao_leaflet.cache')) {
+            if ($container->getParameter('kernel.debug')) {
+                $container->setAlias('netzmacht.contao_leaflet.cache', 'netzmacht.contao_leaflet.cache.debug');
+            } else {
+                $container->setAlias('netzmacht.contao_leaflet.cache', 'netzmacht.contao_leaflet.cache.default');
+            }
+        }
     }
 }

@@ -26,9 +26,6 @@ services:
     arguments:
       - '%netzmacht.contao_leaflet.filters%'
 
-  netzmacht.contao_leaflet.cache:
-    alias: 'netzmacht.contao_leaflet.cache.default'
-
   netzmacht.contao_leaflet.cache.default:
     class: Doctrine\Common\Cache\FilesystemCache
     arguments:
