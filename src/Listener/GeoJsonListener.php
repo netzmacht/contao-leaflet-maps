@@ -10,24 +10,28 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Subscriber;
+declare(strict_types=1);
 
+namespace Netzmacht\Contao\Leaflet\Listener;
+
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\LeafletPHP\Definition as LeafletDefinition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
 use Netzmacht\LeafletPHP\Definition\Vector;
 use Netzmacht\LeafletPHP\Definition\Vector\Circle;
 use Netzmacht\LeafletPHP\Definition\Vector\CircleMarker;
 use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Netzmacht\LeafletPHP\Value\GeoJson\GeoJsonObject;
 
 /**
  * Class GeoJsonSubscriber provides subscribers when a definition is converted to a geo json feature.
  *
  * @package Netzmacht\Contao\Leaflet\Subscriber
  */
-class GeoJsonSubscriber implements EventSubscriberInterface
+final class GeoJsonListener
 {
     /**
      * Property mapping between models and features.
@@ -47,32 +51,34 @@ class GeoJsonSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Handle the event.
+     *
+     * @param ConvertToGeoJsonEvent $event The event.
+     *
+     * @return void
      */
-    public static function getSubscribedEvents()
+    public function handle(ConvertToGeoJsonEvent $event)
     {
-        return array(
-            ConvertToGeoJsonEvent::NAME => array(
-                array('addPopup'),
-                array('enrichObjects'),
-                array('enrichCircle'),
-                array('setModelData')
-            )
-        );
+        $feature    = $event->getGeoJson();
+        $definition = $event->getDefinition();
+        $model      = $event->getModel();
+
+        $this->addPopup($feature, $definition);
+        $this->enrichObjects($feature, $definition, $model);
+        $this->enrichCircle($feature, $definition);
+        $this->setModelData($feature, $model);
     }
 
     /**
      * Add popup property for definitions with an popup.
      *
-     * @param ConvertToGeoJsonEvent $event The subscribed event.
+     * @param GeoJsonObject     $feature    The geojson feature object.
+     * @param LeafletDefinition $definition The definition.
      *
      * @return void
      */
-    public function addPopup(ConvertToGeoJsonEvent $event)
+    public function addPopup(GeoJsonObject $feature, LeafletDefinition $definition)
     {
-        $feature    = $event->getGeoJson();
-        $definition = $event->getDefinition();
-
         if ($definition instanceof HasPopup && $feature instanceof Feature) {
             if ($definition->getPopup()) {
                 $feature->setProperty('popup', $definition->getPopup());
@@ -91,16 +97,14 @@ class GeoJsonSubscriber implements EventSubscriberInterface
     /**
      * Enrich map object with feature data and bounds information.
      *
-     * @param ConvertToGeoJsonEvent $event The subscribed event.
+     * @param GeoJsonObject     $feature    The geojson feature object.
+     * @param LeafletDefinition $definition The definition.
+     * @param Model|object      $model      The data model.
      *
      * @return void
      */
-    public function enrichObjects(ConvertToGeoJsonEvent $event)
+    public function enrichObjects(GeoJsonObject $feature, LeafletDefinition $definition, $model)
     {
-        $feature    = $event->getGeoJson();
-        $definition = $event->getDefinition();
-        $model      = $event->getModel();
-
         if (($definition instanceof Marker || $definition instanceof Vector)
             && $model instanceof \Model && $feature instanceof Feature) {
             $this->setDataProperty($model, $feature);
@@ -111,15 +115,13 @@ class GeoJsonSubscriber implements EventSubscriberInterface
     /**
      * Enrich the the circle with constructor arguments.
      *
-     * @param ConvertToGeoJsonEvent $event The subscribed events.
+     * @param GeoJsonObject     $feature    The geojson feature object.
+     * @param LeafletDefinition $definition The definition.
      *
      * @return void
      */
-    public function enrichCircle(ConvertToGeoJsonEvent $event)
+    public function enrichCircle(GeoJsonObject $feature, LeafletDefinition $definition)
     {
-        $feature    = $event->getGeoJson();
-        $definition = $event->getDefinition();
-
         if ($definition instanceof Circle && !$definition instanceof CircleMarker && $feature instanceof Feature) {
             $feature->setProperty('arguments', array($definition->getLatLng(), $definition->getRadius()));
         }
@@ -128,15 +130,13 @@ class GeoJsonSubscriber implements EventSubscriberInterface
     /**
      * Pass configured properties on an model to  the properties.model key.
      *
-     * @param ConvertToGeoJsonEvent $event The subscribed events.
+     * @param GeoJsonObject $feature The geojson feature object.
+     * @param Model|object  $model   The data model.
      *
      * @return void
      */
-    public function setModelData(ConvertToGeoJsonEvent $event)
+    public function setModelData(GeoJsonObject $feature, $model)
     {
-        $feature = $event->getGeoJson();
-        $model   = $event->getModel();
-
         if (!$model instanceof \Model || !$feature instanceof Feature
             || empty($this->featureModelProperties[$model->getTable()])) {
             return;

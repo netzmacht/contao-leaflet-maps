@@ -61,12 +61,12 @@ services:
     arguments:
       - '%netzmacht.contao_leaflet.styles%'
 
-  netzmacht.contao_leaflet.listeners.geo_json_subscriber:
-    class: Netzmacht\Contao\Leaflet\Subscriber\GeoJsonSubscriber
+  netzmacht.contao_leaflet.listeners.geo_json_listener:
+    class: Netzmacht\Contao\Leaflet\Listener\GeoJsonListener
     arguments:
       - '%netzmacht.contao_leaflet.feature_model_properties%'
     tags:
-      - { name: 'kernel.event_subscriber' }
+      - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.mapper.convert_to_geojson', method: 'handle' }
 
   netzmacht.contao_leaflet.listeners.hash_subscriber:
     class: Netzmacht\Contao\Leaflet\Subscriber\HashSubscriber
