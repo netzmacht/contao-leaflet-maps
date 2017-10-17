@@ -124,6 +124,10 @@ class FileLayerMapper extends AbstractLayerMapper
 
         $customLayer = $definition->getCustomLayer();
         if ($customLayer instanceof GeoJson) {
+            if ($model->boundsMode) {
+                $customLayer->setOption('boundsMode', $model->boundsMode);
+            }
+
             if ($model->pointToLayer) {
                 $customLayer->setPointToLayer(new Expression($model->pointToLayer));
             }

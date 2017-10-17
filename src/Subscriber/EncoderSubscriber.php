@@ -89,16 +89,15 @@ class EncoderSubscriber implements EventSubscriberInterface
     {
         $value    = $event->getValue();
         $encoder  = $event->getEncoder();
-        $template = 'L.contao.load(%s, %s, %s, %s, map);';
+        $template = 'L.contao.%s(%s, %s, %s, %s, map);';
+        $method   = 'loadFile';
 
         if ($value instanceof OmnivoreLayer) {
             $url = $value->getUrl();
 
             if ($url instanceof RequestUrl) {
                 $url = $url->getHash();
-            } elseif (strpos($url, '/') !== false) {
-                // Slash found, not a Contao leaflet hash, do not replace encoding.
-                return;
+                $method = 'load';
             }
 
             if ($value->getCustomLayer()) {
@@ -111,6 +110,7 @@ class EncoderSubscriber implements EventSubscriberInterface
             $event->addLine(
                 sprintf(
                     $template,
+                    $method,
                     $encoder->encodeValue($url),
                     $encoder->encodeValue(strtolower(str_replace('Omnivore.', '', $value->getType()))),
                     $encoder->encodeArray($value->getOptions(), JSON_FORCE_OBJECT),

@@ -48,6 +48,8 @@ parameters:
     file:
       children: false
       icon: 'bundles/netzmachtcontaoleaflet/img/file.png'
+      boundsMode:
+        extend: true
 
 services:
   _defaults:

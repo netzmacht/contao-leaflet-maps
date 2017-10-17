@@ -219,7 +219,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
         ],
 
         'file extends default' => [
-            '+config' => ['file'],
+            '+config' => ['file', 'boundsMode'],
             '+expert' => [
                 'onEachFeature',
                 'pointToLayer',

@@ -124,8 +124,22 @@ L.Contao = L.Evented.extend({
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
     load: function (hash, type, options, customLayer, map) {
-        var url   = this.createRequestUrl(hash, map),
-            layer = omnivore[type](url, options, customLayer);
+        var url = this.createRequestUrl(hash, map);
+
+        return this.loadFile(url, type, options, customLayer, map);
+    },
+
+    /**
+     * Load data from an url into a layer using omnivore.
+     *
+     * @param url         A file url.
+     * @param type        The response content format.
+     * @param options     Parser options
+     * @param customLayer optional custom layer.
+     * @param map         Pass a map object so that the data loading events are passed to the map.
+     */
+    loadFile: function (url, type, options, customLayer, map) {
+        var layer = omnivore[type](url, options, customLayer);
 
         if (map) {
             // Required because Control.Loading tries to get _leafet_id which is created here.
