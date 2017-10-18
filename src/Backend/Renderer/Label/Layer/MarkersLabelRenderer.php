@@ -56,7 +56,7 @@ final class MarkersLabelRenderer extends AbstractLabelRenderer
     public function render(array $row, string $label, Translator $translator): string
     {
         $repository = $this->repositoryManager->getRepository(MarkerModel::class);
-        $count      = $repository->countBy(['pid'], [$row['pid']]);
+        $count      = $repository->countBy(['pid=?'], [$row['pid']]);
         $label     .= sprintf(
             '<span class="tl_gray"> (%s %s)</span>',
             $count,
