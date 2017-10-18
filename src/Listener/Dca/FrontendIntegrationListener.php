@@ -14,7 +14,11 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\Image;
+use Contao\RequestToken;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
@@ -33,13 +37,22 @@ final class FrontendIntegrationListener
     private $translator;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * FrontendIntegration constructor.
      *
-     * @param Translator $translator Translator.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param Translator        $translator        Translator.
      */
-    public function __construct(Translator $translator)
+    public function __construct(RepositoryManager $repositoryManager, Translator $translator)
     {
-        $this->translator = $translator;
+        $this->translator        = $translator;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -49,7 +62,8 @@ final class FrontendIntegrationListener
      */
     public function getMaps(): array
     {
-        $collection = MapModel::findAll();
+        $repository = $this->repositoryManager->getRepository(MapModel::class);
+        $collection = $repository->findAll(['order' => 'title']);
 
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }
@@ -74,11 +88,13 @@ final class FrontendIntegrationListener
             '<a href="%s%s&amp;popup=1&amp;rt=%s" %s>%s</a>',
             'contao/main.php?do=leaflet_map&amp;table=tl_leaflet_map&amp;act=edit&amp;id=',
             $dataContainer->value,
-            \RequestToken::get(),
+            RequestToken::get(),
             sprintf(
                 $pattern,
-                specialchars($this->translator->trans('editalias.1', [$dataContainer->value], 'contao_tl_content')),
-                specialchars(
+                StringUtil::specialchars(
+                    $this->translator->trans('editalias.1', [$dataContainer->value], 'contao_tl_content')
+                ),
+                StringUtil::specialchars(
                     str_replace(
                         "'",
                         "\\'",
@@ -86,7 +102,7 @@ final class FrontendIntegrationListener
                     )
                 )
             ),
-            \Image::getHtml(
+            Image::getHtml(
                 'alias.gif',
                 $this->translator->trans('editalias.0', [$dataContainer->value], 'contao_tl_content'),
                 'style="vertical-align:top"'

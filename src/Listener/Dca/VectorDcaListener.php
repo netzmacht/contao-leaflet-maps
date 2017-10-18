@@ -12,9 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -41,16 +41,25 @@ class VectorDcaListener extends AbstractListener
     private $vectors;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * Construct.
      *
-     * @param Manager $dcaManager Data container manager.
-     * @param array   $vectors    Vectors.
+     * @param Manager           $dcaManager        Data container manager.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param array             $vectors           Vectors.
      */
-    public function __construct(Manager $dcaManager, array $vectors)
+    public function __construct(Manager $dcaManager, RepositoryManager $repositoryManager, array $vectors)
     {
         parent::__construct($dcaManager);
 
-        $this->vectors = $vectors;
+        $this->vectors           = $vectors;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -86,27 +95,10 @@ class VectorDcaListener extends AbstractListener
      */
     public function getStyles()
     {
-        $collection = StyleModel::findAll(['order' => 'title']);
+        $repository = $this->repositoryManager->getRepository(StyleModel::class);
+        $collection = $repository->findAll(['order' => 'title']);
 
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
-    }
-
-    /**
-     * Get all icons.
-     *
-     * @return array
-     */
-    public function getIcons()
-    {
-        $collection = IconModel::findAll(['order' => 'title']);
-        $builder    = OptionsBuilder::fromCollection(
-            $collection,
-            function ($model) {
-                return sprintf('%s [%s]', $model['title'], $model['type']);
-            }
-        );
-
-        return $builder->getOptions();
     }
 
     /**
@@ -116,7 +108,8 @@ class VectorDcaListener extends AbstractListener
      */
     public function getPopups()
     {
-        $collection = PopupModel::findAll(['order' => 'title']);
+        $repository = $this->repositoryManager->getRepository(PopupModel::class);
+        $collection = $repository->findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection($collection, 'title');
 
         return $builder->getOptions();

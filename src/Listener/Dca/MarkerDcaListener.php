@@ -16,6 +16,7 @@ use Contao\Controller;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 
 /**
@@ -33,23 +34,22 @@ class MarkerDcaListener
     private $connection;
 
     /**
-     * MarkerDcaListener constructor.
+     * Repository manager.
      *
-     * @param Connection $connection Database connection.
+     * @var RepositoryManager
      */
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-    }
+    private $repositoryManager;
 
     /**
-     * Initialize the language files.
+     * MarkerDcaListener constructor.
      *
-     * @return void
+     * @param Connection        $connection        Database connection.
+     * @param RepositoryManager $repositoryManager Repository manager.
      */
-    public function initialize()
+    public function __construct(Connection $connection, RepositoryManager $repositoryManager)
     {
-        Controller::loadLanguageFile('leaflet');
+        $this->connection        = $connection;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -71,7 +71,8 @@ class MarkerDcaListener
      */
     public function getIcons()
     {
-        $collection = IconModel::findAll(['order' => 'title']);
+        $repository = $this->repositoryManager->getRepository(IconModel::class);
+        $collection = $repository->findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection(
             $collection,
             function ($model) {
@@ -89,7 +90,8 @@ class MarkerDcaListener
      */
     public function getPopups()
     {
-        $collection = PopupModel::findAll(['order' => 'title']);
+        $repository = $this->repositoryManager->getRepository(PopupModel::class);
+        $collection = $repository->findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection($collection, 'title');
 
         return $builder->getOptions();

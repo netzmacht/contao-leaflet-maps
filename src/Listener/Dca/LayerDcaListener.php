@@ -12,15 +12,16 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Contao\Controller;
+use Contao\Backend;
+use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
 use Contao\Image;
-use Contao\RequestToken;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\LayerLabelRenderer;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -53,6 +54,13 @@ class LayerDcaListener extends AbstractListener
      * @var Connection
      */
     private $connection;
+
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
 
     /**
      * Tile providers configuration.
@@ -90,22 +98,35 @@ class LayerDcaListener extends AbstractListener
     private $fileFormats;
 
     /**
+     * Backend adapter.
+     *
+     * @var Backend|Adapter
+     */
+    private $backendAdapter;
+
+    /**
      * Construct.
      *
-     * @param Manager            $manager       Data container manager.
-     * @param Connection         $connection    Database connection.
-     * @param Translator         $translator    Translator.
-     * @param LayerLabelRenderer $labelRenderer Layer label renderer.
-     * @param array              $layers        Leaflet layer configuration.
-     * @param array              $tileProviders Tile providers.
-     * @param array              $amenities     OSM amenities.
-     * @param array              $fileFormats   File formats.
+     * @param Manager            $manager           Data container manager.
+     * @param Connection         $connection        Database connection.
+     * @param RepositoryManager  $repositoryManager Repository manager.
+     * @param Translator         $translator        Translator.
+     * @param LayerLabelRenderer $labelRenderer     Layer label renderer.
+     * @param Adapter|Backend    $backendAdapter    Backend adapter.
+     * @param array              $layers            Leaflet layer configuration.
+     * @param array              $tileProviders     Tile providers.
+     * @param array              $amenities         OSM amenities.
+     * @param array              $fileFormats       File formats.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
         Manager $manager,
         Connection $connection,
+        RepositoryManager $repositoryManager,
         Translator $translator,
         LayerLabelRenderer $labelRenderer,
+        $backendAdapter,
         array $layers,
         array $tileProviders,
         array $amenities,
@@ -113,15 +134,15 @@ class LayerDcaListener extends AbstractListener
     ) {
         parent::__construct($manager);
 
-        Controller::loadLanguageFile('leaflet_layer');
-
-        $this->connection    = $connection;
-        $this->layers        = $layers;
-        $this->tileProviders = $tileProviders;
-        $this->translator    = $translator;
-        $this->amenities     = $amenities;
-        $this->labelRenderer = $labelRenderer;
-        $this->fileFormats   = $fileFormats;
+        $this->connection        = $connection;
+        $this->layers            = $layers;
+        $this->tileProviders     = $tileProviders;
+        $this->translator        = $translator;
+        $this->amenities         = $amenities;
+        $this->labelRenderer     = $labelRenderer;
+        $this->fileFormats       = $fileFormats;
+        $this->repositoryManager = $repositoryManager;
+        $this->backendAdapter    = $backendAdapter;
     }
 
     /**
@@ -216,7 +237,8 @@ class LayerDcaListener extends AbstractListener
             )
         );
 
-        $collection = LayerModel::findMultipleByTypes($types);
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $collection = $repository->findMultipleByTypes($types);
         $builder    = OptionsBuilder::fromCollection(
             $collection,
             'id',
@@ -243,43 +265,42 @@ class LayerDcaListener extends AbstractListener
      */
     public function getPasteButtons($dataContainer, $row, $table, $whatever, $children)
     {
-        $pasteAfterUrl = \Controller::addToUrl(
+        $pasteAfterUrl = $this->backendAdapter->addToUrl(
             'act=' . $children['mode'] . '&amp;mode=1&amp;pid=' . $row['id']
             . (!is_array($children['id']) ? '&amp;id=' . $children['id'] : '')
-            . '&amp;rt=' . RequestToken::get()
         );
 
         $buffer = sprintf(
             '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
             $pasteAfterUrl,
-            specialchars($this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)),
-            \Image::getHtml(
+            StringUtil::specialchars($this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)),
+            Image::getHtml(
                 'pasteafter.gif',
                 $this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)
             )
         );
 
         if (!empty($this->layers[$row['type']]['children'])) {
-            $pasteIntoUrl = \Controller::addToUrl(
+            $pasteIntoUrl = $this->backendAdapter->addToUrl(
                 sprintf(
                     'act=%s&amp;mode=2&amp;pid=%s%s',
                     $children['mode'],
                     $row['id'],
                     !is_array($children['id']) ? '&amp;id=' . $children['id'] : ''
-                ) . '&amp;rt=' . RequestToken::get()
+                )
             );
 
             $buffer .= sprintf(
                 '<a href="%s" title="%s" onclick="Backend.getScrollOffset()">%s</a> ',
                 $pasteIntoUrl,
-                specialchars($this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)),
-                \Image::getHtml(
+                StringUtil::specialchars($this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)),
+                Image::getHtml(
                     'pasteinto.gif',
                     $this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)
                 )
             );
         } elseif ($row['id'] > 0) {
-            $buffer .= \Image::getHtml('pasteinto_.gif');
+            $buffer .= Image::getHtml('pasteinto_.gif');
         }
 
         return $buffer;
@@ -348,7 +369,7 @@ class LayerDcaListener extends AbstractListener
             $statement->bindValue('lid', $dataContainer->id);
             $statement->execute();
 
-            $undo['data'] = deserialize($undo['data'], true);
+            $undo['data'] = StringUtil::deserialize($undo['data'], true);
 
             while ($row = $statement->fetch()) {
                 $undo['data']['tl_leaflet_map_layer'][] = $row;
@@ -400,7 +421,8 @@ class LayerDcaListener extends AbstractListener
      */
     public function getLayers($dataContainer)
     {
-        $collection = LayerModel::findBy('id !', $dataContainer->id);
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $collection = $repository->findBy(['tl_leaflet_layer.id!=?'], [$dataContainer->id]);
 
         return OptionsBuilder::fromCollection($collection, 'title')
             ->asTree()
@@ -424,7 +446,8 @@ class LayerDcaListener extends AbstractListener
      */
     public function getIcons()
     {
-        $collection = IconModel::findAll(['order' => 'title']);
+        $repository = $this->repositoryManager->getRepository(IconModel::class);
+        $collection = $repository->findAll(['order' => 'title']);
         $builder    = OptionsBuilder::fromCollection(
             $collection,
             function ($model) {

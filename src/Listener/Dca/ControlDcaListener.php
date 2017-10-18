@@ -16,6 +16,7 @@ use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -49,18 +50,31 @@ class ControlDcaListener extends AbstractListener
     private $types;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * Construct.
      *
-     * @param Manager    $manager    Data container manager.
-     * @param Connection $connection Database connection.
-     * @param array      $types      Control types.
+     * @param Manager           $manager           Data container manager.
+     * @param Connection        $connection        Database connection.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param array             $types             Control types.
      */
-    public function __construct(Manager $manager, Connection $connection, array $types)
-    {
+    public function __construct(
+        Manager $manager,
+        Connection $connection,
+        RepositoryManager $repositoryManager,
+        array $types
+    ) {
         parent::__construct($manager);
 
-        $this->connection = $connection;
-        $this->types      = $types;
+        $this->connection        = $connection;
+        $this->types             = $types;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -96,7 +110,8 @@ class ControlDcaListener extends AbstractListener
      */
     public function getLayers()
     {
-        $collection = LayerModel::findAll();
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $collection = $repository->findAll();
 
         return OptionsBuilder::fromCollection($collection, 'title')
             ->asTree()
@@ -110,7 +125,8 @@ class ControlDcaListener extends AbstractListener
      */
     public function getZoomControls()
     {
-        $collection = ControlModel::findBy('type', 'zoom', ['order' => 'title']);
+        $repository = $this->repositoryManager->getRepository(ControlModel::class);
+        $collection = $repository->findBy(['type=?'], ['zoom'], ['order' => 'title']);
 
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }

@@ -12,11 +12,14 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Contao\Controller;
+use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
+use Contao\System;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Templating\EngineInterface as TemplateEngine;
 
 /**
  * Class Leaflet is the base helper providing different methods.
@@ -40,15 +43,47 @@ class LeafletDcaListener
     private $cacheDir;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Template engine.
+     *
+     * @var TemplateEngine
+     */
+    private $templateEngine;
+
+    /**
+     * System adapter.
+     *
+     * @var Adapter|System
+     */
+    private $systemAdapter;
+
+    /**
      * LeafletCallbacks constructor.
      *
-     * @param Filesystem $fileSystem File system.
-     * @param string     $cacheDir   Cache dir.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param TemplateEngine    $templateEngine    Template engine.
+     * @param Filesystem        $fileSystem        File system.
+     * @param Adapter|System    $systemAdapter     Contao system adapter.
+     * @param string            $cacheDir          Cache dir.
      */
-    public function __construct(Filesystem $fileSystem, string $cacheDir)
-    {
-        $this->fileSystem = $fileSystem;
-        $this->cacheDir   = $cacheDir;
+    public function __construct(
+        RepositoryManager $repositoryManager,
+        TemplateEngine $templateEngine,
+        Filesystem $fileSystem,
+        $systemAdapter,
+        string $cacheDir
+    ) {
+        $this->repositoryManager = $repositoryManager;
+        $this->templateEngine    = $templateEngine;
+        $this->fileSystem        = $fileSystem;
+        $this->systemAdapter     = $systemAdapter;
+        $this->cacheDir          = $cacheDir;
     }
 
     /**
@@ -58,7 +93,7 @@ class LeafletDcaListener
      */
     public function loadLanguageFile()
     {
-        Controller::loadLanguageFile('leaflet');
+        $this->systemAdapter->loadLanguageFile('leaflet');
     }
 
     /**
@@ -80,17 +115,16 @@ class LeafletDcaListener
      */
     public function getGeocoder($dataContainer)
     {
-        $template        = new \BackendTemplate('be_leaflet_geocode');
-        $template->field = 'ctrl_' . $dataContainer->field;
+        $data['field'] = 'ctrl_' . $dataContainer->field;
 
         try {
-            $latLng           = LatLng::fromString($dataContainer->value);
-            $template->marker = json_encode($latLng);
+            $latLng         = LatLng::fromString($dataContainer->value);
+            $data['marker'] = json_encode($latLng);
         } catch (\Exception $e) {
             // LatLng throws an exception of value could not be created. Just let the value empty when.
         }
 
-        return $template->parse();
+        return $this->templateEngine->render('toolkit:be:be_leaflet_geocode.html5', $data);
     }
 
     /**
@@ -101,7 +135,8 @@ class LeafletDcaListener
     public function getLayers()
     {
         $options    = [];
-        $collection = LayerModel::findBy('pid', '0', ['order' => 'title']);
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $collection = $repository->findBy(['pid=?'], ['0'], ['order' => 'title']);
 
         if ($collection) {
             foreach ($collection as $model) {

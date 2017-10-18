@@ -18,6 +18,7 @@ use Contao\DataContainer;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -45,16 +46,25 @@ class MapDcaListener extends AbstractListener
     private $connection;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * Construct.
      *
-     * @param Manager    $manager    Data container manager.
-     * @param Connection $connection Database connection.
+     * @param Manager           $manager           Data container manager.
+     * @param Connection        $connection        Database connection.
+     * @param RepositoryManager $repositoryManager Repository manager.
      */
-    public function __construct(Manager $manager, Connection $connection)
+    public function __construct(Manager $manager, Connection $connection, RepositoryManager $repositoryManager)
     {
         parent::__construct($manager);
 
-        $this->connection = $connection;
+        $this->connection        = $connection;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -150,13 +160,12 @@ class MapDcaListener extends AbstractListener
     /**
      * Get all layers except of the current layer.
      *
-     * @param DataContainer $dataContainer The dataContainer driver.
-     *
      * @return array
      */
-    public function getLayers($dataContainer)
+    public function getLayers()
     {
-        $collection = LayerModel::findBy('id !', $dataContainer->id);
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $collection = $repository->findAll(['order' => 'title']);
 
         return OptionsBuilder::fromCollection($collection, 'title')
             ->asTree()

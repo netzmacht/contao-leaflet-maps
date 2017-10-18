@@ -23,7 +23,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = [
             ],
         ],
         'onload_callback'   => [
-            ['netzmacht.contao_leaflet.listeners.dca.marker', 'initialize'],
+            ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'loadLanguageFile'],
         ],
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
