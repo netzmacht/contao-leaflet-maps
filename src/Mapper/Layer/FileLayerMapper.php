@@ -22,9 +22,11 @@ use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Group\FeatureGroup;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
+use Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson as OmnivoreGeoJson;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\Gpx;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\Kml;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\OmnivoreLayer;
+use Netzmacht\LeafletPHP\Plugins\Omnivore\TopoJson;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\Wkt;
 
 /**
@@ -80,17 +82,25 @@ class FileLayerMapper extends AbstractLayerMapper
         $layerId = $this->getElementId($model, $elementId);
 
         if ($fileModel instanceof FilesModel && $fileModel->type === 'file') {
-            switch ($fileModel->extension) {
+            switch ($model->fileFormat) {
                 case 'gpx':
-                    $layer = new Gpx($layerId, $fileModel->path, []);
+                    $layer = new Gpx($layerId, $fileModel->path);
                     break;
 
                 case 'kml':
-                    $layer = new Kml($layerId, $fileModel->path, []);
+                    $layer = new Kml($layerId, $fileModel->path);
                     break;
 
                 case 'wkt':
-                    $layer = new Wkt($layerId, $fileModel->path, []);
+                    $layer = new Wkt($layerId, $fileModel->path);
+                    break;
+
+                case 'geojson':
+                    $layer = new OmnivoreGeoJson($layerId, $fileModel->path);
+                    break;
+
+                case 'topojson':
+                    $layer = new TopoJson($layerId, $fileModel->path);
                     break;
 
                 default:

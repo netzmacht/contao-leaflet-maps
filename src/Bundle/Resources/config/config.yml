@@ -38,6 +38,13 @@ parameters:
     - 'circle'
     - 'circleMarker'
 
+  netzmacht.contao_leaflet.file_formats:
+    gpx: ['gpx']
+    kml: ['kml']
+    wkt: ['wkt']
+    geojson: ['json', 'geojson']
+    topojson: ['json', 'topojson']
+
   # When creating a GeoJSON feature of a map object a feature.properties.model object is passed.
   # Define the properties you always want to set.
   #

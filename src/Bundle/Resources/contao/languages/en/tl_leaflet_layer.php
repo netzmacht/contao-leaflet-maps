@@ -145,13 +145,26 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'][0]                    = 'Amen
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenity'][1]                    = 'OSM amenity.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'][1]                = 'Icon';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['amenityIcon'][0]                = 'Icon style';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormat'][0]                 = 'File formats';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormat'][1]                 = 'Choose which file format is used.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['file'][0]                       = 'File';
-$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'][1]                       = 'Choose a file containing geodata. Supported formats are gpx,kml and wkt.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'][1]                       = 'Choose a file containing geodata. Supported formats are: %s.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][0] = 'Feature group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['feature'][1] = 'Extended layer group with events and popup support. <br>See <a href="http://leafletjs.com/reference.html#featuregroup" target="_blank">http://leafletjs.com/reference.html#featuregroup</a>';
+
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['gpx'][0]      = 'GPX';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['gpx'][1]      = 'GPS Exchange format. <a href="https://github.com/mapbox/togeojson#gpx-feature-support" target="_blank">Read the documentation</a> for more information.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['kml'][0]      = 'KML';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['kml'][1]      = 'Keyhole Markup Language. <a href="https://github.com/mapbox/togeojson#kml-feature-support" target="_blank">Read the documentation</a> for more information.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['wkt'][0]      = 'WKT';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['wkt'][1]      = 'Well-known text  <a href="https://github.com/mapbox/togeojson#kml-feature-support" target="_blank">Read the documentation</a> for more information.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['topojson'][0] = 'TopoJSON';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['topojson'][1] = 'TopoJSON is a topological geospatial data interchange format based on GeoJSON. <a href="https://github.com/topojson/topojson#api-reference" target="_blank">Read the documentation</a> for more information.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['geojson'][0]  = 'GeoJSON';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats']['geojson'][1]  = 'GeoJSON is a format for encoding a variety of geographic data structures. <a href="https://github.com/mapbox/wellknown" target="_blank">Read the documentation</a> for more information.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['pasteinto'][1]  = 'Paste into layer %s';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['pasteafter'][1] = 'Paste after layer %s';

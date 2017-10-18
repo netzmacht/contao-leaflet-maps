@@ -49,6 +49,10 @@ array_insert(
     ]
 );
 
+if (TL_MODE === 'BE') {
+    $GLOBALS['TL_CSS'][] = 'bundles/netzmachtcontaoleaflet/css/backend_hacks.css';
+}
+
 /*
  * Models.
  */

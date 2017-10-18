@@ -219,7 +219,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
         ],
 
         'file extends default' => [
-            '+config' => ['file', 'boundsMode'],
+            '+config' => ['boundsMode', 'fileFormat'],
             '+expert' => [
                 'onEachFeature',
                 'pointToLayer',
@@ -235,6 +235,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'MapBox' => ['tile_provider_key'],
             'HERE'   => ['tile_provider_key', 'tile_provider_code'],
         ],
+        'fileFormat' => [
+            '!' => ['file']
+        ]
     ],
 
     'metasubpalettes' => [
@@ -861,15 +864,34 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             ],
             'sql'       => 'mediumtext NULL',
         ],
+        'fileFormat' => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormat'],
+            'exclude'          => true,
+            'inputType'        => 'select',
+            'filter'           => true,
+            'eval'             => [
+                'mandatory'          => true,
+                'tl_class'           => 'w50',
+                'includeBlankOption' => true,
+                'submitOnChange'     => true,
+                'chosen'             => true,
+                'helpwizard'         => true,
+            ],
+            'options_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'getFileFormats'],
+            'reference'        => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormats'],
+            'sql'              => "varchar(32) NOT NULL default ''",
+        ],
         'file'                           => [
             'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'],
             'exclude'   => true,
             'inputType' => 'fileTree',
+            'load_callback' => [
+                ['netzmacht.contao_leaflet.listeners.dca.layer', 'prepareFileWidget'],
+            ],
             'eval'      => [
                 'filesOnly'  => true,
                 'fieldType'  => 'radio',
                 'mandatory'  => true,
-                'extensions' => 'gpx,kml,wkt',
                 'tl_class'   => 'clr',
             ],
             'sql'       => 'binary(16) NULL',

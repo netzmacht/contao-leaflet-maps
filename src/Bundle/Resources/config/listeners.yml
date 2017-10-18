@@ -39,6 +39,7 @@ services:
       - '%netzmacht.contao_leaflet.layers%'
       - '%netzmacht.contao_leaflet.providers%'
       - '%netzmacht.contao_leaflet.amenities%'
+      - '%netzmacht.contao_leaflet.file_formats%'
 
   netzmacht.contao_leaflet.listeners.dca.marker:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\MarkerDcaListener

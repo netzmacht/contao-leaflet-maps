@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\Controller;
+use Contao\DataContainer;
 use Contao\Image;
 use Contao\RequestToken;
 use Contao\StringUtil;
@@ -82,6 +83,13 @@ class LayerDcaListener extends AbstractListener
     private $labelRenderer;
 
     /**
+     * File formats.
+     *
+     * @var array
+     */
+    private $fileFormats;
+
+    /**
      * Construct.
      *
      * @param Manager            $manager       Data container manager.
@@ -91,6 +99,7 @@ class LayerDcaListener extends AbstractListener
      * @param array              $layers        Leaflet layer configuration.
      * @param array              $tileProviders Tile providers.
      * @param array              $amenities     OSM amenities.
+     * @param array              $fileFormats   File formats.
      */
     public function __construct(
         Manager $manager,
@@ -99,7 +108,8 @@ class LayerDcaListener extends AbstractListener
         LayerLabelRenderer $labelRenderer,
         array $layers,
         array $tileProviders,
-        array $amenities
+        array $amenities,
+        array $fileFormats
     ) {
         parent::__construct($manager);
 
@@ -111,6 +121,7 @@ class LayerDcaListener extends AbstractListener
         $this->translator    = $translator;
         $this->amenities     = $amenities;
         $this->labelRenderer = $labelRenderer;
+        $this->fileFormats   = $fileFormats;
     }
 
     /**
@@ -422,6 +433,49 @@ class LayerDcaListener extends AbstractListener
         );
 
         return $builder->getOptions();
+    }
+
+    /**
+     * Get the file formats.
+     *
+     * @return array
+     */
+    public function getFileFormats(): array
+    {
+        return array_keys($this->fileFormats);
+    }
+
+    /**
+     * Prepare the file widget.
+     *
+     * @param mixed         $value         Given value.
+     * @param DataContainer $dataContainer Data container driver.
+     *
+     * @return mixed
+     */
+    public function prepareFileWidget($value, $dataContainer)
+    {
+        if ($dataContainer->activeRecord) {
+            $fileFormat = $dataContainer->activeRecord->fileFormat;
+
+            if (isset($this->fileFormats[$fileFormat])) {
+                $definition = $this->getDefinition();
+                $definition->set(
+                    ['fields', $dataContainer->field, 'eval', 'extensions'],
+                    implode(',', $this->fileFormats[$fileFormat])
+                );
+
+                $definition->set(
+                    ['fields', $dataContainer->field, 'label', 1],
+                    sprintf(
+                        $definition->get(['fields', $dataContainer->field, 'label', 1]),
+                        implode(', ', $this->fileFormats[$fileFormat])
+                    )
+                );
+            }
+        }
+
+        return $value;
     }
 
     /**
