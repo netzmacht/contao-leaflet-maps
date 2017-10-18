@@ -56,7 +56,7 @@ final class VectorsLabelRenderer extends AbstractLabelRenderer
     public function render(array $row, string $label, Translator $translator): string
     {
         $repository = $this->repositoryManager->getRepository(VectorModel::class);
-        $count      = $repository->countBy(['pid'], [$row['id']]);
+        $count      = $repository->countBy(['pid=?'], [$row['id']]);
         $label     .= sprintf(
             '<span class="tl_gray"> (%s %s)</span>',
             $count,
