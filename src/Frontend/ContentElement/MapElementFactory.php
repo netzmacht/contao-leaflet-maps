@@ -14,9 +14,14 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Frontend\ContentElement;
 
+use Contao\Config;
+use Contao\CoreBundle\Framework\Adapter;
+use Contao\Input;
+use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Toolkit\Component\Component;
 use Netzmacht\Contao\Toolkit\Component\ComponentFactory;
-use Psr\Container\ContainerInterface as Container;
+use Symfony\Component\Templating\EngineInterface as TemplateEngine;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
  * Class MapElementFactory
@@ -26,20 +31,61 @@ use Psr\Container\ContainerInterface as Container;
 class MapElementFactory implements ComponentFactory
 {
     /**
-     * Dependency container.
+     * Template engine.
      *
-     * @var Container
+     * @var TemplateEngine
      */
-    private $container;
+    private $templating;
+
+    /**
+     * Translator.
+     *
+     * @var Translator
+     */
+    private $translator;
+
+    /**
+     * Map provider.
+     *
+     * @var MapProvider
+     */
+    private $mapProvider;
+
+    /**
+     * Input adapter.
+     *
+     * @var Input|Adapter
+     */
+    private $input;
+
+    /**
+     * Config adapter.
+     *
+     * @var Config|Adapter
+     */
+    private $config;
 
     /**
      * MapElementFactory constructor.
      *
-     * @param Container $container Dependency container.
+     * @param TemplateEngine $engine      Template engine.
+     * @param Translator     $translator  Translator.
+     * @param MapProvider    $mapProvider Map provider.
+     * @param Input|Adapter  $input       Input adapter.
+     * @param Config|Adapter $config      Config adapter.
      */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
+    public function __construct(
+        TemplateEngine $engine,
+        Translator $translator,
+        MapProvider $mapProvider,
+        $input,
+        $config
+    ) {
+        $this->templating  = $engine;
+        $this->translator  = $translator;
+        $this->mapProvider = $mapProvider;
+        $this->input       = $input;
+        $this->config      = $config;
     }
 
     /**
@@ -57,11 +103,11 @@ class MapElementFactory implements ComponentFactory
     {
         return new MapElement(
             $model,
-            $this->container->get('templating'),
-            $this->container->get('translator'),
-            $this->container->get('netzmacht.contao_leaflet.map.provider'),
-            $this->container->get('netzmacht.contao_toolkit.contao.input_adapter'),
-            $this->container->get('netzmacht.contao_toolkit.contao.config_adapter'),
+            $this->templating,
+            $this->translator,
+            $this->mapProvider,
+            $this->input,
+            $this->config,
             $column
         );
     }

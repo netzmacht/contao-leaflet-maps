@@ -83,7 +83,11 @@ services:
   netzmacht.contao_leaflet.frontend.element_factory:
     class: Netzmacht\Contao\Leaflet\Frontend\ContentElement\MapElementFactory
     arguments:
-      - '@service_container'
+      - '@templating'
+      - '@translator'
+      - '@netzmacht.contao_leaflet.map.provider'
+      - '@netzmacht.contao_toolkit.contao.input_adapter'
+      - '@netzmacht.contao_toolkit.contao.config_adapter'
     tags:
       - { name: 'netzmacht.contao_toolkit.component.content_element_factory' }
       - { name: 'netzmacht.contao_toolkit.component.content_element', alias: 'leaflet', category: 'includes' }
@@ -91,7 +95,11 @@ services:
   netzmacht.contao_leaflet.frontend.module_factory:
     class: Netzmacht\Contao\Leaflet\Frontend\Module\MapModuleFactory
     arguments:
-      - '@service_container'
+      - '@templating'
+      - '@translator'
+      - '@netzmacht.contao_leaflet.map.provider'
+      - '@netzmacht.contao_toolkit.contao.input_adapter'
+      - '@netzmacht.contao_toolkit.contao.config_adapter'
     tags:
       - { name: 'netzmacht.contao_toolkit.component.frontend_module_factory' }
       - { name: 'netzmacht.contao_toolkit.component.frontend_module', alias: 'leaflet', category: 'includes' }
