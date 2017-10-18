@@ -16,6 +16,7 @@ services:
       - '@netzmacht.contao_leaflet.cache'
       - '@netzmacht.contao_leaflet.frontend.data_controller'
       - '@netzmacht.contao_toolkit.repository_manager'
+      - '@templating'
 
   netzmacht.contao_leaflet.libraries:
     class: Netzmacht\Contao\Leaflet\Frontend\Assets\LibrariesConfiguration

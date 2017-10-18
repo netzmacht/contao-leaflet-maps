@@ -23,10 +23,12 @@ use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+use Netzmacht\Contao\Toolkit\View\Template\TemplateReference;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
+use Symfony\Component\Templating\EngineInterface as TemplateEngine;
 
 /**
  * Class MapProvider.
@@ -92,6 +94,13 @@ class MapProvider
     private $repositoryManager;
 
     /**
+     * Template engine.
+     *
+     * @var TemplateEngine
+     */
+    private $templateEngine;
+
+    /**
      * Construct.
      *
      * @param DefinitionMapper  $mapper            The definition mapper.
@@ -102,6 +111,7 @@ class MapProvider
      * @param Cache             $cache             Cache.
      * @param DataController    $dataController    Data controller.
      * @param RepositoryManager $repositoryManager Repository manager.
+     * @param TemplateEngine    $templateEngine    Template engine.
      */
     public function __construct(
         DefinitionMapper $mapper,
@@ -111,7 +121,8 @@ class MapProvider
         ContaoAssets $assets,
         Cache $cache,
         DataController $dataController,
-        RepositoryManager $repositoryManager
+        RepositoryManager $repositoryManager,
+        TemplateEngine $templateEngine
     ) {
         $this->mapper            = $mapper;
         $this->leaflet           = $leaflet;
@@ -121,6 +132,7 @@ class MapProvider
         $this->cache             = $cache;
         $this->dataController    = $dataController;
         $this->repositoryManager = $repositoryManager;
+        $this->templateEngine    = $templateEngine;
     }
 
     /**
@@ -356,19 +368,21 @@ class MapProvider
     protected function doGenerate($model, $filter, $elementId, $template, $style)
     {
         $definition = $this->getDefinition($model, $filter, $elementId);
-        $template   = \Controller::getTemplate($template);
-
-        // @codingStandardsIgnoreStart - Set for the template.
         $javascript = $this->leaflet->build($definition, $this->assets);
         $mapId      = $definition->getId();
-        // @codingStandardsIgnoreEnd
 
-        ob_start();
-        include $template;
-        $content = ob_get_contents();
-        ob_end_clean();
+        $templateReference = new TemplateReference($template, 'html5', TemplateReference::SCOPE_FRONTEND);
+        $parameters        = [
+            'definition' => $definition,
+            'model'      => $model,
+            'elementId'  => $elementId,
+            'style'      => $style,
+            'javascript' => $javascript,
+            'mapId'      => $mapId,
+        ];
 
-        $event = new GetJavascriptEvent($definition, $content);
+        $content = $this->templateEngine->render($templateReference, $parameters);
+        $event   = new GetJavascriptEvent($definition, $content);
         $this->eventDispatcher->dispatch($event::NAME, $event);
 
         $buffer = $event->getJavascript();

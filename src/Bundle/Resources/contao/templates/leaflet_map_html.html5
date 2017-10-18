@@ -1,6 +1,7 @@
-<div id="<?php echo $mapId; ?>" style="<?php echo $style; ?>"></div>
+<div id="<?= $this->mapId ?>" style="<?= $this->style ?>"></div>
 <script>
-    L.contao.addMap('<?php echo $mapId; ?>', function () {
-        <?php echo $javascript; ?>
+    L.contao.addMap('<?= $this->mapId ?>', function () {
+        <?= $this->javascript ?>
         return {map: map, layers: layers, controls: controls, icons: icons};
-    }());</script>
+    }());
+</script>
