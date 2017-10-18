@@ -29,7 +29,7 @@ final class OverpassLabelRenderer extends AbstractLabelRenderer
      */
     protected function getLayerType(): string
     {
-        return 'vectors';
+        return 'overpass';
     }
 
     /**

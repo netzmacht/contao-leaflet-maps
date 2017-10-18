@@ -62,6 +62,8 @@ services:
 
   netzmacht.contao_leaflet.layer_label_renderer.markers:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\MarkersLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
 
@@ -77,15 +79,21 @@ services:
 
   netzmacht.contao_leaflet.layer_label_renderer.reference:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\ReferenceLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
 
   netzmacht.contao_leaflet.layer_label_renderer.vectors:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\VectorsLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
 
   netzmacht.contao_leaflet.layer_label_renderer.file:
     class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\FileLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }

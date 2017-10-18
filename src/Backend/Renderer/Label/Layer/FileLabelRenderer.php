@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer;
 
 use Contao\FilesModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
@@ -24,6 +25,23 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
  */
 class FileLabelRenderer extends AbstractLabelRenderer
 {
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * FileLabelRenderer constructor.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -37,7 +55,8 @@ class FileLabelRenderer extends AbstractLabelRenderer
      */
     public function render(array $row, string $label, Translator $translator): string
     {
-        $file = FilesModel::findByPk($row['file']);
+        $repository = $this->repositoryManager->getRepository(FilesModel::class);
+        $file       = $repository->findByPk($row['file']);
 
         if ($file) {
             $label .= ' <span class="tl_gray">(' . $file->path . ')</span>';

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer;
 
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
@@ -24,6 +25,23 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
  */
 final class MarkersLabelRenderer extends AbstractLabelRenderer
 {
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * FileLabelRenderer constructor.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -37,8 +55,9 @@ final class MarkersLabelRenderer extends AbstractLabelRenderer
      */
     public function render(array $row, string $label, Translator $translator): string
     {
-        $count  = MarkerModel::countBy('pid', $row['id']);
-        $label .= sprintf(
+        $repository = $this->repositoryManager->getRepository(MarkerModel::class);
+        $count      = $repository->countBy(['pid'], [$row['pid']]);
+        $label      .= sprintf(
             '<span class="tl_gray"> (%s %s)</span>',
             $count,
             $translator->trans('countEntries', [], 'contao_tl_leaflet_layer')

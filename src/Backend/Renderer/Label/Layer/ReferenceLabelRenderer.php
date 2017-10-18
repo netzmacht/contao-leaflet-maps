@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer;
 
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 /**
@@ -25,11 +26,28 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
 final class ReferenceLabelRenderer extends AbstractLabelRenderer
 {
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * FileLabelRenderer constructor.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getLayerType(): string
     {
-        return 'vectors';
+        return 'reference';
     }
 
     /**
@@ -37,7 +55,8 @@ final class ReferenceLabelRenderer extends AbstractLabelRenderer
      */
     public function render(array $row, string $label, Translator $translator): string
     {
-        $reference = LayerModel::findByPk($row['reference']);
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $reference  = $repository->find((int) $row['reference']);
 
         if ($reference) {
             $label .= '<span class="tl_gray"> (' . $reference->title . ')</span>';
