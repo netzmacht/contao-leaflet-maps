@@ -57,7 +57,7 @@ final class MarkersLabelRenderer extends AbstractLabelRenderer
     {
         $repository = $this->repositoryManager->getRepository(MarkerModel::class);
         $count      = $repository->countBy(['pid'], [$row['pid']]);
-        $label      .= sprintf(
+        $label     .= sprintf(
             '<span class="tl_gray"> (%s %s)</span>',
             $count,
             $translator->trans('countEntries', [], 'contao_tl_leaflet_layer')
