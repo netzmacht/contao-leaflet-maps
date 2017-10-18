@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
-use Contao\Config;
 use Contao\Database\Result;
 use Contao\Input;
 use Contao\Model;
@@ -22,6 +21,7 @@ use Contao\Model\Collection;
 use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Component\Hybrid\AbstractHybrid;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Symfony\Component\Templating\EngineInterface as TemplateEngine;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
@@ -42,42 +42,42 @@ abstract class AbstractMapHybrid extends AbstractHybrid
     /**
      * The user input.
      *
-     * @var \Input
+     * @var Input
      */
     private $input;
 
     /**
-     * The Contao config.
+     * Repository manager.
      *
-     * @var \Config
+     * @var RepositoryManager
      */
-    private $config;
+    private $repositoryManager;
 
     /**
      * HybridTrait constructor.
      *
-     * @param Result|Model|Collection $model          Component model.
-     * @param TemplateEngine          $templateEngine Template engine.
-     * @param Translator              $translator     Translator.
-     * @param MapProvider             $mapProvider    Map provider.
-     * @param Input                   $input          Request Input.
-     * @param Config                  $config         Config.
-     * @param string                  $column         Column in which the element appears.
+     * @param Result|Model|Collection $model             Component model.
+     * @param TemplateEngine          $templateEngine    Template engine.
+     * @param Translator              $translator        Translator.
+     * @param MapProvider             $mapProvider       Map provider.
+     * @param RepositoryManager       $repositoryManager Repository manager.
+     * @param Input                   $input             Request Input.
+     * @param string                  $column            Column in which the element appears.
      */
     public function __construct(
         $model,
         TemplateEngine $templateEngine,
         Translator $translator,
         MapProvider $mapProvider,
+        RepositoryManager $repositoryManager,
         $input,
-        $config,
         $column = null
     ) {
         parent::__construct($model, $templateEngine, $translator, $column);
 
-        $this->mapProvider = $mapProvider;
-        $this->input       = $input;
-        $this->config      = $config;
+        $this->mapProvider       = $mapProvider;
+        $this->input             = $input;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**

@@ -20,6 +20,7 @@ use Contao\Input;
 use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Toolkit\Component\Component;
 use Netzmacht\Contao\Toolkit\Component\ComponentFactory;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Symfony\Component\Templating\EngineInterface as TemplateEngine;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
 
@@ -59,33 +60,33 @@ class MapModuleFactory implements ComponentFactory
     private $input;
 
     /**
-     * Config adapter.
+     * Repository manager.
      *
-     * @var Config|Adapter
+     * @var RepositoryManager
      */
-    private $config;
+    private $repositoryManager;
 
     /**
      * MapElementFactory constructor.
      *
-     * @param TemplateEngine $engine      Template engine.
-     * @param Translator     $translator  Translator.
-     * @param MapProvider    $mapProvider Map provider.
-     * @param Input|Adapter  $input       Input adapter.
-     * @param Config|Adapter $config      Config adapter.
+     * @param TemplateEngine    $engine            Template engine.
+     * @param Translator        $translator        Translator.
+     * @param MapProvider       $mapProvider       Map provider.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param Input|Adapter     $input             Input adapter.
      */
     public function __construct(
         TemplateEngine $engine,
         Translator $translator,
         MapProvider $mapProvider,
-        $input,
-        $config
+        RepositoryManager $repositoryManager,
+        $input
     ) {
-        $this->templating  = $engine;
-        $this->translator  = $translator;
-        $this->mapProvider = $mapProvider;
-        $this->input       = $input;
-        $this->config      = $config;
+        $this->templating        = $engine;
+        $this->translator        = $translator;
+        $this->mapProvider       = $mapProvider;
+        $this->input             = $input;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -106,8 +107,8 @@ class MapModuleFactory implements ComponentFactory
             $this->templating,
             $this->translator,
             $this->mapProvider,
+            $this->repositoryManager,
             $this->input,
-            $this->config,
             $column
         );
     }

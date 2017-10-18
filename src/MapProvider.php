@@ -22,6 +22,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
@@ -84,17 +85,23 @@ class MapProvider
     private $dataController;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * Construct.
      *
-     * @param DefinitionMapper $mapper          The definition mapper.
-     * @param Leaflet          $leaflet         The Leaflet instance.
-     * @param EventDispatcher  $eventDispatcher The Contao event dispatcher.
-     * @param Input            $input           Thw request input.
-     * @param ContaoAssets     $assets          Assets handler.
-     * @param Cache            $cache           Cache.
-     * @param DataController   $dataController  Data controller.
-     *
-     * @internal param FilterFactory $filterFactory Filter factory.
+     * @param DefinitionMapper  $mapper            The definition mapper.
+     * @param Leaflet           $leaflet           The Leaflet instance.
+     * @param EventDispatcher   $eventDispatcher   The Contao event dispatcher.
+     * @param Input             $input             Thw request input.
+     * @param ContaoAssets      $assets            Assets handler.
+     * @param Cache             $cache             Cache.
+     * @param DataController    $dataController    Data controller.
+     * @param RepositoryManager $repositoryManager Repository manager.
      */
     public function __construct(
         DefinitionMapper $mapper,
@@ -103,15 +110,17 @@ class MapProvider
         $input,
         ContaoAssets $assets,
         Cache $cache,
-        DataController $dataController
+        DataController $dataController,
+        RepositoryManager $repositoryManager
     ) {
-        $this->mapper          = $mapper;
-        $this->leaflet         = $leaflet;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->input           = $input;
-        $this->assets          = $assets;
-        $this->cache           = $cache;
-        $this->dataController  = $dataController;
+        $this->mapper            = $mapper;
+        $this->leaflet           = $leaflet;
+        $this->eventDispatcher   = $eventDispatcher;
+        $this->input             = $input;
+        $this->assets            = $assets;
+        $this->cache             = $cache;
+        $this->dataController    = $dataController;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -149,7 +158,8 @@ class MapProvider
      */
     public function getModel($mapId)
     {
-        $model = MapModel::findByIdOrAlias($mapId);
+        $repository = $this->repositoryManager->getRepository(MapModel::class);
+        $model      = $repository->findByIdOrAlias($mapId);
 
         if ($model === null) {
             throw new \InvalidArgumentException(sprintf('Model "%s" not found', $mapId));
@@ -226,7 +236,8 @@ class MapProvider
         if ($layerId instanceof LayerModel) {
             $model = $layerId;
         } else {
-            $model = LayerModel::findByPK($layerId);
+            $repository = $this->repositoryManager->getRepository(LayerModel::class);
+            $model      = $repository->find((int) $layerId);
         }
 
         if (!$model || !$model->active) {

@@ -15,6 +15,7 @@ services:
       - '@netzmacht.contao_leaflet.map.assets'
       - '@netzmacht.contao_leaflet.cache'
       - '@netzmacht.contao_leaflet.frontend.data_controller'
+      - '@netzmacht.contao_toolkit.repository_manager'
 
   netzmacht.contao_leaflet.libraries:
     class: Netzmacht\Contao\Leaflet\Frontend\Assets\LibrariesConfiguration
@@ -86,8 +87,8 @@ services:
       - '@templating'
       - '@translator'
       - '@netzmacht.contao_leaflet.map.provider'
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_toolkit.contao.input_adapter'
-      - '@netzmacht.contao_toolkit.contao.config_adapter'
     tags:
       - { name: 'netzmacht.contao_toolkit.component.content_element_factory' }
       - { name: 'netzmacht.contao_toolkit.component.content_element', alias: 'leaflet', category: 'includes' }
@@ -98,8 +99,8 @@ services:
       - '@templating'
       - '@translator'
       - '@netzmacht.contao_leaflet.map.provider'
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_toolkit.contao.input_adapter'
-      - '@netzmacht.contao_toolkit.contao.config_adapter'
     tags:
       - { name: 'netzmacht.contao_toolkit.component.frontend_module_factory' }
       - { name: 'netzmacht.contao_toolkit.component.frontend_module', alias: 'leaflet', category: 'includes' }
