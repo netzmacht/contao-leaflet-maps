@@ -18,6 +18,7 @@ use Netzmacht\Contao\Leaflet\Encoder\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Frontend\Assets\LibrariesConfiguration;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Assets;
 use Netzmacht\LeafletPHP\Definition\Type\Icon;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
@@ -51,17 +52,30 @@ class LoadAssetsListener
     private $libraries;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * LoadAssetsListener constructor.
      *
-     * @param Assets                 $assets           Assets.
-     * @param DefinitionMapper       $definitionMapper Definition mapper.
-     * @param LibrariesConfiguration $libraries        Libraries.
+     * @param Assets                 $assets            Assets.
+     * @param DefinitionMapper       $definitionMapper  Definition mapper.
+     * @param RepositoryManager      $repositoryManager Repository manager.
+     * @param LibrariesConfiguration $libraries         Libraries.
      */
-    public function __construct(Assets $assets, DefinitionMapper $definitionMapper, LibrariesConfiguration $libraries)
-    {
-        $this->assets           = $assets;
-        $this->definitionMapper = $definitionMapper;
-        $this->libraries        = $libraries;
+    public function __construct(
+        Assets $assets,
+        DefinitionMapper $definitionMapper,
+        RepositoryManager $repositoryManager,
+        LibrariesConfiguration $libraries
+    ) {
+        $this->assets            = $assets;
+        $this->definitionMapper  = $definitionMapper;
+        $this->libraries         = $libraries;
+        $this->repositoryManager = $repositoryManager;
     }
 
     /**
@@ -76,7 +90,8 @@ class LoadAssetsListener
             ContaoAssets::TYPE_FILE
         );
 
-        $collection = IconModel::findBy('active', true);
+        $repository = $this->repositoryManager->getRepository(IconModel::class);
+        $collection = $repository->findBy(['active=?'], [true]);
 
         if ($collection) {
             $buffer = '';

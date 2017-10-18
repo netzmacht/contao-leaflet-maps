@@ -26,6 +26,7 @@ services:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
       - '@netzmacht.contao_toolkit.repository_manager'
+      - '@netzmacht.contao_toolkit.repository_manager'
 
   netzmacht.contao_leaflet.listeners.dca.control:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\ControlDcaListener
@@ -74,6 +75,7 @@ services:
   netzmacht.contao_leaflet.listeners.geo_json_listener:
     class: Netzmacht\Contao\Leaflet\Listener\GeoJsonListener
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '%netzmacht.contao_leaflet.feature_model_properties%'
     tags:
       - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.mapper.convert_to_geojson', method: 'handle' }
@@ -88,6 +90,7 @@ services:
     arguments:
       - '@netzmacht.contao_leaflet.map.assets'
       - '@netzmacht.contao_leaflet.definition.mapper'
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.libraries'
     tags:
       - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.get_javascript', method: 'onGetJavascriptEvent' }

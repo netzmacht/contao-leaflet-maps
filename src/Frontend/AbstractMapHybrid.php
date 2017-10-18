@@ -90,7 +90,8 @@ abstract class AbstractMapHybrid extends AbstractHybrid
         $this->mapProvider->handleAjaxRequest($this->getIdentifier());
 
         if (TL_MODE === 'BE') {
-            $model      = MapModel::findByPk($this->get('leaflet_map'));
+            $repository = $this->repositoryManager->getRepository(MapModel::class);
+            $model      = $repository->find((int) $this->get('leaflet_map'));
             $parameters = [
                 'title' => $this->get('headline'),
             ];

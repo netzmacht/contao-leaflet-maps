@@ -14,9 +14,11 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Listener;
 
+use Contao\FilesModel;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition as LeafletDefinition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
@@ -41,12 +43,21 @@ final class GeoJsonListener
     private $featureModelProperties;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * GeoJsonSubscriber constructor.
      *
-     * @param array $featureModelProperties Property mapping between models and features.
+     * @param RepositoryManager $repositoryManager      Repository manager.
+     * @param array             $featureModelProperties Property mapping between models and features.
      */
-    public function __construct(array $featureModelProperties)
+    public function __construct(RepositoryManager $repositoryManager, array $featureModelProperties)
     {
+        $this->repositoryManager      = $repositoryManager;
         $this->featureModelProperties = $featureModelProperties;
     }
 
@@ -176,12 +187,14 @@ final class GeoJsonListener
                     break;
 
                 case 'file':
-                    $file  = \FilesModel::findByUuid($value);
-                    $value = $file->path;
+                    $repository = $this->repositoryManager->getRepository(FilesModel::class);
+                    $file       = $repository->findByUuid($value);
+                    $value      = $file->path;
                     break;
 
                 case 'files':
-                    $collection = \FilesModel::findMultipleByUuids(deserialize($value, true));
+                    $repository = $this->repositoryManager->getRepository(FilesModel::class);
+                    $collection = $repository->findMultipleByUuids(deserialize($value, true));
 
                     if ($collection) {
                         $value = $collection->fetchEach('path');
@@ -213,7 +226,8 @@ final class GeoJsonListener
         if ($model->ignoreForBounds) {
             $feature->setProperty('ignoreForBounds', true);
         } else {
-            $parent = LayerModel::findByPk($model->pid);
+            $repository = $this->repositoryManager->getRepository(LayerModel::class);
+            $parent     = $repository->find((int) $model->pid);
 
             if ($parent && $parent->boundsMode !== 'extend') {
                 $feature->setProperty('ignoreForBounds', true);
