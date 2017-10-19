@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Encoder\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\JavascriptBuilder\Type\AnonymousFunction;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
@@ -53,15 +54,24 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
     private $assets;
 
     /**
-     * MarkerClusterLayerMapper constructor.
+     * Repository manager.
      *
-     * @param ContaoAssets $assets Assets manager.
+     * @var RepositoryManager
      */
-    public function __construct(ContaoAssets $assets)
-    {
-        parent::__construct();
+    private $repositoryManager;
 
-        $this->assets = $assets;
+    /**
+     * Construct.
+     *
+     * @param ContaoAssets      $assets            Assets manager.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(ContaoAssets $assets, RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+        $this->assets            = $assets;
+
+        parent::__construct();
     }
 
     /**
@@ -107,7 +117,8 @@ class MarkerClusterLayerMapper extends AbstractLayerMapper
             $this->assets->addStylesheet('assets/leaflet/libs/leaflet-markercluster/MarkerCluster.Default.css');
         }
 
-        $collection = LayerModel::findBy(
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $collection = $repository->findBy(
             ['pid=?', 'active=1'],
             [$model->id],
             ['order' => 'sorting']

@@ -15,6 +15,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control;
 use Netzmacht\LeafletPHP\Definition\Layer;
@@ -40,6 +41,25 @@ class MapMapper extends AbstractMapper
      * @var string
      */
     protected static $definitionClass = Map::class;
+
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
 
     /**
      * {@inheritdoc}
@@ -121,7 +141,8 @@ class MapMapper extends AbstractMapper
      */
     private function buildControls(Map $map, MapModel $model, DefinitionMapper $mapper, Request $request = null)
     {
-        $collection = ControlModel::findActiveBy('pid', $model->id, ['order' => 'sorting']);
+        $repository = $this->repositoryManager->getRepository(ControlModel::class);
+        $collection = $repository->findActiveBy(['pid=?'], [$model->id], ['order' => 'sorting']);
 
         if (!$collection) {
             return;

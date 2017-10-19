@@ -15,6 +15,7 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition;
 
 /**
@@ -32,6 +33,25 @@ class ReferenceLayerMapper extends AbstractLayerMapper
     protected static $type = 'reference';
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function handle(
@@ -41,7 +61,8 @@ class ReferenceLayerMapper extends AbstractLayerMapper
         $elementId = null,
         Definition $parent = null
     ) {
-        $reference = LayerModel::findByPk($model->reference);
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $reference  = $repository->findByPk($model->reference);
 
         if (!$reference || !$reference->active) {
             return null;

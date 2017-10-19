@@ -16,6 +16,7 @@ use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Group\FeatureGroup;
 use Netzmacht\LeafletPHP\Definition\Group\LayerGroup;
@@ -34,6 +35,25 @@ class GroupLayerMapper extends AbstractLayerMapper
      * @var string
      */
     protected static $type = 'group';
+
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
 
     /**
      * {@inheritdoc}
@@ -61,7 +81,8 @@ class GroupLayerMapper extends AbstractLayerMapper
             return;
         }
 
-        $collection = LayerModel::findBy(
+        $repository = $this->repositoryManager->getRepository(LayerModel::class);
+        $collection = $repository->findBy(
             ['pid=?', 'active=1'],
             [$model->id],
             ['order' => 'sorting']

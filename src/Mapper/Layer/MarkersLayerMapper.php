@@ -18,6 +18,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
@@ -37,6 +38,25 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      * @var string
      */
     protected static $type = 'markers';
+
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
 
     /**
      * {@inheritdoc}
@@ -154,10 +174,12 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      */
     protected function loadMarkerModels(Model $model, Request $request = null)
     {
+        $repository = $this->repositoryManager->getRepository(MarkerModel::class);
+
         if ($model->boundsMode == 'fit') {
-            return MarkerModel::findByFilter($model->id, $request->getFilter());
+            return $repository->findByFilter($model->id, $request->getFilter());
         }
 
-        return MarkerModel::findByFilter($model->id);
+        return $repository->findByFilter($model->id);
     }
 }

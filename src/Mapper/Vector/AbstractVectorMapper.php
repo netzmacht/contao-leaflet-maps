@@ -21,6 +21,7 @@ use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 use Netzmacht\Contao\Leaflet\Model\VectorModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\HasPopup;
 use Netzmacht\LeafletPHP\Definition\UI\Popup;
@@ -48,15 +49,24 @@ class AbstractVectorMapper extends AbstractTypeMapper
     protected $valueFilter;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * Construct.
      *
-     * @param ValueFilter $valueFilter Frontend filter.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param ValueFilter       $valueFilter       Frontend filter.
      */
-    public function __construct(ValueFilter $valueFilter)
+    public function __construct(RepositoryManager $repositoryManager, ValueFilter $valueFilter)
     {
-        parent::__construct();
+        $this->repositoryManager = $repositoryManager;
+        $this->valueFilter       = $valueFilter;
 
-        $this->valueFilter = $valueFilter;
+        parent::__construct();
     }
 
     /**
@@ -72,7 +82,8 @@ class AbstractVectorMapper extends AbstractTypeMapper
         parent::build($definition, $model, $mapper, $request);
 
         if ($definition instanceof Path && $model->style) {
-            $styleModel = StyleModel::findActiveByPK($model->style);
+            $repository = $this->repositoryManager->getRepository(StyleModel::class);
+            $styleModel = $repository->findActiveByPK($model->style);
 
             if ($styleModel) {
                 $style = $mapper->handle($styleModel);
@@ -107,7 +118,8 @@ class AbstractVectorMapper extends AbstractTypeMapper
             $content = $this->valueFilter->filter($model->popupContent);
 
             if ($model->popup) {
-                $popupModel = PopupModel::findActiveByPK($model->popup);
+                $repository = $this->repositoryManager->getRepository(PopupModel::class);
+                $popupModel = $repository->findActiveByPK($model->popup);
 
                 if ($popupModel) {
                     $popup = $mapper->handle($popupModel, $request, null, $definition);

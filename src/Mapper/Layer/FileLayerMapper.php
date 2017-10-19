@@ -18,6 +18,7 @@ use Contao\FilesModel;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Group\FeatureGroup;
@@ -51,6 +52,25 @@ class FileLayerMapper extends AbstractLayerMapper
     protected static $definitionClass = FeatureGroup::class;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function handle(
@@ -60,7 +80,8 @@ class FileLayerMapper extends AbstractLayerMapper
         $elementId = null,
         Definition $parent = null
     ) {
-        $fileModel  = FilesModel::findByPk($model->file);
+        $repository = $this->repositoryManager->getRepository(FilesModel::class);
+        $fileModel  = $repository->findByPk($model->file);
         $definition = $this->createInstance($model, $mapper, $request, $elementId, $fileModel);
 
         $this->optionsBuilder->build($definition, $model);

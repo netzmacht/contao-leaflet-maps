@@ -16,6 +16,7 @@ use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Control\Zoom;
 use Netzmacht\LeafletPHP\Plugins\Loading\LoadingControl;
@@ -34,6 +35,25 @@ class LoadingControlMapper extends AbstractControlMapper
      * @var string
      */
     protected static $type = 'loading';
+
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
 
     /**
      * {@inheritdoc}
@@ -79,7 +99,8 @@ class LoadingControlMapper extends AbstractControlMapper
 
         if ($definition instanceof LoadingControl && !$definition->isSeparate() && $model->zoomControl) {
             // Only assign if zoom control is activated and part of the map.
-            $control = ControlModel::findOneBy(
+            $repository = $this->repositoryManager->getRepository(ControlModel::class);
+            $control    = $repository->findOneBy(
                 ['active=1', 'type=?', 'pid=?', 'id=?'],
                 ['zoom', $model->pid, $model->zoomControl]
             );

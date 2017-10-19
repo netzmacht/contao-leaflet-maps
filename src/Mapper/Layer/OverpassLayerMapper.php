@@ -17,6 +17,7 @@ use Netzmacht\Contao\Leaflet\Definition\Layer\OverpassLayer;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 
@@ -40,6 +41,25 @@ class OverpassLayerMapper extends AbstractLayerMapper
      * @var string
      */
     protected static $definitionClass = OverpassLayer::class;
+
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
 
     /**
      * {@inheritdoc}
@@ -97,7 +117,8 @@ class OverpassLayerMapper extends AbstractLayerMapper
         $amenityIconsMap = $this->filterAmenityIconsConfig($model->amenityIcons);
 
         if ($amenityIconsMap) {
-            $collection = IconModel::findMultipleByIds(array_unique($amenityIconsMap));
+            $repository = $this->repositoryManager->getRepository(IconModel::class);
+            $collection = $repository->findMultipleByIds(array_unique($amenityIconsMap));
             $icons      = [];
 
             if ($collection) {

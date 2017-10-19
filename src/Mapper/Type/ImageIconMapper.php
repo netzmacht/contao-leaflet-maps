@@ -12,10 +12,12 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
+use Contao\FilesModel;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 
@@ -41,6 +43,25 @@ class ImageIconMapper extends AbstractIconMapper
     protected static $type = 'image';
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function buildConstructArguments(
@@ -52,7 +73,8 @@ class ImageIconMapper extends AbstractIconMapper
         $arguments = parent::buildConstructArguments($model, $mapper, $request, $elementId);
 
         if ($model->iconImage) {
-            $file = \FilesModel::findByUuid($model->iconImage);
+            $repository = $this->repositoryManager->getRepository(FilesModel::class);
+            $file       = $repository->findByUuid($model->iconImage);
 
             if ($file) {
                 $arguments[] = $file->path;
@@ -88,8 +110,10 @@ class ImageIconMapper extends AbstractIconMapper
      */
     private function addIcon(ImageIcon $definition, IconModel $model)
     {
+        $repository = $this->repositoryManager->getRepository(FilesModel::class);
+
         if ($model->iconImage) {
-            $file = \FilesModel::findByUuid($model->iconImage);
+            $file = $repository->findByUuid($model->iconImage);
 
             if ($file) {
                 $definition->setIconUrl($file->path);
@@ -112,7 +136,7 @@ class ImageIconMapper extends AbstractIconMapper
         }
 
         if ($model->iconRetinaImage) {
-            $file = \FilesModel::findByUuid($model->iconRetinaImage);
+            $file = $repository->findByUuid($model->iconRetinaImage);
 
             if ($file) {
                 $definition->setIconRetinaUrl($file->path);
@@ -130,8 +154,10 @@ class ImageIconMapper extends AbstractIconMapper
      */
     private function addShadow(ImageIcon $definition, $model)
     {
+        $repository = $this->repositoryManager->getRepository(FilesModel::class);
+
         if ($model->shadowImage) {
-            $file = \FilesModel::findByUuid($model->shadowImage);
+            $file = $repository->findByUuid($model->shadowImage);
 
             if ($file) {
                 $definition->setShadowUrl($file->path);
@@ -150,7 +176,8 @@ class ImageIconMapper extends AbstractIconMapper
         }
 
         if ($model->shadowRetinaImage) {
-            $file = \FilesModel::findByUuid($model->shadowRetinaImage);
+
+            $file = $repository->findByUuid($model->shadowRetinaImage);
 
             if ($file) {
                 $definition->setShadowRetinaUrl($file->path);

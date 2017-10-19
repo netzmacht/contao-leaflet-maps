@@ -19,6 +19,7 @@ use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\VectorModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\JavascriptBuilder\Type\Expression;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
@@ -38,6 +39,25 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      * @var string
      */
     protected static $type = 'vectors';
+
+    /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
+     * Construct.
+     *
+     * @param RepositoryManager $repositoryManager Repository manager.
+     */
+    public function __construct(RepositoryManager $repositoryManager)
+    {
+        $this->repositoryManager = $repositoryManager;
+
+        parent::__construct();
+    }
 
     /**
      * {@inheritdoc}
@@ -159,7 +179,9 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      */
     protected function loadVectorModels(Model $model)
     {
-        return VectorModel::findActiveBy('pid', $model->id, ['order' => 'sorting']);
+        $repository = $this->repositoryManager->getRepository(VectorModel::class);
+
+        return $repository->findActiveBy(['pid=?'], [$model->id], ['order' => 'sorting']);
     }
 
     /**

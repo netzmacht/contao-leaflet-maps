@@ -9,6 +9,8 @@ services:
   # Map mapper
   netzmacht.contao_leaflet.mapper.map:
     class: Netzmacht\Contao\Leaflet\Mapper\MapMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
@@ -28,26 +30,36 @@ services:
 
   netzmacht.contao_leaflet.mapper.markers_layer:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLayerMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
   netzmacht.contao_leaflet.mapper.group_layer:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\GroupLayerMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
   netzmacht.contao_leaflet.mapper.vectors_layer:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLayerMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
   netzmacht.contao_leaflet.mapper.reference_layer:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\ReferenceLayerMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
   netzmacht.contao_leaflet.mapper.overpass_layer:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\OverpassLayerMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
@@ -55,11 +67,14 @@ services:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\MarkerClusterLayerMapper
     arguments:
       - '@netzmacht.contao_leaflet.map.assets'
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leflet_maps.mapper }
 
   netzmacht.contao_leaflet.mapper.file_layer:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\FileLayerMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
@@ -86,6 +101,8 @@ services:
 
   netzmacht.contao_leaflet.mapper.loading_control:
     class: Netzmacht\Contao\Leaflet\Mapper\Control\LoadingControlMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
@@ -99,6 +116,7 @@ services:
   netzmacht.contao_leaflet.mapper.polyline:
     class: Netzmacht\Contao\Leaflet\Mapper\Vector\PolylineMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
@@ -106,6 +124,7 @@ services:
   netzmacht.contao_leaflet.mapper.multi_polyline:
     class: Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolylineMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
@@ -113,6 +132,7 @@ services:
   netzmacht.contao_leaflet.mapper.polygon:
     class: Netzmacht\Contao\Leaflet\Mapper\Vector\PolygonMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
@@ -120,6 +140,7 @@ services:
   netzmacht.contao_leaflet.mapper.multi_polygon:
     class: Netzmacht\Contao\Leaflet\Mapper\Vector\MultiPolygonMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
@@ -127,6 +148,7 @@ services:
   netzmacht.contao_leaflet.mapper.circle:
     class: Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
@@ -134,6 +156,7 @@ services:
   netzmacht.contao_leaflet.mapper.circle_mapper:
     class: Netzmacht\Contao\Leaflet\Mapper\Vector\CircleMarkerMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
@@ -141,6 +164,7 @@ services:
   netzmacht.contao_leaflet.mapper.rectangle_mapper:
     class: Netzmacht\Contao\Leaflet\Mapper\Vector\RectangleMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
@@ -154,6 +178,8 @@ services:
 
   netzmacht.contao_leaflet.mapper.image_icon:
     class: Netzmacht\Contao\Leaflet\Mapper\Type\ImageIconMapper
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
@@ -175,6 +201,7 @@ services:
   netzmacht.contao_leaflet.mapper.marker:
     class: Netzmacht\Contao\Leaflet\Mapper\UI\MarkerMapper
     arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '@netzmacht.contao_leaflet.frontend.value_filter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }

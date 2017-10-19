@@ -20,6 +20,7 @@ use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\MarkerModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
+use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Type\ImageIcon;
 use Netzmacht\LeafletPHP\Definition\UI\Marker;
@@ -54,15 +55,24 @@ class MarkerMapper extends AbstractMapper
     protected $valueFilter;
 
     /**
+     * Repository manager.
+     *
+     * @var RepositoryManager
+     */
+    private $repositoryManager;
+
+    /**
      * Construct.
      *
-     * @param ValueFilter $valueFilter Frontend filter.
+     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param ValueFilter       $valueFilter       Frontend filter.
      */
-    public function __construct(ValueFilter $valueFilter)
+    public function __construct(RepositoryManager $repositoryManager, ValueFilter $valueFilter)
     {
-        parent::__construct();
+        $this->repositoryManager = $repositoryManager;
+        $this->valueFilter       = $valueFilter;
 
-        $this->valueFilter = $valueFilter;
+        parent::__construct();
     }
 
     /**
@@ -108,7 +118,8 @@ class MarkerMapper extends AbstractMapper
                 $content = $this->valueFilter->filter($model->popupContent);
 
                 if ($model->popup) {
-                    $popupModel = PopupModel::findActiveByPK($model->popup);
+                    $popupRepository = $this->repositoryManager->getRepository(PopupModel::class);
+                    $popupModel      = $popupRepository->findActiveByPK($model->popup);
 
                     if ($popupModel) {
                         $popup = $mapper->handle($popupModel, $request, null, $definition);
@@ -123,7 +134,8 @@ class MarkerMapper extends AbstractMapper
             }
 
             if ($model->customIcon) {
-                $iconModel = IconModel::findBy(
+                $iconRepository = $this->repositoryManager->getRepository(IconModel::class);
+                $iconModel      = $iconRepository->findBy(
                     ['id=?', 'active=1'],
                     [$model->icon],
                     ['return' => 'Model']
