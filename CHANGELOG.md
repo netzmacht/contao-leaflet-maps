@@ -2,10 +2,10 @@
 Changelog
 =========
 
-3.0.0-beta2 (YYYY-MM-DD)
+3.0.0-alpha1 (2017-10-19)
 ------------------------
 
-[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-beta1...2.0.0-beta2)
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha1...2.0.0-alpha2)
 
 Implemented enhancements
  

@@ -27,7 +27,7 @@
     "netzmacht/contao-leaflet-libraries": "^1.0",
     "netzmacht/php-javascript-builder": "^1.0",
     "netzmacht/php-leaflet": "^1.0.2",
-    "netzmacht/contao-toolkit": "dev-hotfix/3.0.0-beta2",
+    "netzmacht/contao-toolkit": "~3.0@beta",
     "contao-community-alliance/meta-palettes": "^1.5",
     "menatwork/contao-multicolumnwizard": "^3.2",
     "doctrine/cache": "^1.0"
