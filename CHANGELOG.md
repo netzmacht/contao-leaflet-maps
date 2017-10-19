@@ -9,6 +9,8 @@ Changelog
 
 Implemented enhancements
  
- - New file layer for gpx,kml,wkt files added
+ - Refactor to a more service oriented architecture
+ - Use a proper template for the map templates (Customize templates has to be adjusted!)
+ - New file layer for gpx,kml,wkt,topojson,geojson files added
  - Bypass filesystem cache in debug mode
  - Changelog added
