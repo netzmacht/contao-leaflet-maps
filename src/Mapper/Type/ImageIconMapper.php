@@ -176,7 +176,6 @@ class ImageIconMapper extends AbstractIconMapper
         }
 
         if ($model->shadowRetinaImage) {
-
             $file = $repository->findByUuid($model->shadowRetinaImage);
 
             if ($file) {
