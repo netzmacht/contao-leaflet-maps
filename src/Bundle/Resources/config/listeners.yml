@@ -69,7 +69,7 @@ services:
       - '%netzmacht.contao_leaflet.icons%'
 
   netzmacht.contao_leaflet.listeners.dca.style:
-    class: Netzmacht\Contao\Leaflet\Listener\Dca\IconDcaListener
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\StyleDcaListener
     arguments:
       - '%netzmacht.contao_leaflet.styles%'
 
