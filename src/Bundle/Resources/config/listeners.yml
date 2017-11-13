@@ -33,6 +33,7 @@ services:
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
+      - '@netzmacht.contao_toolkit.repository_manager'
       - '%netzmacht.contao_leaflet.controls%'
 
   netzmacht.contao_leaflet.listeners.dca.layer:
@@ -68,7 +69,7 @@ services:
       - '%netzmacht.contao_leaflet.icons%'
 
   netzmacht.contao_leaflet.listeners.dca.style:
-    class: Netzmacht\Contao\Leaflet\Listener\Dca\IconDcaListener
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\StyleDcaListener
     arguments:
       - '%netzmacht.contao_leaflet.styles%'
 

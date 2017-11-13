@@ -128,8 +128,7 @@ class FileLayerMapper extends AbstractLayerMapper
                     return parent::createInstance($model, $mapper, $request, $elementId);
             }
 
-            $customId    = $layerId . '_data';
-            $customLayer = new GeoJson($customId);
+            $customLayer = new GeoJson($layerId);
 
             $layer->setCustomLayer($customLayer);
 
