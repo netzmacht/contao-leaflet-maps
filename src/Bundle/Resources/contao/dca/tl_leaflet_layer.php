@@ -718,14 +718,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
         'bounds'                         => [
             'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['bounds'],
             'exclude'       => true,
-            'inputType'     => 'text',
+            'inputType'     => 'leaflet_geocode',
             'save_callback' => [
             ],
             'eval'          => [
                 'maxlength'   => 255,
                 'multiple'    => true,
                 'size'        => 2,
-                'tl_class'    => 'long clr',
+                'tl_class'    => 'clr',
                 'nullIfEmpty' => true,
             ],
             'sql'           => 'mediumblob NULL',
