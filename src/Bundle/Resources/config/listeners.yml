@@ -26,7 +26,6 @@ services:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
       - '@netzmacht.contao_toolkit.repository_manager'
-      - '@netzmacht.contao_toolkit.repository_manager'
 
   netzmacht.contao_leaflet.listeners.dca.control:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\ControlDcaListener
