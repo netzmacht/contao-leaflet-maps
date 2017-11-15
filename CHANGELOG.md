@@ -5,8 +5,21 @@ Changelog
 dev-release/3.0.0 (YYYY-MM-DD)
 ------------------------------
 
-[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha2...dev-release/3.0.0)
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-beta1...release/3.0.0)
 
+3.0.0-beta1 (2017-11-15) 
+------------------------
+
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha2...3.0.0-beta1)
+
+Enhancements
+
+  - Updated translations
+
+Bugfixes
+  
+  - Broken service definitions
+  - Broken file layer id 
 
 3.0.0-alpha2 
 ------------
