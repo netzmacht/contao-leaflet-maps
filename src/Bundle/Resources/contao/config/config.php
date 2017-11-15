@@ -65,12 +65,3 @@ $GLOBALS['TL_MODELS']['tl_leaflet_marker']  = \Netzmacht\Contao\Leaflet\Model\Ma
 $GLOBALS['TL_MODELS']['tl_leaflet_popup']   = \Netzmacht\Contao\Leaflet\Model\PopupModel::class;
 $GLOBALS['TL_MODELS']['tl_leaflet_style']   = \Netzmacht\Contao\Leaflet\Model\StyleModel::class;
 $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = \Netzmacht\Contao\Leaflet\Model\VectorModel::class;
-
-/*
- * Hooks.
- */
-
-$GLOBALS['TL_HOOKS']['initializeSystem'][] = [
-    'netzmacht.contao_leaflet.listeners.register_libraries',
-    'onInitializeSystem',
-];

@@ -98,6 +98,7 @@ services:
   netzmacht.contao_leaflet.listeners.register_libraries:
     class: Netzmacht\Contao\Leaflet\Listener\RegisterLibrariesListener
     arguments:
-     - '@netzmacht.contao_leaflet.libraries'
-     - '@netzmacht.contao_leaflet.definition.builder'
-
+      - '@netzmacht.contao_leaflet.libraries'
+      - '@netzmacht.contao_leaflet.definition.builder'
+    tags:
+      - { name: 'contao.hook', hook: 'initializeSystem', method: 'onInitializeSystem' }
