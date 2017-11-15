@@ -8,11 +8,12 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2016-10-06T15:54:30+02:00
+ * last-updated: 2017-10-17T16:04:07+00:00
  */
 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBounds']['0']                    = 'Grenzen festlegen';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBounds']['1']                    = 'Falls aktiviert passt sich die karten an den Bereich der Datenlayer an, für die Auswirkungen auf die Kartengrenzen zugelassen sind.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['deferred']['0'] = 'Nach dem Laden des verzögerten Features';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['deferred']['1'] = 'Bestimmt ob die Kartengrenzen neu berechnet werden wenn ein Feature verzögert geladen wird.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load']['0']     = 'bei Karteninitialisierung';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['adjustBoundsOptions']['load']['1']     = 'Grenzen berechnen, wenn die Karte initialisiert wird. Alle statischen und bereits geladenen Features werden mit einbezogen.';
@@ -23,6 +24,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['alias']['1']                           = 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['behaviour_legend']                     = 'Verhalten';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['bounceAtZoomLimits']['0']              = 'Zurückfedern bei Erreichen des Zoom-Limits';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['bounceAtZoomLimits']['1']              = 'Deaktivieren Sie diese Einstellung, falls Sie verhindern möchten, dass außerhalb liegende Elemente der Karte beim Zoomen über die festgelegten minimalen / maximalen Zoomstufen hinaus angezeigt werden wenn mit zwei Fingern gezoomt wird.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['boundsPadding']['1']                   = 'Padding wird verwendet, um Grenzen zu setzen. Verwenden Sie kommagetrennte Werte. Wenn 2 Werte angegeben werden, ist die <em>Padding</em>-Option eingestellt. Wenn 4 Werte angegeben werden, ist <em>paddingTopLeft</em> und <em>paddingBottomRight</em> gesetzt.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['boxZoom']['0']                         = 'Zoomen durch Markierung';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['boxZoom']['1']                         = 'legen Sie fest ob der Kartenausschnitt vergrößert werden kann indem Benutzer die Maus mit gedrückter Umschalttaste über die Karte ziehen.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['cache']['0']                           = 'Cache aktivieren';
@@ -62,6 +64,8 @@ $GLOBALS['TL_LANG']['tl_leaflet_map']['layers']['1']                          = 
 $GLOBALS['TL_LANG']['tl_leaflet_map']['layers_legend']                        = 'Standardlayer';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locate']['0']                          = 'Nutzerposition ermitteln';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locate']['1']                          = 'Initialer Kartenzoom. Diese Funktion versucht, den Benutzer mittels Geolocation-API zu orten.';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaxZoom']['0']                   = 'Lokalisieren Sie den maximalen Zoom';
+$GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaxZoom']['1']                   = 'Max-Zoom bei der Aktualisierung der Kartenansicht.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge']['0']                = 'Maximale Gültigkeit der Benutzerposition';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateMaximumAge']['1']                = 'Maximales Alter der Daten zum Aufenthaltsort in Millisekunden. Ansonsten wird der zwischengespeicherte Wert benutzt.';
 $GLOBALS['TL_LANG']['tl_leaflet_map']['locateSetView']['0']                   = 'Kartenmitte aktualisieren';

@@ -8,12 +8,13 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2016-10-06T15:54:30+02:00
+ * last-updated: 2017-10-17T16:04:08+00:00
  */
 
 $GLOBALS['TL_LANG']['leaflet']['applyPosition']             = 'Position anwenden';
 $GLOBALS['TL_LANG']['leaflet']['invalidAlias']              = 'Ein ungültiger Alias wurde angegeben. Ein Alias darf nicht leer sein, mit einer Zahl beginnen oder Sonderzeichen enthalten (Unterstriche sind erlaubt).';
 $GLOBALS['TL_LANG']['leaflet']['invalidCoordinates']        = 'Ungültige Koordinatenwerte vorhanden.';
+$GLOBALS['TL_LANG']['leaflet']['searchPosition']            = 'Standort suchen';
 $GLOBALS['TL_LANG']['leaflet_control']['attribution']['0']  = 'Copyright-Leiste';
 $GLOBALS['TL_LANG']['leaflet_control']['attribution']['1']  = 'Das Kontrollelement zur Namensnennung erlaubt es, Urheber in einer kleinen Textbox auf der Karte anzuzeigen. Lesen Sie für weitere Details die <a href="http://leafletjs.com/reference.html#control-attribution" target="_blank">Leaflet-Dokumentation</a>.';
 $GLOBALS['TL_LANG']['leaflet_control']['fullscreen']['0']   = 'Fullscreen-Kontrollelement';

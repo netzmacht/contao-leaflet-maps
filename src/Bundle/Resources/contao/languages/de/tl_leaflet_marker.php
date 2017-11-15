@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2016-10-06T15:54:30+02:00
+ * last-updated: 2017-10-17T16:04:07+00:00
  */
 
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['active']['0']          = 'Marker aktivieren';
@@ -44,6 +44,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['icon']['1']            = 'Individuelle
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['icons']['0']           = 'Icons verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['icons']['1']           = 'Marker-Icons verwalten';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds']['0'] = 'Von Grenzen-Berechnung ausschließen.';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['ignoreForBounds']['1'] = 'Fügen Sie dieses Element nicht in die Berechnung ein.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['keyboard']['0']        = 'Tatstaturnavigation';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['keyboard']['1']        = 'Legen Sie fest ob der Marker über die Tabulatortaste erreicht und mit der Eingabetaste geklickt werden kann.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['new']['0']             = 'Marker erstellen';
@@ -62,5 +63,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_marker']['title_legend']         = 'Titel und Ty
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['toggle']['0']          = 'Aktivierung umschalten';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['toggle']['1']          = 'Aktivierung von Marker ID %s umschalten';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['tooltip']['0']         = 'Tooltip';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['tooltip']['1']         = 'Marker-Tooltip als Titelattribut gerendert.';
 $GLOBALS['TL_LANG']['tl_leaflet_marker']['zIndexOffset']['0']    = 'Z-Index-Offset';
+$GLOBALS['TL_LANG']['tl_leaflet_marker']['zIndexOffset']['1']    = 'Standardmäßig werden Markerbilder z-Index automatisch auf Grundlage der geografischen Breite festgelegt. Verwenden Sie diese Option, wenn Sie den Marker über allen anderen (oder darunter) platzieren möchten und einen hohen Wert wie 1000 (bzw. einen hohen negativen Wert) angeben.';
 

@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  *
- * last-updated: 2016-10-04T13:07:35+02:00
+ * last-updated: 2017-10-17T16:04:09+00:00
  */
 
 $GLOBALS['TL_LANG']['tl_leaflet_control']['active']['0']             = 'Kontrollelement aktivieren';
@@ -21,6 +21,7 @@ $GLOBALS['TL_LANG']['tl_leaflet_control']['attributions']['1']       = 'Hier kö
 $GLOBALS['TL_LANG']['tl_leaflet_control']['autoZIndex']['0']         = 'Automatischer Z-Index';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['autoZIndex']['1']         = 'Falls aktiviert wird das Kontrollelement zu allen Layern in aufsteigender Reihenfolge einen z-index hinzufügen, damit die Reihenfolge auch beim an- und abschalten von Layern erhalten bleibt.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['base']['0']               = 'Basislayer';
+$GLOBALS['TL_LANG']['tl_leaflet_control']['base']['1']               = 'Basis-Layer werden mit Radio-Buttons umgeschaltet. Beachten Sie, dass alle Basis-Layer als Basis-Layer-Objekte übergeben werden sollten, aber nur ein einziger für die Initialisierung der Karte benutzt werden soll.';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['bottomleft']['0']         = 'Links unten';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['bottomleft']['1']         = 'Linker unterer Bereich der Karte';
 $GLOBALS['TL_LANG']['tl_leaflet_control']['bottomright']['0']        = 'Rechts unten';
