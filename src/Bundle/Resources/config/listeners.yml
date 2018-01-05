@@ -1,6 +1,7 @@
 services:
   netzmacht.contao_leaflet.listeners.dca.leaflet:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\LeafletDcaListener
+    public: true
     arguments:
       - '@netzmacht.contao_toolkit.repository_manager'
       - '@templating'
@@ -10,18 +11,21 @@ services:
 
   netzmacht.contao_leaflet.listeners.dca.validator:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\Validator
+    public: true
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@translator'
 
   netzmacht.contao_leaflet.listeners.dca.frontend_integration:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\FrontendIntegrationListener
+    public: true
     arguments:
       - '@netzmacht.contao_toolkit.repository_manager'
       - '@translator'
 
   netzmacht.contao_leaflet.listeners.dca.map:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\MapDcaListener
+    public: true
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
@@ -29,6 +33,7 @@ services:
 
   netzmacht.contao_leaflet.listeners.dca.control:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\ControlDcaListener
+    public: true
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
@@ -37,6 +42,7 @@ services:
 
   netzmacht.contao_leaflet.listeners.dca.layer:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\LayerDcaListener
+    public: true
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@database_connection'
@@ -51,12 +57,14 @@ services:
 
   netzmacht.contao_leaflet.listeners.dca.marker:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\MarkerDcaListener
+    public: true
     arguments:
       - '@database_connection'
       - '@netzmacht.contao_toolkit.repository_manager'
 
   netzmacht.contao_leaflet.listeners.dca.vector:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\VectorDcaListener
+    public: true
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@netzmacht.contao_toolkit.repository_manager'
@@ -64,11 +72,13 @@ services:
 
   netzmacht.contao_leaflet.listeners.dca.icon:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\IconDcaListener
+    public: true
     arguments:
       - '%netzmacht.contao_leaflet.icons%'
 
   netzmacht.contao_leaflet.listeners.dca.style:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\StyleDcaListener
+    public: true
     arguments:
       - '%netzmacht.contao_leaflet.styles%'
 
@@ -97,6 +107,7 @@ services:
 
   netzmacht.contao_leaflet.listeners.register_libraries:
     class: Netzmacht\Contao\Leaflet\Listener\RegisterLibrariesListener
+    public: true
     arguments:
       - '@netzmacht.contao_leaflet.libraries'
       - '@netzmacht.contao_leaflet.definition.builder'

@@ -108,6 +108,7 @@ services:
 
   netzmacht.contao_leaflet.frontend.insert_tag:
     class: Netzmacht\Contao\Leaflet\Frontend\InsertTag\LeafletInsertTagParser
+    public: true
     arguments:
       - '@netzmacht.contao_leaflet.map.provider'
       - '%kernel.debug%'
