@@ -1,0 +1,115 @@
+services:
+  netzmacht.contao_leaflet.listeners.dca.leaflet:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\LeafletDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
+      - '@templating'
+      - '@filesystem'
+      - '@netzmacht.contao_toolkit.contao.system_adapter'
+      - '%netzmacht.contao_leaflet.cache_dir%'
+
+  netzmacht.contao_leaflet.listeners.dca.validator:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\Validator
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@translator'
+
+  netzmacht.contao_leaflet.listeners.dca.frontend_integration:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\FrontendIntegrationListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
+      - '@translator'
+
+  netzmacht.contao_leaflet.listeners.dca.map:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\MapDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@database_connection'
+      - '@netzmacht.contao_toolkit.repository_manager'
+
+  netzmacht.contao_leaflet.listeners.dca.control:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\ControlDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@database_connection'
+      - '@netzmacht.contao_toolkit.repository_manager'
+      - '%netzmacht.contao_leaflet.controls%'
+
+  netzmacht.contao_leaflet.listeners.dca.layer:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\LayerDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@database_connection'
+      - '@netzmacht.contao_toolkit.repository_manager'
+      - '@translator'
+      - '@netzmacht.contao_leaflet.layer_label_renderer'
+      - '@netzmacht.contao_toolkit.contao.backend_adapter'
+      - '%netzmacht.contao_leaflet.layers%'
+      - '%netzmacht.contao_leaflet.providers%'
+      - '%netzmacht.contao_leaflet.amenities%'
+      - '%netzmacht.contao_leaflet.file_formats%'
+
+  netzmacht.contao_leaflet.listeners.dca.marker:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\MarkerDcaListener
+    public: true
+    arguments:
+      - '@database_connection'
+      - '@netzmacht.contao_toolkit.repository_manager'
+
+  netzmacht.contao_leaflet.listeners.dca.vector:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\VectorDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@netzmacht.contao_toolkit.repository_manager'
+      - '%netzmacht.contao_leaflet.vectors%'
+
+  netzmacht.contao_leaflet.listeners.dca.icon:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\IconDcaListener
+    public: true
+    arguments:
+      - '%netzmacht.contao_leaflet.icons%'
+
+  netzmacht.contao_leaflet.listeners.dca.style:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\StyleDcaListener
+    public: true
+    arguments:
+      - '%netzmacht.contao_leaflet.styles%'
+
+  netzmacht.contao_leaflet.listeners.geo_json_listener:
+    class: Netzmacht\Contao\Leaflet\Listener\GeoJsonListener
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
+      - '%netzmacht.contao_leaflet.feature_model_properties%'
+    tags:
+      - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.mapper.convert_to_geojson', method: 'handle' }
+
+  netzmacht.contao_leaflet.listeners.hash_subscriber:
+    class: Netzmacht\Contao\Leaflet\Listener\HashSubscriber
+    tags:
+      - { name: 'kernel.event_subscriber' }
+
+  netzmacht.contao_leaflet.listeners.load_assets:
+    class: Netzmacht\Contao\Leaflet\Listener\LoadAssetsListener
+    arguments:
+      - '@netzmacht.contao_leaflet.map.assets'
+      - '@netzmacht.contao_leaflet.definition.mapper'
+      - '@netzmacht.contao_toolkit.repository_manager'
+      - '@netzmacht.contao_leaflet.libraries'
+    tags:
+      - { name: 'kernel.event_listener', event: 'netzmacht.contao_leaflet.get_javascript', method: 'onGetJavascriptEvent' }
+
+  netzmacht.contao_leaflet.listeners.register_libraries:
+    class: Netzmacht\Contao\Leaflet\Listener\RegisterLibrariesListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_leaflet.libraries'
+      - '@netzmacht.contao_leaflet.definition.builder'
+    tags:
+      - { name: 'contao.hook', hook: 'initializeSystem', method: 'onInitializeSystem' }

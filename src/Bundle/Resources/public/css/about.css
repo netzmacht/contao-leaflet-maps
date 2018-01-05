@@ -1,0 +1,79 @@
+
+.netzmacht-leaflet-credits .tl_box {
+    padding: 15px;
+}
+
+.netzmacht-leaflet-credits a {
+    color: #669A00;
+}
+
+.netzmacht-leaflet-credits .header {
+    background: #82cb00;
+    background-image: -webkit-linear-gradient(top, #b0de5c, #82cb00);
+    padding: 20px 15px 5px;
+}
+
+.netzmacht-leaflet-credits h1 {
+    color: #fff;
+    font-size: 1.4em;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.netzmacht-leaflet-credits .row:after {
+    content: ".";
+    display: block;
+    clear: both;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.netzmacht-leaflet-credits .row > .left {
+    width: 55%;
+    float: left;
+    padding-right: 5%;
+}
+
+.netzmacht-leaflet-credits .row > .right {
+    width: 40%;
+    float: left;
+}
+
+.netzmacht-leaflet-credits .row > .col {
+    width: 30%;
+    float: left;
+}
+
+.netzmacht-leaflet-credits .row > .col + .col {
+    margin-left: 4%;
+}
+
+.netzmacht-leaflet-credits th {
+    background: #ddd;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 3px 3px;
+}
+
+.netzmacht-leaflet-credits td {
+    padding: 2px 3px;
+    border-bottom: 1px solid #e9e9e9;
+}
+
+.netzmacht-leaflet-credits th.subtitle {
+    background: #f6f6f6;
+    border-bottom: 1px solid #ddd;
+}
+
+.netzmacht-leaflet-credits .btn {
+    background: #619A00;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.netzmacht-leaflet-credits .btn:hover {
+    background: #82cb00;
+    color: #333;
+}

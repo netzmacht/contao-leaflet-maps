@@ -1,0 +1,47 @@
+# Leaflet encoders.
+#
+# The encoders transforms the definitions into javascript. The encoders has to be an implementation of the
+# EventSubscriberInterface of the event dispatcher.
+services:
+  _defaults:
+    public: false
+
+  netzmacht.contao_leaflet.encoder.map:
+    class: Netzmacht\LeafletPHP\Encoder\MapEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }
+
+  netzmacht.contao_leaflet.encoder.control:
+    class: Netzmacht\LeafletPHP\Encoder\ControlEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }
+
+  netzmacht.contao_leaflet.encoder.group:
+    class: Netzmacht\LeafletPHP\Encoder\GroupEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }
+      
+  netzmacht.contao_leaflet.encoder.raster:
+    class: Netzmacht\LeafletPHP\Encoder\RasterEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }
+      
+  netzmacht.contao_leaflet.encoder.vector:
+    class: Netzmacht\LeafletPHP\Encoder\VectorEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }
+      
+  netzmacht.contao_leaflet.encoder.ui:
+    class: Netzmacht\LeafletPHP\Encoder\UIEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }
+      
+  netzmacht.contao_leaflet.encoder.type:
+    class: Netzmacht\LeafletPHP\Encoder\TypeEncoder
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }
+
+  netzmacht.contao_leaflet.encoder.subscriber:
+    class: Netzmacht\Contao\Leaflet\Encoder\Subscriber\EncoderSubscriber
+    tags:
+      - { name: netzmacht.contao_leaflet.encoder }

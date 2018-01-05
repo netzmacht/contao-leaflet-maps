@@ -1,0 +1,60 @@
+
+.tl_listing_container.tree_view ul > li.tl_file {
+    background: url('./../img/fol-placeholder.gif') no-repeat 6px 4px;
+}
+
+.tl_listing_container.tree_view ul > li.tl_file > div {
+    line-height: 18px;
+}
+
+.tl_listing_container.tree_view > ul > li.tl_file {
+    padding-left: 26px;
+}
+
+.tl_listing_container.tree_view ul > li.parent > ul {
+    padding-left: 20px;
+}
+
+.tl_listing_container.tree_view ul > li > .tl_left > a {
+    margin-left: -20px;
+}
+
+.tl_listing_container.tree_view ul[class="level_1"] li.tl_file > .tl_left {
+    padding-left: 20px !important;
+}
+
+.long .tl_text_2 {
+    width: 325px;
+}
+
+.leaflet-mcw {
+    clear: both;
+}
+
+.leaflet-mcw .tl_modulewizard {
+    width: 100%;
+}
+
+.leaflet-mcw .multicolumnwizard textarea,
+.leaflet-mcw .multicolumnwizard .tl_select {
+    width: 100% !important;
+}
+
+.leaflet-mcw .tl_modulewizard td:first-child {
+    width: auto;
+}
+
+@media screen and (min-width: 768px) {
+    .leaflet-mcw .tl_modulewizard {
+        max-width: 75%;
+    }
+
+    .leaflet-mcw-map-layers .tl_modulewizard {
+        max-width: 45%;
+    }
+
+    .leaflet-mcw-amenity-icons td:nth-child(1),
+    .leaflet-mcw-control-layers td:nth-child(2) {
+        width: 35%;
+    }
+}

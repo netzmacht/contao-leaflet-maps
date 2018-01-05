@@ -5,8 +5,8 @@ var concat     = require('gulp-concat');
 
 var paths = {
     minified: 'contao-leaflet.js',
-    scripts:  ['assets/maps/src/*.js'],
-    dest:     'assets/maps'
+    scripts:  ['js/*.js'],
+    dest:     'src/Bundle/Resources/public/js'
 };
 
 gulp.task('clear', function() {

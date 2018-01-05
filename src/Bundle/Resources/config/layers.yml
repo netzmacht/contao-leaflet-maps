@@ -1,0 +1,99 @@
+# Leaflet layer types.
+#
+# The type is used for the database driven definitions.
+parameters:
+  netzmacht.contao_leaflet.layers:
+    provider:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/provider.png'
+
+    group:
+      children: true
+      icon: 'bundles/netzmachtcontaoleaflet/img/group.png'
+
+    markers:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/markers.png'
+      markers: true
+      boundsMode:
+        extend: true
+        fit:    'deferred'
+
+    vectors:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/vectors.png'
+      vectors: true
+      boundsMode:
+        extend: true
+
+    reference:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/reference.png'
+
+    markercluster:
+      children: true
+      icon: 'bundles/netzmachtcontaoleaflet/img/markercluster.png'
+
+    tile:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/tile.png'
+
+    overpass:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/overpass.png'
+      boundsMode:
+        extend: true
+        fit:    true
+
+    file:
+      children: false
+      icon: 'bundles/netzmachtcontaoleaflet/img/file.png'
+      boundsMode:
+        extend: true
+
+services:
+  _defaults:
+    public: false
+
+  netzmacht.contao_leaflet.layer_label_renderer:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\ChainRenderer
+    arguments:
+      - []
+
+  netzmacht.contao_leaflet.layer_label_renderer.markers:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\MarkersLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
+    tags:
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
+
+  netzmacht.contao_leaflet.layer_label_renderer.overpass:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\OverpassLabelRenderer
+    tags:
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
+
+  netzmacht.contao_leaflet.layer_label_renderer.provider:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\ProviderLabelRenderer
+    tags:
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
+
+  netzmacht.contao_leaflet.layer_label_renderer.reference:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\ReferenceLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
+    tags:
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
+
+  netzmacht.contao_leaflet.layer_label_renderer.vectors:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\VectorsLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
+    tags:
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }
+
+  netzmacht.contao_leaflet.layer_label_renderer.file:
+    class: Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\FileLabelRenderer
+    arguments:
+      - '@netzmacht.contao_toolkit.repository_manager'
+    tags:
+      - { name: 'netzmacht.contao_leaflet.layer_label_renderer' }

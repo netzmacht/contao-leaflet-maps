@@ -17,17 +17,19 @@ Features
 
  - Define Leaflet maps with multiple layers.
  - Manage map controls
-    - [Layers control](http://leafletjs.com/reference-1.0.0.html#control-layers)
-    - [Zoom control](http://leafletjs.com/reference-1.0.0.html#control-zoom)
-    - [Scale control]((http://leafletjs.com/reference-1.0.0.html#control-scale))
-    - [Attribution control](http://leafletjs.com/reference-1.0.0.html#control-attribution)
+    - [Layers control](http://leafletjs.com/reference-1.2.0.html#control-layers)
+    - [Zoom control](http://leafletjs.com/reference-1.2.0.html#control-zoom)
+    - [Scale control]((http://leafletjs.com/reference-1.2.0.html#control-scale))
+    - [Attribution control](http://leafletjs.com/reference-1.2.0.html#control-attribution)
     - [Loading control](https://github.com/ebrelsford/Leaflet.loading)
  - Manage layers 
     - [Tile provider](https://github.com/leaflet-extras/leaflet-providers)
-    - Markers - A set of [markers](http://leafletjs.com/reference-1.0.0.html#marker)
-    - Vectors - A set of [vectors](http://leafletjs.com/reference-1.0.0.html)
+    - Markers - A set of [markers](http://leafletjs.com/reference-1.2.0.html#marker)
+    - Vectors - A set of [vectors](http://leafletjs.com/reference-1.2.0.html)
     - Groups  - A group of layers
     - Reference - A link to another layer
+    - [Markercluster](https://github.com/Leaflet/Leaflet.markercluster)
+    - External geo data files (gpx,kml,wkt,geojson,topojson) 
  - Manage marker icons
  - Manage vector styles
  - Optional deferred ajax loading of layer data
@@ -36,11 +38,22 @@ Features
  - Autoloading of required assets.
  - [Layer for MetaModels](https://github.com/netzmacht/contao-leaflet-metamodels)
  
+Changelog
+---------
+
+View the [CHANGELOG.md](CHANGELOG.md) for the latest changes.
+
+Requirements
+------------
+ 
+ - Contao 4.4
+ - PHP >= 7.0
+ 
 Install
 -------
 
 ```
-$ php composer.phar require netzmacht/contao-leaflet-maps:~2.0
+$ php composer.phar require netzmacht/contao-leaflet-maps:~3.0
 ```
 
 Credits
