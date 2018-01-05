@@ -28,8 +28,8 @@
     "netzmacht/contao-leaflet-geocode-widget": "^1.2",
     "netzmacht/php-javascript-builder": "^1.0",
     "netzmacht/php-leaflet": "^1.0.2",
-    "netzmacht/contao-toolkit": "~3.0@beta",
-    "contao-community-alliance/meta-palettes": "^1.5",
+    "netzmacht/contao-toolkit": "~3.0",
+    "contao-community-alliance/meta-palettes": "^2.0 || ^1.5",
     "menatwork/contao-multicolumnwizard": "^3.2",
     "doctrine/cache": "^1.0"
   },
