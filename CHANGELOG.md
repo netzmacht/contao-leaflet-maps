@@ -2,10 +2,12 @@
 Changelog
 =========
 
-dev-release/3.0.0 (YYYY-MM-DD)
-------------------------------
+3.0.0 (2018-01-05)
+------------------
 
-[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-beta1...release/3.0.0)
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-beta1...3.0.0)
+
+ - Make hook/dca listener services public
 
 3.0.0-beta1 (2017-11-15) 
 ------------------------
