@@ -2,6 +2,13 @@
 Changelog
 =========
 
+3.0.1 (2018-xx-xx)
+------------------
+
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0...3.0.1)
+
+ - Fix broken dynamic bbox related data loading (#57) 
+
 3.0.0 (2018-01-05)
 ------------------
 
