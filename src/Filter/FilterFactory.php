@@ -51,7 +51,7 @@ final class FilterFactory
     public function create(string $filter, string $values): Filter
     {
         if (isset($this->filters[$filter])) {
-            return call_user_func([$filter, 'fromRequest'], $values);
+            return call_user_func([$this->filters[$filter], 'fromRequest'], $values);
         }
 
         throw new \RuntimeException(sprintf('Creating filter failed. Unsupported filter "%s"', $filter));
