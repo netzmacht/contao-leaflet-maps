@@ -40,12 +40,12 @@ Bugfixes
 3.0.0-alpha2 
 ------------
 
-[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha2...2.0.0-alpha3)
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha2...3.0.0-alpha3)
 
 3.0.0-alpha1 (2017-10-19)
 ------------------------
 
-[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha1...2.0.0-alpha2)
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha1...3.0.0-alpha2)
 
 Implemented enhancements
  
