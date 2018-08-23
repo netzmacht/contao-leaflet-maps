@@ -45,7 +45,8 @@
   },
   "require-dev": {
     "phpcq/all-tasks": "^1.2",
-    "contao/manager-plugin": "^2.1"
+    "contao/manager-plugin": "^2.1",
+    "phpstan/phpstan": "^0.10.3"
   },
   "autoload": {
     "psr-4": {
