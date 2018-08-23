@@ -18,6 +18,7 @@ use Contao\Database\Result;
 use Contao\Input;
 use Contao\Model;
 use Contao\Model\Collection;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\MapProvider;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Component\Hybrid\AbstractHybrid;
@@ -127,8 +128,8 @@ abstract class AbstractMapHybrid extends AbstractHybrid
             $data['mapId']      = $mapId;
 
             $style  = '';
-            $height = deserialize($this->get('leaflet_height'), true);
-            $width  = deserialize($this->get('leaflet_width'), true);
+            $height = StringUtil::deserialize($this->get('leaflet_height'), true);
+            $width  = StringUtil::deserialize($this->get('leaflet_width'), true);
 
             if (!empty($width['value'])) {
                 $style .= 'width:' . $width['value'] . $width['unit'] . ';';

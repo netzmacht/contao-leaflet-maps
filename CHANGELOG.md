@@ -2,7 +2,14 @@
 Changelog
 =========
 
-3.0.1 (2018-xx-xx)
+3.0.2 (2018-08-23)
+------------------
+
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.1...3.0.2)
+
+ - Run composer require checker and solve issues.
+ 
+3.0.1 (2018-06-20)
 ------------------
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0...3.0.1)

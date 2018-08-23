@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Definition\Layer\OverpassLayer;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
@@ -146,7 +147,7 @@ class OverpassLayerMapper extends AbstractLayerMapper
      */
     private function filterAmenityIconsConfig($amenityIconsConfig)
     {
-        $amenityIconsConfig = deserialize($amenityIconsConfig, true);
+        $amenityIconsConfig = StringUtil::deserialize($amenityIconsConfig, true);
         $amenityIconsMap    = [];
 
         foreach ($amenityIconsConfig as $config) {

@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper;
 
 use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Model\ControlModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
@@ -195,7 +196,7 @@ class MapMapper extends AbstractMapper
      */
     private function buildBoundsCalculation(Map $map, MapModel $model)
     {
-        $adjustBounds = deserialize($model->adjustBounds, true);
+        $adjustBounds = StringUtil::deserialize($model->adjustBounds, true);
 
         if (in_array('deferred', $adjustBounds)) {
             $map->setOption('adjustBounds', true);

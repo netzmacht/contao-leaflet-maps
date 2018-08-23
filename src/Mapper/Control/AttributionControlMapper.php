@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Control;
 
 use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\LeafletPHP\Definition;
@@ -68,7 +69,7 @@ class AttributionControlMapper extends AbstractControlMapper
             $parent->setAttributionControl(false);
         }
 
-        $attributions = deserialize($model->attributions, true);
+        $attributions = StringUtil::deserialize($model->attributions, true);
 
         foreach ($attributions as $attribution) {
             $definition->addAttribution($attribution);

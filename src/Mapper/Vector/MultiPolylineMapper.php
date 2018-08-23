@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
 use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\LeafletPHP\Definition;
@@ -67,7 +68,7 @@ class MultiPolylineMapper extends AbstractVectorMapper
      */
     protected function createLatLngs(Polyline $definition, Model $model)
     {
-        foreach (deserialize($model->multiData, true) as $ring => $data) {
+        foreach (StringUtil::deserialize($model->multiData, true) as $ring => $data) {
             $latLngs = array_map(
                 function ($row) {
                     return LatLng::fromString($row);

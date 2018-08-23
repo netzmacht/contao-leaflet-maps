@@ -12,7 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
-use Model\Collection;
+use Contao\Database;
+use Contao\Model\Collection;
 
 /**
  * Class ControlModel for the tl_leaflet_vector table.
@@ -42,7 +43,7 @@ LEFT JOIN tl_leaflet_control_layer c ON l.id = c.lid
 WHERE     c.cid=?
 SQL;
 
-        $result = \Database::getInstance()
+        $result = Database::getInstance()
             ->prepare($query)
             ->execute($this->id);
 
@@ -68,7 +69,7 @@ c ON      l.id = c.lid
 WHERE     c.cid=? AND l.active=1
 SQL;
 
-        $result = \Database::getInstance()
+        $result = Database::getInstance()
             ->prepare($query)
             ->execute($this->id);
 

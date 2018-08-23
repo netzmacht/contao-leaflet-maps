@@ -170,7 +170,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      * @param Model   $model   The layer model.
      * @param Request $request Optional building request.
      *
-     * @return \Model\Collection|null
+     * @return \Contao\Model\Collection|null
      */
     protected function loadMarkerModels(Model $model, Request $request = null)
     {

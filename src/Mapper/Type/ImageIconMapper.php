@@ -12,6 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Type;
 
+use Contao\File;
 use Contao\FilesModel;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
@@ -118,7 +119,7 @@ class ImageIconMapper extends AbstractIconMapper
             if ($file) {
                 $definition->setIconUrl($file->path);
 
-                $file = new \File($file->path);
+                $file = new File($file->path);
                 $definition->setIconSize([$file->width, $file->height]);
 
                 if (!$model->iconAnchor) {
@@ -162,7 +163,7 @@ class ImageIconMapper extends AbstractIconMapper
             if ($file) {
                 $definition->setShadowUrl($file->path);
 
-                $file = new \File($file->path);
+                $file = new File($file->path);
                 $definition->setShadowSize([$file->width, $file->height]);
 
                 if (!$model->shadowAnchor) {

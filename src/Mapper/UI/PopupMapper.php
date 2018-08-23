@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\UI;
 
 use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Mapper\AbstractMapper;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
@@ -76,9 +77,9 @@ class PopupMapper extends AbstractMapper
         if ($model->autoPan) {
             $padding = array_map(
                 function ($value) {
-                    return array_map('intval', trimsplit(',', $value));
+                    return array_map('intval', StringUtil::trimsplit(',', $value));
                 },
-                deserialize($model->autoPanPadding, true)
+                StringUtil::deserialize($model->autoPanPadding, true)
             );
 
             if ($padding[0] === $padding[1]) {

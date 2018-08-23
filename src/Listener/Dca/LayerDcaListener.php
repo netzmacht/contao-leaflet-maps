@@ -517,9 +517,9 @@ class LayerDcaListener extends AbstractListener
     {
         return sprintf(
             '<a href="%s" title="%s">%s</a> ',
-            \Backend::addToUrl($href . '&amp;id=' . $row['id']),
+            Backend::addToUrl($href . '&amp;id=' . $row['id']),
             $title,
-            \Image::getHtml($icon, $label, $attributes)
+            Image::getHtml($icon, $label, $attributes)
         );
     }
 }

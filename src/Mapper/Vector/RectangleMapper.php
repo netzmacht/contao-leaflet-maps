@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Mapper\Vector;
 
 use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\LeafletPHP\Definition\Vector\Rectangle;
@@ -53,7 +54,7 @@ class RectangleMapper extends AbstractVectorMapper
             function ($latLng) {
                 return LatLng::fromString($latLng);
             },
-            deserialize($model->bounds, true)
+            StringUtil::deserialize($model->bounds, true)
         );
 
         $arguments   = parent::buildConstructArguments($model, $mapper, $request, $elementId);

@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\Controller;
+use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
@@ -113,7 +114,7 @@ class MarkerDcaListener
             'altitude'  => null,
         ];
 
-        $values = trimsplit(',', $value);
+        $values = StringUtil::trimsplit(',', $value);
         $keys   = array_keys($combined);
         $count  = count($values);
 
