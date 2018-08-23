@@ -12,6 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener;
 
+use Contao\Model;
 use Netzmacht\Contao\Leaflet\Event\GetHashEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -46,7 +47,7 @@ class HashSubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
 
-        if ($data instanceof \Model) {
+        if ($data instanceof Model) {
             $event->setHash($data->getTable() . '::' . $data->{$data->getPk()});
         }
     }

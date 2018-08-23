@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Listener;
 
+use Contao\File;
 use Netzmacht\Contao\Leaflet\Encoder\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Frontend\Assets\LibrariesConfiguration;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
@@ -117,7 +118,7 @@ class LoadAssetsListener
             // TODO: Cache it.
             // codingStandardsIgnoreEnd
 
-            $file = new \File('assets/leaflet/js/icons.js');
+            $file = new File('assets/leaflet/js/icons.js');
             $file->write($buffer);
             $file->close();
 

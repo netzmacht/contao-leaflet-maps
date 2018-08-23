@@ -206,7 +206,10 @@ class MapProvider
             $model = $this->getModel($mapId);
         }
 
-        if ($model->cache) {
+        $cacheKey = null;
+        $doCache  = $model->cache;
+
+        if ($doCache) {
             $cacheKey = $this->getCacheKey($mapId, $filter, $elementId, $template, $style);
 
             if ($this->cache->contains($cacheKey)) {
@@ -219,7 +222,7 @@ class MapProvider
 
         $buffer = $this->doGenerate($model, $filter, $elementId, $template, $style);
 
-        if ($model->cache) {
+        if ($doCache) {
             $this->cache->save(
                 $cacheKey,
                 [

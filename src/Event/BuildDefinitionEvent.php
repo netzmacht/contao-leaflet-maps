@@ -36,7 +36,7 @@ class BuildDefinitionEvent extends Event
     /**
      * The model.
      *
-     * @var \Model
+     * @var Model
      */
     private $model;
 
@@ -74,7 +74,7 @@ class BuildDefinitionEvent extends Event
     /**
      * Get the model.
      *
-     * @return \Model
+     * @return Model
      */
     public function getModel()
     {

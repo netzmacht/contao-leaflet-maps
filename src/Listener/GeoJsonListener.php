@@ -16,6 +16,7 @@ namespace Netzmacht\Contao\Leaflet\Listener;
 
 use Contao\FilesModel;
 use Contao\Model;
+use Contao\StringUtil;
 use Netzmacht\Contao\Leaflet\Event\ConvertToGeoJsonEvent;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
@@ -117,7 +118,7 @@ final class GeoJsonListener
     public function enrichObjects(GeoJsonObject $feature, LeafletDefinition $definition, $model)
     {
         if (($definition instanceof Marker || $definition instanceof Vector)
-            && $model instanceof \Model && $feature instanceof Feature) {
+            && $model instanceof Model && $feature instanceof Feature) {
             $this->setDataProperty($model, $feature);
             $this->setBoundsInformation($model, $feature);
         }
@@ -148,7 +149,7 @@ final class GeoJsonListener
      */
     public function setModelData(GeoJsonObject $feature, $model)
     {
-        if (!$model instanceof \Model || !$feature instanceof Feature
+        if (!$model instanceof Model || !$feature instanceof Feature
             || empty($this->featureModelProperties[$model->getTable()])) {
             return;
         }
@@ -169,12 +170,12 @@ final class GeoJsonListener
     /**
      * Parse the model value based on the config.
      *
-     * @param \Model $model    The model.
-     * @param mixed  $property The property config.
+     * @param Model $model    The model.
+     * @param mixed $property The property config.
      *
      * @return array|mixed|null
      */
-    private function parseModelValue(\Model $model, &$property)
+    private function parseModelValue(Model $model, &$property)
     {
         if (is_array($property)) {
             list($property, $type) = $property;
@@ -183,7 +184,7 @@ final class GeoJsonListener
             switch ($type) {
                 case 'array':
                 case 'object':
-                    $value = deserialize($value, true);
+                    $value = StringUtil::deserialize($value, true);
                     break;
 
                 case 'file':
@@ -194,7 +195,7 @@ final class GeoJsonListener
 
                 case 'files':
                     $repository = $this->repositoryManager->getRepository(FilesModel::class);
-                    $collection = $repository->findMultipleByUuids(deserialize($value, true));
+                    $collection = $repository->findMultipleByUuids(StringUtil::deserialize($value, true));
 
                     if ($collection) {
                         $value = $collection->fetchEach('path');

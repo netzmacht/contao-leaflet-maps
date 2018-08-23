@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
+use Contao\Config;
+use Contao\Frontend;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 
@@ -72,7 +74,7 @@ class RequestUrl implements \JsonSerializable
             $query .= '&amp;f=' . $filter->getName() . '&amp;v=' . $filter->toRequest();
         }
 
-        $url = \Config::get('websitePath') . '/' . \Frontend::addToUrl($query, false);
+        $url = Config::get('websitePath') . '/' . Frontend::addToUrl($query, false);
 
         return new static($url, $hash, $request);
     }

@@ -12,6 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
+use Contao\Model;
 use Contao\Model\Collection;
 
 /**
@@ -19,7 +20,7 @@ use Contao\Model\Collection;
  *
  * @package Netzmacht\Contao\Leaflet\Model
  */
-abstract class AbstractActiveModel extends \Model
+abstract class AbstractActiveModel extends Model
 {
     /**
      * Find an active model by its model id.

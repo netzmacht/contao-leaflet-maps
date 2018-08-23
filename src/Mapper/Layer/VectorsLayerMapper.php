@@ -188,11 +188,11 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
      * Add javascript callbacks.
      *
      * @param GeoJson $definition The definition.
-     * @param \Model  $model      The database model.
+     * @param Model   $model      The database model.
      *
      * @return void
      */
-    protected function addCallbacks(GeoJson $definition, \Model $model)
+    protected function addCallbacks(GeoJson $definition, Model $model)
     {
         if ($model->pointToLayer) {
             $definition->setPointToLayer(new Expression($model->pointToLayer));

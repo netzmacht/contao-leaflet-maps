@@ -36,7 +36,7 @@ class MarkerModel extends AbstractActiveModel
      * @param int    $pid    The parent id.
      * @param Filter $filter The filter.
      *
-     * @return \Model\Collection|null
+     * @return \Contao\Model\Collection|null
      */
     public static function findByFilter($pid, Filter $filter = null)
     {
@@ -59,7 +59,7 @@ class MarkerModel extends AbstractActiveModel
      * @param int        $pid    The layer id.
      * @param BboxFilter $filter The bbox filter.
      *
-     * @return \Model\Collection|null
+     * @return \Contao\Model\Collection|null
      */
     public static function findByBBoxFilter($pid, BboxFilter $filter)
     {

@@ -131,7 +131,7 @@ class OptionsBuilder
      * Build options and conditional options.
      *
      * @param Definition $definition The definition being built.
-     * @param \Model     $model      The model.
+     * @param Model      $model      The model.
      *
      * @return $this
      */
@@ -147,7 +147,7 @@ class OptionsBuilder
      * Build options.
      *
      * @param Definition $definition The definition being built.
-     * @param \Model     $model      The model.
+     * @param Model      $model      The model.
      *
      * @return void
      */
@@ -160,11 +160,11 @@ class OptionsBuilder
      * Build conditional options.
      *
      * @param Definition $definition The definition being built.
-     * @param \Model     $model      The model.
+     * @param Model      $model      The model.
      *
      * @return void
      */
-    private function buildConditionals($definition, \Model $model)
+    private function buildConditionals($definition, Model $model)
     {
         foreach ($this->conditional as $column => $conditions) {
             foreach ($conditions as $value => $options) {

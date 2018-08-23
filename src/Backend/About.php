@@ -12,6 +12,8 @@
 
 namespace Netzmacht\Contao\Leaflet\Backend;
 
+use Contao\BackendTemplate;
+
 /**
  * Credits backend module.
  *
@@ -26,7 +28,7 @@ class About
      */
     public function generate()
     {
-        $template = new \BackendTemplate('be_leaflet_about');
+        $template = new BackendTemplate('be_leaflet_about');
 
         $template->headline  = 'Leaftlet maps integration for Contao CMS';
         $template->libraries = $this->getLibraries();
@@ -57,9 +59,8 @@ class About
 
                 if ($library['homepage']) {
                     $library['homepage'] = sprintf(
-                        '<a href="%s" %s>%s</a>',
+                        '<a href="%s" target="_blank">%s</a>',
                         $library['homepage'],
-                        LINK_NEW_WINDOW,
                         preg_replace('#^(https?://(www)?)#i', '', $library['homepage'])
                     );
                 }

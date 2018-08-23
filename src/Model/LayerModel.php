@@ -12,7 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
-use Model\Collection;
+use Contao\Model\Collection;
 
 /**
  * Class LayerModel for the tl_leaflet_layer table.

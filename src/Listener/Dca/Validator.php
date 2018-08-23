@@ -13,6 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\DataContainer;
+use Contao\StringUtil;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
@@ -116,7 +117,7 @@ class Validator
      */
     public function validateMultipleCoordinateSets($values, $dataContainer)
     {
-        $sets = deserialize($values, true);
+        $sets = StringUtil::deserialize($values, true);
         foreach ($sets as $lines) {
             $this->validateMultipleCoordinates($lines, $dataContainer);
         }

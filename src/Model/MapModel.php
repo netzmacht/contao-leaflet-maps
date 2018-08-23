@@ -12,7 +12,9 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
-use Model\Collection;
+use Contao\Database;
+use Contao\Model;
+use Contao\Model\Collection;
 
 /**
  * Class MapModel for the tl_leaflet_map table.
@@ -22,7 +24,7 @@ use Model\Collection;
  *
  * @package Netzmacht\Contao\Leaflet\Model
  */
-class MapModel extends \Model
+class MapModel extends Model
 {
     /**
      * Model table.
@@ -39,7 +41,7 @@ class MapModel extends \Model
     public function findLayers()
     {
         $query  = 'SELECT l.* FROM tl_leaflet_layer l LEFT JOIN tl_leaflet_map_layer m ON l.id = m.lid WHERE m.mid=?';
-        $result = \Database::getInstance()
+        $result = Database::getInstance()
             ->prepare($query)
             ->execute($this->id);
 
@@ -65,7 +67,7 @@ ON        l.id = m.lid
 WHERE     m.mid=? AND l.active=1
 SQL;
 
-        $result = \Database::getInstance()->prepare($query)->execute($this->id);
+        $result = Database::getInstance()->prepare($query)->execute($this->id);
 
         if ($result->numRows) {
             return Collection::createFromDbResult($result, 'tl_leaflet_layer');
