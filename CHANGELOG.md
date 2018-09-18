@@ -1,37 +1,38 @@
 
-Changelog
-=========
+# Changelog
 
-3.0.3 (2018-09-18)
-------------------
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 3.0.3 - 2018-09-18
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.2...3.0.3)
 
+### Fixed
+
  - Make alias generator services public for Contao 4.6/Symfony 4.0 compatibility.
 
-3.0.2 (2018-08-23)
-------------------
+## 3.0.2 - 2018-08-23
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.1...3.0.2)
 
  - Run composer require checker and solve issues.
  
-3.0.1 (2018-06-20)
-------------------
+## 3.0.1 - 2018-06-20
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0...3.0.1)
 
  - Fix broken dynamic bbox related data loading (#57) 
 
-3.0.0 (2018-01-05)
-------------------
+## 3.0.0 - 2018-01-05
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-beta1...3.0.0)
 
  - Make hook/dca listener services public
 
-3.0.0-beta1 (2017-11-15) 
-------------------------
+## 3.0.0-beta1 - 2017-11-15
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha2...3.0.0-beta1)
 
@@ -44,13 +45,7 @@ Bugfixes
   - Broken service definitions
   - Broken file layer id 
 
-3.0.0-alpha2 
-------------
-
-[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha2...3.0.0-alpha3)
-
-3.0.0-alpha1 (2017-10-19)
-------------------------
+## 3.0.0-alpha1 - 2017-10-19
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.0-alpha1...3.0.0-alpha2)
 
