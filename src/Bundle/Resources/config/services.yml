@@ -74,11 +74,13 @@ services:
 
   netzmacht.contao_leaflet.definition.alias_generator.factory_default:
     class: Netzmacht\Contao\Leaflet\Alias\DefaultAliasGeneratorFactory
+    public: true
     arguments:
       - '@database_connection'
 
   netzmacht.contao_leaflet.definition.alias_generator.factory_parent:
     class: Netzmacht\Contao\Leaflet\Alias\ParentAliasGeneratorFactory
+    public: true
     arguments:
       - '@database_connection'
 

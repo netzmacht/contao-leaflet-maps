@@ -2,6 +2,13 @@
 Changelog
 =========
 
+3.0.3 (2018-09-18)
+------------------
+
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.2...3.0.3)
+
+ - Make alias generator services public for Contao 4.6/Symfony 4.0 compatibility.
+
 3.0.2 (2018-08-23)
 ------------------
 
