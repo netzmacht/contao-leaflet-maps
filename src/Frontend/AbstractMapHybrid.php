@@ -119,6 +119,8 @@ abstract class AbstractMapHybrid extends AbstractHybrid
      */
     protected function prepareTemplateData(array $data): array
     {
+        $data = parent::prepareTemplateData($data);
+
         try {
             $template = $this->get('leaflet_template') ?: 'leaflet_map_js';
             $mapId    = $this->getIdentifier();
