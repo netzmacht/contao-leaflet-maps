@@ -49,7 +49,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_mapId'] = [
 $GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_width'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_module']['leaflet_width'],
     'inputType' => 'inputUnit',
-    'options'   => ['px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'],
+    'options'   => $GLOBALS['TL_CSS_UNITS'],
     'search'    => false,
     'exclude'   => true,
     'eval'      => ['rgxp' => 'digit', 'tl_class' => 'clr w50'],
@@ -60,7 +60,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_width'] = [
 $GLOBALS['TL_DCA']['tl_module']['fields']['leaflet_height'] = [
     'label'     => &$GLOBALS['TL_LANG']['tl_module']['leaflet_height'],
     'inputType' => 'inputUnit',
-    'options'   => ['px', '%', 'em', 'pt', 'pc', 'in', 'cm', 'mm'],
+    'options'   => $GLOBALS['TL_CSS_UNITS'],
     'search'    => false,
     'exclude'   => true,
     'eval'      => ['rgxp' => 'digit', 'tl_class' => 'w50'],
