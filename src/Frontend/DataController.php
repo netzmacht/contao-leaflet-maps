@@ -12,14 +12,18 @@
 
 namespace Netzmacht\Contao\Leaflet\Frontend;
 
+use const E_USER_DEPRECATED;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\Contao\Leaflet\Filter\FilterFactory;
 use Netzmacht\Contao\Leaflet\MapProvider;
+use function trigger_error;
 
 /**
  * The data controller handles ajax request for sub data.
  *
  * @package Netzmacht\Contao\Leaflet\Frontend
+ *
+ * @deprecated
  */
 class DataController
 {
@@ -60,6 +64,13 @@ class DataController
     {
         $this->debugMode     = $debugMode;
         $this->filterFactory = $filterFactory;
+
+        // @codingStandardsIgnoreStart
+        @trigger_error(
+            'Deprecated since 3.1.0 and will be removed in 4.0.0 - Use properly route instead.',
+            E_USER_DEPRECATED
+        );
+        // @codingStandardsIgnoreEnd
     }
 
     /**

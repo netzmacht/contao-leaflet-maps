@@ -21,6 +21,8 @@ use Netzmacht\Contao\Leaflet\Mapper\Request;
  * Class RequestUrl creates the request url.
  *
  * @package Netzmacht\Contao\Leaflet\Request
+ *
+ * @deprecated
  */
 class RequestUrl implements \JsonSerializable
 {
@@ -89,6 +91,13 @@ class RequestUrl implements \JsonSerializable
     {
         $this->url  = $url;
         $this->hash = $hash;
+
+        // @codingStandardsIgnoreStart
+        @trigger_error(
+            'Deprecated since 3.1.0 and will be removed in 4.0.0. Use The router instead.',
+            E_USER_DEPRECATED
+        );
+        // @codingStandardsIgnoreEnd
     }
 
     /**

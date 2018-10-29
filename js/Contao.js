@@ -138,7 +138,7 @@ L.Contao = L.Evented.extend({
      * @param customLayer optional custom layer.
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
-    loadFile: function (url, type, options, customLayer, map) {
+    loadUrl: function (url, type, options, customLayer, map) {
         var layer = omnivore[type](url, options, customLayer);
 
         if (map) {
@@ -170,6 +170,19 @@ L.Contao = L.Evented.extend({
         }
 
         return layer;
+    },
+
+    /**
+     * Load data from an url into a layer using omnivore.
+     *
+     * @param url         A file url.
+     * @param type        The response content format.
+     * @param options     Parser options
+     * @param customLayer optional custom layer.
+     * @param map         Pass a map object so that the data loading events are passed to the map.
+     */
+    loadFile: function (url, type, options, customLayer, map) {
+        return this.loadUrl(url, type, options, customLayer, map);
     },
 
     /**

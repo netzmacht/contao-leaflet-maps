@@ -32,6 +32,7 @@ services:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\MarkersLayerMapper
     arguments:
       - '@netzmacht.contao_toolkit.repository_manager'
+      - '@router'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 
@@ -46,6 +47,7 @@ services:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\VectorsLayerMapper
     arguments:
       - '@netzmacht.contao_toolkit.repository_manager'
+      - '@router'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 

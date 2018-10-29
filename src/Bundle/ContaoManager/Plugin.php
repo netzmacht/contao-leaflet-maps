@@ -18,15 +18,20 @@ use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
+use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
 use Netzmacht\Contao\Leaflet\Bundle\NetzmachtContaoLeafletBundle;
+use Netzmacht\Contao\PageContext\NetzmachtContaoPageContextBundle;
 use Netzmacht\Contao\Toolkit\Bundle\NetzmachtContaoToolkitBundle;
+use Symfony\Component\Config\Loader\LoaderResolverInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Contao manager plugin.
  *
  * @package Netzmacht\Contao\Leaflet\ContaoManager
  */
-class Plugin implements BundlePluginInterface
+class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
     /**
      * {@inheritdoc}
@@ -35,8 +40,32 @@ class Plugin implements BundlePluginInterface
     {
         return [
             BundleConfig::create(NetzmachtContaoLeafletBundle::class)
-                ->setLoadAfter([ContaoCoreBundle::class, NetzmachtContaoToolkitBundle::class])
+                ->setLoadAfter(
+                    [
+                        ContaoCoreBundle::class,
+                        NetzmachtContaoToolkitBundle::class,
+                        NetzmachtContaoPageContextBundle::class
+                    ]
+                )
                 ->setReplace(['leaflet']),
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel): ?RouteCollection
+    {
+        $loader = $resolver->resolve(__DIR__ . '/../Resources/config/routing.yml');
+        if (!$loader) {
+            return null;
+        }
+
+        $collection = $loader->load(__DIR__ . '/../Resources/config/routing.yml');
+        if ($collection instanceof RouteCollection) {
+            $collection->addPrefix('leaflet/api');
+        }
+
+        return $collection;
     }
 }
