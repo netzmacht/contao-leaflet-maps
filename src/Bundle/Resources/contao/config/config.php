@@ -40,11 +40,6 @@ array_insert(
                 'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/backend.css',
                 'javascript' => 'bundles/netzmachtcontaoleaflet/js/backend.js',
             ],
-            'leaflet_about' => [
-                'callback'   => Netzmacht\Contao\Leaflet\Backend\About::class,
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/about.png',
-                'stylesheet' => 'bundles/netzmachtcontaoleaflet/css/about.css',
-            ],
         ],
     ]
 );

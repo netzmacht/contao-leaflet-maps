@@ -113,3 +113,13 @@ services:
       - '@netzmacht.contao_leaflet.definition.builder'
     tags:
       - { name: 'contao.hook', hook: 'initializeSystem', method: 'onInitializeSystem' }
+
+  netzmacht.contao_leaflet.listeners.backend_menu:
+    class: Netzmacht\Contao\Leaflet\Listener\Backend\UserNavigationListener
+    arguments:
+      - '@request_stack'
+      - '@router'
+      - '@translator'
+      - '@netzmacht.contao_toolkit.assets_manager'
+    tags:
+      - { name: 'contao.hook', hook: 'getUserNavigation', method: '__invoke'}

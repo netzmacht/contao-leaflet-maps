@@ -61,11 +61,6 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
             return null;
         }
 
-        $collection = $loader->load(__DIR__ . '/../Resources/config/routing.yml');
-        if ($collection instanceof RouteCollection) {
-            $collection->addPrefix('leaflet/api');
-        }
-
-        return $collection;
+        return $loader->load(__DIR__ . '/../Resources/config/routing.yml');
     }
 }

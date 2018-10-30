@@ -10,32 +10,59 @@
  * @filesource
  */
 
-namespace Netzmacht\Contao\Leaflet\Backend;
+namespace Netzmacht\Contao\Leaflet\Backend\Action;
 
-use Contao\BackendTemplate;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface as Engine;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Credits backend module.
  *
  * @package Netzmacht\Contao\Leaflet\Backend
  */
-class About
+final class AboutAction
 {
+    /**
+     * Templating engine.
+     *
+     * @var Engine
+     */
+    private $engine;
+
+    /**
+     * Project directory.
+     *
+     * @var string
+     */
+    private $projectDir;
+
+    /**
+     * AboutAction constructor.
+     *
+     * @param Engine $engine     Templating engine.
+     * @param string $projectDir Project directory.
+     */
+    public function __construct(Engine $engine, string $projectDir)
+    {
+        $this->engine     = $engine;
+        $this->projectDir = $projectDir;
+    }
+
     /**
      * Generate the backend view.
      *
      * @return string
      */
-    public function generate()
+    public function __invoke(): Response
     {
-        $template = new BackendTemplate('be_leaflet_about');
+        $data = [
+            'headline'  => 'Leaftlet maps integration for Contao CMS',
+            'libraries' => $this->getLibraries(),
+        ];
 
-        $template->headline  = 'Leaftlet maps integration for Contao CMS';
-        $template->libraries = $this->getLibraries();
+        [$data['version'], $data['dependencies']] = $this->extractFromComposer();
 
-        list($template->version, $template->dependencies) = $this->extractFromComposer();
-
-        return $template->parse();
+        return $this->engine->renderResponse('@NetzmachtContaoLeaflet/backend/about.html.twig', $data);
     }
 
     /**
@@ -45,7 +72,7 @@ class About
      *
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    private function getLibraries()
+    private function getLibraries(): array
     {
         return array_map(
             function ($library) {
@@ -70,7 +97,7 @@ class About
             array_filter(
                 $GLOBALS['LEAFLET_LIBRARIES'],
                 function ($library) {
-                    return isset($library['name']) && isset($library['license']);
+                    return isset($library['name'], $library['license']);
                 }
             )
         );
@@ -81,10 +108,10 @@ class About
      *
      * @return array
      */
-    private function extractFromComposer()
+    private function extractFromComposer(): array
     {
-        $extFile  = TL_ROOT . '/vendor/netzmacht/contao-leaflet-maps/composer.json';
-        $lockFile = TL_ROOT . '/composer.lock';
+        $extFile  = $this->projectDir . '/vendor/netzmacht/contao-leaflet-maps/composer.json';
+        $lockFile = $this->projectDir . '/composer.lock';
 
         if (!file_exists($extFile) || !file_exists($lockFile)) {
             return [];

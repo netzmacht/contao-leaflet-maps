@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - Deprecate `Netzmacht\Contao\Leaflet\Frontend\RequestUrl`. Use router to generate request url for layer data.
  - Deprecate `Netzmacht\Contao\Leaflet\Frontend\DataController`. Use introduced endpoint to get map data.
+ 
+### Changed
+
+ - Rewritten about page using own route (#48).
 
 ### Fixed
 

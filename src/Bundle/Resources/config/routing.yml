@@ -1,5 +1,5 @@
 leaflet_layer:
-  path: /layer/{layerId}
+  path: /leaflet/api/layer/{layerId}
   controller: Netzmacht\Contao\Leaflet\Frontend\Action\LayerDataAction
   defaults:
     _leaflet_scope: page
@@ -9,3 +9,10 @@ leaflet_layer:
     _format: geojson
     context: \w+
     contextId: \d+
+
+leaflet_backend_about:
+  path: /contao/leaflet/about
+  controller: Netzmacht\Contao\Leaflet\Backend\Action\AboutAction
+  defaults:
+    _scope: backend
+    _backend_module: leaflet_about

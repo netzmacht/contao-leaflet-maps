@@ -131,3 +131,8 @@ services:
     arguments:
       - '@netzmacht.contao_leaflet.map.provider'
       - '@netzmacht.contao_leaflet.filter_factory'
+
+  Netzmacht\Contao\Leaflet\Backend\Action\AboutAction:
+    arguments:
+      - '@templating'
+      - '%kernel.project_dir%'
