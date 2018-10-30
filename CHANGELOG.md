@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Custom route to load map data.
  - Add distance filter support for the marker layer (Bounds Mode "fit" has to be enabled).
  - Add support for relative css units for map size definition (#59).
+ - Add hint that zoom level is probably required (#56).
 
 ### Deprecated
 
@@ -23,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  
 ### Changed
 
+ - Require PHP 7.1.
  - Rewritten about page using own route (#48).
 
 ### Fixed
