@@ -22,7 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
- - Pressing enter on backend geocode control doesn't submit form anymore
+ - Pressing enter on backend geocode control doesn't submit form anymore.
+ - Fix broken marker cluster layer (#60).
 
 
 ## 3.0.4 - 2018-10-08
