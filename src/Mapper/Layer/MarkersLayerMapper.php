@@ -185,7 +185,7 @@ class MarkersLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     {
         $repository = $this->repositoryManager->getRepository(MarkerModel::class);
 
-        if ($model->boundsMode == 'fit') {
+        if ($model->boundsMode === 'fit') {
             return $repository->findByFilter($model->id, $request->getFilter());
         }
 

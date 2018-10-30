@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
  - Custom route to load map data.
+ - Add distance filter support for the marker layer (Bounds Mode "fit" has to be enabled).
 
 ### Deprecated
 

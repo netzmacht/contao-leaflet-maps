@@ -93,4 +93,24 @@ class DistanceFilter implements Filter
             'center' => $this->center,
         ];
     }
+
+    /**
+     * Get the center coordinate.
+     *
+     * @return LatLng
+     */
+    public function getCenter(): LatLng
+    {
+        return $this->center;
+    }
+
+    /**
+     * Get the distance radius.
+     *
+     * @return int
+     */
+    public function getRadius(): int
+    {
+        return $this->radius;
+    }
 }
