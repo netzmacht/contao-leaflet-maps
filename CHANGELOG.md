@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - Custom route to load map data.
  - Add distance filter support for the marker layer (Bounds Mode "fit" has to be enabled).
+ - Add support for relative css units for map size definition (#59).
 
 ### Deprecated
 
