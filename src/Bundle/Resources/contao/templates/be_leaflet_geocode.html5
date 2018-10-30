@@ -1,8 +1,8 @@
-<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/leaflet/leaflet.css'; ?>
-<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.css'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/leaflet/leaflet.min.css'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.min.css'; ?>
 
 <?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/leaflet/leaflet.js'; ?>
-<?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.js'; ?>
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.min.js'; ?>
 
 <div id="map_<?php echo $this->field; ?>" style="margin-top: 5px; width: calc(100% - 28px); height: 300px"></div>
 <script>
