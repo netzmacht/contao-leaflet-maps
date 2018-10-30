@@ -6,6 +6,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.1.0 - TBD
+
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.4...develop)
+
+### Added
+
+ - Custom route to load map data.
+
+### Deprecated
+
+ - Deprecate `Netzmacht\Contao\Leaflet\Frontend\RequestUrl`. Use router to generate request url for layer data.
+ - Deprecate `Netzmacht\Contao\Leaflet\Frontend\DataController`. Use introduced endpoint to get map data.
+
+### Fixed
+
+ - Pressing enter on backend geocode control doesn't submit form anymore
+
+
 ## 3.0.4 - 2018-10-08
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.3...3.0.4)
