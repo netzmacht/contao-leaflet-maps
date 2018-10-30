@@ -73,7 +73,6 @@ class ValueFilter
      */
     public function filter($value)
     {
-        $value = $this->getReplacer()->replace($value);
         $value = $this->getReplacer()->replace($value, false);
 
         return $value;
