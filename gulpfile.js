@@ -1,4 +1,4 @@
-const { series, src, watch, dest} = require('gulp');
+const { series, src, watch, dest, parallel} = require('gulp');
 const del             = require('del');
 const uglify          = require('gulp-uglify');
 const concat          = require('gulp-concat');
@@ -21,7 +21,14 @@ const buildTask = series(cleanTask, function (cb) {
         .pipe(dest(paths.dest));
 });
 
+function watchTask () {
+    watch(
+        paths.scripts,
+        buildTask
+    )
+}
+
 exports.clean   = cleanTask;
-exports.watch   = watch(paths.scripts, buildTask);
+exports.watch   = watchTask;
 exports.build   = buildTask;
 exports.default = buildTask;
