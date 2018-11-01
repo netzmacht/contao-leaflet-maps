@@ -15,14 +15,20 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\DataContainer;
+use Contao\Input;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
+use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use PDO;
+use function strlen;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
+use function var_dump;
 
 /**
  * Class Map is the helper class for the tl_leaflet_map dca.
@@ -53,18 +59,69 @@ class MapDcaListener extends AbstractListener
     private $repositoryManager;
 
     /**
+     * Translator.
+     *
+     * @var Translator
+     */
+    private $translator;
+
+    /**
+     * Session.
+     *
+     * @var Session
+     */
+    private $session;
+
+    /**
      * Construct.
      *
      * @param Manager           $manager           Data container manager.
      * @param Connection        $connection        Database connection.
      * @param RepositoryManager $repositoryManager Repository manager.
+     * @param Translator        $translator        Translator.
+     * @param Session           $session           Session.
      */
-    public function __construct(Manager $manager, Connection $connection, RepositoryManager $repositoryManager)
-    {
+    public function __construct(
+        Manager $manager,
+        Connection $connection,
+        RepositoryManager $repositoryManager,
+        Translator $translator,
+        Session $session
+    ) {
         parent::__construct($manager);
 
         $this->connection        = $connection;
         $this->repositoryManager = $repositoryManager;
+        $this->translator        = $translator;
+        $this->session           = $session;
+    }
+
+    /**
+     * Add warnings for incomplete configurations.
+     *
+     * @param DataContainer $dataContainer The data container driver.
+     *
+     * @return void
+     */
+    public function addIncompleteConfigurationWarning($dataContainer): void
+    {
+        if (Input::get('act') !== 'edit') {
+            return;
+        }
+
+        $repository = $this->repositoryManager->getRepository(MapModel::class);
+        $map        = $repository->find((int) $dataContainer->id);
+
+        if (!$map) {
+            return;
+        }
+
+        if ($map->zoom === null || $map->zoom === '') {
+            $this->session->getFlashBag()->add(
+                'contao.BE.info',
+                $this->translator->trans('ERR.leafletMissingZoomLevel', [], 'contao_default')
+            );
+        }
     }
 
     /**

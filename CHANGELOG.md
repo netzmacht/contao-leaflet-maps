@@ -6,6 +6,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.1.0 - 2018-01-11
+
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.4...3.1.0)
+
+### Added
+
+ - Custom route to load map data.
+ - Add distance filter support for the marker layer (Bounds Mode "fit" has to be enabled).
+ - Add support for relative css units for map size definition (#59).
+ - Add hint that zoom level is probably required (#56).
+
+### Deprecated
+
+ - Deprecate `Netzmacht\Contao\Leaflet\Frontend\RequestUrl`. Use router to generate request url for layer data.
+ - Deprecate `Netzmacht\Contao\Leaflet\Frontend\DataController`. Use introduced endpoint to get map data.
+ 
+### Changed
+
+ - Require PHP 7.1.
+ - Rewritten about page using own route (#48).
+
+### Fixed
+
+ - Pressing enter on backend geocode control doesn't submit form anymore.
+ - Fix broken marker cluster layer (#60).
+
+
 ## 3.0.4 - 2018-10-08
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.0.3...3.0.4)

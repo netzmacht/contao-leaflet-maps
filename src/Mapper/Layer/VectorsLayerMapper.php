@@ -14,7 +14,6 @@ namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
 use Contao\Model;
 use Contao\Model\Collection;
-use Netzmacht\Contao\Leaflet\Frontend\RequestUrl;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
 use Netzmacht\Contao\Leaflet\Mapper\GeoJsonMapper;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
@@ -25,6 +24,7 @@ use Netzmacht\LeafletPHP\Definition;
 use Netzmacht\LeafletPHP\Definition\Group\GeoJson;
 use Netzmacht\LeafletPHP\Plugins\Omnivore\GeoJson as OmnivoreGeoJson;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Class VectorsLayerMapper maps the layer model for the Vectors layer definition.
@@ -48,13 +48,22 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
     private $repositoryManager;
 
     /**
+     * Router.
+     *
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * Construct.
      *
      * @param RepositoryManager $repositoryManager Repository manager.
+     * @param RouterInterface   $router            Router
      */
-    public function __construct(RepositoryManager $repositoryManager)
+    public function __construct(RepositoryManager $repositoryManager, RouterInterface $router)
     {
         $this->repositoryManager = $repositoryManager;
+        $this->router            = $router;
 
         parent::__construct();
     }
@@ -101,7 +110,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
                 return [
                     $this->getElementId($model, $elementId),
-                    RequestUrl::create($model->id, null, null, $request),
+                    $this->generateUrl((int) $model->id, $request),
                     [],
                     $layer,
                 ];
@@ -109,7 +118,7 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
 
             return [
                 $this->getElementId($model, $elementId),
-                RequestUrl::create($model->id, null, null, $request),
+                $this->generateUrl((int) $model->id, $request),
             ];
         }
 
@@ -201,5 +210,32 @@ class VectorsLayerMapper extends AbstractLayerMapper implements GeoJsonMapper
         if ($model->onEachFeature) {
             $definition->setOnEachFeature(new Expression($model->onEachFeature));
         }
+    }
+
+    /**
+     * Generate the data url for a layer.
+     *
+     * @param int          $layerId The layer id.
+     * @param Request|null $request The request.
+     *
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    private function generateUrl(int $layerId, ?Request $request = null): string
+    {
+        $params = ['layerId' => $layerId];
+
+        if ($request && ($filter = $request->getFilter())) {
+            $params['filter'] = $filter::getName();
+            $params['values'] = $filter->toRequest();
+        }
+
+        if (isset($GLOBALS['objPage'])) {
+            $params['context']   = 'page';
+            $params['contextId'] = $GLOBALS['objPage']->id;
+        }
+
+        return $this->router->generate('leaflet_layer', $params, RouterInterface::ABSOLUTE_URL);
     }
 }

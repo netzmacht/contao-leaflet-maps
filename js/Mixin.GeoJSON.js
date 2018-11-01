@@ -29,6 +29,6 @@ L.GeoJSON.include({
         });
 
         // TODO: Allow other data formats.
-        omnivore.geojson(L.contao.createRequestUrl(this.options.requestHash, e.target), null, dataLayer);
+        omnivore.geojson(L.contao.applyFilterToUrl(this.options.requestUrl, e.target), null, dataLayer);
     }
 });

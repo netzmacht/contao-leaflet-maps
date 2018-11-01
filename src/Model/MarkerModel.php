@@ -12,9 +12,12 @@
 
 namespace Netzmacht\Contao\Leaflet\Model;
 
+use Contao\Model\Collection;
 use Netzmacht\Contao\Leaflet\Filter\BboxFilter;
+use Netzmacht\Contao\Leaflet\Filter\DistanceFilter;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\LeafletPHP\Value\LatLngBounds;
+use function var_dump;
 
 /**
  * Class MarkerModel for the tl_leaflet_marker table.
@@ -33,20 +36,23 @@ class MarkerModel extends AbstractActiveModel
     /**
      * Find by a filter.
      *
-     * @param int    $pid    The parent id.
-     * @param Filter $filter The filter.
+     * @param int         $pid    The parent id.
+     * @param Filter|null $filter The filter.
      *
-     * @return \Contao\Model\Collection|null
+     * @return Collection|null
      */
-    public static function findByFilter($pid, Filter $filter = null)
+    public static function findByFilter($pid, ?Filter $filter = null)
     {
         if (!$filter) {
             return static::findActiveBy('pid', $pid, ['order' => 'sorting']);
         }
 
-        switch ($filter->getName()) {
-            case 'bbox':
+        switch (true) {
+            case $filter instanceof BboxFilter:
                 return static::findByBBoxFilter($pid, $filter);
+
+            case $filter instanceof DistanceFilter:
+                return static::findByDistanceFilter($pid, $filter);
 
             default:
                 return null;
@@ -59,15 +65,16 @@ class MarkerModel extends AbstractActiveModel
      * @param int        $pid    The layer id.
      * @param BboxFilter $filter The bbox filter.
      *
-     * @return \Contao\Model\Collection|null
+     * @return Collection|null|MarkerModel[]
      */
     public static function findByBBoxFilter($pid, BboxFilter $filter)
     {
+        $table   = static::getTable();
         $columns = [
-            'active=1',
-            'pid=?',
-            'latitude > ? AND latitude < ?',
-            'longitude > ? AND longitude < ?',
+            $table . '.active=1',
+            $table . '.pid=?',
+            $table . '.latitude > ? AND ' . $table . '.latitude < ?',
+            $table . '.longitude > ? AND ' . $table . '.longitude < ?',
         ];
 
         /** @var LatLngBounds $bounds */
@@ -80,6 +87,39 @@ class MarkerModel extends AbstractActiveModel
             $bounds->getNorthEast()->getLongitude(),
         ];
 
-        return static::findBy($columns, $values, ['order' => 'sorting']);
+        return static::findBy($columns, $values, ['order' => $table . '.sorting']);
+    }
+
+    /**
+     * Find marker by distance filter.
+     *
+     * @param int            $pid    The layer id.
+     * @param DistanceFilter $filter THe distance filter.
+     *
+     * @return Collection|null|MarkerModel[]
+     */
+    public static function findByDistanceFilter($pid, DistanceFilter $filter): ?Collection
+    {
+        $table = static::getTable();
+        $query = <<<SQL
+round(
+  sqrt(
+    power( 2 * pi() / 360 * (? - {$table}.latitude) * 6371,2)
+    + power( 2 * pi() / 360 * (? - {$table}.longitude) * 6371 * COS( 2 * pi() / 360 * (? + {$table}.latitude) * 0.5 ),2)
+  )
+) <= ?
+SQL;
+
+        $center    = $filter->getCenter();
+        $latitude  = $center->getLatitude();
+        $longitude = $center->getLongitude();
+        $values    = [$pid, $latitude, $longitude, $latitude, $filter->getRadius()];
+        $columns   = [
+            $table . '.active=1',
+            $table . '.pid=?',
+            $query
+        ];
+
+        return static::findBy($columns, $values, ['order' => $table . '.sorting']);
     }
 }

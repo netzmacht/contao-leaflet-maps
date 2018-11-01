@@ -90,7 +90,7 @@ class EncoderSubscriber implements EventSubscriberInterface
         $value    = $event->getValue();
         $encoder  = $event->getEncoder();
         $template = 'L.contao.%s(%s, %s, %s, %s, map);';
-        $method   = 'loadFile';
+        $method   = 'loadUrl';
 
         if ($value instanceof OmnivoreLayer) {
             $url = $value->getUrl();

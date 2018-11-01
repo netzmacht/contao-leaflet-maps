@@ -138,7 +138,8 @@ L.Contao = L.Evented.extend({
      * @param customLayer optional custom layer.
      * @param map         Pass a map object so that the data loading events are passed to the map.
      */
-    loadFile: function (url, type, options, customLayer, map) {
+    loadUrl: function (url, type, options, customLayer, map) {
+        url = this.applyFilterToUrl(url, map);
         var layer = omnivore[type](url, options, customLayer);
 
         if (map) {
@@ -147,7 +148,7 @@ L.Contao = L.Evented.extend({
 
             // Add listener for map bounds changes.
             if (map.options.dynamicLoad && layer.options.boundsMode == 'fit') {
-                layer.options.requestHash = hash;
+                layer.options.requestUrl = url;
                 map.on('moveend', layer.refreshData, layer);
 
                 map.on('layerremove', function(e) {
@@ -170,6 +171,19 @@ L.Contao = L.Evented.extend({
         }
 
         return layer;
+    },
+
+    /**
+     * Load data from an url into a layer using omnivore.
+     *
+     * @param url         A file url.
+     * @param type        The response content format.
+     * @param options     Parser options
+     * @param customLayer optional custom layer.
+     * @param map         Pass a map object so that the data loading events are passed to the map.
+     */
+    loadFile: function (url, type, options, customLayer, map) {
+        return this.loadUrl(url, type, options, customLayer, map);
     },
 
     /**
@@ -313,6 +327,36 @@ L.Contao = L.Evented.extend({
         }
 
         return value;
+    },
+
+    /**
+     * Apply the filter to a request url.
+     *
+     * @param {string} url The request url.
+     * @param {L.Map}  map The map.
+     *
+     * @returns {string}
+     */
+    applyFilterToUrl: function (url, map) {
+        var value, query, bounds;
+
+        if (!map || !map.options.dynamicLoad) {
+            return url;
+        }
+
+        url = new URL(url);
+        query = new URLSearchParams(url.search);
+
+        bounds = map.getBounds();
+        value  = bounds.getSouth() + ',' + bounds.getWest();
+        value += ',' + bounds.getNorth() + ',' + bounds.getEast();
+
+        query.set('filter', 'bbox');
+        query.set('values', value);
+
+        url.search = query.toString();
+
+        return url.toString();
     }
 });
 

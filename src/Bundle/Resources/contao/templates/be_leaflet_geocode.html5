@@ -1,8 +1,8 @@
-<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/leaflet/leaflet.css'; ?>
-<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.css'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/leaflet/leaflet.min.css'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.min.css'; ?>
 
 <?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/leaflet/leaflet.js'; ?>
-<?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.js'; ?>
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'assets/leaflet/libs/control-geocoder/Control.Geocoder.min.js'; ?>
 
 <div id="map_<?php echo $this->field; ?>" style="margin-top: 5px; width: calc(100% - 28px); height: 300px"></div>
 <script>
@@ -17,6 +17,12 @@
         placeholder: '<?php echo $GLOBALS['TL_LANG']['leaflet']['searchPosition']; ?>'
     }).addTo(map);
 
+    document.querySelector('.leaflet-control-geocoder input').addEventListener('keydown', function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+        }
+    });
+
     geocoder.on('markgeocode', function (event) {
         var container = document.createElement('div');
         var link = document.createElement('button');
@@ -28,7 +34,8 @@
             e.stop();
 
             element.set('value', result.center.lat + ',' + result.center.lng);
-        });
+            this._geocodeMarker.closePopup();
+        }.bind(this));
 
         container.appendHTML(result.html || result.name);
         container.appendChild(link);

@@ -4,10 +4,11 @@
   "description": "Leaflet maps for Contao",
   "main": "gulpfile.js",
   "dependencies": {
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-uglify": "^3.0.0"
+    "gulp": "^4.0.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.1",
+    "promised-del": "^1.0.2"
   },
   "devDependencies": {},
   "scripts": {
@@ -23,7 +24,7 @@
     "Maps"
   ],
   "author": "netzmacht David Molineus",
-  "license": "LGPL-3.0",
+  "license": "LGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/netzmacht/contao-leaflet-maps/issues"
   },
