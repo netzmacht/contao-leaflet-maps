@@ -329,7 +329,6 @@ L.Contao = L.Evented.extend({
         return value;
     },
 
-
     /**
      * Apply the filter to a request url.
      *

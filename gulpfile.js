@@ -1,34 +1,35 @@
-const { series, src, watch, dest, parallel} = require('gulp');
-const del             = require('del');
+const { series, src, watch, dest, parallel, task} = require('gulp');
+const del             = require('promised-del');
 const uglify          = require('gulp-uglify');
 const concat          = require('gulp-concat');
 
 var paths = {
     minified: 'contao-leaflet.js',
-    scripts:  ['js/*.js'],
+    scripts:  ['js/vendor/*.js', 'js/*.js'],
     dest:     'src/Bundle/Resources/public/js'
 };
 
-function cleanTask (cb) {
-    del([paths.dest + '/' + paths.minified]);
-    cb();
+function clean () {
+    return del([paths.dest + '/' + paths.minified]);
 }
 
-const buildTask = series(cleanTask, function (cb) {
+function build () {
     return src(paths.scripts)
         .pipe(concat(paths.minified))
         .pipe(uglify())
         .pipe(dest(paths.dest));
-});
+}
+
+const buildTasks = series(clean, build);
 
 function watchTask () {
     watch(
         paths.scripts,
-        buildTask
+        buildTasks
     )
 }
 
-exports.clean   = cleanTask;
+exports.clean   = clean;
 exports.watch   = watchTask;
-exports.build   = buildTask;
-exports.default = buildTask;
+exports.build   = buildTasks;
+exports.default = buildTasks;
