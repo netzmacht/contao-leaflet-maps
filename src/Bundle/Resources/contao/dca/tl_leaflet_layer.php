@@ -17,9 +17,6 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
         'dataContainer'     => 'Table',
         'enableVersioning'  => true,
         'ctable'            => ['tl_leaflet_vector', 'tl_leaflet_marker'],
-        'ondelete_callback' => [
-            ['netzmacht.contao_leaflet.listeners.dca.layer', 'deleteRelations'],
-        ],
         'sql'               => [
             'keys' => [
                 'id'    => 'primary',
@@ -28,7 +25,11 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             ],
         ],
         'onload_callback'   => [
+            ['netzmacht.contao_leaflet.listeners.dca.layer', 'checkPermissions'],
             ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'loadLanguageFile'],
+        ],
+        'ondelete_callback' => [
+            ['netzmacht.contao_leaflet.listeners.dca.layer', 'deleteRelations'],
         ],
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
@@ -91,27 +92,31 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'button_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'generateVectorsButton'],
             ],
             'edit'    => [
-                'label' => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['edit'],
-                'href'  => 'act=edit',
-                'icon'  => 'header.gif',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['edit'],
+                'href'            => 'act=edit',
+                'icon'            => 'header.gif',
+                'button_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'generateEditButton'],
             ],
             'copy'    => [
-                'label' => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['copy'],
-                'href'  => 'act=copy',
-                'icon'  => 'copy.gif',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['copy'],
+                'href'            => 'act=copy',
+                'icon'            => 'copy.gif',
+                'button_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'generateCopyButton'],
             ],
             'cut'     => [
                 'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['cut'],
                 'href'       => 'act=paste&amp;mode=cut',
                 'icon'       => 'cut.gif',
                 'attributes' => 'onclick="Backend.getScrollOffset()"',
+                'button_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'generateEditButton'],
             ],
             'delete'  => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['delete'],
-                'href'       => 'act=delete',
-                'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['delete'],
+                'href'            => 'act=delete',
+                'icon'            => 'delete.gif',
+                'attributes'      => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
                     . '\'))return false;Backend.getScrollOffset()"',
+                'button_callback' => ['netzmacht.contao_leaflet.listeners.dca.layer', 'generateDeleteButton'],
             ],
             'toggle'  => [
                 'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['toggle'],
@@ -119,8 +124,8 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'attributes'      => 'onclick="Backend.getScrollOffset(); 
                     return ContaoLeafletAjaxRequest.toggleVisibility(this,%s)"',
                 'button_callback' => [
-                    'netzmacht.contao_toolkit.dca.listeners.state_button_callback',
-                    'handleButtonCallback',
+                    'netzmacht.contao_leaflet.listeners.dca.layer',
+                    'generateToggleButton',
                 ],
                 'toolkit'         => [
                     'state_button' => [
