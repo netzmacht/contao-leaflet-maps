@@ -22,6 +22,8 @@ $GLOBALS['TL_LANG']['MOD']['leaflet_about'][1] = 'About the Leaflet integration 
 $GLOBALS['TL_LANG']['MOD']['tl_leaflet_map']     = 'Maps';
 $GLOBALS['TL_LANG']['MOD']['tl_leaflet_layer']   = 'Layers';
 $GLOBALS['TL_LANG']['MOD']['tl_leaflet_icon']    = 'Icons';
+$GLOBALS['TL_LANG']['MOD']['tl_leaflet_style']   = 'Styles';
+$GLOBALS['TL_LANG']['MOD']['tl_leaflet_popup']   = 'Popup';
 $GLOBALS['TL_LANG']['MOD']['tl_leaflet_marker']  = 'Markers';
 $GLOBALS['TL_LANG']['MOD']['tl_leaflet_control'] = 'Controls';
 

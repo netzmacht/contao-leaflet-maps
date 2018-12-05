@@ -83,6 +83,24 @@ services:
     public: true
     arguments:
       - '%netzmacht.contao_leaflet.styles%'
+      -
+  netzmacht.contao_leaflet.listeners.dca.user:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\UserDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@netzmacht.contao_leaflet.layer_label_renderer'
+      - '@translator'
+      - '%netzmacht.contao_leaflet.layers%'
+      -
+  netzmacht.contao_leaflet.listeners.dca.user_group:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\UserGroupDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@netzmacht.contao_leaflet.layer_label_renderer'
+      - '@translator'
+      - '%netzmacht.contao_leaflet.layers%'
 
   netzmacht.contao_leaflet.listeners.geo_json_listener:
     class: Netzmacht\Contao\Leaflet\Listener\GeoJsonListener

@@ -11,7 +11,7 @@
  */
 
 /*
- * Backend module.
+ * Backend modules
  */
 
 array_insert(
@@ -48,8 +48,9 @@ if (TL_MODE === 'BE') {
     $GLOBALS['TL_CSS'][] = 'bundles/netzmachtcontaoleaflet/css/backend_global.css';
 }
 
+
 /*
- * Models.
+ * Models
  */
 
 $GLOBALS['TL_MODELS']['tl_leaflet_control'] = \Netzmacht\Contao\Leaflet\Model\ControlModel::class;
@@ -60,3 +61,12 @@ $GLOBALS['TL_MODELS']['tl_leaflet_marker']  = \Netzmacht\Contao\Leaflet\Model\Ma
 $GLOBALS['TL_MODELS']['tl_leaflet_popup']   = \Netzmacht\Contao\Leaflet\Model\PopupModel::class;
 $GLOBALS['TL_MODELS']['tl_leaflet_style']   = \Netzmacht\Contao\Leaflet\Model\StyleModel::class;
 $GLOBALS['TL_MODELS']['tl_leaflet_vector']  = \Netzmacht\Contao\Leaflet\Model\VectorModel::class;
+
+
+/*
+ * Permissions
+ */
+
+$GLOBALS['TL_PERMISSIONS'][] = 'leaflet_layers';
+$GLOBALS['TL_PERMISSIONS'][] = 'leaflet_layer_permissions';
+$GLOBALS['TL_PERMISSIONS'][] = 'leaflet_tables';
