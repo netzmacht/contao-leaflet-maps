@@ -10,6 +10,8 @@
  * @filesource
  */
 
+use Netzmacht\Contao\Leaflet\Listener\Dca\OperationsListener;
+
 $GLOBALS['TL_DCA']['tl_leaflet_style'] = [
     'config' => [
         'dataContainer'     => 'Table',
@@ -19,6 +21,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = [
                 'id'    => 'primary',
                 'alias' => 'unique',
             ],
+        ],
+        'onload_callback'   => [
+            ['netzmacht.contao_leaflet.listeners.dca.style', 'checkPermission'],
         ],
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
@@ -45,16 +50,18 @@ $GLOBALS['TL_DCA']['tl_leaflet_style'] = [
                 'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
             ],
             'icons'  => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_style']['icons'],
-                'href'       => 'table=tl_leaflet_icon',
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/icons.png',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_style']['icons'],
+                'href'            => 'table=tl_leaflet_icon',
+                'icon'            => 'bundles/netzmachtcontaoleaflet/img/icons.png',
+                'attributes'      => 'onclick="Backend.getScrollOffset();"',
+                'button_callback' => [OperationsListener::class, 'iconOperation'],
             ],
             'popups' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_style']['popups'],
-                'href'       => 'table=tl_leaflet_popup',
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/popup.png',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_style']['popups'],
+                'href'            => 'table=tl_leaflet_popup',
+                'icon'            => 'bundles/netzmachtcontaoleaflet/img/popup.png',
+                'attributes'      => 'onclick="Backend.getScrollOffset();"',
+                'button_callback' => [OperationsListener::class, 'popupOperation'],
             ],
             'all'    => [
                 'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],

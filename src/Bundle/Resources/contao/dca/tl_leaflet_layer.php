@@ -10,6 +10,8 @@
  * @filesource
  */
 
+use Netzmacht\Contao\Leaflet\Listener\Dca\OperationsListener;
+
 $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
     'config' => [
         'dataContainer'     => 'Table',
@@ -48,22 +50,25 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
         ],
         'global_operations' => [
             'styles' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['styles'],
-                'href'       => 'table=tl_leaflet_style',
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/style.png',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['styles'],
+                'href'            => 'table=tl_leaflet_style',
+                'icon'            => 'bundles/netzmachtcontaoleaflet/img/style.png',
+                'attributes'      => 'onclick="Backend.getScrollOffset();"',
+                'button_callback' => [OperationsListener::class, 'styleOperation'],
             ],
             'icons'  => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['icons'],
-                'href'       => 'table=tl_leaflet_icon',
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/icons.png',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['icons'],
+                'href'            => 'table=tl_leaflet_icon',
+                'icon'            => 'bundles/netzmachtcontaoleaflet/img/icons.png',
+                'attributes'      => 'onclick="Backend.getScrollOffset();"',
+                'button_callback' => [OperationsListener::class, 'iconOperation'],
             ],
             'popups' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['popups'],
-                'href'       => 'table=tl_leaflet_popup',
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/popup.png',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['popups'],
+                'href'            => 'table=tl_leaflet_popup',
+                'icon'            => 'bundles/netzmachtcontaoleaflet/img/popup.png',
+                'attributes'      => 'onclick="Backend.getScrollOffset();"',
+                'button_callback' => [OperationsListener::class, 'popupOperation'],
             ],
             'all'    => [
                 'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
@@ -235,9 +240,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'MapBox' => ['tile_provider_key'],
             'HERE'   => ['tile_provider_key', 'tile_provider_code'],
         ],
-        'fileFormat' => [
-            '!' => ['file']
-        ]
+        'fileFormat'    => [
+            '!' => ['file'],
+        ],
     ],
 
     'metasubpalettes' => [
@@ -864,7 +869,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             ],
             'sql'       => 'mediumtext NULL',
         ],
-        'fileFormat' => [
+        'fileFormat'                     => [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormat'],
             'exclude'          => true,
             'inputType'        => 'select',
@@ -882,19 +887,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'sql'              => "varchar(32) NOT NULL default ''",
         ],
         'file'                           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'],
-            'exclude'   => true,
-            'inputType' => 'fileTree',
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'],
+            'exclude'       => true,
+            'inputType'     => 'fileTree',
             'load_callback' => [
                 ['netzmacht.contao_leaflet.listeners.dca.layer', 'prepareFileWidget'],
             ],
-            'eval'      => [
-                'filesOnly'  => true,
-                'fieldType'  => 'radio',
-                'mandatory'  => true,
-                'tl_class'   => 'clr',
+            'eval'          => [
+                'filesOnly' => true,
+                'fieldType' => 'radio',
+                'mandatory' => true,
+                'tl_class'  => 'clr',
             ],
-            'sql'       => 'binary(16) NULL',
+            'sql'           => 'binary(16) NULL',
         ],
     ],
 ];

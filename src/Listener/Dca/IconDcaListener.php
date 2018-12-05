@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\BackendUser;
+use Contao\CoreBundle\Exception\AccessDeniedException;
+use Netzmacht\Contao\Leaflet\Model\IconModel;
+
 /**
  * Class IconDcaListener.
  *
@@ -21,6 +25,13 @@ namespace Netzmacht\Contao\Leaflet\Listener\Dca;
  */
 class IconDcaListener
 {
+    /**
+     * Contao backend user.
+     *
+     * @var BackendUser
+     */
+    private $user;
+
     /**
      * Icon type options.
      *
@@ -31,11 +42,31 @@ class IconDcaListener
     /**
      * IconDcaListener constructor.
      *
-     * @param array $icons Icon type options.
+     * @param BackendUser $user  Backend user.
+     * @param array       $icons Icon type options.
      */
-    public function __construct(array $icons)
+    public function __construct(BackendUser $user, array $icons)
     {
+        $this->user  = $user;
         $this->icons = $icons;
+    }
+
+    /**
+     * Check the permission.
+     *
+     * @return void
+     *
+     * @throws AccessDeniedException If user has not the permission.
+     */
+    public function checkPermission(): void
+    {
+        if ($this->user->hasAccess(IconModel::getTable(), 'leaflet_tables')) {
+            return;
+        }
+
+        throw new AccessDeniedException(
+            sprintf('Access denied to "%s" for user "%s"', IconModel::getTable(), $this->user->id)
+        );
     }
 
     /**
