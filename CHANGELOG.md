@@ -10,7 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.0...hotfix/3.1.1)
 
+### Fixed
+
  - Fix missing marker cluster icon
+ - Ignore markers without coordinates 
 
 ## 3.1.0 - 2018-01-11
 
