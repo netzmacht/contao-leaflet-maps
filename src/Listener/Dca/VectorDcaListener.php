@@ -166,20 +166,10 @@ class VectorDcaListener extends AbstractListener
     {
         // Check the current action
         switch (Input::get('act')) {
-            case 'paste':
-                return null;
-
             case '':
             case 'create':
             case 'select':
                 return (int) Input::get('id');
-
-            case 'editAll':
-            case 'deleteAll':
-            case 'overrideAll':
-            case 'cutAll':
-            case 'copyAll':
-                return (int) Input::get('pid');
 
             default:
                 return (int) CURRENT_ID;
