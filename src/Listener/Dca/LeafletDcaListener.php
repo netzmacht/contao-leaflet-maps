@@ -122,6 +122,7 @@ class LeafletDcaListener
             $data['marker'] = json_encode($latLng);
         } catch (\Exception $e) {
             // LatLng throws an exception of value could not be created. Just let the value empty when.
+            $data['marker'] = null;
         }
 
         return $this->templateEngine->render('toolkit:be:be_leaflet_geocode.html5', $data);
