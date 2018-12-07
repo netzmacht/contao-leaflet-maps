@@ -44,7 +44,18 @@ class MarkerModel extends AbstractActiveModel
     public static function findByFilter($pid, ?Filter $filter = null)
     {
         if (!$filter) {
-            return static::findActiveBy('pid', $pid, ['order' => 'sorting']);
+            $table = static::getTable();
+
+            return static::findBy(
+                [
+                    $table . '.active=1',
+                    $table . '.pid=?',
+                    $table . '.latitude>0',
+                    $table . '.longitude>0',
+                ],
+                [$pid],
+                ['order' => 'sorting']
+            );
         }
 
         switch (true) {

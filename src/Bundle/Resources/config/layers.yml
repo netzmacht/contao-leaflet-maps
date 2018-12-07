@@ -32,7 +32,7 @@ parameters:
 
     markercluster:
       children: true
-      icon: 'bundles/netzmachtcontaoleaflet/img/markercluster.png'
+      icon: 'bundles/netzmachtcontaoleaflet/img/cluster.png'
 
     tile:
       children: false
