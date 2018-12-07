@@ -44,7 +44,7 @@ class MarkerModel extends AbstractActiveModel
     public static function findByFilter($pid, ?Filter $filter = null)
     {
         if (!$filter) {
-            $table   = static::getTable();
+            $table = static::getTable();
 
             return static::findBy(
                 [
