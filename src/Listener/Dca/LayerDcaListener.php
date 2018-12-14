@@ -13,9 +13,12 @@
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
 use Contao\Backend;
+use Contao\BackendUser;
+use Contao\CoreBundle\Exception\AccessDeniedException;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\DataContainer;
 use Contao\Image;
+use Contao\Input;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer\LayerLabelRenderer;
@@ -23,6 +26,7 @@ use Netzmacht\Contao\Leaflet\Model\IconModel;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
+use Netzmacht\Contao\Toolkit\Dca\Listener\Button\StateButtonCallbackListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Symfony\Component\Translation\TranslatorInterface as Translator;
@@ -30,7 +34,7 @@ use Symfony\Component\Translation\TranslatorInterface as Translator;
 /**
  * Class Layer is the helper class for the tl_leaflet_layer dca.
  *
- * @package Netzmacht\Contao\Leaflet\Dca
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class LayerDcaListener extends AbstractListener
 {
@@ -77,6 +81,13 @@ class LayerDcaListener extends AbstractListener
     private $translator;
 
     /**
+     * Backend user.
+     *
+     * @var BackendUser
+     */
+    private $backendUser;
+
+    /**
      * OSM amenities.
      *
      * @var array
@@ -105,18 +116,27 @@ class LayerDcaListener extends AbstractListener
     private $backendAdapter;
 
     /**
+     * State button callback listener.
+     *
+     * @var StateButtonCallbackListener
+     */
+    private $stateButtonCallbackListener;
+
+    /**
      * Construct.
      *
-     * @param Manager            $manager           Data container manager.
-     * @param Connection         $connection        Database connection.
-     * @param RepositoryManager  $repositoryManager Repository manager.
-     * @param Translator         $translator        Translator.
-     * @param LayerLabelRenderer $labelRenderer     Layer label renderer.
-     * @param Adapter|Backend    $backendAdapter    Backend adapter.
-     * @param array              $layers            Leaflet layer configuration.
-     * @param array              $tileProviders     Tile providers.
-     * @param array              $amenities         OSM amenities.
-     * @param array              $fileFormats       File formats.
+     * @param Manager                     $manager                     Data container manager.
+     * @param Connection                  $connection                  Database connection.
+     * @param RepositoryManager           $repositoryManager           Repository manager.
+     * @param Translator                  $translator                  Translator.
+     * @param LayerLabelRenderer          $labelRenderer               Layer label renderer.
+     * @param BackendUser                 $backendUser                 Backend user.
+     * @param StateButtonCallbackListener $stateButtonCallbackListener State button callback listener.
+     * @param Adapter|Backend             $backendAdapter              Backend adapter.
+     * @param array                       $layers                      Leaflet layer configuration.
+     * @param array                       $tileProviders               Tile providers.
+     * @param array                       $amenities                   OSM amenities.
+     * @param array                       $fileFormats                 File formats.
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -126,6 +146,8 @@ class LayerDcaListener extends AbstractListener
         RepositoryManager $repositoryManager,
         Translator $translator,
         LayerLabelRenderer $labelRenderer,
+        BackendUser $backendUser,
+        StateButtonCallbackListener $stateButtonCallbackListener,
         $backendAdapter,
         array $layers,
         array $tileProviders,
@@ -134,15 +156,55 @@ class LayerDcaListener extends AbstractListener
     ) {
         parent::__construct($manager);
 
-        $this->connection        = $connection;
-        $this->layers            = $layers;
-        $this->tileProviders     = $tileProviders;
-        $this->translator        = $translator;
-        $this->amenities         = $amenities;
-        $this->labelRenderer     = $labelRenderer;
-        $this->fileFormats       = $fileFormats;
-        $this->repositoryManager = $repositoryManager;
-        $this->backendAdapter    = $backendAdapter;
+        $this->connection                  = $connection;
+        $this->layers                      = $layers;
+        $this->tileProviders               = $tileProviders;
+        $this->translator                  = $translator;
+        $this->amenities                   = $amenities;
+        $this->labelRenderer               = $labelRenderer;
+        $this->fileFormats                 = $fileFormats;
+        $this->repositoryManager           = $repositoryManager;
+        $this->backendAdapter              = $backendAdapter;
+        $this->backendUser                 = $backendUser;
+        $this->stateButtonCallbackListener = $stateButtonCallbackListener;
+    }
+
+    /**
+     * Check the permissions.
+     *
+     * @param DataContainer $dataContainer Data container.
+     *
+     * @return void
+     *
+     * @throws AccessDeniedException If permissions are not granted.
+     */
+    public function checkPermissions(DataContainer $dataContainer): void
+    {
+        if ($this->backendUser->isAdmin) {
+            return;
+        }
+
+        $action     = Input::get('act');
+        $permission = $this->determinePermission($action);
+
+        if ($permission && !$this->backendUser->hasAccess($permission, 'leaflet_layer_permissions')) {
+            throw new AccessDeniedException(
+                sprintf('Permission "%s" not granted to access layer "%s"', $permission, $dataContainer->id)
+            );
+        }
+
+        $this->getDefinition()->set(['list', 'sorting', 'root'], $this->backendUser->leaflet_layers);
+
+        $layerId = $this->determineLayerId();
+        if ($layerId && !$this->backendUser->hasAccess($layerId, 'leaflet_layers')) {
+            throw new AccessDeniedException(
+                sprintf('User "%s" not allowed to access layer "%s"', $this->backendUser->id, $layerId)
+            );
+        }
+
+        if (!$this->backendUser->hasAccess(LayerModel::PERMISSION_CREATE, 'leaflet_layer_permissions')) {
+            $this->getDefinition()->set(['config', 'closed'], true);
+        }
     }
 
     /**
@@ -307,6 +369,148 @@ class LayerDcaListener extends AbstractListener
     }
 
     /**
+     * Generate the edit button.
+     *
+     * @param array  $row        Current row.
+     * @param string $href       The button href.
+     * @param string $label      The button label.
+     * @param string $title      The button title.
+     * @param string $icon       The button icon.
+     * @param string $attributes Optional attributes.
+     *
+     * @return string
+     */
+    public function generateEditButton($row, $href, $label, $title, $icon, $attributes): string
+    {
+        if ($this->backendUser->hasAccess('edit', 'leaflet_layer_permissions')) {
+            return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
+        }
+
+        return '';
+    }
+
+    /**
+     * Generate the cut button.
+     *
+     * @param array  $row        Current row.
+     * @param string $href       The button href.
+     * @param string $label      The button label.
+     * @param string $title      The button title.
+     * @param string $icon       The button icon.
+     * @param string $attributes Optional attributes.
+     *
+     * @return string
+     */
+    public function generateCutButton($row, $href, $label, $title, $icon, $attributes): string
+    {
+        if ($this->backendUser->hasAccess('edit', 'leaflet_layer_permissions')) {
+            return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
+        }
+
+        return '';
+    }
+
+    /**
+     * Generate the copy button.
+     *
+     * @param array  $row        Current row.
+     * @param string $href       The button href.
+     * @param string $label      The button label.
+     * @param string $title      The button title.
+     * @param string $icon       The button icon.
+     * @param string $attributes Optional attributes.
+     *
+     * @return string
+     */
+    public function generateCopyButton($row, $href, $label, $title, $icon, $attributes): string
+    {
+        if ($this->backendUser->hasAccess('create', 'leaflet_layer_permissions')) {
+            return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
+        }
+
+        return '';
+    }
+
+    /**
+     * Generate the toggle button.
+     *
+     * @param array         $row               Current data row.
+     * @param string|null   $href              Button link.
+     * @param string|null   $label             Button label.
+     * @param string|null   $title             Button title.
+     * @param string|null   $icon              Enabled button icon.
+     * @param string|null   $attributes        Html attributes as string.
+     * @param string        $tableName         Table name.
+     * @param array|null    $rootIds           Root ids.
+     * @param array|null    $childRecordIds    Child record ids.
+     * @param bool          $circularReference Circular reference flag.
+     * @param string|null   $previous          Previous button name.
+     * @param string|null   $next              Next button name.
+     * @param DataContainer $dataContainer     Data container driver.
+     *
+     * @return string
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
+    public function generateToggleButton(
+        array $row,
+        $href,
+        $label,
+        $title,
+        $icon,
+        $attributes,
+        string $tableName,
+        $rootIds,
+        $childRecordIds,
+        bool $circularReference,
+        $previous,
+        $next,
+        $dataContainer
+    ): string {
+        if ($this->backendUser->hasAccess('edit', 'leaflet_layer_permissions')) {
+            return $this->stateButtonCallbackListener->handleButtonCallback(
+                $row,
+                $href,
+                $label,
+                $title,
+                $icon,
+                $attributes,
+                $tableName,
+                $rootIds,
+                $childRecordIds,
+                $circularReference,
+                $previous,
+                $next,
+                $dataContainer
+            );
+        }
+
+        return '';
+    }
+
+    /**
+     * Generate the edit button.
+     *
+     * @param array  $row        Current row.
+     * @param string $href       The button href.
+     * @param string $label      The button label.
+     * @param string $title      The button title.
+     * @param string $icon       The button icon.
+     * @param string $attributes Optional attributes.
+     *
+     * @return string
+     */
+    public function generateDeleteButton($row, $href, $label, $title, $icon, $attributes): string
+    {
+        if ($this->backendUser->hasAccess('delete', 'leaflet_layer_permissions')) {
+            return $this->generateButton($row, $href, $label, $title, $icon, $attributes);
+        }
+
+        return '';
+    }
+
+    /**
      * Generate the markers button.
      *
      * @param array  $row        Current row.
@@ -321,6 +525,10 @@ class LayerDcaListener extends AbstractListener
     public function generateMarkersButton($row, $href, $label, $title, $icon, $attributes)
     {
         if (empty($this->layers[$row['type']]['markers'])) {
+            return '';
+        }
+
+        if (!$this->backendUser->hasAccess('data', 'leaflet_layer_permissions')) {
             return '';
         }
 
@@ -342,6 +550,10 @@ class LayerDcaListener extends AbstractListener
     public function generateVectorsButton($row, $href, $label, $title, $icon, $attributes)
     {
         if (empty($this->layers[$row['type']]['vectors'])) {
+            return '';
+        }
+
+        if (!$this->backendUser->hasAccess('data', 'leaflet_layer_permissions')) {
             return '';
         }
 
@@ -521,5 +733,83 @@ class LayerDcaListener extends AbstractListener
             $title,
             Image::getHtml($icon, $label, $attributes)
         );
+    }
+
+    /**
+     * Determine permission for current action.
+     *
+     * @param string|null $action Given action.
+     *
+     * @return string|null
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
+    private function determinePermission(?string $action): ?string
+    {
+        $permission = null;
+
+        switch ($action) {
+            case 'edit':
+            case 'toggle':
+            case 'editAll':
+            case 'overrideAll':
+            case 'cutAll':
+                return LayerModel::PERMISSION_EDIT;
+
+            case 'delete':
+            case 'deleteAll':
+                return LayerModel::PERMISSION_DELETE;
+
+            case 'copyAll':
+                return LayerModel::PERMISSION_CREATE;
+
+            case 'paste':
+                $mode = Input::get('mode');
+
+                switch ($mode) {
+                    case 'create':
+                        return LayerModel::PERMISSION_CREATE;
+
+                    case 'cut':
+                        return LayerModel::PERMISSION_EDIT;
+
+                    default:
+                        return $permission;
+                }
+
+                // Comment just to please phpcs
+            default:
+                return $permission;
+        }
+    }
+
+
+    /**
+     * Determine the layer id.
+     *
+     * @return int|null
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
+    private function determineLayerId(): ?int
+    {
+        // Check the current action
+        switch (Input::get('act')) {
+            case 'edit':
+            case 'delete':
+            case 'paste':
+            case 'show':
+                return (int) Input::get('id');
+
+            case 'editAll':
+            case 'deleteAll':
+            case 'overrideAll':
+            case 'cutAll':
+            case 'copyAll':
+                return (int) CURRENT_ID;
+
+            default:
+                return null;
+        }
     }
 }

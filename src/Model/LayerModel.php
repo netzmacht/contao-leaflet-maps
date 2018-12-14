@@ -27,6 +27,14 @@ use Contao\Model\Collection;
  */
 class LayerModel extends AbstractActiveModel
 {
+    public const PERMISSION_EDIT = 'edit';
+
+    public const PERMISSION_CREATE = 'create';
+
+    public const PERMISSION_DELETE = 'delete';
+
+    public const PERMISSION_DATA = 'data';
+
     /**
      * Model table.
      *

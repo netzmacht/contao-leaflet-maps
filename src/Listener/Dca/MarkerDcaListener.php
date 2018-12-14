@@ -12,10 +12,13 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
-use Contao\Controller;
+use Contao\BackendUser;
+use Contao\CoreBundle\Exception\AccessDeniedException;
+use Contao\Input;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Leaflet\Model\IconModel;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
@@ -42,15 +45,47 @@ class MarkerDcaListener
     private $repositoryManager;
 
     /**
+     * Backend user.
+     *
+     * @var BackendUser
+     */
+    private $backendUser;
+
+    /**
      * MarkerDcaListener constructor.
      *
      * @param Connection        $connection        Database connection.
      * @param RepositoryManager $repositoryManager Repository manager.
+     * @param BackendUser       $backendUser       Backend user.
      */
-    public function __construct(Connection $connection, RepositoryManager $repositoryManager)
+    public function __construct(Connection $connection, RepositoryManager $repositoryManager, BackendUser $backendUser)
     {
         $this->connection        = $connection;
         $this->repositoryManager = $repositoryManager;
+        $this->backendUser       = $backendUser;
+    }
+
+    /**
+     * Check permissions.
+     *
+     * @return void
+     *
+     * @throws AccessDeniedException When permission is not granted.
+     */
+    public function checkPermissions(): void
+    {
+        if (!$this->backendUser->hasAccess(LayerModel::PERMISSION_DATA, 'leaflet_layer_permissions')) {
+            throw new AccessDeniedException(
+                sprintf('User "%s" not allowed to access layer data.', $this->backendUser->id)
+            );
+        }
+
+        $layerId = $this->determineLayerId();
+        if ($layerId && !$this->backendUser->hasAccess($layerId, 'leaflet_layers')) {
+            throw new AccessDeniedException(
+                sprintf('User "%s" not allowed to access layer "%s"', $this->backendUser->id, $layerId)
+            );
+        }
     }
 
     /**
@@ -164,5 +199,26 @@ class MarkerDcaListener
         }
 
         return '';
+    }
+
+    /**
+     * Determine the layer id.
+     *
+     * @return int|null
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
+    private function determineLayerId(): ?int
+    {
+        // Check the current action
+        switch (Input::get('act')) {
+            case '':
+            case 'create':
+            case 'select':
+                return (int) Input::get('id');
+
+            default:
+                return (int) CURRENT_ID;
+        }
     }
 }

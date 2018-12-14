@@ -51,6 +51,8 @@ services:
       - '@netzmacht.contao_toolkit.repository_manager'
       - '@translator'
       - '@netzmacht.contao_leaflet.layer_label_renderer'
+      - '@netzmacht.contao_toolkit.contao.backend_user'
+      - '@netzmacht.contao_toolkit.dca.listeners.state_button_callback'
       - '@netzmacht.contao_toolkit.contao.backend_adapter'
       - '%netzmacht.contao_leaflet.layers%'
       - '%netzmacht.contao_leaflet.providers%'
@@ -63,6 +65,7 @@ services:
     arguments:
       - '@database_connection'
       - '@netzmacht.contao_toolkit.repository_manager'
+      - '@netzmacht.contao_toolkit.contao.backend_user'
 
   netzmacht.contao_leaflet.listeners.dca.vector:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\VectorDcaListener
@@ -70,19 +73,51 @@ services:
     arguments:
       - '@netzmacht.contao_toolkit.dca.manager'
       - '@netzmacht.contao_toolkit.repository_manager'
+      - '@netzmacht.contao_toolkit.contao.backend_user'
       - '%netzmacht.contao_leaflet.vectors%'
 
   netzmacht.contao_leaflet.listeners.dca.icon:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\IconDcaListener
     public: true
     arguments:
+      - '@netzmacht.contao_toolkit.contao.backend_user'
       - '%netzmacht.contao_leaflet.icons%'
 
   netzmacht.contao_leaflet.listeners.dca.style:
     class: Netzmacht\Contao\Leaflet\Listener\Dca\StyleDcaListener
     public: true
     arguments:
+      - '@netzmacht.contao_toolkit.contao.backend_user'
       - '%netzmacht.contao_leaflet.styles%'
+
+  netzmacht.contao_leaflet.listeners.dca.popup:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\PopupDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.contao.backend_user'
+
+  netzmacht.contao_leaflet.listeners.dca.user:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\UserDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@netzmacht.contao_leaflet.layer_label_renderer'
+      - '@translator'
+      - '%netzmacht.contao_leaflet.layers%'
+      -
+  netzmacht.contao_leaflet.listeners.dca.user_group:
+    class: Netzmacht\Contao\Leaflet\Listener\Dca\UserGroupDcaListener
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.dca.manager'
+      - '@netzmacht.contao_leaflet.layer_label_renderer'
+      - '@translator'
+      - '%netzmacht.contao_leaflet.layers%'
+
+  Netzmacht\Contao\Leaflet\Listener\Dca\OperationsListener:
+    public: true
+    arguments:
+      - '@netzmacht.contao_toolkit.contao.backend_user'
 
   netzmacht.contao_leaflet.listeners.geo_json_listener:
     class: Netzmacht\Contao\Leaflet\Listener\GeoJsonListener

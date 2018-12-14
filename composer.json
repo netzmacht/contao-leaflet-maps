@@ -42,7 +42,8 @@
     "netzmacht/contao-page-context": "~1.0",
     "contao-community-alliance/meta-palettes": "^2.0 || ^1.5",
     "menatwork/contao-multicolumnwizard": "^3.2",
-    "doctrine/cache": "^1.0"
+    "doctrine/cache": "^1.0",
+    "codefog/contao-widget_tree_picker": "^2.4"
   },
   "require-dev": {
     "phpcq/all-tasks": "^1.2",

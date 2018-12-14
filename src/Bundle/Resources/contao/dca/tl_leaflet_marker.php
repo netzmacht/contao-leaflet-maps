@@ -10,6 +10,8 @@
  * @filesource
  */
 
+use Netzmacht\Contao\Leaflet\Listener\Dca\OperationsListener;
+
 $GLOBALS['TL_DCA']['tl_leaflet_marker'] = [
     'config' => [
         'dataContainer'     => 'Table',
@@ -23,6 +25,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = [
             ],
         ],
         'onload_callback'   => [
+            ['netzmacht.contao_leaflet.listeners.dca.marker', 'checkPermissions'],
             ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'loadLanguageFile'],
         ],
         'onsubmit_callback' => [
@@ -45,16 +48,18 @@ $GLOBALS['TL_DCA']['tl_leaflet_marker'] = [
         ],
         'global_operations' => [
             'icons'  => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'],
-                'href'       => 'table=tl_leaflet_icon&id=',
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/icons.png',
-                'attributes' => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['icons'],
+                'href'            => 'table=tl_leaflet_icon&id=',
+                'icon'            => 'bundles/netzmachtcontaoleaflet/img/icons.png',
+                'attributes'      => 'onclick="Backend.getScrollOffset();" accesskey="e"',
+                'button_callback' => [OperationsListener::class, 'iconOperation'],
             ],
             'popups' => [
-                'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'],
-                'href'       => 'table=tl_leaflet_popup',
-                'icon'       => 'bundles/netzmachtcontaoleaflet/img/popup.png',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
+                'label'           => &$GLOBALS['TL_LANG']['tl_leaflet_marker']['popups'],
+                'href'            => 'table=tl_leaflet_popup',
+                'icon'            => 'bundles/netzmachtcontaoleaflet/img/popup.png',
+                'attributes'      => 'onclick="Backend.getScrollOffset();"',
+                'button_callback' => [OperationsListener::class, 'popupOperation'],
             ],
             'all'    => [
                 'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],

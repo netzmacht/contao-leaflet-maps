@@ -12,6 +12,10 @@
 
 namespace Netzmacht\Contao\Leaflet\Listener\Dca;
 
+use Contao\BackendUser;
+use Contao\CoreBundle\Exception\AccessDeniedException;
+use Contao\Input;
+use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\PopupModel;
 use Netzmacht\Contao\Leaflet\Model\StyleModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
@@ -48,18 +52,54 @@ class VectorDcaListener extends AbstractListener
     private $repositoryManager;
 
     /**
+     * Backend user.
+     *
+     * @var BackendUser
+     */
+    private $backendUser;
+
+    /**
      * Construct.
      *
      * @param Manager           $dcaManager        Data container manager.
      * @param RepositoryManager $repositoryManager Repository manager.
+     * @param BackendUser       $backendUser       Backend user.
      * @param array             $vectors           Vectors.
      */
-    public function __construct(Manager $dcaManager, RepositoryManager $repositoryManager, array $vectors)
-    {
+    public function __construct(
+        Manager $dcaManager,
+        RepositoryManager $repositoryManager,
+        BackendUser $backendUser,
+        array $vectors
+    ) {
         parent::__construct($dcaManager);
 
         $this->vectors           = $vectors;
         $this->repositoryManager = $repositoryManager;
+        $this->backendUser       = $backendUser;
+    }
+
+    /**
+     * Check permissions.
+     *
+     * @return void
+     *
+     * @throws AccessDeniedException When permission is not granted.
+     */
+    public function checkPermissions(): void
+    {
+        if (!$this->backendUser->hasAccess(LayerModel::PERMISSION_DATA, 'leaflet_layer_permissions')) {
+            throw new AccessDeniedException(
+                sprintf('User "%s" not allowed to access layer data.', $this->backendUser->id)
+            );
+        }
+
+        $layerId = $this->determineLayerId();
+        if ($layerId && !$this->backendUser->hasAccess($layerId, 'leaflet_layers')) {
+            throw new AccessDeniedException(
+                sprintf('User "%s" not allowed to access layer "%s"', $this->backendUser->id, $layerId)
+            );
+        }
     }
 
     /**
@@ -113,5 +153,26 @@ class VectorDcaListener extends AbstractListener
         $builder    = OptionsBuilder::fromCollection($collection, 'title');
 
         return $builder->getOptions();
+    }
+
+    /**
+     * Determine the layer id.
+     *
+     * @return int|null
+     *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     */
+    private function determineLayerId(): ?int
+    {
+        // Check the current action
+        switch (Input::get('act')) {
+            case '':
+            case 'create':
+            case 'select':
+                return (int) Input::get('id');
+
+            default:
+                return (int) CURRENT_ID;
+        }
     }
 }
