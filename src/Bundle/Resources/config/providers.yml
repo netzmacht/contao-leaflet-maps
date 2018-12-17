@@ -1,13 +1,22 @@
 parameters:
   netzmacht.contao_leaflet.providers:
     OpenStreetMap:
-      variants: ['Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT', 'BZH']
+      variants: ['Mapnik', 'BlackAndWhite', 'DE', 'CH', 'France', 'HOT', 'BZH']
 
     OpenSeaMap: []
 
     OpenTopoMap: []
 
+    OpenPtMap: []
+
+    OpenRailwayMap: []
+
+    OpenFireMap: []
+
+    SafeCast: []
+
     Thunderforest:
+      class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\ThunderforestProvider'
       variants:
         - 'OpenCycleMap'
         - 'Transport'
@@ -16,6 +25,9 @@ parameters:
         - 'Landscape'
         - 'Outdoors'
         - 'Pioneer'
+      options:
+        apiKey: 'tile_provider_key'
+      fields: ['tile_provider_key']
 
     OpenMapSurfer:
       variants: ['Roads', 'AdminBounds', 'Grayscale']
@@ -26,7 +38,8 @@ parameters:
     MapBox:
       class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\MapBoxProvider'
       options:
-        key: 'tile_provider_key'
+        accessToken: 'tile_provider_key'
+      fields: ['tile_provider_key']
 
     Stamen:
       variants:
@@ -56,6 +69,7 @@ parameters:
         - 'WorldGrayCanvas'
 
     OpenWeatherMap:
+      class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\OpenWeatherMapProvider'
       variants:
         - 'Clouds'
         - 'CloudsClassic'
@@ -68,6 +82,9 @@ parameters:
         - 'Wind'
         - 'Temperature'
         - 'Snow'
+      options:
+        accessToken: 'tile_provider_key'
+      fields: ['tile_provider_key']
 
     HERE:
       class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\HereProvider'
@@ -83,12 +100,18 @@ parameters:
         - 'normalNightMobile'
         - 'normalNightGrey'
         - 'normalNightGreyMobile'
+        - 'normalNightTransit'
+        - 'normalNightTransitMobile'
+        - 'reducedDay'
+        - 'reducedNight'
         - 'basicMap'
         - 'mapLabels'
         - 'trafficFlow'
         - 'carnavDayGrey'
         - 'hybridDay'
         - 'hybridDayMobile'
+        - 'hybridDayTransit'
+        - 'hybridDayGrey'
         - 'pedestrianDay'
         - 'pedestrianNight'
         - 'satelliteDay'
@@ -123,6 +146,10 @@ parameters:
         - 'DarkMatter'
         - 'DarkMatterNoLabels'
         - 'DarkMatterOnlyLabels'
+        - 'Voyager'
+        - 'VoyagerNoLabels'
+        - 'VoyagerOnlyLabels'
+        - 'VoyagerLabelsUnder'
 
     HikeBike:
       variants:
@@ -155,3 +182,20 @@ parameters:
         - 'ModisTerraChlorophyll'
 
     NLS: []
+
+    Wikimedia: []
+
+    GeoportailFrance:
+      variants:
+        - 'parcels'
+        - 'ignMaps'
+        - 'maps'
+        - 'orthos'
+
+    OneMapSG:
+      variants:
+        - 'Default'
+        - 'Night'
+        - 'Original'
+        - 'Grey'
+        - 'LandLot'
