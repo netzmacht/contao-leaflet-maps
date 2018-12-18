@@ -4,6 +4,7 @@
 /assets/js/*.js
 /node_modules/
 /.tx/
+/.idea/
 
 coverage.xml
 composer.lock
