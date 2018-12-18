@@ -232,12 +232,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'provider' => ['tile_provider', 'tile_provider_variant'],
         ],
         'tile_provider' => [
-            'MapBox' => ['tile_provider_key'],
-            'HERE'   => ['tile_provider_key', 'tile_provider_code'],
+            'MapBox'         => ['tile_provider_key'],
+            'HERE'           => ['tile_provider_key', 'tile_provider_code'],
+            'OpenWeatherMap' => ['tile_provider_key'],
+            'Thunderforest'  => ['tile_provider_key'],
         ],
-        'fileFormat' => [
-            '!' => ['file']
-        ]
+        'fileFormat'    => [
+            '!' => ['file'],
+        ],
     ],
 
     'metasubpalettes' => [
@@ -864,7 +866,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             ],
             'sql'       => 'mediumtext NULL',
         ],
-        'fileFormat' => [
+        'fileFormat'                     => [
             'label'            => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormat'],
             'exclude'          => true,
             'inputType'        => 'select',
@@ -882,19 +884,19 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'sql'              => "varchar(32) NOT NULL default ''",
         ],
         'file'                           => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'],
-            'exclude'   => true,
-            'inputType' => 'fileTree',
+            'label'         => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['file'],
+            'exclude'       => true,
+            'inputType'     => 'fileTree',
             'load_callback' => [
                 ['netzmacht.contao_leaflet.listeners.dca.layer', 'prepareFileWidget'],
             ],
-            'eval'      => [
-                'filesOnly'  => true,
-                'fieldType'  => 'radio',
-                'mandatory'  => true,
-                'tl_class'   => 'clr',
+            'eval'          => [
+                'filesOnly' => true,
+                'fieldType' => 'radio',
+                'mandatory' => true,
+                'tl_class'  => 'clr',
             ],
-            'sql'       => 'binary(16) NULL',
+            'sql'           => 'binary(16) NULL',
         ],
     ],
 ];

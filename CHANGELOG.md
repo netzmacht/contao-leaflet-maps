@@ -6,6 +6,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.1.2 - TBD
+
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.1...hotfix/3.1.2)
+
+### Fixed
+
+ - Fix broken MapBox integration: Access token is now required
+ - Fix broken OpenWeatherMap integration: Api key is now required
+ - Fix broken Thunderforest integration: Api key is now required
+
+### Added
+
+ - Add missing OpenPtMap of leaflet-providers
+ - Add missing OpenRailwayMap of leaflet-providers
+ - Add missing OpenFireMap of leaflet-providers
+ - Add missing SafeCast of leaflet-providers
+ - Add missing map types `normalNightTransit`, `normalNightTransitMobile`, `reducedDay`, `reducedNight`, 
+   `hybridDayTransit` and `hybridDayGrey` of HERE provider
+ - Add missing map types `Voyager`, `VoyagerNoLabels`, `VoyagerOnlyLabels` and `VoyagerLabelsUnder` of CartoDB provider
+ - Add missing Wikimedia of leaflet-providers
+ - Add missing GeoportailFrance of leaflet-providers
+ - Add missing OneMapSG of leaflet-providers
+
 ## 3.1.1 - 2018-12-07
 
 [Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.0...3.1.1)
