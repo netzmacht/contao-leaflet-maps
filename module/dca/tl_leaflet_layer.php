@@ -238,8 +238,10 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = array
             'provider' => array('tile_provider', 'tile_provider_variant')
         ),
         'tile_provider' => array(
-            'MapBox' => array('tile_provider_key'),
-            'HERE'   => array('tile_provider_key', 'tile_provider_code'),
+            'MapBox'         => array('tile_provider_key'),
+            'HERE'           => array('tile_provider_key', 'tile_provider_code'),
+            'OpenWeatherMap' => array('tile_provider_key'),
+            'Thunderforest'  => array('tile_provider_key'),
         ),
     ),
 

@@ -18,12 +18,17 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
 (
     'OpenStreetMap' => array
     (
-        'variants' => array('Mapnik', 'BlackAndWhite', 'DE', 'France', 'HOT', 'BZH'),
+        'variants' => array('Mapnik', 'BlackAndWhite', 'DE', 'CH', 'France', 'HOT', 'BZH'),
     ),
     'OpenSeaMap'    => array(),
     'OpenTopoMap'   => array(),
+    'OpenPtMap'   => array(),
+    'OpenRailwayMap' => array(),
+    'OpenFireMap' => array(),
+    'SafeCast' => array(),
     'Thunderforest' => array
     (
+        'class'   => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\ThunderforestProvider',
         'variants' => array(
             'OpenCycleMap',
             'Transport',
@@ -32,7 +37,10 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'Landscape',
             'Outdoors',
             'Pioneer'
-        )
+        ),
+        'options' => array(
+            'apyKey' => 'tile_provider_key'
+        ),
     ),
     'OpenMapSurfer' => array
     (
@@ -44,7 +52,7 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
     'MapBox' => array(
         'class'   => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\MapBoxProvider',
         'options' => array(
-            'key' => 'tile_provider_key'
+            'accessToken' => 'tile_provider_key'
         ),
     ),
     'Stamen' => array(
@@ -77,6 +85,7 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
         )
     ),
     'OpenWeatherMap' => array(
+        'class'   => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\OpenWeatherMapProvider',
         'variants' => array(
             'Clouds',
             'CloudsClassic',
@@ -89,9 +98,13 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'Wind',
             'Temperature',
             'Snow'
-        )
+        ),
+        'options' => array(
+            'apiKey' => 'tile_provider_key'
+        ),
     ),
     'HERE' => array(
+        'class'   => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\HereProvider',
         'variants' => array(
             'normalDay',
             'normalDayCustom',
@@ -104,12 +117,17 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'normalNightMobile',
             'normalNightGrey',
             'normalNightGreyMobile',
+            'normalNightTransit',
+            'reducedDay',
+            'reducedNight',
             'basicMap',
             'mapLabels',
             'trafficFlow',
             'carnavDayGrey',
             'hybridDay',
             'hybridDayMobile',
+            'hybridDayTransit',
+            'hybridDayGrey',
             'pedestrianDay',
             'pedestrianNight',
             'satelliteDay',
@@ -121,7 +139,6 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'appCode' => 'tile_provider_code',
         ),
         'fields' => array('tile_provider_key', 'tile_provider_code'),
-        'class'  => 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\HereProvider',
     ),
     'JusticeMap' => array(
         'variants' => array(
@@ -133,7 +150,7 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'multi',
             'nonWhite',
             'white',
-            'plurality'
+            'plurality',
         )
     ),
     'FreeMapSK' => array(),
@@ -146,6 +163,10 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'DarkMatter',
             'DarkMatterNoLabels',
             'DarkMatterOnlyLabels',
+            'Voyager',
+            'VoyagerNoLabels',
+            'VoyagerOnlyLabels',
+            'VoyagerLabelsUnder',
         )
     ),
     'HikeBike' => array(
@@ -177,5 +198,23 @@ $GLOBALS['LEAFLET_TILE_PROVIDERS'] = array
             'ModisTerraChlorophyll',
         )
     ),
-    'NLS' => array()
+    'NLS' => array(),
+    'Wikimedia' => array(),
+    'GeoportailFrance' => array(
+        'variants' => array(
+            'parcels',
+            'ignMaps',
+            'maps',
+            'orthos'
+        ),
+    ),
+    'OneMapSG' => array(
+        'variants' => array(
+            'Default',
+            'Night',
+            'Original',
+            'Grey',
+            'LandLot'
+        ),
+    )
 );
