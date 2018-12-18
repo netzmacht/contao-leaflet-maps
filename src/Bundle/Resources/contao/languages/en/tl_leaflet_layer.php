@@ -149,6 +149,10 @@ $GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormat'][0]                 = 'File
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['fileFormat'][1]                 = 'Choose which file format is used.';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['file'][0]                       = 'File';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['file'][1]                       = 'Choose a file containing geodata. Supported formats are: %s.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_key'][0]          = 'API key / Access token';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_key'][1]          = 'Please define the API key / access token which is required for this tile provider.';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_code'][0]         = 'App code';
+$GLOBALS['TL_LANG']['tl_leaflet_layer']['tile_provider_code'][1]         = 'Please define the required app code for this tile provider.';
 
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][0]   = 'Layer group';
 $GLOBALS['TL_LANG']['tl_leaflet_layer']['groupTypes']['layer'][1]   = 'Basic layer group. <br> See <a href="http://leafletjs.com/reference.html#layergroup" target="_blank">http://leafletjs.com/reference.html#layergroup</a>';

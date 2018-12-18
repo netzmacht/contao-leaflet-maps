@@ -83,7 +83,7 @@ parameters:
         - 'Temperature'
         - 'Snow'
       options:
-        accessToken: 'tile_provider_key'
+        apiKey: 'tile_provider_key'
       fields: ['tile_provider_key']
 
     HERE:
