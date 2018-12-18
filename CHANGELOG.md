@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 3.1.2 - 2018-12-18
 
-[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.1...hotfix/3.1.2)
+[Full Changelog](https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.1...3.1.2)
 
 ### Fixed
 
