@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
- - Fix broken api routes in Contao 4.6/Symfony 4 (#69).
+ - Fix broken api routes in Contao 4.6/Symfony 4 (#69)
+ - Fix broken about.html.twig template. Error block was missing
 
 ## 3.1.2 - 2018-12-18
 
