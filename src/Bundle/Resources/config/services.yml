@@ -128,11 +128,13 @@ services:
       - { name: Netzmacht\Contao\PageContext\Request\PageIdDeterminator }
 
   Netzmacht\Contao\Leaflet\Frontend\Action\LayerDataAction:
+    public: true
     arguments:
       - '@netzmacht.contao_leaflet.map.provider'
       - '@netzmacht.contao_leaflet.filter_factory'
 
   Netzmacht\Contao\Leaflet\Backend\Action\AboutAction:
+    public: true
     arguments:
       - '@templating'
       - '%kernel.project_dir%'
