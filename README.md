@@ -38,6 +38,12 @@ Features
  - Autoloading of required assets.
  - [Layer for MetaModels](https://github.com/netzmacht/contao-leaflet-metamodels)
  
+
+Documentation
+-------------
+
+A basic [user documentation](http://leaflet-maps-for-contao.readthedocs.org/) written in German is available.
+ 
 Changelog
 ---------
 
