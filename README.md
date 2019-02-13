@@ -2,9 +2,9 @@ Leaflet integration into Contao CMS
 ===================================
 
 [![Build Status](http://img.shields.io/travis/netzmacht/contao-leaflet-maps/master.svg?style=flat-square)](https://travis-ci.org/netzmacht/contao-leaflet-maps)
-[![Version](http://img.shields.io/packagist/v/netzmacht/contao-leaflet-maps.svg?style=flat-square)](http://packagist.com/packages/netzmacht/contao-leaflet-maps)
-[![License](http://img.shields.io/packagist/l/netzmacht/contao-leaflet-maps.svg?style=flat-square)](http://packagist.com/packages/netzmacht/contao-leaflet-maps)
-[![Downloads](http://img.shields.io/packagist/dt/netzmacht/contao-leaflet-maps.svg?style=flat-square)](http://packagist.com/packages/netzmacht/contao-leaflet-maps)
+[![Version](http://img.shields.io/packagist/v/netzmacht/contao-leaflet-maps.svg?style=flat-square)](http://packagist.org/packages/netzmacht/contao-leaflet-maps)
+[![License](http://img.shields.io/packagist/l/netzmacht/contao-leaflet-maps.svg?style=flat-square)](http://packagist.org/packages/netzmacht/contao-leaflet-maps)
+[![Downloads](http://img.shields.io/packagist/dt/netzmacht/contao-leaflet-maps.svg?style=flat-square)](http://packagist.org/packages/netzmacht/contao-leaflet-maps)
 [![Contao Community Alliance coding standard](http://img.shields.io/badge/cca-coding_standard-red.svg?style=flat-square)](https://github.com/contao-community-alliance/coding-standard)
 
 This extension provides a backend gui for integrating [Leaflet](http://leafletjs.com/) into the Contao CMS.
@@ -37,6 +37,12 @@ Features
  - Uses the GeoJSON format.
  - Autoloading of required assets.
  - [Layer for MetaModels](https://github.com/netzmacht/contao-leaflet-metamodels)
+ 
+
+Documentation
+-------------
+
+A basic [user documentation](http://leaflet-maps-for-contao.readthedocs.org/) written in German is available.
  
 Changelog
 ---------

@@ -17,7 +17,6 @@ use Netzmacht\Contao\Leaflet\Filter\BboxFilter;
 use Netzmacht\Contao\Leaflet\Filter\DistanceFilter;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
 use Netzmacht\LeafletPHP\Value\LatLngBounds;
-use function var_dump;
 
 /**
  * Class MarkerModel for the tl_leaflet_marker table.
@@ -50,8 +49,8 @@ class MarkerModel extends AbstractActiveModel
                 [
                     $table . '.active=1',
                     $table . '.pid=?',
-                    $table . '.latitude>0',
-                    $table . '.longitude>0',
+                    $table . '.latitude IS NOT NULL',
+                    $table . '.longitude IS NOT NULL',
                 ],
                 [$pid],
                 ['order' => 'sorting']

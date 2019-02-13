@@ -164,6 +164,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_control'] = [
                 'maxlength'   => 255,
                 'tl_class'    => 'w50',
                 'nullIfEmpty' => true,
+                'doNotCopy'   => true,
             ],
             'toolkit'       => [
                 'alias_generator' => [
