@@ -278,7 +278,14 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 ['netzmacht.contao_toolkit.dca.listeners.alias_generator', 'handleSaveCallback'],
                 ['netzmacht.contao_leaflet.listeners.dca.validator', 'validateAlias'],
             ],
-            'eval'          => ['mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50', 'unique' => true],
+            'eval' => [
+                'mandatory'   => false,
+                'maxlength'   => 255,
+                'tl_class'    => 'w50',
+                'unique'      => true,
+                'nullIfEmpty' => true,
+                'doNotCopy'   => true,
+            ],
             'toolkit'       => [
                 'alias_generator' => [
                     'factory' => 'netzmacht.contao_leaflet.definition.alias_generator.factory_default',
