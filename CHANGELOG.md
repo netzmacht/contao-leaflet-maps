@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
  - Fix ordering changes in layer control element aren't recognized ([#72](https://github.com/netzmacht/contao-leaflet-maps/issues/72))
+ - Fix markers with negative coordinates aren't displayed ([#74](https://github.com/netzmacht/contao-leaflet-maps/issues/74))
 
 ## [3.1.3] - 2019-01-10
 
