@@ -41,6 +41,7 @@ SELECT    l.*, c.mode as controlMode
 FROM      tl_leaflet_layer l
 LEFT JOIN tl_leaflet_control_layer c ON l.id = c.lid
 WHERE     c.cid=?
+ORDER BY  c.sorting
 SQL;
 
         $result = Database::getInstance()
@@ -67,6 +68,7 @@ FROM      tl_leaflet_layer l
 LEFT JOIN tl_leaflet_control_layer
 c ON      l.id = c.lid
 WHERE     c.cid=? AND l.active=1
+ORDER BY  c.sorting
 SQL;
 
         $result = Database::getInstance()
