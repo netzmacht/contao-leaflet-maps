@@ -71,16 +71,10 @@ class ImageIconMapper extends AbstractIconMapper
         Request $request = null,
         $elementId = null
     ) {
-        $arguments = parent::buildConstructArguments($model, $mapper, $request, $elementId);
-
-        if ($model->iconImage) {
-            $repository = $this->repositoryManager->getRepository(FilesModel::class);
-            $file       = $repository->findByUuid($model->iconImage);
-
-            if ($file) {
-                $arguments[] = $file->path;
-            }
-        }
+        $arguments   = parent::buildConstructArguments($model, $mapper, $request, $elementId);
+        $repository  = $this->repositoryManager->getRepository(FilesModel::class);
+        $file        = $repository->findByUuid($model->iconImage);
+        $arguments[] = $file ? $file->path : '';
 
         return $arguments;
     }
@@ -117,8 +111,6 @@ class ImageIconMapper extends AbstractIconMapper
             $file = $repository->findByUuid($model->iconImage);
 
             if ($file) {
-                $definition->setIconUrl($file->path);
-
                 $file = new File($file->path);
                 $definition->setIconSize([$file->width, $file->height]);
 
