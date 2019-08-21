@@ -5,15 +5,15 @@
  *
  * @package    contao-leaflet-maps
  * @author     David Molineus <david.molineus@netzmacht.de>
- * @copyright  2014-2017 netzmacht David Molineus. All rights reserved.
+ * @copyright  2014-2019 netzmacht David Molineus. All rights reserved.
  * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
  */
 
 namespace Netzmacht\Contao\Leaflet\Backend\Action;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface as Engine;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
 /**
  * Credits backend module.
@@ -23,11 +23,11 @@ use Symfony\Component\HttpFoundation\Response;
 final class AboutAction
 {
     /**
-     * Templating engine.
+     * Twig environment.
      *
-     * @var Engine
+     * @var Environment
      */
-    private $engine;
+    private $twig;
 
     /**
      * Project directory.
@@ -39,12 +39,12 @@ final class AboutAction
     /**
      * AboutAction constructor.
      *
-     * @param Engine $engine     Templating engine.
-     * @param string $projectDir Project directory.
+     * @param Environment $twig       Twig environment.
+     * @param string      $projectDir Project directory.
      */
-    public function __construct(Engine $engine, string $projectDir)
+    public function __construct(Environment $twig, string $projectDir)
     {
-        $this->engine     = $engine;
+        $this->twig       = $twig;
         $this->projectDir = $projectDir;
     }
 
@@ -62,7 +62,9 @@ final class AboutAction
 
         [$data['version'], $data['dependencies']] = $this->extractFromComposer();
 
-        return $this->engine->renderResponse('@NetzmachtContaoLeaflet/backend/about.html.twig', $data);
+        return new Response(
+            $this->twig->render('@NetzmachtContaoLeaflet/backend/about.html.twig', $data)
+        );
     }
 
     /**
