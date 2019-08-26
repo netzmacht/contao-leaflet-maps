@@ -4,10 +4,10 @@
   "description": "Leaflet maps for Contao",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp": "^4.0.0",
-    "gulp-cli": "^2.0.1",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
     "gulp-concat": "^2.6.1",
-    "gulp-uglify": "^3.0.1",
+    "gulp-uglify": "^3.0.2",
     "promised-del": "^1.0.2"
   },
   "devDependencies": {},
