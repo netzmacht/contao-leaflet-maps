@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
  - Use twig directly instead of templating component to restore Contao 4.8
+ - Fix button labels ([#83](https://github.com/netzmacht/contao-leaflet-maps/issues/83))
+ 
+### Changed 
+
+ - Use relative path for backend icon ([#82](https://github.com/netzmacht/contao-leaflet-maps/issues/82))
 
 ## [3.1.4] - 2019-02-13
 
