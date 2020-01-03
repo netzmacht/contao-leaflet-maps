@@ -210,6 +210,10 @@ class OptionsBuilder
         foreach ($options as $option => $mapping) {
             $default = static::getDefaultOption($option, $definition);
 
+            if ($model->$mapping === null) {
+                continue;
+            }
+
             if ($model->$mapping === '1' || $model->$mapping === '') {
                 if (((bool) $model->$mapping) !== $default) {
                     static::applyOption($option, $model->$mapping, $definition);
