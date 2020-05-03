@@ -13,7 +13,7 @@
 $GLOBALS['TL_DCA']['tl_module']['metapalettes']['leaflet'] = [
     'type'      => ['name', 'type', 'headline'],
     'leaflet'   => ['leaflet_map', 'leaflet_mapId', 'leaflet_width', 'leaflet_height', 'leaflet_template'],
-    'templates' => [':hide', 'customTpl'],
+    'template'  => [':hide', 'customTpl'],
     'protected' => [':hide', 'protected'],
     'expert'    => [':hide', 'guests', 'cssID', 'space'],
     'invisible' => [':hide', 'invisible', 'start', 'start'],
