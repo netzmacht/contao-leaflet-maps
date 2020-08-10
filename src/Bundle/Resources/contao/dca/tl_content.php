@@ -5,6 +5,7 @@
  *
  * @package    contao-leaflet-maps
  * @author     David Molineus <david.molineus@netzmacht.de>
+ * @author     Fritz Michael Gschwantner <fmg@inspiredminds.at>
  * @copyright  2014-2017 netzmacht David Molineus. All rights reserved.
  * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
@@ -13,7 +14,7 @@
 $GLOBALS['TL_DCA']['tl_content']['metapalettes']['leaflet'] = [
     'type'      => ['type', 'headline'],
     'leaflet'   => ['leaflet_map', 'leaflet_mapId', 'leaflet_width', 'leaflet_height'],
-    'templates' => [':hide', 'customTpl', 'leaflet_template'],
+    'template'  => [':hide', 'customTpl', 'leaflet_template'],
     'protected' => [':hide', 'protected'],
     'expert'    => [':hide', 'guests', 'cssID', 'space'],
     'invisible' => [':hide', 'invisible', 'start', 'start'],
