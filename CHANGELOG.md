@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+ - Duplicate map layer relations ([#89](https://github.com/netzmacht/contao-leaflet-maps/issues/89))
+
 ## [3.1.6] - 2020-01-03
 
 ### Fixed

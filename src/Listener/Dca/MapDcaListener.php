@@ -226,4 +226,26 @@ class MapDcaListener extends AbstractListener
             ->asTree()
             ->getOptions();
     }
+
+    /**
+     * Copy layer relations if a map is duplicated.
+     *
+     * @param string|int    $insertId      Insert id of the new map.
+     * @param DataContainer $dataContainer Data container driver.
+     *
+     * @return void
+     */
+    public function copyLayerRelations($insertId, DataContainer $dataContainer): void
+    {
+        $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE mid=:mid order BY sorting');
+        $statement->bindValue('mid', $dataContainer->id);
+        $statement->execute();
+
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            unset($row['id']);
+            $row['tstamp'] = time();
+            $row['mid']    = $insertId;
+            $this->connection->insert('tl_leaflet_map_layer', $row);
+        }
+    }
 }

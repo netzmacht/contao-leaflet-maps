@@ -28,6 +28,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_map'] = [
         'onsubmit_callback' => [
             ['netzmacht.contao_leaflet.listeners.dca.leaflet', 'clearCache'],
         ],
+        'oncopy_callback' => [
+            ['netzmacht.contao_leaflet.listeners.dca.map', 'copyLayerRelations'],
+        ],
     ],
 
     'list' => [
