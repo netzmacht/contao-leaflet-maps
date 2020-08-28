@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.0] - 2020-08-28
+
+### Added
+
+ - Add support for consent tools based on `hofff/contao-consent-bridge`
+
 ## [3.1.7] - 2020-08-28
 
 ### Fixed
@@ -151,7 +157,8 @@ Implemented enhancements
  - Bypass filesystem cache in debug mode
  - Changelog added
 
-[Unreleased]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.7...hotfix/3.1.8
+[Unreleased]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.2.0...hotfix/3.2.1
+[3.2.0]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.7...3.2.0
 [3.1.7]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.6...3.1.7
 [3.1.6]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.5...3.1.6
 [3.1.5]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.4...3.1.5
