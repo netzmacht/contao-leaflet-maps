@@ -138,3 +138,7 @@ services:
     arguments:
       - '@twig'
       - '%kernel.project_dir%'
+
+  Netzmacht\Contao\Leaflet\Bundle\ConsentBridge\Plugin:
+    tags:
+      - { name: hofff_contao_consent_bridge.plugin }
