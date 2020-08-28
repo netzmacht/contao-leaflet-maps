@@ -42,12 +42,16 @@
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
+    "hofff/contao-consent-bridge": "^1.0",
     "phpcq/all-tasks": "^1.2"
+  },
+  "conflict": {
+    "hofff/contao-consent-bridge": "<1.0 || >= 2.0"
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "3.1.x-dev",
-      "dev-develop": "3.2.x-dev",
+      "dev-master": "3.2.x-dev",
+      "dev-develop": "3.3.x-dev",
       "dev-support/2.x": "2.0.x-dev"
     },
     "contao": {
