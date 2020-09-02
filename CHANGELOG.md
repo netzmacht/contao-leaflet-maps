@@ -163,7 +163,8 @@ Implemented enhancements
  - Bypass filesystem cache in debug mode
  - Changelog added
 
-[Unreleased]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.2.0...hotfix/3.2.1
+[Unreleased]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.2.1...hotfix/3.2.2
+[3.2.1]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.7...3.2.0
 [3.1.7]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.6...3.1.7
 [3.1.6]: https://github.com/netzmacht/contao-leaflet-maps/compare/3.1.5...3.1.6
