@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.1] - 2020-09-02
+
+### Fixed
+
+ - Do not append javascript to the body anymore as consent tools might interrupt rendering
+
 ## [3.2.0] - 2020-08-28
 
 ### Added
