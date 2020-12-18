@@ -385,11 +385,15 @@ class MapProvider
         ];
 
         $content = $this->templateEngine->render($templateReference, $parameters);
-        $event   = new GetJavascriptEvent($definition, $content);
+        $content = preg_replace(
+            ['/^<!-- TEMPLATE (START): .+ -->\n*/', '/\n*<!-- TEMPLATE (END): .+ -->$/'],
+            '',
+            $content
+        );
+
+        $event = new GetJavascriptEvent($definition, $content);
         $this->eventDispatcher->dispatch($event::NAME, $event);
 
-        $buffer = $event->getJavascript();
-
-        return $buffer;
+        return $event->getJavascript();
     }
 }
