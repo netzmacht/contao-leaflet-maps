@@ -77,6 +77,7 @@ services:
     class: Netzmacht\Contao\Leaflet\Mapper\Layer\FileLayerMapper
     arguments:
       - '@netzmacht.contao_toolkit.repository_manager'
+      - '@netzmacht.contao_toolkit.contao.environment_adapter'
     tags:
       - { name: netzmacht.contao_leaflet.mapper }
 

@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
- - Remove template debug placeholders, it breaks generated javascript
+ - Remove template debug placeholders, it breaks generated javascript ([#93](https://github.com/netzmacht/contao-leaflet-maps/issues/93))
+ - Generate absolute urls for file layers ([#92](https://github.com/netzmacht/contao-leaflet-maps/issues/92)) 
 
 ## [3.2.1] - 2020-09-02
 

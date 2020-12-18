@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Mapper\Layer;
 
+use Contao\CoreBundle\Framework\Adapter;
+use Contao\Environment;
 use Contao\FilesModel;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\DefinitionMapper;
@@ -59,15 +61,24 @@ class FileLayerMapper extends AbstractLayerMapper
     private $repositoryManager;
 
     /**
+     * Environment.
+     *
+     * @var Adapter<Environment>
+     */
+    private $environmentAdapter;
+
+    /**
      * Construct.
      *
-     * @param RepositoryManager $repositoryManager Repository manager.
+     * @param RepositoryManager    $repositoryManager  Repository manager.
+     * @param Adapter<Environment> $environmentAdapter Environment adapter.
      */
-    public function __construct(RepositoryManager $repositoryManager)
+    public function __construct(RepositoryManager $repositoryManager, Adapter $environmentAdapter)
     {
-        $this->repositoryManager = $repositoryManager;
-
         parent::__construct();
+
+        $this->repositoryManager  = $repositoryManager;
+        $this->environmentAdapter = $environmentAdapter;
     }
 
     /**
@@ -103,25 +114,26 @@ class FileLayerMapper extends AbstractLayerMapper
         $layerId = $this->getElementId($model, $elementId);
 
         if ($fileModel instanceof FilesModel && $fileModel->type === 'file') {
+            $url = $this->environmentAdapter->get('url') . '/' . $fileModel->path;
             switch ($model->fileFormat) {
                 case 'gpx':
-                    $layer = new Gpx($layerId, $fileModel->path);
+                    $layer = new Gpx($layerId, $url);
                     break;
 
                 case 'kml':
-                    $layer = new Kml($layerId, $fileModel->path);
+                    $layer = new Kml($layerId, $url);
                     break;
 
                 case 'wkt':
-                    $layer = new Wkt($layerId, $fileModel->path);
+                    $layer = new Wkt($layerId, $url);
                     break;
 
                 case 'geojson':
-                    $layer = new OmnivoreGeoJson($layerId, $fileModel->path);
+                    $layer = new OmnivoreGeoJson($layerId, $url);
                     break;
 
                 case 'topojson':
-                    $layer = new TopoJson($layerId, $fileModel->path);
+                    $layer = new TopoJson($layerId, $url);
                     break;
 
                 default:
