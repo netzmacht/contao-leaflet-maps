@@ -93,7 +93,7 @@ class TileLayerMapper extends AbstractLayerMapper
         /** @var TileLayer $definition */
         $bounds = StringUtil::deserialize($model->bounds);
 
-        if ($request[0] && $request[1]) {
+        if ($request->getMapIdentifier() && $request->getFilter()) {
             $bounds = array_map(
                 function ($value) {
                     return explode(',', $value, 3);
