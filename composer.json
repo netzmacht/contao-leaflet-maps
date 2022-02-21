@@ -28,7 +28,7 @@
     "netzmacht/contao-leaflet-geocode-widget": "^1.2",
     "netzmacht/contao-leaflet-libraries": "^1.3.4",
     "netzmacht/contao-page-context": "~1.0",
-    "netzmacht/contao-toolkit": "~3.0",
+    "netzmacht/contao-toolkit": "^3.7",
     "netzmacht/php-javascript-builder": "^1.0",
     "netzmacht/php-leaflet": "^1.1.0",
     "symfony/config": "~4.4 || ^5.1",
