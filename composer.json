@@ -21,9 +21,9 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "contao-community-alliance/meta-palettes": "^2.0 || ^1.11",
-    "contao/core-bundle": "~4.4",
+    "contao/core-bundle": "^4.9",
     "doctrine/cache": "^1.0",
-    "doctrine/dbal": "^2.5",
+    "doctrine/dbal": "^2.11 || ^3.0",
     "menatwork/contao-multicolumnwizard": "^3.3",
     "netzmacht/contao-leaflet-geocode-widget": "^1.2",
     "netzmacht/contao-leaflet-libraries": "^1.3.4",
@@ -31,14 +31,15 @@
     "netzmacht/contao-toolkit": "~3.0",
     "netzmacht/php-javascript-builder": "^1.0",
     "netzmacht/php-leaflet": "^1.1.0",
-    "symfony/config": "~3.3 || ~4.0",
-    "symfony/dependency-injection": "^3.4.26 || ^4.1.12",
-    "symfony/event-dispatcher": "~3.3 || ~4.0",
-    "symfony/filesystem": "~3.3 || ~4.0",
-    "symfony/http-kernel": "~3.3 || ~4.0",
-    "symfony/twig-bundle": "~3.3 || ~4.0",
-    "symfony/translation": "~3.3 || ~4.0",
-    "twig/twig": "^1.3.35 || ^2.0"
+    "symfony/config": "~4.4 || ^5.1",
+    "symfony/dependency-injection": "~4.4 || ^5.1",
+    "symfony/event-dispatcher": "~4.4 || ^5.1",
+    "symfony/event-dispatcher-contracts": "^1.1 || ^2.0",
+    "symfony/filesystem": "~4.4 || ^5.1",
+    "symfony/http-kernel": "~4.4 || ^5.1",
+    "symfony/twig-bundle": "~4.4 || ^5.1",
+    "symfony/translation": "~4.4 || ^5.1",
+    "twig/twig": "^2.0 || ^3.0"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
@@ -79,5 +80,12 @@
     "issues": "https://github.com/netzmacht/contao-leaflet-maps/issues",
     "source": "https://github.com/netzmacht/contao-leaflet-maps",
     "docs": "http://leaflet-maps-for-contao.readthedocs.org/"
+  },
+  "config": {
+    "allow-plugins": {
+      "contao-components/installer": true,
+      "contao/manager-plugin": true,
+      "contao-community-alliance/composer-plugin": true
+    }
   }
 }

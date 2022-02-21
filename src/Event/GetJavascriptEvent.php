@@ -13,7 +13,7 @@
 namespace Netzmacht\Contao\Leaflet\Event;
 
 use Netzmacht\LeafletPHP\Definition\Map;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Class GetJavascriptEvent is emitted after the map javascript was created.

@@ -27,8 +27,8 @@ use Netzmacht\Contao\Toolkit\View\Template\TemplateReference;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 use Symfony\Component\Templating\EngineInterface as TemplateEngine;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**
  * Class MapProvider.
@@ -392,7 +392,7 @@ class MapProvider
         );
 
         $event = new GetJavascriptEvent($definition, $content);
-        $this->eventDispatcher->dispatch($event::NAME, $event);
+        $this->eventDispatcher->dispatch($event, $event::NAME);
 
         return $event->getJavascript();
     }

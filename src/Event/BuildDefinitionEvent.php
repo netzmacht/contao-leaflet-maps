@@ -15,7 +15,7 @@ namespace Netzmacht\Contao\Leaflet\Event;
 use Contao\Model;
 use Netzmacht\Contao\Leaflet\Mapper\Request;
 use Netzmacht\LeafletPHP\Definition;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Class BuildDefinitionEvent is emitted when the mapper maps between the model and the definition.

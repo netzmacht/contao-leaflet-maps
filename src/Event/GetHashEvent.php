@@ -12,7 +12,7 @@
 
 namespace Netzmacht\Contao\Leaflet\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Class GetHashEvent is emitted then a hash for a data object with an unknown type is required.
