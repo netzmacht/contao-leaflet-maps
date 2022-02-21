@@ -361,25 +361,25 @@ class LayerDcaListener extends AbstractListener
         if ($undoId) {
             $statement = $this->connection->prepare('SELECT * FROM tl_undo WHERE id=:id LIMIT 0,1');
             $statement->bindValue('id', $undoId);
-            $statement->execute();
+            $result = $statement->executeQuery();
 
-            $undo = $statement->fetch();
+            $undo = $result->fetchAssociative();
 
             $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE lid=:lid');
             $statement->bindValue('lid', $dataContainer->id);
-            $statement->execute();
+            $result = $statement->executeQuery();
 
             $undo['data'] = StringUtil::deserialize($undo['data'], true);
 
-            while ($row = $statement->fetch()) {
+            while ($row = $result->fetchAssociative()) {
                 $undo['data']['tl_leaflet_map_layer'][] = $row;
             }
 
             $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_control_layer WHERE lid=:lid');
             $statement->bindValue('lid', $dataContainer->id);
-            $statement->execute();
+            $result = $statement->executeQuery();
 
-            $undo['data']['tl_leaflet_control_layer'] = $statement->fetchAll();
+            $undo['data']['tl_leaflet_control_layer'] = $result->fetchAllAssociative();
 
             $this->connection->update('tl_undo', ['data' => $undo['data']], ['id' => $undo['id']]);
         }
