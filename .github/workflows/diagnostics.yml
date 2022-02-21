@@ -1,49 +1,82 @@
-name: netzmacht/contao-leaflet-maps
+name: Code Quality Diagnostics
 
 on:
-  push:
   pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    name: PHP ${{ matrix.php }}
+
     strategy:
+      fail-fast: false
       matrix:
-        php: [7.3, 7.4]
-        contao: [~4.9.0, ~4.13.0]
+        include:
+          - php: 7.4
+            output: '-o github-action -o default'
+            phpcq_install: 'install'
+          - php: 8.0
+            output: '-o default'
+            phpcq_install: 'update'
+          - php: 8.1
+            output: '-o default'
+            phpcq_install: 'update'
+          - php: 8.2
+            output: '-o default'
+            phpcq_install: 'update'
 
     steps:
-      - name: PHP ${{ matrix.php }} ${{ matrix.contao }} Pull source
+      - name: Pull source
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
-      # see https://github.com/shivammathur/setup-php
-      - name: PHP ${{ matrix.php }} ${{ matrix.contao }} Setup PHP.
+      - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          coverage: none
 
-      - name: PHP ${{ matrix.php }} ${{ matrix.contao }} Cache composer cache directory
+      - name: Cache composer cache directory
         uses: actions/cache@v1
         env:
           cache-name: composer-cache-dir
         with:
           path: ~/.cache/composer
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          key: ${{ runner.os }}-${{ matrix.php }}-build-${{ env.cache-name }}
 
-      - name: PHP ${{ matrix.php }} ${{ matrix.contao }} Cache vendor directory
+      - name: Cache vendor directory
         uses: actions/cache@v1
         env:
-          cache-name: composer-vendor
+          cache-name: vendor
         with:
           path: vendor
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-${{ matrix.php }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-      - name: PHP ${{ matrix.php }} ${{ matrix.contao }} Install composer dependencies
-        run: composer update --prefer-dist --no-interaction --no-suggest
+            ${{ runner.os }}-${{ matrix.php }}-build-${{ env.cache-name }}-
 
-      - name: PHP ${{ matrix.php }} ${{ matrix.contao }} Run tests
-        run: ant -keep-going
+      - name: Cache phpcq directory
+        uses: actions/cache@v1
+        env:
+          cache-name: phpcq
+        with:
+          path: .phpcq
+          key: ${{ runner.os }}-${{ matrix.php }}-build-${{ env.cache-name }}-${{ hashFiles('**/.phpcq.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.php }}-build-${{ env.cache-name }}-
+
+      - name: Install composer dependencies
+        run: composer install
+      - name: Install phpcq toolchain
+        run: ./vendor/bin/phpcq ${{ matrix.phpcq_install }} -v
+
+      - name: Run tests
+        run: ./vendor/bin/phpcq run -v ${{ matrix.output }}
+
+      - name: Upload build directory to artifact
+        uses: actions/upload-artifact@v2
+        if: ${{ success() }} || ${{ failure() }}
+        with:
+          name: phpcq-builds-php-${{ matrix.php }}
+          path: .phpcq/build/

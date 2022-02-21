@@ -1,13 +1,13 @@
 {
   "name": "netzmacht/contao-leaflet-maps",
-  "type": "contao-bundle",
   "description": "Contao Leaflet maps integration",
+  "license": "LGPL-3.0-or-later",
+  "type": "contao-bundle",
   "keywords": [
     "contao",
     "maps",
     "leaflet"
   ],
-  "license": "LGPL-3.0-or-later",
   "authors": [
     {
       "name": "David Molineus",
@@ -16,6 +16,12 @@
       "role": "Developer"
     }
   ],
+  "support": {
+    "email": "mail@netzmacht.de",
+    "issues": "https://github.com/netzmacht/contao-leaflet-maps/issues",
+    "source": "https://github.com/netzmacht/contao-leaflet-maps",
+    "docs": "http://leaflet-maps-for-contao.readthedocs.org/"
+  },
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
@@ -36,50 +42,27 @@
     "symfony/event-dispatcher": "~4.4 || ^5.1",
     "symfony/event-dispatcher-contracts": "^1.1 || ^2.0",
     "symfony/filesystem": "~4.4 || ^5.1",
+    "symfony/http-foundation": "~4.4 || ^5.1",
     "symfony/http-kernel": "~4.4 || ^5.1",
-    "symfony/twig-bundle": "~4.4 || ^5.1",
+    "symfony/routing": "~4.4 || ^5.1",
+    "symfony/templating": "~4.4 || ^5.1",
     "symfony/translation": "~4.4 || ^5.1",
+    "symfony/twig-bundle": "~4.4 || ^5.1",
     "twig/twig": "^2.0 || ^3.0"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
     "hofff/contao-consent-bridge": "^1.0",
-    "phpcq/all-tasks": "^1.2"
+    "phpcq/coding-standard": "^2.1",
+    "phpcq/runner-bootstrap": "^1.0@dev"
   },
   "conflict": {
     "hofff/contao-consent-bridge": "<1.0 || >= 2.0"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "3.2.x-dev",
-      "dev-develop": "3.3.x-dev",
-      "dev-support/2.x": "2.0.x-dev"
-    },
-    "contao": {
-      "transifex": {
-        "project": "contao-leaflet-maps",
-        "prefix": "core-",
-        "languages_cto": "src/Bundle/Resources/contao/languages",
-        "languages_tx": ".tx"
-      }
-    },
-    "contao-manager-plugin": "Netzmacht\\Contao\\Leaflet\\Bundle\\ContaoManager\\Plugin"
   },
   "autoload": {
     "psr-4": {
       "Netzmacht\\Contao\\Leaflet\\": "src/"
     }
-  },
-  "autoload-dev": {
-    "files": [
-      "vendor/phpcq/autoload-validation/hacks/contao-hack.php"
-    ]
-  },
-  "support": {
-    "email": "mail@netzmacht.de",
-    "issues": "https://github.com/netzmacht/contao-leaflet-maps/issues",
-    "source": "https://github.com/netzmacht/contao-leaflet-maps",
-    "docs": "http://leaflet-maps-for-contao.readthedocs.org/"
   },
   "config": {
     "allow-plugins": {
@@ -87,5 +70,21 @@
       "contao/manager-plugin": true,
       "contao-community-alliance/composer-plugin": true
     }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-develop": "3.3.x-dev",
+      "dev-master": "3.2.x-dev",
+      "dev-support/2.x": "2.0.x-dev"
+    },
+    "contao": {
+      "transifex": {
+        "languages_cto": "src/Bundle/Resources/contao/languages",
+        "languages_tx": ".tx",
+        "prefix": "core-",
+        "project": "contao-leaflet-maps"
+      }
+    },
+    "contao-manager-plugin": "Netzmacht\\Contao\\Leaflet\\Bundle\\ContaoManager\\Plugin"
   }
 }

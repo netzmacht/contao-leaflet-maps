@@ -6,6 +6,10 @@
     "array_insert",
     "Contao\\ManagerPlugin\\Bundle\\BundlePluginInterface",
     "Contao\\ManagerPlugin\\Bundle\\Config\\BundleConfig",
-    "Contao\\ManagerPlugin\\Bundle\\Parser\\ParserInterface"
+    "Contao\\ManagerPlugin\\Bundle\\Parser\\ParserInterface",
+    "Contao\\ManagerPlugin\\Routing\\RoutingPluginInterface",
+    "Hofff\\Contao\\Consent\\Bridge\\Bridge",
+    "Hofff\\Contao\\Consent\\Bridge\\Plugin",
+    "Hofff\\Contao\\Consent\\Bridge\\Render\\RenderInformation"
   ]
 }
