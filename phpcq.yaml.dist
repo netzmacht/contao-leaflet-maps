@@ -68,6 +68,11 @@ tasks:
       ruleset:
         - vendor/phpcq/coding-standard/phpmd/ruleset.xml
 
+  composer-normalize:
+    config:
+      ignore_output:
+       - '#Root package is not of type "project", we will not installing Contao extensions\.#'
+
   composer-require-checker:
     plugin: composer-require-checker
     config:
