@@ -16,7 +16,7 @@ namespace Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer;
 
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class ReferenceLabelRenderer.

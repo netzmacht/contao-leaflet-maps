@@ -143,12 +143,12 @@ class LoadAssetsListener
             $assets = $this->libraries[$library];
 
             if (!empty($assets['css'])) {
-                list ($source, $type) = (array) $assets['css'];
+                [$source, $type] = array_pad((array) $assets['css'], 2, null);
                 $this->assets->addStylesheet($source, $type ?: Assets::TYPE_FILE);
             }
 
             if (!empty($assets['javascript'])) {
-                list ($source, $type) = (array) $assets['javascript'];
+                [$source, $type] = array_pad((array) $assets['javascript'], 2, null);
                 $this->assets->addJavascript($source, $type ?: Assets::TYPE_FILE);
             }
         }

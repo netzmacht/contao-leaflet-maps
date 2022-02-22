@@ -4,7 +4,7 @@ services:
     public: true
     arguments:
       - '@netzmacht.contao_toolkit.repository_manager'
-      - '@templating'
+      - '@netzmacht.contao_toolkit.template_renderer'
       - '@filesystem'
       - '@netzmacht.contao_toolkit.contao.system_adapter'
       - '%netzmacht.contao_leaflet.cache_dir%'

@@ -17,9 +17,9 @@ use Contao\DataContainer;
 use Contao\System;
 use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
+use Netzmacht\Contao\Toolkit\View\Template\TemplateRenderer;
 use Netzmacht\LeafletPHP\Value\LatLng;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Templating\EngineInterface as TemplateEngine;
 
 /**
  * Class Leaflet is the base helper providing different methods.
@@ -50,11 +50,11 @@ class LeafletDcaListener
     private $repositoryManager;
 
     /**
-     * Template engine.
+     * Template renderer.
      *
-     * @var TemplateEngine
+     * @var TemplateRenderer
      */
-    private $templateEngine;
+    private $templateRenderer;
 
     /**
      * System adapter.
@@ -67,20 +67,20 @@ class LeafletDcaListener
      * LeafletCallbacks constructor.
      *
      * @param RepositoryManager $repositoryManager Repository manager.
-     * @param TemplateEngine    $templateEngine    Template engine.
+     * @param TemplateRenderer  $templateRenderer  Template renderer.
      * @param Filesystem        $fileSystem        File system.
      * @param Adapter|System    $systemAdapter     Contao system adapter.
      * @param string            $cacheDir          Cache dir.
      */
     public function __construct(
         RepositoryManager $repositoryManager,
-        TemplateEngine $templateEngine,
+        TemplateRenderer $templateRenderer,
         Filesystem $fileSystem,
         $systemAdapter,
         string $cacheDir
     ) {
         $this->repositoryManager = $repositoryManager;
-        $this->templateEngine    = $templateEngine;
+        $this->templateRenderer  = $templateRenderer;
         $this->fileSystem        = $fileSystem;
         $this->systemAdapter     = $systemAdapter;
         $this->cacheDir          = $cacheDir;
@@ -125,7 +125,7 @@ class LeafletDcaListener
             $data['marker'] = null;
         }
 
-        return $this->templateEngine->render('toolkit:be:be_leaflet_geocode.html5', $data);
+        return $this->templateRenderer->render('be:be_leaflet_geocode', $data);
     }
 
     /**

@@ -145,9 +145,9 @@ class MarkerDcaListener
         $statement = $this->connection->prepare($query);
         $statement->bindValue('id', $dataContainer->id);
 
-        $statement->execute();
+        $result = $statement->executeQuery();
 
-        if ($row = $statement->fetch()) {
+        if ($row = $result->fetchAssociative()) {
             $buffer = $row['latitude'];
 
             if ($buffer && $row['longitude']) {

@@ -16,7 +16,7 @@ use Contao\DataContainer;
 use Contao\StringUtil;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\LeafletPHP\Value\LatLng;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class Validator.

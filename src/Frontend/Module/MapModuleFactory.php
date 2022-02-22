@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Netzmacht\Contao\Leaflet\Frontend\Module;
 
-use Contao\Config;
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\Input;
 use Netzmacht\Contao\Leaflet\MapProvider;
@@ -22,7 +21,7 @@ use Netzmacht\Contao\Toolkit\Component\Component;
 use Netzmacht\Contao\Toolkit\Component\ComponentFactory;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Symfony\Component\Templating\EngineInterface as TemplateEngine;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class MapElementFactory

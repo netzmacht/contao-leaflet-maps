@@ -60,11 +60,11 @@ final class RegisterLibrariesListener
     {
         foreach ($this->libraries as $name => $assets) {
             if (!empty($assets['css'])) {
-                list ($source, $type) = (array) $assets['css'];
+                [$source, $type] = array_pad((array) $assets['css'], 2, null);
                 $this->leaflet->registerStylesheet($name, $source, $type ?: Assets::TYPE_FILE);
             }
             if (!empty($assets['javascript'])) {
-                list ($source, $type) = (array) $assets['javascript'];
+                [$source, $type] = array_pad((array) $assets['javascript'], 2, null);
                 $this->leaflet->registerJavascript($name, $source, $type ?: Assets::TYPE_FILE);
             }
         }

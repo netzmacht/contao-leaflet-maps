@@ -10,6 +10,8 @@
  * @filesource
  */
 
+\Contao\Controller::loadLanguageFile('leaflet');
+
 $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
     'config' => [
         'dataContainer'     => 'Table',
@@ -70,6 +72,11 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
+            ],
+            'toggleNodes' => [
+                'href'         => 'ptg=all',
+                'class'        => 'header_toggle',
+                'showOnSelect' => true,
             ],
         ],
         'operations'        => [
@@ -633,7 +640,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
-            'eval'      => ['maxlength' => 255, 'tl_class' => 'long', 'allowHtml' => true],
+            'eval'      => ['maxlength' => 255, 'tl_class' => 'clr long', 'allowHtml' => true],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'tms'                            => [

@@ -20,7 +20,7 @@ use Netzmacht\LeafletPHP\Value\GeoJson\ConvertsToGeoJsonFeature;
 use Netzmacht\LeafletPHP\Value\GeoJson\Feature;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Netzmacht\LeafletPHP\Value\GeoJson\GeoJsonFeature;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**
  * Class DefinitionMapper is the main mapper instance which contains all other mappers as children.
@@ -111,7 +111,7 @@ class DefinitionMapper
 
             if ($definition) {
                 $event = new BuildDefinitionEvent($definition, $model, $request);
-                $this->eventDispatcher->dispatch($event::NAME, $event);
+                $this->eventDispatcher->dispatch($event, $event::NAME);
             }
 
             $this->mapped[$hash] = $definition;
@@ -172,7 +172,7 @@ class DefinitionMapper
         }
 
         $event = new ConvertToGeoJsonEvent($definition, $feature, $model);
-        $this->eventDispatcher->dispatch($event::NAME, $event);
+        $this->eventDispatcher->dispatch($event, $event::NAME);
 
         return $feature;
     }
@@ -190,7 +190,7 @@ class DefinitionMapper
     private function hash($model, $elementId = null)
     {
         $event = new GetHashEvent($model);
-        $this->eventDispatcher->dispatch($event::NAME, $event);
+        $this->eventDispatcher->dispatch($event, $event::NAME);
         $hash = $event->getHash();
 
         if (!$hash) {

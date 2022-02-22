@@ -24,9 +24,8 @@ use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use PDO;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class Map is the helper class for the tl_leaflet_map dca.
@@ -136,12 +135,9 @@ class MapDcaListener extends AbstractListener
     {
         $statement = $this->connection->prepare('SELECT lid FROM tl_leaflet_map_layer WHERE mid=:mid ORDER BY sorting');
         $statement->bindValue('mid', $dataContainer->id);
+        $result = $statement->executeQuery();
 
-        if ($statement->execute()) {
-            return $statement->fetchAll(PDO::FETCH_COLUMN, 0);
-        }
-
-        return [];
+        return $result->fetchFirstColumn();
     }
 
     /**
@@ -159,9 +155,9 @@ class MapDcaListener extends AbstractListener
         $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE mid=:mid order BY sorting');
 
         $statement->bindValue('mid', $dataContainer->id);
-        $statement->execute();
+        $result = $statement->executeQuery();
 
-        while ($row = $statement->fetch()) {
+        while ($row = $result->fetchAssociative()) {
             $values[$row['lid']] = $row;
         }
 
@@ -239,9 +235,9 @@ class MapDcaListener extends AbstractListener
     {
         $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE mid=:mid order BY sorting');
         $statement->bindValue('mid', $dataContainer->id);
-        $statement->execute();
+        $result = $statement->executeQuery();
 
-        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $result->fetchAssociative()) {
             unset($row['id']);
             $row['tstamp'] = time();
             $row['mid']    = $insertId;

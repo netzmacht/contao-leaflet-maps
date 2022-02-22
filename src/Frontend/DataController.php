@@ -93,7 +93,7 @@ class DataController
                 $filter = null;
             }
 
-            list($data, $error) = $this->loadData($mapProvider, $input['type'], $input['id'], $filter);
+            [$data, $error] = $this->loadData($mapProvider, $input['type'], $input['id'], $filter);
             $this->encodeData($input['format'], $data);
         } catch (\Exception $e) {
             if ($this->debugMode) {

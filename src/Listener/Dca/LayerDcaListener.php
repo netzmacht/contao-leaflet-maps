@@ -25,7 +25,7 @@ use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class Layer is the helper class for the tl_leaflet_layer dca.
@@ -197,7 +197,7 @@ class LayerDcaListener extends AbstractListener
         if (!empty($this->layers[$row['type']]['icon'])) {
             $src = $this->layers[$row['type']]['icon'];
         } else {
-            $src = 'iconPLAIN.gif';
+            $src = 'iconPLAIN.svg';
         }
 
         $activeIcon   = $src;
@@ -275,12 +275,12 @@ class LayerDcaListener extends AbstractListener
             $pasteAfterUrl,
             StringUtil::specialchars($this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)),
             Image::getHtml(
-                'pasteafter.gif',
+                'pasteafter.svg',
                 $this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)
             )
         );
 
-        if (!empty($this->layers[$row['type']]['children'])) {
+        if (isset($row['type']) && !empty($this->layers[$row['type']]['children'])) {
             $pasteIntoUrl = $this->backendAdapter->addToUrl(
                 sprintf(
                     'act=%s&amp;mode=2&amp;pid=%s%s',
@@ -295,12 +295,12 @@ class LayerDcaListener extends AbstractListener
                 $pasteIntoUrl,
                 StringUtil::specialchars($this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)),
                 Image::getHtml(
-                    'pasteinto.gif',
+                    'pasteinto.svg',
                     $this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)
                 )
             );
         } elseif ($row['id'] > 0) {
-            $buffer .= Image::getHtml('pasteinto_.gif');
+            $buffer .= Image::getHtml('pasteinto_.svg');
         }
 
         return $buffer;
@@ -361,25 +361,25 @@ class LayerDcaListener extends AbstractListener
         if ($undoId) {
             $statement = $this->connection->prepare('SELECT * FROM tl_undo WHERE id=:id LIMIT 0,1');
             $statement->bindValue('id', $undoId);
-            $statement->execute();
+            $result = $statement->executeQuery();
 
-            $undo = $statement->fetch();
+            $undo = $result->fetchAssociative();
 
             $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_map_layer WHERE lid=:lid');
             $statement->bindValue('lid', $dataContainer->id);
-            $statement->execute();
+            $result = $statement->executeQuery();
 
             $undo['data'] = StringUtil::deserialize($undo['data'], true);
 
-            while ($row = $statement->fetch()) {
+            while ($row = $result->fetchAssociative()) {
                 $undo['data']['tl_leaflet_map_layer'][] = $row;
             }
 
             $statement = $this->connection->prepare('SELECT * FROM tl_leaflet_control_layer WHERE lid=:lid');
             $statement->bindValue('lid', $dataContainer->id);
-            $statement->execute();
+            $result = $statement->executeQuery();
 
-            $undo['data']['tl_leaflet_control_layer'] = $statement->fetchAll();
+            $undo['data']['tl_leaflet_control_layer'] = $result->fetchAllAssociative();
 
             $this->connection->update('tl_undo', ['data' => $undo['data']], ['id' => $undo['id']]);
         }

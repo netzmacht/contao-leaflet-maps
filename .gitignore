@@ -25,3 +25,6 @@ build.properties
 
 # NPM
 node_modules
+
+.phpcq
+phpcq.yaml

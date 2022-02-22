@@ -24,11 +24,11 @@ use Netzmacht\Contao\Leaflet\Model\LayerModel;
 use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Netzmacht\Contao\Toolkit\View\Template\TemplateReference;
+use Netzmacht\Contao\Toolkit\View\Template\TemplateRenderer;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface as EventDispatcher;
-use Symfony\Component\Templating\EngineInterface as TemplateEngine;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 
 /**
  * Class MapProvider.
@@ -94,11 +94,11 @@ class MapProvider
     private $repositoryManager;
 
     /**
-     * Template engine.
+     * Template renderer.
      *
-     * @var TemplateEngine
+     * @var TemplateRenderer
      */
-    private $templateEngine;
+    private $templateRenderer;
 
     /**
      * Construct.
@@ -111,7 +111,7 @@ class MapProvider
      * @param Cache             $cache             Cache.
      * @param DataController    $dataController    Data controller.
      * @param RepositoryManager $repositoryManager Repository manager.
-     * @param TemplateEngine    $templateEngine    Template engine.
+     * @param TemplateRenderer  $templateRenderer  Template rednerer.
      */
     public function __construct(
         DefinitionMapper $mapper,
@@ -122,7 +122,7 @@ class MapProvider
         Cache $cache,
         DataController $dataController,
         RepositoryManager $repositoryManager,
-        TemplateEngine $templateEngine
+        TemplateRenderer $templateRenderer
     ) {
         $this->mapper            = $mapper;
         $this->leaflet           = $leaflet;
@@ -132,7 +132,7 @@ class MapProvider
         $this->cache             = $cache;
         $this->dataController    = $dataController;
         $this->repositoryManager = $repositoryManager;
-        $this->templateEngine    = $templateEngine;
+        $this->templateRenderer  = $templateRenderer;
     }
 
     /**
@@ -374,7 +374,7 @@ class MapProvider
         $javascript = $this->leaflet->build($definition, $this->assets);
         $mapId      = $definition->getId();
 
-        $templateReference = new TemplateReference($template, 'html5', TemplateReference::SCOPE_FRONTEND);
+        $templateReference = 'fe:' . $template;
         $parameters        = [
             'definition' => $definition,
             'model'      => $model,
@@ -384,7 +384,7 @@ class MapProvider
             'mapId'      => $mapId,
         ];
 
-        $content = $this->templateEngine->render($templateReference, $parameters);
+        $content = $this->templateRenderer->render($templateReference, $parameters);
         $content = preg_replace(
             ['/^<!-- TEMPLATE (START): .+ -->\n*/', '/\n*<!-- TEMPLATE (END): .+ -->$/'],
             '',
@@ -392,7 +392,7 @@ class MapProvider
         );
 
         $event = new GetJavascriptEvent($definition, $content);
-        $this->eventDispatcher->dispatch($event::NAME, $event);
+        $this->eventDispatcher->dispatch($event, $event::NAME);
 
         return $event->getJavascript();
     }

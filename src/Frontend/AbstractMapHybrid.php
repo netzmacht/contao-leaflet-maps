@@ -24,7 +24,7 @@ use Netzmacht\Contao\Leaflet\Model\MapModel;
 use Netzmacht\Contao\Toolkit\Component\Hybrid\AbstractHybrid;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
 use Symfony\Component\Templating\EngineInterface as TemplateEngine;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class HybridTrait provides method required by the frontend module and content element the same time.
