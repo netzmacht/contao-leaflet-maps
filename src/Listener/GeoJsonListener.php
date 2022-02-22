@@ -178,8 +178,8 @@ final class GeoJsonListener
     private function parseModelValue(Model $model, &$property)
     {
         if (is_array($property)) {
-            list($property, $type) = $property;
-            $value                 = $model->$property;
+            [$property, $type] = $property;
+            $value             = $model->$property;
 
             switch ($type) {
                 case 'array':

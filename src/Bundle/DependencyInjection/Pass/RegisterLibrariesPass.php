@@ -18,6 +18,8 @@ use Netzmacht\LeafletPHP\Assets;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use function array_pad;
+
 /**
  * Class RegisterLibrariesPass.
  *
@@ -43,12 +45,12 @@ class RegisterLibrariesPass implements CompilerPassInterface
 
         foreach ($libraries as $name => $assets) {
             if (!empty($assets['css'])) {
-                list ($source, $type) = (array) $assets['css'];
+                [$source, $type] = array_pad((array) $assets['css'], 2, null);
                 $definition->addMethodCall('registerStylesheet', [$name, $source, $type ?: Assets::TYPE_FILE]);
             }
 
             if (!empty($assets['javascript'])) {
-                list ($source, $type) = (array) $assets['javascript'];
+                [$source, $type] = array_pad((array) $assets['javascript'], 2, null);
                 $definition->addMethodCall('registerJavascript', [$name, $source, $type ?: Assets::TYPE_FILE]);
             }
         }
