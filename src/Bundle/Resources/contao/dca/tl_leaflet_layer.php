@@ -10,6 +10,8 @@
  * @filesource
  */
 
+\Contao\Controller::loadLanguageFile('leaflet');
+
 $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
     'config' => [
         'dataContainer'     => 'Table',
