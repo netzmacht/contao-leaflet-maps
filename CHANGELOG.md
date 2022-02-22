@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.3] - 2022-02-22
+
+### Changed
+
+ - Support symfony 5 (Contao 4.13 support) ([#110](https://github.com/netzmacht/contao-leaflet-maps/issues/110))
+ - Support doctrine/dbal 3 (Contao 4.13 support) ([#110](https://github.com/netzmacht/contao-leaflet-maps/issues/110))
+ - Fix missing icon in backend navigation ([#101](https://github.com/netzmacht/contao-leaflet-maps/issues/101))
+ - Fix empty help wizard ([#99](https://github.com/netzmacht/contao-leaflet-maps/issues/99))
+ - Update leaflet providers ([111](https://github.com/netzmacht/contao-leaflet-maps/issues/111), [102](https://github.com/netzmacht/contao-leaflet-maps/issues/102))
+ - Fix tile layer implementation ([#108](https://github.com/netzmacht/contao-leaflet-maps/issues/108))
+ - Fix access to tile layer fields ([#107](https://github.com/netzmacht/contao-leaflet-maps/issues/107))
+ - Fix nexted folder structure ([#97](https://github.com/netzmacht/contao-leaflet-maps/issues/97))
+
 ## [3.2.2] - 2020-12-18
 
 ### Fixed
