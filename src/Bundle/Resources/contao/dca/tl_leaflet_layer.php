@@ -633,7 +633,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
             'exclude'   => true,
             'inputType' => 'text',
             'default'   => '',
-            'eval'      => ['maxlength' => 255, 'tl_class' => 'long', 'allowHtml' => true],
+            'eval'      => ['maxlength' => 255, 'tl_class' => 'clr long', 'allowHtml' => true],
             'sql'       => "varchar(255) NOT NULL default ''",
         ],
         'tms'                            => [
