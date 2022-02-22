@@ -23,6 +23,10 @@
     padding-left: 20px !important;
 }
 
+.tl_listing .tl_left {
+    overflow: unset;
+}
+
 .long .tl_text_2 {
     width: 325px;
 }

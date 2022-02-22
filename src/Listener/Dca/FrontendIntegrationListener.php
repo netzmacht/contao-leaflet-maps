@@ -103,7 +103,7 @@ final class FrontendIntegrationListener
                 )
             ),
             Image::getHtml(
-                'alias.gif',
+                'alias.svg',
                 $this->translator->trans('editalias.0', [$dataContainer->value], 'contao_tl_content'),
                 'style="vertical-align:top"'
             )

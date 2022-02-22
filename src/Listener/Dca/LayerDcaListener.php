@@ -197,7 +197,7 @@ class LayerDcaListener extends AbstractListener
         if (!empty($this->layers[$row['type']]['icon'])) {
             $src = $this->layers[$row['type']]['icon'];
         } else {
-            $src = 'iconPLAIN.gif';
+            $src = 'iconPLAIN.svg';
         }
 
         $activeIcon   = $src;
@@ -275,12 +275,12 @@ class LayerDcaListener extends AbstractListener
             $pasteAfterUrl,
             StringUtil::specialchars($this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)),
             Image::getHtml(
-                'pasteafter.gif',
+                'pasteafter.svg',
                 $this->translator->trans('pasteafter.1', [$row['id']], 'contao_' . $table)
             )
         );
 
-        if (!empty($this->layers[$row['type']]['children'])) {
+        if (isset($row['type']) && !empty($this->layers[$row['type']]['children'])) {
             $pasteIntoUrl = $this->backendAdapter->addToUrl(
                 sprintf(
                     'act=%s&amp;mode=2&amp;pid=%s%s',
@@ -295,12 +295,12 @@ class LayerDcaListener extends AbstractListener
                 $pasteIntoUrl,
                 StringUtil::specialchars($this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)),
                 Image::getHtml(
-                    'pasteinto.gif',
+                    'pasteinto.svg',
                     $this->translator->trans('pasteinto.1', [$row['id']], 'contao_' . $table)
                 )
             );
         } elseif ($row['id'] > 0) {
-            $buffer .= Image::getHtml('pasteinto_.gif');
+            $buffer .= Image::getHtml('pasteinto_.svg');
         }
 
         return $buffer;

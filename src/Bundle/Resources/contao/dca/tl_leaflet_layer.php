@@ -73,6 +73,11 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'class'      => 'header_edit_all',
                 'attributes' => 'onclick="Backend.getScrollOffset();"',
             ],
+            'toggleNodes' => [
+                'href'         => 'ptg=all',
+                'class'        => 'header_toggle',
+                'showOnSelect' => true,
+            ],
         ],
         'operations'        => [
             'markers' => [
