@@ -16,7 +16,7 @@ namespace Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer;
 
 use Contao\FilesModel;
 use Netzmacht\Contao\Toolkit\Data\Model\RepositoryManager;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class FileLabelRenderer

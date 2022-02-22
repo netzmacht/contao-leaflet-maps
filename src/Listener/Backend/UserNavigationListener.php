@@ -18,7 +18,7 @@ use Contao\CoreBundle\Event\MenuEvent;
 use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface as Router;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class BackendMenuListener adds backend entries to the navigation.

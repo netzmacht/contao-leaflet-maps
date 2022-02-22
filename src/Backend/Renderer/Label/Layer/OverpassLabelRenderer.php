@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Netzmacht\Contao\Leaflet\Backend\Renderer\Label\Layer;
 
 use Contao\StringUtil;
-use Symfony\Component\Translation\TranslatorInterface as Translator;
+use Symfony\Contracts\Translation\TranslatorInterface as Translator;
 
 /**
  * Class OverpassLabelRenderer.
