@@ -1,19 +1,22 @@
 parameters:
   netzmacht.contao_leaflet.providers:
     OpenStreetMap:
-      variants: ['Mapnik', 'BlackAndWhite', 'DE', 'CH', 'France', 'HOT', 'BZH']
+      variants: ['Mapnik', 'DE', 'CH', 'France', 'HOT', 'BZH']
 
     OpenSeaMap: []
 
-    OpenTopoMap: []
+    OPNVKarte: []
 
-    OpenPtMap: []
+    OpenTopoMap: []
 
     OpenRailwayMap: []
 
     OpenFireMap: []
 
     SafeCast: []
+
+    Stadia:
+      variants: ['AlidadeSmooth', 'AlidadeSmoothDark', 'OSMBright', 'Outdoors']
 
     Thunderforest:
       class: 'Netzmacht\LeafletPHP\Plugins\LeafletProviders\ThunderforestProvider'
@@ -25,12 +28,13 @@ parameters:
         - 'Landscape'
         - 'Outdoors'
         - 'Pioneer'
+        - 'MobileAtlas'
+        - 'Neighbourhood'
       options:
         apiKey: 'tile_provider_key'
       fields: ['tile_provider_key']
 
-    OpenMapSurfer:
-      variants: ['Roads', 'AdminBounds', 'Grayscale']
+    CyclOSM:  []
 
     Hydda:
       variants: ['Full', 'Base', 'RoadsAndLabels']
@@ -40,6 +44,8 @@ parameters:
       options:
         accessToken: 'tile_provider_key'
       fields: ['tile_provider_key']
+
+    MapTiler: []
 
     Stamen:
       variants:
@@ -112,6 +118,7 @@ parameters:
         - 'hybridDayMobile'
         - 'hybridDayTransit'
         - 'hybridDayGrey'
+        - 'hybridDayTraffic'
         - 'pedestrianDay'
         - 'pedestrianNight'
         - 'satelliteDay'
