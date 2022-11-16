@@ -28,7 +28,7 @@
     "ext-pdo": "*",
     "contao-community-alliance/meta-palettes": "^2.0",
     "contao/core-bundle": "^4.9",
-    "doctrine/cache": "^1.0",
+    "doctrine/cache": "^1.0 || ^2.1",
     "doctrine/dbal": "^2.11 || ^3.0",
     "menatwork/contao-multicolumnwizard-bundle": "^3.4",
     "netzmacht/contao-leaflet-geocode-widget": "^1.2",
