@@ -49,7 +49,7 @@ class LibrariesConfiguration implements \IteratorAggregate, \ArrayAccess
     {
         $this->framework->initialize();
 
-        return new \ArrayIterator($GLOBALS['LEAFLET_LIBRARIES']);
+        return new \ArrayIterator($GLOBALS['LEAFLET_LIBRARIES'] ?? []);
     }
 
     /**
