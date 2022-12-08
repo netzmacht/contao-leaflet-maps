@@ -5,7 +5,8 @@
  *
  * @package    contao-leaflet-maps
  * @author     David Molineus <david.molineus@netzmacht.de>
- * @copyright  2014-2017 netzmacht David Molineus. All rights reserved.
+ * @author     Sven Baumann <baumann.sv@gmail.com>
+ * @copyright  2014-2022 netzmacht David Molineus. All rights reserved.
  * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
  */
@@ -112,7 +113,7 @@ $GLOBALS['TL_DCA']['tl_leaflet_layer'] = [
                 'label'      => &$GLOBALS['TL_LANG']['tl_leaflet_layer']['delete'],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.gif',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                'attributes' => 'onclick="if(!confirm(\'' . @$GLOBALS['TL_LANG']['MSC']['deleteConfirm']
                     . '\'))return false;Backend.getScrollOffset()"',
             ],
             'toggle'  => [
