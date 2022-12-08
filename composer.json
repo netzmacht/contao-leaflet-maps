@@ -45,7 +45,7 @@
     "symfony/http-foundation": "~4.4 || ^5.1",
     "symfony/http-kernel": "~4.4 || ^5.1",
     "symfony/routing": "~4.4 || ^5.1",
-    "symfony/templating": "~4.4 || ^5.1",
+    "symfony/templating": "~4.4 || ^5.1 || ^6.2",
     "symfony/translation-contracts": "^1.1 || ^2.0",
     "symfony/twig-bundle": "~4.4 || ^5.1",
     "twig/twig": "^2.0 || ^3.0"
