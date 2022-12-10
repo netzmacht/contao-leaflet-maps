@@ -380,7 +380,9 @@ $GLOBALS['TL_DCA']['tl_leaflet_vector'] = [
             'inputType' => 'textarea',
             'eval'      => [
                 'tl_class'  => 'clr lng',
-                'allowHtml' => true,
+                'preserveTags'   => true,
+                'decodeEntities' => true,
+                'allowHtml'      => true,
                 'style'     => 'min-height: 40px;',
                 'rte'       => 'ace|json',
             ],
