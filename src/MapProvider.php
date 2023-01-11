@@ -216,10 +216,10 @@ class MapProvider
 
             if ($this->cache->hasItem($cacheKey)) {
                 $cached = $this->cache->getItem($cacheKey);
-                $achedData = $cached->get();
-                $this->assets->fromArray($achedData['assets']);
+                $cachedData = $cached->get();
+                $this->assets->fromArray($cachedData['assets']);
 
-                return $achedData['javascript'];
+                return $cachedData['javascript'];
             } else {
                 $cached = $this->cache->getItem($cacheKey);
             }
