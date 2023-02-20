@@ -5,6 +5,7 @@
  *
  * @package    contao-leaflet-maps
  * @author     David Molineus <david.molineus@netzmacht.de>
+ * @author     Stefan Heimes <stefan_heimes@hotmail.com>
  * @copyright  2014-2017 netzmacht David Molineus. All rights reserved.
  * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
@@ -13,7 +14,6 @@
 namespace Netzmacht\Contao\Leaflet;
 
 use Contao\Input;
-use Doctrine\Common\Cache\Cache;
 use Netzmacht\Contao\Leaflet\Encoder\ContaoAssets;
 use Netzmacht\Contao\Leaflet\Event\GetJavascriptEvent;
 use Netzmacht\Contao\Leaflet\Filter\Filter;
@@ -28,7 +28,9 @@ use Netzmacht\Contao\Toolkit\View\Template\TemplateRenderer;
 use Netzmacht\LeafletPHP\Definition\Map;
 use Netzmacht\LeafletPHP\Leaflet;
 use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
+use Symfony\Component\Cache\CacheItem;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as EventDispatcher;
+use Symfony\Contracts\Cache\CacheInterface as Cache;
 
 /**
  * Class MapProvider.
@@ -212,25 +214,29 @@ class MapProvider
         if ($doCache) {
             $cacheKey = $this->getCacheKey($mapId, $filter, $elementId, $template, $style);
 
-            if ($this->cache->contains($cacheKey)) {
-                $cached = $this->cache->fetch($cacheKey);
-                $this->assets->fromArray($cached['assets']);
+            if ($this->cache->hasItem($cacheKey)) {
+                $cached     = $this->cache->getItem($cacheKey);
+                $cachedData = $cached->get();
+                $this->assets->fromArray($cachedData['assets']);
 
-                return $cached['javascript'];
+                return $cachedData['javascript'];
+            } else {
+                $cached = $this->cache->getItem($cacheKey);
             }
         }
 
         $buffer = $this->doGenerate($model, $filter, $elementId, $template, $style);
 
         if ($doCache) {
-            $this->cache->save(
-                $cacheKey,
-                [
-                    'assets'     => $this->assets->toArray(),
-                    'javascript' => $buffer,
-                ],
-                (int) $model->cacheLifeTime
-            );
+            $cached
+                ->expiresAfter((int) $model->cacheLifeTime)
+                ->set(
+                    [
+                        'assets'     => $this->assets->toArray(),
+                        'javascript' => $buffer,
+                    ]
+                );
+            $this->cache->save($cached);
         }
 
         return $buffer;
@@ -270,12 +276,19 @@ class MapProvider
             $cacheKey .= '.filter_' . md5($filter->toRequest());
         }
 
-        if ($this->cache->contains($cacheKey)) {
-            return $this->cache->fetch($cacheKey);
+        if ($this->cache->hasItem($cacheKey)) {
+            $cachedItem = $this->cache->getItem($cacheKey);
+
+            return $cachedItem->get();
+        } else {
+            $cachedItem = $this->cache->getItem($cacheKey);
         }
 
         $collection = $this->mapper->handleGeoJson($model, $request);
-        $this->cache->save($cacheKey, $collection, $model->cacheLifeTime);
+        $cachedItem
+            ->expiresAfter($model->cacheLifeTime)
+            ->set($collection);
+        $this->cache->save($cachedItem);
 
         return $collection;
     }

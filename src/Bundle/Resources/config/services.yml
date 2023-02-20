@@ -29,12 +29,14 @@ services:
       - '%netzmacht.contao_leaflet.filters%'
 
   netzmacht.contao_leaflet.cache.default:
-    class: Doctrine\Common\Cache\FilesystemCache
+    class: Symfony\Component\Cache\Adapter\FilesystemAdapter
     arguments:
+      - 'netzmacht.contao_leaflet'
+      - 0
       - '%netzmacht.contao_leaflet.cache_dir%'
 
   netzmacht.contao_leaflet.cache.debug:
-    class: Doctrine\Common\Cache\ArrayCache
+    class: Symfony\Component\Cache\Adapter\ArrayAdapter
 
   netzmacht.contao_leaflet.frontend.value_filter:
     class: Netzmacht\Contao\Leaflet\Frontend\ValueFilter
