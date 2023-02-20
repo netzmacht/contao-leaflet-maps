@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.2.4] - 2023-02-20
+
+### Fixed
+
+ - Load after `netzmacht-contao-leaflet-libraries` ([#116](https://github.com/netzmacht/contao-leaflet-maps/pull/116, [#120](https://github.com/netzmacht/contao-leaflet-maps/pull/120, [#121](https://github.com/netzmacht/contao-leaflet-maps/issues/121), [#122](https://github.com/netzmacht/contao-leaflet-maps/issues/122))
+ - Do not use `doctrine/cache` anymore ([#118](https://github.com/netzmacht/contao-leaflet-maps/pull/118))
+ - Fix issues of js generation in debug mode ([#114](https://github.com/netzmacht/contao-leaflet-maps/issues/114))
+
 ## [3.2.3] - 2022-02-22
 
 ### Changed
