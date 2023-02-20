@@ -215,7 +215,7 @@ class MapProvider
             $cacheKey = $this->getCacheKey($mapId, $filter, $elementId, $template, $style);
 
             if ($this->cache->hasItem($cacheKey)) {
-                $cached = $this->cache->getItem($cacheKey);
+                $cached     = $this->cache->getItem($cacheKey);
                 $cachedData = $cached->get();
                 $this->assets->fromArray($cachedData['assets']);
 
@@ -229,7 +229,7 @@ class MapProvider
 
         if ($doCache) {
             $cached
-                ->expiresAfter((int)$model->cacheLifeTime)
+                ->expiresAfter((int) $model->cacheLifeTime)
                 ->set(
                     [
                         'assets'     => $this->assets->toArray(),
