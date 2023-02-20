@@ -44,7 +44,8 @@ class Plugin implements BundlePluginInterface, RoutingPluginInterface
                     [
                         ContaoCoreBundle::class,
                         NetzmachtContaoToolkitBundle::class,
-                        NetzmachtContaoPageContextBundle::class
+                        NetzmachtContaoPageContextBundle::class,
+                        'leaflet-libs',
                     ]
                 )
                 ->setReplace(['leaflet']),
