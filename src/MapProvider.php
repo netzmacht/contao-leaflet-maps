@@ -31,6 +31,7 @@ use Netzmacht\LeafletPHP\Value\GeoJson\FeatureCollection;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as EventDispatcher;
 use Symfony\Contracts\Cache\CacheInterface as Cache;
+use function dd;
 
 /**
  * Class MapProvider.
@@ -399,8 +400,8 @@ class MapProvider
 
         $content = $this->templateRenderer->render($templateReference, $parameters);
         $content = preg_replace(
-            ['/^<!-- TEMPLATE (START): .+ -->\n*/', '/\n*<!-- TEMPLATE (END): .+ -->$/'],
-            '',
+            ['/^(\s*)<!-- TEMPLATE \(?START\)?: .+ -->\n*/', '/\n*<!-- TEMPLATE \(?END\)?: .+ -->$/'],
+            ['$1', ''],
             $content
         );
 
