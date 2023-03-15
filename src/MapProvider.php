@@ -275,7 +275,7 @@ class MapProvider
         }
 
         $collection = $this->mapper->handleGeoJson($model, $request);
-        $this->cache->save($cacheKey, $collection, $model->cacheLifeTime);
+        $this->cache->save($cacheKey, $collection, (int) $model->cacheLifeTime);
 
         return $collection;
     }
