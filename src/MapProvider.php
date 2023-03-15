@@ -287,7 +287,7 @@ class MapProvider
 
         $collection = $this->mapper->handleGeoJson($model, $request);
         $cachedItem
-            ->expiresAfter($model->cacheLifeTime)
+            ->expiresAfter((int) $model->cacheLifeTime)
             ->set($collection);
         $this->cache->save($cachedItem);
 
