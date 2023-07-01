@@ -6,7 +6,8 @@
  * @package    contao-leaflet-maps
  * @author     David Molineus <david.molineus@netzmacht.de>
  * @author     Sven Baumnn <baumann.sv@gmail.com>
- * @copyright  2014-2022 netzmacht David Molineus. All rights reserved.
+ * @author     Ingolf Steinhardt <info@e-spin.de>
+ * @copyright  2014-2023 netzmacht David Molineus. All rights reserved.
  * @license    LGPL-3.0 https://github.com/netzmacht/contao-leaflet-maps/blob/master/LICENSE
  * @filesource
  */
@@ -51,7 +52,7 @@ class LibrariesConfiguration implements \IteratorAggregate, \ArrayAccess
     {
         $this->framework->initialize();
 
-        return new \ArrayIterator($GLOBALS['LEAFLET_LIBRARIES']);
+        return new \ArrayIterator(isset($GLOBALS['LEAFLET_LIBRARIES']) ? $GLOBALS['LEAFLET_LIBRARIES'] : []);
     }
 
     /**
